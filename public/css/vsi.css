@@ -1,0 +1,423 @@
+body {
+    color: #293d50;
+    font-size: 14px;
+    font-weight: 400;
+    background-color: #fff;
+    font-family: 'Poppins', sans-serif;
+    margin: 0px;
+}
+
+/*
+	  ============================================================
+		   Font Color
+	  ============================================================
+*/
+.city_forget:hover,
+.city_checkout_list li a:hover,
+.dl-menuwrapper li a:hover,
+.city_news2_post.post2:hover .city_news2_detail h4,
+.navigation ul li ul li a:before,
+.blog_post_slide_text h6:hover a,
+.blog_next_post ul li a i,
+.detail_process_list li a:hover,
+.city_mayor_text p,
+.city_mayor_text h2,
+.forum_user_meta .city_meta_list li a:hover,
+.forum_detail_deta>a:hover,
+.forum_detail_deta .city_meta_list li a:hover,
+.forum_quote h5,
+.forum_detail_deta a i,
+.forum_author_text h6:hover a,
+.forum_month a,
+.city_news2_detail .city_meta_list li a:hover,
+.city_news2_detail:hover h2,
+.city_team_fig:hover .city_team_text h4 a,
+.information_list li a:hover,
+.city_project_description .city_local_link li a:before,
+.city_blog2_fig.fig2:hover .city_meta_list li a:hover,
+.city_blog2_fig.fig2 .city_blog2_text h4:hover a,
+.city_blog2_fig.fig2:hover .city_meta_list li a i,
+.city_blog2_fig:hover .see_more_btn,
+.city_blog2_text h5:hover a,
+.city_blog2_list .city_meta_list li a i,
+.city_event_tags span a:hover,
+.event_counter_list .countdown li:before,
+.venue_list ul li p:hover a,
+.city_blog_text.event2 .social_icon li a:hover,
+.city_event2_list2_row:hover .share_icon,
+.city_blog_text.event2 .city_meta_list li a:hover,
+.city_blog_text.event2 h4:hover a,
+.city_blog_text.event2 span,
+.event2_menu_list a:hover,
+.event_video .paly_btn:hover,
+.event_categories_text a:hover,
+.categories_list ul li a:hover,
+.section_heading h3,
+.city_senior_team:hover .city_senior_team_text h5,
+.city_senior_team_text a:hover,
+.city_local_link li a:hover,
+.city_health2_service:hover span,
+.city_health2_service a:hover,
+.city_health2_service:hover h5 a,
+.side_notice_text h6:hover a,
+.side_notice_detail>a,
+.side_contact_text a:hover,
+.city_event2_text h4:hover a,
+.city_event2_text span,
+.city_event2_text ul li a:hover,
+.city_visit_text p i,
+.city_visit_text h3 span,
+.see_more_btn:hover,
+.city_busine_detail li a:hover,
+.city_busine_detail li a i,
+.city_blog_grid_text a:hover,
+.emergency_service_item h4:hover a,
+.city_emergency_slide_text h5:hover a,
+.city_emergency_call ul li a:hover,
+.special_service_text .theam_btn,
+.city_service2_list>span,
+.breadcrumb>li a:hover,
+.city_project_mansory ul li a.active,
+.city_request_link ul li a:hover:before,
+.city_request_link ul li a:hover,
+.city_document_list ul li a:hover,
+.city_news_meta li a:hover,
+.city_event_fig a:hover,
+.city_event_fig>a:hover,
+.city_event_fig:hover .city_date_text a i,
+.city_event_fig:hover .custom_size,
+.city_jobs_item span,
+.ciy_jobs_row span,
+.city_blog_fig.position:hover .share_icon,
+.city_office_text a,
+.city_department_text a:hover,
+.city_about_link li a:hover,
+.section_heading h2,
+.city_service_text h5 a:hover,
+.banner_search_field a {
+    color: #293d50;
+}
+
+/*
+	  ============================================================
+		   Border Color
+	  ============================================================
+*/
+.city_comment_form_login .theam_btn,
+.city_login h4:before,
+.side_news_deatil:hover .theam_btn,
+.navigation ul>li>ul,
+.blog_post_slide .slick-prev:hover,
+.blog_post_slide .slick-next:hover,
+.forum_quote,
+.forum_card,
+.city_news2_detail:hover .theam_btn,
+.city_news2_detail:hover,
+.city_team_fig .city_top_social li a:hover,
+.project_title,
+.city_blog2_fig.fig2 .theam_btn:hover,
+.city_blog2_fig:hover .see_more_btn,
+.city_blog2_fig .paly_btn:hover,
+.city_blog2_list:hover .city_meta_list,
+.city_blog2_list:hover .city_blog2_text,
+.event_booking_area textarea:focus,
+.event_booking_field input:focus,
+.event_heading,
+.city_event2_year .sidebar_search input:focus,
+.city_event2_year .list,
+.city_event2_list2_row:hover .theam_btn,
+.city_event2_list2_row:hover .city_event2_list2_fig figure,
+.sidebar_search input:focus,
+.sidebar_heading,
+.city_about_list.list2 .theam_btn:hover,
+.city_senior_team>figure,
+.city_health2_text .slick-prev:hover,
+.city_health2_text .slick-next:hover,
+.city_emergency_slider .slick-prev:hover,
+.city_emergency_slider .slick-next:hover,
+.city_department_wrap .slick-prev:hover,
+.city_department_wrap .slick-next:hover,
+.city_health2_service:hover,
+.city_visit_text .theam_btn:hover,
+.city_business_fig figure:after,
+.city_service2_btn.btn2 .theam_btn,
+.city_health_fig:after,
+.city_news2_text .theam_btn,
+.special_service_text .theam_btn:hover,
+.city_request_list,
+.city_project_wrap .slick-prev:hover,
+.city_project_wrap .slick-next:hover,
+.section_heading.center:before,
+.city_blog_fig.position:hover .theam_btn,
+.city_office_list,
+.city_department_wrap .slick-prev:hover,
+.city_department_wrap .slick-next:hover,
+.city_department_fig:hover,
+.section_heading,
+.widget_copyright .city_top_social ul li a:hover,
+.city_top_social ul li a:hover {
+    border-color: #293d50;
+}
+
+/*blue color*/
+.paly_btn:hover,
+.top_user:hover,
+.blog_post_author_text .city_top_social li a,
+.blog_detail_row .city_event_meta li a,
+.forum_fig.forum2 .forum_text span,
+.side_news_text:hover p,
+.side_news_text:hover span,
+.tabs li.active a,
+.tabs li.active a:hover,
+.city_health_text h2,
+.city_service2_fig:hover .city_service2_text a,
+.widget_service ul li a:hover:before,
+.widget_service ul li a:hover,
+.city_request_text span,
+.city_request_row>span,
+.social_icon li a,
+.city_about_text h6,
+.banner_search_field a {
+    color: #fee50f;
+}
+
+/*
+	  ============================================================
+		   Background Color
+	  ============================================================
+*/
+/**/
+.city_comment_form_login .theam_btn,
+.side_news_deatil:hover .theam_btn,
+.city_news2_post.post2:hover .theam_btn,
+.navigation ul li ul li a:hover,
+.blog_post_slide .slick-prev:hover,
+.blog_post_slide .slick-next:hover,
+.blog_next_post ul li a:hover,
+.city_blog2_fig.fig2.detail .city_blog2_met:after,
+.city_blog2_fig.fig2.detail .city_blog2_met:before,
+.city_blog2_fig.fig2.detail .city_blog2_met,
+.city_contact_text:hover,
+.city_event_detail.question .event_booking_area .theam_btn.btn2,
+.city_mayor_contact .theam_btn,
+.sidebar_search_login a,
+.forum_author_posts,
+.forum_title,
+.city_news2_detail:hover .theam_btn,
+.city_404_wrap.coming.overlay:before,
+.city_404_text .theam_btn:hover,
+.city_team_fig .city_top_social li a:hover,
+.blog_tags a:hover,
+.blog_author_date li:before,
+.city_blog2_fig.fig2 .theam_btn:hover,
+.city_blog2_fig.fig2 .theam_btn:hover,
+.city_blog2_fig .paly_btn:hover,
+.city_blog2_fig:hover .city_blog2_met,
+.city_blog2_fig:hover .city_blog2_met:after,
+.city_blog2_fig:hover .city_blog2_met:before,
+.city_blog2_list:hover .city_meta_list,
+.list li:hover,
+.list li.option.selected.focus,
+.event_booking_form .theam_btn:hover,
+.event_counter_list .countdown li,
+.city_event2_year .list li:hover,
+.city_event2_year .list li.option.selected.focus,
+.city_event2_list2_row:hover .theam_btn,
+.city_event2_list2_row:hover .event_categories_date,
+.city_full_event_list:hover .theam_btn.btn2,
+.city_special2_dream,
+.city_treatment_wrap,
+.city_treatment_text .paly_btn,
+.city_about_list.list2 .theam_btn:hover,
+.accordion-section-title.active,
+.city_health2_text .slick-prev:hover,
+.city_health2_text .slick-next:hover,
+.city_emergency_slider .slick-prev:hover,
+.city_emergency_slider .slick-next:hover,
+.city_department_wrap .slick-prev:hover,
+.city_department_wrap .slick-next:hover,
+.side_submit_form,
+.city_event2_fig:hover .theam_btn.btn2,
+.city_event2_date,
+.city_visit_text .theam_btn:hover,
+.city_business_fig .city_service2_list span,
+.city_service2_btn.btn2 .theam_btn,
+.pagination ul li a:hover,
+.city_news2_text .theam_btn,
+.special_service_text .theam_btn:hover,
+.city_news_feild,
+.city_client_wrap,
+.city_event_fig:hover .event_date,
+.city_project_wrap .slick-prev:hover,
+.city_project_wrap .slick-next:hover,
+.city_project_fig .overlay:before,
+.city_jobs_item.overlay:before,
+.city_blog_fig.position:hover .theam_btn,
+.city_department_wrap .slick-prev:hover,
+.city_department_wrap .slick-next:hover,
+.city_department_wrap.overlay:before,
+.city_department_fig:hover,
+.city_about_video .overlay:before,
+.city_top_social ul li a,
+.city_main_banner .slick-prev:hover,
+.city_main_banner .slick-next:hover,
+.banner_text,
+.city_top_navigation,
+.city_top_news span {
+    background-color: #fee50f;
+}
+
+.city_main_banner .slick-prev:hover,
+.city_main_banner .slick-next:hover {
+    background-color: #293d50;
+}
+
+.navigation ul li ul li a:hover {
+    background-color: #293d50;
+}
+
+.widget_wrap.overlay:before,
+.widget_wrap {
+    background-color: #293d50;
+}
+
+.city_top_navigation:before {
+    position: absolute;
+    content: "";
+    top: 0px;
+    left: auto;
+    right: 0px;
+    bottom: 0px;
+    background-color: #293d50;
+    width: 29%;
+}
+
+.navigation>ul>li>a {
+    display: inline-block;
+    color: #293d50;
+    font-size: 15px;
+    text-transform: capitalize;
+}
+
+.city_top_news span {
+    display: inline-block;
+    padding: 4px 50px 3px 37px;
+    color: #293d50;
+    font-size: 15px;
+    font-weight: 600;
+    margin-right: 34px;
+    position: relative;
+}
+
+.city_top_navigation {
+    padding: 20px 85px 20px;
+    position: relative;
+}
+
+.navigation ul>li:hover>ul {
+    overflow: visible;
+    visibility: visible;
+    opacity: 1;
+    display: block;
+    top: 30px;
+}
+
+.city_top_social ul li a {
+    display: inline-block;
+    height: 36px;
+    width: 36px;
+    text-align: center;
+    line-height: 33px;
+    border: 3px solid;
+    color: #293d50;
+    font-size: 13px;
+}
+
+.widget_copyright .city_top_social ul li a,
+.city_top_social ul li a {
+    border-color: #fee50f;
+}
+
+.small_text {
+    font-size: 26px;
+    color: #293d50;
+}
+
+.medium_text {
+    font-size: 50px;
+    color: #293d50;
+    line-height: 40px;
+    margin-bottom: 4px;
+}
+.large_text {
+    font-size: 70px;
+    font-weight: bold;
+    color: #293d50;
+    line-height: 70px;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    height: 61px;
+    overflow: hidden;
+}
+
+/*theam btn start */
+.theam_btn {
+    display: inline-block;
+    color:#293d50;
+    padding: 10px 30px;
+    border: 2px solid #293d50;
+}
+
+.city_main_banner .slick-prev:before,
+.city_main_banner .slick-next:before {
+    line-height: 44px;
+    content: "\e94c";
+    font-family: 'icomoon' !important;
+    color: #293d50;
+}
+
+.city_main_banner .slick-next:before {
+    content: "\e94e";
+}
+
+.city_main_banner .slick-prev:hover:before,
+.city_main_banner .slick-next:hover:before {
+    color: #fee50f;
+}
+
+/* slick slider start */
+.slick-prev,
+.slick-next {
+    top: 50%;
+    height: 44px;
+    width: 44px;
+    text-align: center;
+    border: 1px solid #293d50;
+}
+
+/* Arrows */
+.slick-prev,
+.slick-next {
+    font-size: 0;
+    line-height: 0;
+    position: absolute;
+    top: 50%;
+    display: block;
+    width: 65px;
+    height: 72px;
+    padding: 0;
+    -webkit-transform: translate(0, -50%);
+    -ms-transform: translate(0, -50%);
+    transform: translate(0, -50%);
+    cursor: pointer;
+    z-index: 1;
+    color: transparent;
+    border: none;
+    outline: none;
+    background: #fee50f;
+    transition: all 0.3s ease-in-out;
+    -webkit-transition: all 0.3s ease-in-out;
+    -moz-transition: all 0.3s ease-in-out;
+    -o-transition: all 0.3s ease-in-out;
+    -ms-transition: all 0.3s ease-in-out;
+}
