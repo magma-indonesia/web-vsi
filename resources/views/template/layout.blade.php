@@ -5,6 +5,7 @@
 
 <body class="demo-5">
 
+@include('template.body')
 
 @include('template.js')
 </body>
