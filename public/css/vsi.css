@@ -421,3 +421,21 @@ body {
     -o-transition: all 0.3s ease-in-out;
     -ms-transition: all 0.3s ease-in-out;
 }
+
+.banner_search_field a {
+    background-color: #293d50;
+}
+
+.banner_search_field input {
+    border: 2px solid #293d50;
+    background: #eee;
+}
+
+.banner_search_field input::placeholder {
+    color: #293d50;
+}
+
+.banner_search_form label {
+    color: #293d50;
+    margin-bottom: 10px;
+}

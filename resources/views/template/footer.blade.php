@@ -21,47 +21,29 @@
                 </div>
                 <div class="col-md-6">
                     <div class="row">
-                        <div class="col-md-4 col-sm-6">
+                        <div class="col-md-6 col-sm-6">
                             <div class="widget_list">
-                                <h4 class="widget_title">Explore</h4>
+                                <h4 class="widget_title">Layanan</h4>
                                 <div class="widget_service">
                                     <ul>
-                                        <li><a href="#">Online Services</a></li>
-                                        <li><a href="#">Residents</a></li>
-                                        <li><a href="#">Business</a></li>
-                                        <li><a href="#">Government</a></li>
-                                        <li><a href="#">Visiting</a></li>
-                                        <li><a href="#">Employment</a></li>
+                                        <li><a href="#">Gunung Api</a></li>
+                                        <li><a href="#">Gerakan Tanah</a></li>
+                                        <li><a href="#">Gempa Bumi dan Tsunami</a></li>
+                                        <li><a href="#">Permohonan Data</a></li>
+                                        <li><a href="#">Informasi Kerja Sama</a></li>
+                                        <li><a href="#">Reformasi Birokrasi</a></li>
                                     </ul>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-4 col-sm-6">
+                        <div class="col-md-6 col-sm-6">
                             <div class="widget_list">
-                                <h4 class="widget_title">Features</h4>
+                                <h4 class="widget_title">Organisasi</h4>
                                 <div class="widget_service">
                                     <ul>
-                                        <li><a href="#">Online Services</a></li>
-                                        <li><a href="#">Residents</a></li>
-                                        <li><a href="#">Business</a></li>
-                                        <li><a href="#">Government</a></li>
-                                        <li><a href="#">Visiting</a></li>
-                                        <li><a href="#">Employment</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4 col-sm-6">
-                            <div class="widget_list">
-                                <h4 class="widget_title">Services</h4>
-                                <div class="widget_service">
-                                    <ul>
-                                        <li><a href="#">Online Services</a></li>
-                                        <li><a href="#">Residents</a></li>
-                                        <li><a href="#">Business</a></li>
-                                        <li><a href="#">Government</a></li>
-                                        <li><a href="#">Visiting</a></li>
-                                        <li><a href="#">Employment</a></li>
+                                        <li><a target="_blank" href="#">Kementerian ESDM</a></li>
+                                        <li><a target="_blank" href="#">Badan Geologi</a></li>
+                                        <li><a target="_blank" href="#">BPPTKG - Yogyakarta</a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -70,15 +52,15 @@
                 </div>
                 <div class="col-md-3 col-sm-6">
                     <div class="widget_list">
-                        <h4 class="widget_title">For Appointment</h4>
+                        <h4 class="widget_title">Jam Layanan</h4>
                         <div class="widget_text text2">
                             <ul>
-                                <li><a href="#">Monday<span>08 am - 3 pm</span></a></li>
-                                <li><a href="#">Tusday <span>08 am - 3 pm</span></a></li>
-                                <li><a href="#">Wednesfay<span>08 am - 3 pm</span></a></li>
-                                <li><a href="#">Thursday<span>08 am - 3 pm</span></a></li>
-                                <li><a href="#">FFriday <span>08 am - 3 pm</span></a></li>
-                                <li><a href="#">Saturday - Sunday<span>Closed</span></a></li>
+                                <li><a href="#">Senin<span>08.00 - 16.00 WIB</span></a></li>
+                                <li><a href="#">Selasa <span>08.00 - 16.00 WIB</span></a></li>
+                                <li><a href="#">Rabu<span>08.00 - 16.00 WIB</span></a></li>
+                                <li><a href="#">Kamis<span>08.00 - 16.00 WIB</span></a></li>
+                                <li><a href="#">Jumat <span>08.00 - 16.30 WIB</span></a></li>
+                                <li><a href="#">Sabtu - Minggu<span>Tutup</span></a></li>
                             </ul>
                         </div>
                     </div>
