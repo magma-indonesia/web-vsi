@@ -1,6 +1,6 @@
-@import url('https://fonts.googleapis.com/css?family=Montserrat:300i,400,400i,500,500i,600,600i,700,700i,800,800i,900|Poppins:400,400i,500,500i,600,600i,700');	
+@import url('https://fonts.googleapis.com/css?family=Montserrat:300i,400,400i,500,500i,600,600i,700,700i,800,800i,900|Poppins:400,400i,500,500i,600,600i,700');
 	/*
-    
+
 
     font-family: 'Montserrat', sans-serif;
 
@@ -13,7 +13,7 @@
 	-moz-box-sizing:border-box;
 	-webkit-box-sizing:border-box;
 	-o-box-sizing:border-box;
-	-ms-box-sizing:border-box;	
+	-ms-box-sizing:border-box;
 }
 body {
     color: #666;
@@ -72,7 +72,7 @@ p a {
 }
 /* Link Typo */
 a {
-    color: #666;
+    color: #293d50;
     outline: none;
     text-decoration: none;
 }
@@ -92,13 +92,13 @@ section,
 figure,
 figcaption,
 footer{
-	display:block;	
+	display:block;
 }
 audio,
 video,
 canvas{
 	float:left;
-	width:100%;	
+	width:100%;
 }
 
 ul {
@@ -106,7 +106,7 @@ ul {
    padding:0px;
 }
 li {
-    
+
     list-style: none;
 }
 ul ul {
@@ -213,7 +213,7 @@ form p {
 }
 form p span i {
     top: 13px;
-    left: 16px;    
+    left: 16px;
     color: #474747;
     position: absolute;
 }
@@ -242,7 +242,7 @@ table > thead > tr > th {
     vertical-align: bottom;
     border-bottom: 2px solid #d2d2d2;
 }
-table > caption + thead > tr:first-child > th, table > colgroup + thead > tr:first-child > th, table > thead:first-child > tr:first-child > th, table > caption + thead > tr:first-child > td, table > colgroup + thead > tr:first-child > td, table > thead:first-child > tr:first-child > td 
+table > caption + thead > tr:first-child > th, table > colgroup + thead > tr:first-child > th, table > thead:first-child > tr:first-child > th, table > caption + thead > tr:first-child > td, table > colgroup + thead > tr:first-child > td, table > thead:first-child > tr:first-child > td
 {
 	border-bottom: 0;
 }

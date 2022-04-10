@@ -9,7 +9,7 @@
     <link href="{{ asset('faviconesdm.png') }}" rel="icon">
     <link href="{{ asset('faviconesdm-large.png') }}" rel="apple-touch-icon">
 
-    <link href="css/bootstrap.css" rel="stylesheet">
+    <link href="{{ asset('css/bootstrap.css') }}" rel="stylesheet">
     <link href="{{ asset('css/slick-theme.css') }}" rel="stylesheet">
     <link href="{{ asset('css/font-awesome.css') }}" rel="stylesheet">
     <link href="{{ asset('css/animation.css') }}" rel="stylesheet">
@@ -25,7 +25,7 @@
     <link href="{{ asset('css/shotcode.css') }}" rel="stylesheet">
     <link href="{{ asset('svg-icon.css') }}" rel="stylesheet">
     <link href="{{ asset('css/color.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/responsive.css') }}" rel="stylesheet">
     <link href="{{ asset('css/vsi.css') }}" rel="stylesheet">
     @stack('styles')
+    <link href="{{ asset('css/responsive.css') }}" rel="stylesheet">
 </head>

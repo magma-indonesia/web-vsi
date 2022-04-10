@@ -4,7 +4,7 @@
 =================================================
 				UP FROM 1200PX
 =================================================
-*/ 
+*/
 @media (max-width: 1366px){
 	.city_top_wrap .slick-slider {
 		width: 70%;
@@ -56,7 +56,7 @@
 =================================================
 			FROM 992PX TO 1199PX
 =================================================
-*/ 
+*/
 @media (min-width: 992px) and (max-width: 1199px) {
 	.city_top_wrap {
 		padding: 25px 10px;
@@ -161,7 +161,7 @@
 	.city_blog_fig.position {
 		margin-top: -415px;
 	}
-	.border:after, 
+	.border:after,
 	.border:before {
 		width: 210px;
 	}
@@ -514,7 +514,7 @@
 =================================================
 			FROM 0PX TO 979PX
 =================================================
-*/ 
+*/
 @media (max-width: 991px) {
 	.city_top_wrap {
 		padding: 25px 0px;
@@ -560,6 +560,9 @@
 	.city_top_navigation {
 		padding:30px 30px 30px;
 	}
+    .city_top_search input::placeholder{
+        color:#293d50;
+    }
 	.dl-menuwrapper{
 		display:block;
 	}
@@ -937,7 +940,7 @@
 	.city_treatment_list a{
 		margin-right:12px;
 	}
-	.city_health2_text.wrap .slick-prev, 
+	.city_health2_text.wrap .slick-prev,
 	.city_health2_text.wrap .slick-next{
 		display:none !important;
 	}
@@ -1011,8 +1014,8 @@
 */
 
 @media (min-width: 768px) and (max-width: 979px) {
-	
-  
+
+
 }
 /*
 =================================================
@@ -1067,7 +1070,7 @@
 		font-size: 14px;
 		line-height: 20px;
 	}
-	.border:after, 
+	.border:after,
 	.border:before{
 		width: 210px;
 	}
@@ -1374,7 +1377,7 @@
 	.forum_list ul li{
 		width:30%;
 	}
-	.forum_list ul li:nth-child(3), 
+	.forum_list ul li:nth-child(3),
 	.forum_list ul li:nth-child(2) {
 		width:18%;
 	}
@@ -1435,8 +1438,8 @@
 =================================================
 */
 @media (min-width: 360px) and (max-width: 640px) {
-	
-  
+
+
 }
 /*
 =================================================
@@ -1444,7 +1447,7 @@
 =================================================
 */
 @media (max-width: 481px) {
-	
+
 }
 /*
 =================================================
@@ -1466,15 +1469,30 @@
 	.city_top_social {
 		width: auto;
 	}
-	.city_top_navigation.sticky, 
+	.city_top_navigation.sticky,
 	.city_top_navigation {
 		padding: 30px 0px 30px;
 	}
+    .city_top_search a {
+        color: #293d50;
+    }
+    .top_user {
+        color: #293d50;
+    }
+    .top_user {
+        border-left: 1px solid #293d50;
+    }
+    .city_top_search input {
+        color: #293d50;
+    }
+    .city_top_search input::placeholder{
+        color:#293d50;
+    }
 	.city_top_form {
 		width: 83%;
 	}
 	.city_top_search {
-		
+
 	}
 	.city_top_navigation:before{
 		background:none;
@@ -1507,7 +1525,7 @@
 	.city_about_video{
 		position:static;
 	}
-	.border:after, 
+	.border:after,
 	.border:before {
 		width: 110px;
 	}
@@ -1522,7 +1540,7 @@
 		font-size: 20px;
 		line-height: normal;
 	}
-	.city_department_wrap .slick-prev, 
+	.city_department_wrap .slick-prev,
 	.city_department_wrap .slick-next{
 		display:none !important;
 	}
@@ -1676,7 +1694,7 @@
 	.city_notice{
 		text-align:center;
 	}
-	.city_emergency_slider .slick-prev, 
+	.city_emergency_slider .slick-prev,
 	.city_emergency_slider .slick-next{
 		display:none !important;
 	}
@@ -1736,7 +1754,7 @@
 	.city_event_tags span{
 		font-size:13px;
 	}
-	.city_top_social ul li:nth-child(2), 
+	.city_top_social ul li:nth-child(2),
 	.city_top_social ul li:nth-child(3){
 		display:inline-block;
 	}
@@ -1786,7 +1804,7 @@
 		padding-left: 1px;
 		text-align: center;
 	}
-	.blog_post_slide .slick-prev, 
+	.blog_post_slide .slick-prev,
 	.blog_post_slide .slick-next{
 		display:none !important;
 	}
@@ -1814,9 +1832,9 @@
 	.blog_author_date li:before {
 		width:0px;
 	}
-	.city_top_wrap .city_top_social ul li:nth-child(2), 
+	.city_top_wrap .city_top_social ul li:nth-child(2),
 	.city_top_wrap .city_top_social ul li:nth-child(3),
-	.widget_copyright .city_top_social ul li:nth-child(2), 
+	.widget_copyright .city_top_social ul li:nth-child(2),
 	.widget_copyright .city_top_social ul li:nth-child(3) {
 		display: none;
 	}
@@ -2021,7 +2039,7 @@
 		width:100%;
 		margin:0px 0px 20px;
 	}
-	.city_event2_row > ul > li:last-child, 
+	.city_event2_row > ul > li:last-child,
 	.city_event2_row > ul > li {
 		width: 100%;
 		padding: 38px 15px;
@@ -2050,7 +2068,7 @@
 	.forum_list ul li {
 		width: 50%;
 	}
-	.forum_list ul li:nth-child(3), 
+	.forum_list ul li:nth-child(3),
 	.forum_list ul li:nth-child(2) {
 		width: 25%;
 	}
@@ -2080,7 +2098,7 @@
 		display:inline-block;
 	}
 	/*health department 02 page start*/
-	.border:after, 
+	.border:after,
 	.border:before {
 		border:none;
 	}
@@ -2110,7 +2128,7 @@
 		font-size: 20px;
 	}
 	.city_health2_service.list {
-		padding: 0px 0px 35px 0px;	
+		padding: 0px 0px 35px 0px;
 	}
 	/*mayor page start*/
 	.city_mayor_text h2 {
@@ -2213,6 +2231,6 @@
 	}
 }
 @media (max-width: 320px){
-	
+
 }
 
