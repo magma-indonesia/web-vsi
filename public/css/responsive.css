@@ -69,7 +69,7 @@
 	}
 	.city_top_logo {
 		width: 20%;
-		margin-right: 30px;
+		/* margin-right: 30px; */
 	}
 	.city_top_news {
 		float: left;
@@ -1505,7 +1505,7 @@
 		margin-bottom: 35px;
 	}
 	.city_service_list ul li:last-child {
-		display: block;
+		display: inline-block;
 	}
 	.city_service_list ul li::before{
 		border:none;

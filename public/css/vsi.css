@@ -368,6 +368,13 @@ body {
     border: 2px solid #293d50;
 }
 
+.theam_btn_yellow {
+    display: inline-block;
+    color: #fee50f;
+    padding: 10px 30px;
+    border: 2px solid #fee50f;
+}
+
 .city_main_banner .slick-prev:before,
 .city_main_banner .slick-next:before {
     line-height: 44px;
@@ -438,4 +445,55 @@ body {
 .banner_search_form label {
     color: #293d50;
     margin-bottom: 10px;
+}
+
+.widget_wrap {
+    padding: 100px 0px 0px;
+    margin-top: 0px;
+    background-image: url("images/widget-bg.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    z-index: 2;
+}
+
+.ciy_jobs_caption h2 {
+    color: #293d50;
+}
+
+.ciy_jobs_caption p {
+    color: #293d50;
+}
+
+.ciy_jobs_caption a {
+    color: #293d50;
+}
+
+.ciy_jobs_caption_dark h2 {
+    color: #fff;
+}
+
+.ciy_jobs_caption_dark p {
+    color: #fff;
+}
+
+.ciy_jobs_caption_dark a {
+    color: #fff;
+}
+
+.city_job_text h3 {
+    display: inline-block;
+    color: #fff;
+    margin-bottom: 2px;
+}
+
+.city_jobs_wrap {
+    background-size: contain;
+}
+
+.city_jobs_fig {
+    width: 50%;
+}
+
+.city_jobs_list {
+    width: 50%;
 }

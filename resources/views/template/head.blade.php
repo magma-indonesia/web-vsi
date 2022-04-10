@@ -25,6 +25,7 @@
     <link href="{{ asset('css/shotcode.css') }}" rel="stylesheet">
     <link href="{{ asset('svg-icon.css') }}" rel="stylesheet">
     <link href="{{ asset('css/color.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/icon-magma.css') }}" rel="stylesheet">
     <link href="{{ asset('css/vsi.css') }}" rel="stylesheet">
     @stack('styles')
     <link href="{{ asset('css/responsive.css') }}" rel="stylesheet">
