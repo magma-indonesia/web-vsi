@@ -58,6 +58,8 @@ return [
 
     'asset_url' => env('ASSET_URL'),
 
+    'default_password' => env('DEFAULT_PASSWORD'),
+
     /*
     |--------------------------------------------------------------------------
     | Application Timezone
