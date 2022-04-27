@@ -2,7 +2,9 @@
 
 namespace App\Models;
 
+use App\Models\Statistic\StatisticLogin;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -15,12 +17,11 @@ class User extends Authenticatable
     /**
      * The attributes that are mass assignable.
      *
-     * @var array<int, string>
+     * @var array
      */
-    protected $fillable = [
-        'name',
-        'email',
-        'password',
+    protected $guarded = [
+        'id',
+        'is_active',
     ];
 
     /**
@@ -39,6 +40,27 @@ class User extends Authenticatable
      * @var array<string, string>
      */
     protected $casts = [
-        'email_verified_at' => 'datetime',
+        'is_active' => 'boolean',
     ];
+
+    /**
+     * Mencari user yang aktif
+     *
+     * @param  \Illuminate\Database\Eloquent\Builder  $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public static function scopeActive(Builder $query)
+    {
+        return $query->where('is_active', '1');
+    }
+
+    /**
+     * Mendapatkan relasi data statistik login user
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function statistik_logins()
+    {
+        return $this->hasMany(StatisticLogin::class);
+    }
 }

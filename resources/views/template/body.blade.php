@@ -215,7 +215,7 @@
                                 <input type="text" placeholder="Search">
                                 <a href="#"><i class="fa fa-search"></i></a>
                             </div>
-                            <a class="top_user" href="login.html"><i class="fa fa-user"></i></a>
+                            <a class="top_user" href="{{ route('login') }}"><i class="fa fa-user"></i></a>
                         </div>
                     </div>
                 </div>
