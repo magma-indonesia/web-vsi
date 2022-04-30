@@ -68,12 +68,12 @@
                 <div class="widget_copyright">
                     <div class="col-md-3 col-sm-6">
                         <div class="widget_logo">
-                            <a href="#"><img src="images/pvmbg-logo-white.png" alt=""></a>
+                            <a href="{{ route('home') }}"><img src="images/pvmbg-logo-white.png" alt=""></a>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="copyright_text">
-                            <p><span>Copyright ©{{ now()->year }} Pusat Vulkanologi dan Mitigasi Bencana Geologi</span> Developed
+                            <p><span>Copyright ©{{ now()->year }} Pusat Vulkanologi dan Mitigasi Bencana Geologi</span> developed
                                 by Martanto</p>
                         </div>
                     </div>
