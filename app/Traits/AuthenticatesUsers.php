@@ -115,7 +115,7 @@ trait AuthenticatesUsers
      */
     protected function authenticated(Request $request, $user)
     {
-        return redirect()->route('chamber.index');
+        return redirect()->route('dashboard.index');
     }
 
     /**

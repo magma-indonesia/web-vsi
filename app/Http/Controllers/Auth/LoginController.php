@@ -4,10 +4,13 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\LoginRequest;
+use App\Models\User;
 use App\Traits\AuthenticatesUsers;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Auth as AuthUser;
+use Illuminate\Support\Str;
 
 class LoginController extends Controller
 {
@@ -17,43 +20,59 @@ class LoginController extends Controller
      * Show login blade
      *
      * @return View
-     * @throws BindingResolutionException
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     public function index()
     {
         return view('login.index');
     }
 
-    protected function loginApiUrl()
+    /**
+     * Login API URL
+     *
+     * @return string
+     */
+    protected function loginApiUrl(): string
     {
         return config('magma.url').'/login';
     }
 
-    protected function userApiUrl($username)
+    /**
+     * Get user information from MAGMA
+     *
+     * @param string $username
+     * @return string
+     */
+    protected function userApiUrl(string $username): string
     {
         return config('magma.url') . '/v1/user/'. $username;
     }
 
-    protected function loginMagma(string $token, string $username): mixed
+    /**
+     * Get user from MAGMA using token
+     *
+     * @param LoginRequest $request
+     * @param string $token
+     * @return array
+     */
+    protected function getUserFromMagma(LoginRequest $request, string $token): array
     {
-        $response = Http::withToken($token)
-            ->get($this->userApiUrl($username))
-            ->json();
-
-        return $response['data'];
+        return Http::withToken($token)
+            ->get($this->userApiUrl($request->username))
+            ->json()['data'];
     }
 
-    public function login(LoginRequest $request)
+    /**
+     * Login with MAGMA
+     *
+     * @param string $token
+     * @param string $username
+     * @return bool
+     */
+    protected function loginWithMagma(LoginRequest $request): bool
     {
-        if ($this->hasTooManyLoginAttempts($request)) {
-            $this->fireLockoutEvent($request);
-            return $this->sendLockoutResponse($request);
-        }
-
-        if ($this->attemptLogin($request)) {
-            return $this->userIsActive($request)
-                ->updateStatistikLogin()
-                ->sendLoginResponse($request);
+        if (AuthUser::check()) {
+            return true;
         }
 
         $response = Http::acceptJson()->post($this->loginApiUrl(), [
@@ -61,8 +80,72 @@ class LoginController extends Controller
             'password' => $request->password,
         ])->json();
 
-        if ($response['success'])
-            return $this->loginMagma($response['token'], $request->username);
+        if ($response['success']) {
+            AuthUser::login($this->saveToDatabase(
+                $this->getUserFromMagma($request, $response['token']),
+                $request->password,
+            ));
+
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * Save new user
+     *
+     * @param array $user
+     * @param string $password
+     * @return \App\Models\User
+     */
+    protected function saveToDatabase(array $user, string $password): User
+    {
+        $user = User::create([
+            'uuid' => Str::uuid(),
+            'name' => $user['name'],
+            'nip' => $user['nip'],
+            'password' => $password,
+            'is_active' => 1,
+        ]);
+
+        return $user;
+    }
+
+    /**
+     * Update login stats
+     *
+     * @param Request $request
+     * @return self
+     */
+    protected function updateStatisticLogin(LoginRequest $request): self
+    {
+        $request->user()->statistik_logins()->updateOrCreate([
+            'user_id' => auth()->user()->id,
+            'ip_address' => $request->ip()
+        ])->increment('hit');
+
+        return $this;
+    }
+
+    /**
+     * Login credentials
+     *
+     * @param LoginRequest $request
+     * @return mixed
+     */
+    public function login(LoginRequest $request): mixed
+    {
+        if ($this->hasTooManyLoginAttempts($request)) {
+            $this->fireLockoutEvent($request);
+            return $this->sendLockoutResponse($request);
+        }
+
+        if ($this->attemptLogin($request) || $this->loginWithMagma($request)) {
+            return $this->userIsActive($request)
+                ->updateStatisticLogin($request)
+                ->sendLoginResponse($request);
+        }
 
         $this->incrementLoginAttempts($request);
 

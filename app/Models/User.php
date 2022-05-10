@@ -20,8 +20,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $guarded = [
-        'id',
-        'is_active',
+        'id'
     ];
 
     /**
@@ -42,6 +41,17 @@ class User extends Authenticatable
     protected $casts = [
         'is_active' => 'boolean',
     ];
+
+    /**
+     * Set password encrypting
+     *
+     * @param string $password
+     * @return void
+     */
+    public function setPasswordAttribute(string $password): void
+    {
+        $this->attributes['password'] = bcrypt($password);
+    }
 
     /**
      * Mencari user yang aktif

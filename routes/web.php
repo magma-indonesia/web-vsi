@@ -20,8 +20,12 @@ Route::get('/', function () {
 })->name('home');
 
 // Login
-Route::get('login', [LoginController::class, 'index'])->name('login.index');
-Route::post('login', [LoginController::class, 'login'])->name('login.post');
+Route::get('login', [LoginController::class, 'index'])
+    ->middleware('guest')
+    ->name('login.index');
+Route::post('login', [LoginController::class, 'login'])
+    ->middleware('guest')
+    ->name('login.post');
 
 // Profil
 Route::name('profile.')->group(function () {
