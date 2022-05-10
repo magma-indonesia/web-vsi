@@ -65,9 +65,8 @@ class LoginController extends Controller
     /**
      * Login with MAGMA
      *
-     * @param string $token
-     * @param string $username
-     * @return bool
+     * @param LoginRequest $request
+     * @return boolean
      */
     protected function loginWithMagma(LoginRequest $request): bool
     {
