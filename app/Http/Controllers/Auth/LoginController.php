@@ -51,11 +51,11 @@ class LoginController extends Controller
     /**
      * Get user from MAGMA using token
      *
-     * @param LoginRequest $request
+     * @param Request $request
      * @param string $token
      * @return array
      */
-    protected function getUserFromMagma(LoginRequest $request, string $token): array
+    protected function getUserFromMagma(Request $request, string $token): array
     {
         return Http::withToken($token)
             ->get($this->userApiUrl($request->username))
@@ -65,10 +65,10 @@ class LoginController extends Controller
     /**
      * Login with MAGMA
      *
-     * @param LoginRequest $request
+     * @param Request $request
      * @return boolean
      */
-    protected function loginWithMagma(LoginRequest $request): bool
+    protected function loginWithMagma(Request $request): bool
     {
         if (AuthUser::check()) {
             return true;
@@ -117,7 +117,7 @@ class LoginController extends Controller
      * @param Request $request
      * @return self
      */
-    protected function updateStatisticLogin(LoginRequest $request): self
+    protected function updateStatisticLogin(Request $request): self
     {
         $request->user()->statistik_logins()->updateOrCreate([
             'user_id' => auth()->user()->id,
@@ -125,6 +125,19 @@ class LoginController extends Controller
         ])->increment('hit');
 
         return $this;
+    }
+
+    /**
+     * Get the successed login response instance.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    protected function sendSuccessedLoginResponse(Request $request)
+    {
+        return $this->userIsActive($request)
+                ->updateStatisticLogin($request)
+                ->sendLoginResponse($request);
     }
 
     /**
@@ -141,9 +154,7 @@ class LoginController extends Controller
         }
 
         if ($this->attemptLogin($request) || $this->loginWithMagma($request)) {
-            return $this->userIsActive($request)
-                ->updateStatisticLogin($request)
-                ->sendLoginResponse($request);
+            return $this->sendSuccessedLoginResponse($request);
         }
 
         $this->incrementLoginAttempts($request);

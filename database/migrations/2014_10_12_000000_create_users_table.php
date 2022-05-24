@@ -21,6 +21,7 @@ return new class extends Migration
             $table->char('nip', 18)->nullable()->unique();
             $table->char('ktp', 16)->nullable()->unique();
             $table->char('phone', 14)->nullable()->unique();
+            $table->char('employee_id', 10)->nullable()->unique();
             $table->string('email')->nullable()->unique();
             $table->string('email_esdm')->nullable()->unique();
             $table->string('password');

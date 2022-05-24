@@ -89,7 +89,7 @@ trait AuthenticatesUsers
      * Send the response after the user was authenticated.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\JsonResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
     protected function sendLoginResponse(Request $request)
     {
@@ -101,9 +101,7 @@ trait AuthenticatesUsers
             return $response;
         }
 
-        return $request->wantsJson()
-            ? new JsonResponse([], 204)
-            : redirect()->intended($this->redirectPath());
+        return redirect()->intended($this->redirectPath());
     }
 
     /**
