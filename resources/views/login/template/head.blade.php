@@ -10,7 +10,9 @@
     <link href="{{ asset('faviconesdm-large.png') }}" rel="apple-touch-icon">
 
     {{-- Vendor CSS --}}
-    <link href="{{ asset('css/bootstrap.css') }}" rel="stylesheet">
+    <link href="{{ asset('dashboard/lib/@fortawesome/fontawesome-free/css/all.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('dashboard/lib/ionicons/css/ionicons.min.css') }}" rel="stylesheet">
 
     {{-- Auth CSS --}}
+    <link href="{{ asset('dashboard/lib/@fortawesome/fontawesome-free/css/all.min.css') }}" rel="stylesheet">
 </head>
