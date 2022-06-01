@@ -35,7 +35,14 @@ class AppServiceProvider extends ServiceProvider
         Http::macro('magma', function() {
             return Http::timeout(5)
                 ->acceptJson()
-                ->baseUrl('https://magma.esdm.go.id/api');
+                ->baseUrl(config('magma.api_url'));
+        });
+
+        Http::macro('sipeg', function () {
+            return Http::timeout(30)
+                ->withHeaders(config('sipeg.headers'))
+                ->acceptJson()
+                ->baseUrl(config('sipeg.url'));
         });
     }
 }
