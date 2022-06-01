@@ -139,7 +139,7 @@ return [
     | Hal ini membantu kita dalam membuat pesan menjadi lebih ekspresif.
     |
     */
-    'custom'               => [
+    'custom' => [
         'attribute-name' => [
             'rule-name' => 'custom-message',
         ],

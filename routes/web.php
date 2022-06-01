@@ -26,6 +26,9 @@ Route::get('login', [LoginController::class, 'index'])
 Route::post('login', [LoginController::class, 'login'])
     ->middleware('guest')
     ->name('login.post');
+Route::post('logout', [LoginController::class, 'logout'])
+    ->middleware('auth')
+    ->name('logout');
 
 // Profil
 Route::name('profile.')->group(function () {

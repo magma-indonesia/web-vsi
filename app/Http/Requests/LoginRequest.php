@@ -7,13 +7,15 @@ use Illuminate\Foundation\Http\FormRequest;
 class LoginRequest extends FormRequest
 {
     /**
-     * Determine if the user is authorized to make this request.
+     * Prepare the data for validation.
      *
-     * @return bool
+     * @return void
      */
-    public function authorize()
+    protected function prepareForValidation(): void
     {
-        return true;
+        $this->merge([
+            'nip' => $this->username,
+        ]);
     }
 
     /**
@@ -21,7 +23,7 @@ class LoginRequest extends FormRequest
      *
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             'username' => 'required|string',

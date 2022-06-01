@@ -20,7 +20,7 @@ trait ThrottlesLogins
      */
     protected function username(Request $request): string
     {
-        return array_key_exists('nip', $request->validated()) ? 'nip' : 'email_esdm';
+        return array_key_exists('username', $request->validated()) ? 'nip' : 'email_esdm';
     }
 
     /**

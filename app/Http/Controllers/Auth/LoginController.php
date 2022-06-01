@@ -6,15 +6,14 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\LoginRequest;
 use App\Models\User;
 use App\Traits\AuthenticatesUsers;
+use App\Traits\LoginWithMagma;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Http;
-use Illuminate\Support\Facades\Auth as AuthUser;
-use Illuminate\Support\Str;
 
 class LoginController extends Controller
 {
     use AuthenticatesUsers;
+    use LoginWithMagma;
 
     /**
      * Show login blade
@@ -25,90 +24,6 @@ class LoginController extends Controller
     public function index()
     {
         return view('login.index');
-    }
-
-    /**
-     * Login API URL
-     *
-     * @return string
-     */
-    protected function loginApiUrl(): string
-    {
-        return config('magma.url').'/login';
-    }
-
-    /**
-     * Get user information from MAGMA
-     *
-     * @param string $username
-     * @return string
-     */
-    protected function userApiUrl(string $username): string
-    {
-        return config('magma.url') . '/v1/user/'. $username;
-    }
-
-    /**
-     * Get user from MAGMA using token
-     *
-     * @param Request $request
-     * @param string $token
-     * @return array
-     */
-    protected function getUserFromMagma(Request $request, string $token): array
-    {
-        return Http::withToken($token)
-            ->get($this->userApiUrl($request->username))
-            ->json()['data'];
-    }
-
-    /**
-     * Login with MAGMA
-     *
-     * @param Request $request
-     * @return boolean
-     */
-    protected function loginWithMagma(Request $request): bool
-    {
-        if (AuthUser::check()) {
-            return true;
-        }
-
-        $response = Http::acceptJson()->post($this->loginApiUrl(), [
-            'username' => $request->username,
-            'password' => $request->password,
-        ])->json();
-
-        if ($response['success']) {
-            AuthUser::login($this->saveToDatabase(
-                $this->getUserFromMagma($request, $response['token']),
-                $request->password,
-            ));
-
-            return true;
-        }
-
-        return false;
-    }
-
-    /**
-     * Save new user
-     *
-     * @param array $user
-     * @param string $password
-     * @return \App\Models\User
-     */
-    protected function saveToDatabase(array $user, string $password): User
-    {
-        $user = User::create([
-            'uuid' => Str::uuid(),
-            'name' => $user['name'],
-            'nip' => $user['nip'],
-            'password' => $password,
-            'is_active' => 1,
-        ]);
-
-        return $user;
     }
 
     /**
@@ -153,7 +68,16 @@ class LoginController extends Controller
             return $this->sendLockoutResponse($request);
         }
 
-        if ($this->attemptLogin($request) || $this->loginWithMagma($request)) {
+        if ($this->attemptLogin($request)) {
+            return $this->sendSuccessedLoginResponse($request);
+        }
+
+        if (User::where('nip', $request->username)->first()) {
+            $this->incrementLoginAttempts($request);
+            return $this->sendFailedLoginResponse($request);
+        }
+
+        if ($this->attemptLoginMagma($request)) {
             return $this->sendSuccessedLoginResponse($request);
         }
 

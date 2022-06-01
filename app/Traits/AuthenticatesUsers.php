@@ -42,7 +42,7 @@ trait AuthenticatesUsers
     /**
      * Set password_changed session if user still using default password
      *
-     * @return void
+     * @return self
      */
     protected function checkPassword()
     {
