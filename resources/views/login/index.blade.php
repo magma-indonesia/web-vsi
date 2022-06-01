@@ -7,10 +7,10 @@
 <div class="content content-fixed content-auth">
     <div class="container">
         <div class="media align-items-stretch justify-content-center ht-100p pos-relative">
-            <div class="sign-wrapper mg-lg-l-50 mg-xl-l-60">
+            <div class="sign-wrapper">
                 <div class="wd-100p">
-                    <h3 class="tx-color-01 mg-b-5">Login</h3>
-                    <p class="tx-color-03 tx-16 mg-b-40">Welcome back! Please signin to continue.</p>
+                    <h3 class="tx-color-01 mg-b-25">Login</h3>
+                    <p class="tx-color-03 tx-16 mg-b-40">Halo selamat datang! Harap gunakan NIP dan password MAGMA Anda untuk masuk ke dalam Dashboard.</p>
 
                     <form action="{{ route('login.post') }}" method="post">
                         @csrf
@@ -21,27 +21,23 @@
                         <div class="form-group">
                             <div class="d-flex justify-content-between mg-b-5">
                                 <label class="mg-b-0-f">Password</label>
-                                <a href="" class="tx-13">Forgot password?</a>
                             </div>
                             <input type="password" name="password" class="form-control" placeholder="Masukkan password">
                         </div>
 
                         @if($errors->isNotEmpty())
-                        <div class="form-group">
-                            <div class="alert alert-danger">
-                                <ul class="list-unstyled">
-                                    @foreach ($errors->all() as $error)
-                                        <li>{{ $error }}</li>
-                                    @endforeach
-                                </ul>
-                            </div>
+                        @foreach ($errors->all() as $error)
+                        <div class="alert alert-danger" role="alert">
+                            {{ $error }}
                         </div>
+                        @endforeach
                         @endif
 
-                        <button type="submit" class="btn btn-brand-02 btn-block">Login</button>
+                        <button type="submit" class="btn btn-brand-02 btn-block">Login with MAGMA</button>
                     </form>
 
                     <div class="divider-text">powered by MAGMA Indonesia</div>
+                    <h1 class="mg-t-25"><a href="{{ route('home') }}"><img src="{{ asset('images/pvmbg-logo.svg') }}" alt="Logo PVMBG"></a></h1>
                 </div>
             </div><!-- sign-wrapper -->
         </div><!-- media -->

@@ -56,6 +56,20 @@ trait LoginWithMagma
     }
 
     /**
+     * Login is success or not
+     *
+     * @return boolean
+     */
+    protected function successedLoginMagma(): bool
+    {
+        Auth::login($this->saveToDatabase(
+            $this->getUserFromMagma()
+        ));
+
+        return true;
+    }
+
+    /**
      * Login using MAGMA
      *
      * @param Request $request
@@ -64,25 +78,11 @@ trait LoginWithMagma
     public function attemptLoginMagma(Request $request): bool
     {
         $this->response = Http::magma()->post('/login', [
-            'username' => request()->username,
-            'password' => request()->password,
+            'username' => $request->username,
+            'password' => $request->password,
         ])->json();
 
         return $this->response['success'] ?
             $this->successedLoginMagma() : false;
-    }
-
-    /**
-     * Login is success or not
-     *
-     * @return boolean
-     */
-    public function successedLoginMagma(): bool
-    {
-        Auth::login($this->saveToDatabase(
-            $this->getUserFromMagma()
-        ));
-
-        return true;
     }
 }
