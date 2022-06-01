@@ -25,6 +25,47 @@ trait LoginWithMagma
     protected array $response;
 
     /**
+     * URL for MAGMA API
+     *
+     * @var string
+     */
+    protected string $magmaApiUrl = 'https://magma.esdm.go.id/api';
+
+    /**
+     * MAGMA API url
+     *
+     * @return string
+     */
+    protected function magmaApiUrl(): string
+    {
+        if (config()->has('magma.api_url')) {
+            return config('magma.api_url');
+        }
+
+        return $this->magmaApiUrl;
+    }
+
+    /**
+     * MAGMA Login API url
+     *
+     * @return string
+     */
+    protected function magmaLoginApiUrl(): string
+    {
+        return $this->magmaApiUrl().'/login';
+    }
+
+    /**
+     * MAGMA User API url
+     *
+     * @return string
+     */
+    protected function magmaUserApiUrl(): string
+    {
+        return $this->magmaApiUrl() . '/v1/user/' . request()->username;
+    }
+
+    /**
      * Get user from MAGMA using token
      *
      * @return array
@@ -32,7 +73,7 @@ trait LoginWithMagma
     protected function getUserFromMagma(): array
     {
         return Http::magma()->withToken($this->response['token'])
-            ->get('/v1/user/' . request()->username)
+            ->get($this->magmaUserApiUrl())
             ->json()['data'];
     }
 
@@ -77,7 +118,7 @@ trait LoginWithMagma
      */
     public function attemptLoginMagma(Request $request): bool
     {
-        $this->response = Http::magma()->post('/login', [
+        $this->response = Http::magma()->post($this->magmaLoginApiUrl(), [
             'username' => $request->username,
             'password' => $request->password,
         ])->json();

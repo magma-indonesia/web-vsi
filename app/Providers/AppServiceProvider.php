@@ -10,27 +10,6 @@ use Illuminate\Support\Facades\Http;
 class AppServiceProvider extends ServiceProvider
 {
     /**
-     * URL for MAGMA API
-     *
-     * @var string
-     */
-    public string $magmaApiUrl = 'https://magma.esdm.go.id/api';
-
-    /**
-     * MAGMA API url
-     *
-     * @return string
-     */
-    public function magmaApiUrl(): string
-    {
-        if (config()->has('magma.url')) {
-            return config('magma.url');
-        }
-
-        return $this->magmaApiUrl;
-    }
-
-    /**
      * Register any application services.
      *
      * @return void
