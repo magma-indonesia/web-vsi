@@ -46,28 +46,17 @@
             </div>
         </div><!-- aside-loggedin -->
         <ul class="nav nav-aside">
-            <li class="nav-label">Dashboard</li>
-            <li class="nav-item active"><a href="dashboard-one.html" class="nav-link"><i
-                        data-feather="shopping-bag"></i> <span>Sales Monitoring</span></a></li>
-            <li class="nav-item"><a href="dashboard-two.html" class="nav-link"><i data-feather="globe"></i>
-                    <span>Website Analytics</span></a></li>
-            <li class="nav-item"><a href="dashboard-three.html" class="nav-link"><i data-feather="pie-chart"></i>
-                    <span>Cryptocurrency</span></a></li>
-            <li class="nav-item"><a href="dashboard-four.html" class="nav-link"><i data-feather="life-buoy"></i>
-                    <span>Helpdesk Management</span></a></li>
-            <li class="nav-label mg-t-25">Web Apps</li>
-            <li class="nav-item"><a href="app-calendar.html" class="nav-link"><i data-feather="calendar"></i>
-                    <span>Calendar</span></a></li>
-            <li class="nav-item"><a href="app-chat.html" class="nav-link"><i data-feather="message-square"></i>
-                    <span>Chat</span></a></li>
-            <li class="nav-item"><a href="app-contacts.html" class="nav-link"><i data-feather="users"></i>
-                    <span>Contacts</span></a></li>
-            <li class="nav-item"><a href="app-file-manager.html" class="nav-link"><i data-feather="file-text"></i>
-                    <span>File Manager</span></a></li>
-            <li class="nav-item"><a href="app-mail.html" class="nav-link"><i data-feather="mail"></i>
-                    <span>Mail</span></a></li>
+            <li class="nav-label">Profile</li>
+            <li class="nav-item active"><a href="{{ route('profile.tentang-pvmbg') }}" class="nav-link"><i
+                        data-feather="shopping-bag"></i> <span>Tentang PVMBG</span></a></li>
+            <li class="nav-item"><a href="{{ route('profile.struktur-organisasi') }}" class="nav-link"><i data-feather="git-merge"></i>
+                    <span>Struktur Organisasi</span></a></li>
+            <li class="nav-item"><a href="{{ route('profile.sejarah') }}" class="nav-link"><i data-feather="clock"></i>
+                    <span>Sejarah</span></a></li>
 
-            <li class="nav-label mg-t-25">Pages</li>
+            <li class="nav-label mg-t-25">Gunung Api</li>
+            <li class="nav-item"><a href="{{ route('gunung-api.data-dasar') }}" class="nav-link"><i
+                        data-feather="layers"></i> <span>Data Dasar</span></a></li>
             <li class="nav-item with-sub">
                 <a href="" class="nav-link"><i data-feather="user"></i> <span>User Pages</span></a>
                 <ul>

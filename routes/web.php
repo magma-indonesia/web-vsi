@@ -54,6 +54,19 @@ Route::name('profile.')->group(function () {
     )->name('sejarah');
 });
 
+// Gunung Api
+Route::name('gunung-api.')->group(function () {
+
+    $gunungApi = 'home.gunung-api.';
+
+    // Gunung Api > Data Dasar
+    Route::view(
+        'data-dasar',
+        "$gunungApi.data-dasar.index"
+    )->name('data-dasar');
+
+});
+
 // Layanan Publik
 Route::prefix('layanan-publik')->name('layanan-publik.')->group(function () {
 
