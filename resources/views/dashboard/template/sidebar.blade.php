@@ -47,7 +47,7 @@
         </div><!-- aside-loggedin -->
         <ul class="nav nav-aside">
             <li class="nav-label">Profile</li>
-            <li class="nav-item active"><a href="{{ route('profile.tentang-pvmbg') }}" class="nav-link"><i
+            <li class="nav-item"><a href="{{ route('profile.tentang-pvmbg') }}" class="nav-link"><i
                         data-feather="shopping-bag"></i> <span>Tentang PVMBG</span></a></li>
             <li class="nav-item"><a href="{{ route('profile.struktur-organisasi') }}" class="nav-link"><i data-feather="git-merge"></i>
                     <span>Struktur Organisasi</span></a></li>
@@ -57,21 +57,30 @@
             <li class="nav-label mg-t-25">Gunung Api</li>
             <li class="nav-item"><a href="{{ route('gunung-api.data-dasar') }}" class="nav-link"><i
                         data-feather="layers"></i> <span>Data Dasar</span></a></li>
-            <li class="nav-item with-sub">
-                <a href="" class="nav-link"><i data-feather="user"></i> <span>User Pages</span></a>
+            <li class="nav-item"><a href="#" class="nav-link"><i
+                        data-feather="alert-triangle"></i> <span>Informasi Letusan</span></a></li>
+            <li class="nav-item"><a href="#" class="nav-link"><i
+                        data-feather="airplay"></i> <span>Tingkat Aktivitas</span></a></li>
+
+            <li class="nav-label mg-t-25">Layanan Publik</li>
+            <li class="nav-item"><a href="" class="nav-link"><i
+                        data-feather="award"></i> <span>Reformasi Birokrasi</span></a></li>
+            <li class="nav-item"><a href="#" class="nav-link"><i
+                        data-feather="info"></i> <span>Diseminasi Informasi</span></a></li>
+            <li class="nav-item with-sub active">
+                <a href="" class="nav-link"><i data-feather="users"></i> <span>Kerja Sama</span></a>
                 <ul>
-                    <li><a href="page-profile-view.html">View Profile</a></li>
-                    <li><a href="page-connections.html">Connections</a></li>
-                    <li><a href="page-groups.html">Groups</a></li>
-                    <li><a href="page-events.html">Events</a></li>
+                    <li><a href="page-profile-view.html">Informasi Kerja Sama</a></li>
+                    <li><a href="page-connections.html">Dalam Negeri</a></li>
+                    <li><a href="page-groups.html">Luar Negeri</a></li>
                 </ul>
             </li>
-            <li class="nav-item with-sub">
-                <a href="" class="nav-link"><i data-feather="file"></i> <span>Other Pages</span></a>
-                <ul>
-                    <li><a href="page-timeline.html">Timeline</a></li>
-                </ul>
-            </li>
+            <li class="nav-item"><a href="#" class="nav-link"><i data-feather="database"></i><span>Permohonan Data</span></a></li>
+            <li class="nav-item"><a href="#" class="nav-link"><i data-feather="share-2"></i><span>Permohonan API</span></a></li>
+            <li class="nav-item"><a href="#" class="nav-link"><i data-feather="briefcase"></i><span>Praktek Kerja Lapangan</span></a></li>
+            <li class="nav-item"><a href="#" class="nav-link"><i data-feather="command"></i><span>Bimbingan Tugas Akhir</span></a></li>
+            <li class="nav-item"><a href="#" class="nav-link"><i data-feather="flag"></i><span>Pengaduan</span></a></li>
+
             <li class="nav-label mg-t-25">User Interface</li>
             <li class="nav-item"><a href="../../components" class="nav-link"><i data-feather="layers"></i>
                     <span>Components</span></a></li>
