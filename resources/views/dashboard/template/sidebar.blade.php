@@ -46,7 +46,10 @@
             </div>
         </div><!-- aside-loggedin -->
         <ul class="nav nav-aside">
-            <li class="nav-label">Profile</li>
+            <li class="nav-item {{ request()->routeIs('dashboard.index') ? 'active' : '' }}"><a href="{{ route('dashboard.index') }}" class="nav-link"><i data-feather="bar-chart-2"></i>
+                    <span>Dashboard</span></a></li>
+
+            <li class="nav-label mg-t-25">Profile</li>
             <li class="nav-item"><a href="{{ route('profile.tentang-pvmbg') }}" class="nav-link"><i
                         data-feather="shopping-bag"></i> <span>Tentang PVMBG</span></a></li>
             <li class="nav-item"><a href="{{ route('profile.struktur-organisasi') }}" class="nav-link"><i data-feather="git-merge"></i>
@@ -67,7 +70,7 @@
                         data-feather="award"></i> <span>Reformasi Birokrasi</span></a></li>
             <li class="nav-item"><a href="#" class="nav-link"><i
                         data-feather="info"></i> <span>Diseminasi Informasi</span></a></li>
-            <li class="nav-item with-sub active">
+            <li class="nav-item with-sub">
                 <a href="" class="nav-link"><i data-feather="users"></i> <span>Kerja Sama</span></a>
                 <ul>
                     <li><a href="page-profile-view.html">Informasi Kerja Sama</a></li>
