@@ -46,8 +46,19 @@
             </div>
         </div><!-- aside-loggedin -->
         <ul class="nav nav-aside">
-            <li class="nav-item {{ request()->routeIs('dashboard.index') ? 'active' : '' }}"><a href="{{ route('dashboard.index') }}" class="nav-link"><i data-feather="bar-chart-2"></i>
-                    <span>Dashboard</span></a></li>
+            <li class="nav-item">
+                <a href="{{ route('home') }}" class="nav-link">
+                    <i data-feather="home"></i>
+                    <span>Home</span>
+                </a>
+            </li>
+
+            <li class="nav-item {{ request()->routeIs('dashboard.index') ? 'active' : '' }}">
+                <a href="{{ route('dashboard.index') }}" class="nav-link">
+                    <i data-feather="bar-chart-2"></i>
+                    <span>Dashboard</span>
+                </a>
+            </li>
 
             <li class="nav-label mg-t-25">Profile</li>
             <li class="nav-item"><a href="{{ route('profile.tentang-pvmbg') }}" class="nav-link"><i
