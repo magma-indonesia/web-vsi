@@ -11,3 +11,6 @@ Route::get('/', function() {
 
 Route::get('sipeg', [TestController::class, 'sipeg'])
     ->name('sipeg');
+
+Route::get('sipeg-service', [TestController::class, 'sipegProvider'])
+    ->name('sipegProvider');
