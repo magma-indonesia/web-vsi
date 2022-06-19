@@ -7,23 +7,10 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Validation\ValidationException;
 
 trait LoginWithMagma
 {
-    /**
-     * Login is successed
-     *
-     * @var boolean
-     */
-    protected bool $success = false;
-
-    /**
-     * Response from MAGMA after successfull login
-     *
-     * @var array
-     */
-    protected array $response;
-
     /**
      * URL for MAGMA API
      *
@@ -66,22 +53,46 @@ trait LoginWithMagma
     }
 
     /**
+     * Get the failed getting user informaation response instance.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Symfony\Component\HttpFoundation\Response
+     *
+     * @throws \Illuminate\Validation\ValidationException
+     */
+    protected function sendFailedUserResponse(Request $request)
+    {
+        throw ValidationException::withMessages([
+            'username' => [trans('auth.failed')],
+        ]);
+    }
+
+    /**
      * Get user from MAGMA using token
      *
+     * @param Request $request
      * @return array
+     *
+     * @throws \Illuminate\Validation\ValidationException
      */
-    protected function getUserFromMagma(): array
+    protected function getUserFromMagma(Request $request, string $token): array
     {
-        return Http::magma()->withToken($this->response['token'])
+        $response = Http::magma()->withToken($token)
             ->get($this->magmaUserApiUrl())
-            ->json()['data'];
+            ->json();
+
+        if (array_key_exists('data', $response)) {
+            return $response['data'];
+        }
+
+        $this->sendFailedUserResponse($request);
     }
 
     /**
      * Get or save new user
      *
      * @param array $user
-     * @return User
+     * @return App\Models\User
      */
     protected function saveToDatabase(array $user): User
     {
@@ -97,15 +108,14 @@ trait LoginWithMagma
     }
 
     /**
-     * Login is success or not
+     *  Login is success or not
      *
+     * @param array $user
      * @return boolean
      */
-    protected function successedLoginMagma(): bool
+    protected function successedLoginMagma(array $user): bool
     {
-        Auth::login($this->saveToDatabase(
-            $this->getUserFromMagma()
-        ));
+        Auth::login($this->saveToDatabase($user));
 
         return true;
     }
@@ -118,12 +128,12 @@ trait LoginWithMagma
      */
     public function attemptLoginMagma(Request $request): bool
     {
-        $this->response = Http::magma()->post($this->magmaLoginApiUrl(), [
+        $response = Http::magma()->post($this->magmaLoginApiUrl(), [
             'username' => $request->username,
             'password' => $request->password,
         ])->json();
 
-        return $this->response['success'] ?
-            $this->successedLoginMagma() : false;
+        return $response['success'] ?
+            $this->successedLoginMagma($response['user']) : false;
     }
 }
