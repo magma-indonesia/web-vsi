@@ -7,9 +7,12 @@
                         <h4 class="widget_title">Alamat</h4>
                         <div class="widget_text">
                             <ul>
-                                <li><a target="_blank" href="https://goo.gl/maps/xQdpQmnuM629jo3S7">Jl. Diponegoro no. 57</a></li>
-                                <li><a target="_blank" href="https://goo.gl/maps/xQdpQmnuM629jo3S7">Bandung - 40122</a></li>
-                                <li><a target="_blank" href="https://goo.gl/maps/xQdpQmnuM629jo3S7">Jawa Barat, Indonesia</a></li>
+                                <li><a target="_blank" href="https://goo.gl/maps/xQdpQmnuM629jo3S7">Jl. Diponegoro no.
+                                        57</a></li>
+                                <li><a target="_blank" href="https://goo.gl/maps/xQdpQmnuM629jo3S7">Bandung - 40122</a>
+                                </li>
+                                <li><a target="_blank" href="https://goo.gl/maps/xQdpQmnuM629jo3S7">Jawa Barat,
+                                        Indonesia</a></li>
                             </ul>
                             <ul>
                                 <li><a href="tel:+62227272606">Phone: +62-22-727-2606</a></li>
@@ -73,7 +76,8 @@
                     </div>
                     <div class="col-md-6">
                         <div class="copyright_text">
-                            <p><span>Copyright ©{{ now()->year }} Pusat Vulkanologi dan Mitigasi Bencana Geologi</span> developed
+                            <p><span>Copyright ©{{ now()->year }} Pusat Vulkanologi dan Mitigasi Bencana Geologi</span>
+                                developed
                                 by Martanto</p>
                         </div>
                     </div>

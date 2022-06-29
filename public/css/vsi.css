@@ -76,11 +76,9 @@ body {
 .city_emergency_call ul li a:hover,
 .special_service_text .theam_btn,
 .city_service2_list>span,
-.breadcrumb>li a:hover,
 .city_project_mansory ul li a.active,
 .city_request_link ul li a:hover:before,
 .city_request_link ul li a:hover,
-.city_document_list ul li a:hover,
 .city_news_meta li a:hover,
 .city_event_fig a:hover,
 .city_event_fig>a:hover,
@@ -171,18 +169,23 @@ body {
 .tabs li.active a:hover,
 .city_health_text h2,
 .city_service2_fig:hover .city_service2_text a,
-.widget_service ul li a:hover:before,
-.widget_service ul li a:hover,
 .city_request_text span,
 .city_request_row>span,
 .social_icon li a,
 .city_about_text h6,
 .banner_search_field a {
+    color: #14284b;
+}
+
+.breadcrumb>li a:hover,
+.city_document_list ul li a:hover,
+.widget_service ul li a:hover:before,
+.widget_service ul li a:hover {
     color: #fee50f;
 }
 
 /*
-	  ============================================================
+	  ================================`============================
 		   Background Color
 	  ============================================================
 */
