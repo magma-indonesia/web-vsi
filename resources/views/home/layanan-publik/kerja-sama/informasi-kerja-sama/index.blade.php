@@ -2,6 +2,10 @@
 
 @section('title', 'Informasi Kerja Sama')
 
+@push('styles')
+<link href="{{ asset('css/selectric.css') }}" rel="stylesheet">
+@endpush
+
 @section('body')
 <!-- SAB BANNER START-->
 <div class="sab_banner overlay">
@@ -52,26 +56,18 @@
                     <!-- CITY SERVICE TABS START-->
                     <div class="city_service_tabs tabs">
                         <ul class="tab-links">
-                            <li class="active"><a href="#tab1"> Gunung Api</a></li>
-                            <li><a href="#tab2">Gerakan Tanah</a></li>
-                            <li><a href="#tab3">Gempa Bumi dan Tsunami</a></li>
+                            <li class="active"><a href="#pengajuan">Pengajuan Kerja Sama</a></li>
+                            <li><a href="#gunung-api">Gunung Api</a></li>
+                            <li><a href="#gerakan-tanah">Gerakan Tanah</a></li>
+                            <li><a href="#gempa-bumi">Gempa Bumi dan Tsunami</a></li>
                         </ul>
                     </div>
                     <!-- CITY SERVICE TABS END-->
 
-                    <!-- CITY SIDE INFO START-->
-                    <div class="city_side_info">
-                        <span><i class="fa fa-github"></i></span>
-                        <h4>Let’s Help You</h4>
-                        <h6>908-879-5100 89, <br>Avenue 454 <br> NY, USA</h6>
-                    </div>
-                    <!-- CITY SIDE INFO END-->
-
                     <!-- CITY NOTICE START-->
                     <div class="city_notice">
-                        <h4>Public Notice</h4>
-                        <p>Aenean sollicitudin, lorem quis bibendum auctor, nisi elit consequat ipsum, nec sagittis
-                            sem nibh id elit</p>
+                        <h4>Pengumuman Penting</h4>
+                        <p>Beberapa syarat yang dibutuhkan dalam melakukan pengajuan kerja sama</p>
                         <a class="theam_btn" href="#" tabindex="0">Download PDF</a>
                     </div>
                     <!-- CITY NOTICE END-->
@@ -81,7 +77,105 @@
                 <!-- TABS START-->
                 <div class="tabs">
                     <div class="tab-content">
-                        <div id="tab1" class="tab active">
+                        <div id="pengajuan" class="tab active">
+                            <div class="city_service_tabs_list">
+                                <figure class="box">
+                                    <div class="box-layer layer-1"></div>
+                                    <div class="box-layer layer-2"></div>
+                                    <div class="box-layer layer-3"></div>
+                                    <img src="{{ asset("extra-images/permohonan-kerja-sama.png") }}" alt="">
+                                </figure>
+                                <div class="city_service_tabs_text">
+                                    <h3>Form Pengajuan Kerja Sama</h3>
+
+                                    <p>Ajukan permohonan kerja sama di bidang kebencanaan geologi melalui halaman ini. Persiapkan dokumen dan data dukung yang dibutuhkan untuk melengkapi form di bawah ini. Pengajuan kerja sama setiap kebencanaan geologi berbeda-beda, namun tidak menutup kemungkinan kerja sama dilakukan untuk semua matra bencana geologi.
+                                    </p>
+
+                                    <form action="" method="" enctype="multipart/form-data">
+                                        @csrf
+                                        <div class="event_booking_form">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="event_booking_field">
+                                                        <input name="judul" type="text" placeholder="Judul Kerja Sama">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="event_booking_field">
+                                                        <input name="name" type="text" placeholder="Nama">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="event_booking_field">
+                                                        <input name="email" type="text" placeholder="Email">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <div class="event_booking_field">
+                                                        <input name="organisasi" type="text" placeholder="Institusi">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <div class="event_booking_field">
+                                                        <select name="kategori" class="small">
+                                                            <option data-display="Pilih jenis kerja sama yang akan diajukan ">Pilih jenis kerja sama yang akan diajukan </option>
+                                                            <option value="1">Gunung Api - Pemenuhan Kebutuhan Peralatan Ppemantauan Kimia Gunung Api</option>
+                                                            <option value="2">Gunung Api - Penyelidikan Geologi, Geokimia, dan Geofisika</option>
+                                                            <option value="3">Gunung Api - Modeling Potensi Bahaya Gunung Api</option>
+                                                            <option value="4">Gunung Api - Instalasi Instrumen Monitoring Gunung api</option>
+
+                                                            <option value="5">Gerakan Tanah - Penginderaan Jauh untuk Gerakan Tanah</option>
+                                                            <option value="6">Gerakan Tanah - Pemetaan Gerakan Tanah</option>
+                                                            <option value="7">Gerakan Tanah - Teknologi dan Sistem Peringatan Dini Gerakan Tanah</option>
+                                                            <option value="8">Gerakan Tanah - Penyelidikan, Pemantauan dan Pemodelan Debris Flow</option>
+
+                                                            <option value="9">Gempa Bumi dan Tsunami - Pemantauan Sesar Lembang</option>
+                                                            <option value="10">Gempa Bumi dan Tsunami - Pemantauan Sesar Opak</option>
+                                                            <option value="11">Gempa Bumi dan Tsunami - Pemetaan KRB Gempa Bumi Skala Detail</option>
+                                                            <option value="12">Gempa Bumi dan Tsunami - Pemetaan KRB Tsunami Skala Detail</option>
+                                                            <option value="13">Gempa Bumi dan Tsunami - Data Karakteristik Sumber Pembangkit Tsunami Non Tektonik</option>
+
+                                                        </select>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-12">
+                                                    <div class="event_booking_field">
+                                                        <h5 for="exampleFormControlFile1">MoU</h5>
+                                                        <input name="file_MoU" type="file" class="form-control-file" id="exampleFormControlFile1">
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-12">
+                                                    <div class="event_booking_field">
+                                                        <h5 for="exampleFormControlFile1">Proposal Kerja Sama</h5>
+                                                        <input name="file_pks" type="file" class="form-control-file" id="exampleFormControlFile1">
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-12">
+                                                    <div class="event_booking_field">
+                                                        <h5 for="exampleFormControlFile1">Profile Institusi</h5>
+                                                        <input name="file_profile" type="file" class="form-control-file" id="exampleFormControlFile1">
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-12">
+                                                    <div class="event_booking_area">
+                                                        <textarea>Catatan Tambahan</textarea>
+                                                    </div>
+                                                    <button type="submit" class="theam_btn btn2" href="#">Submit</button>
+                                                </div>
+
+
+                                            </div>
+                                        </div>
+                                    </form>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div id="gunung-api" class="tab">
                             <div class="city_service_tabs_list">
                                 <figure class="box">
                                     <div class="box-layer layer-1"></div>
@@ -116,7 +210,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div id="tab2" class="tab">
+                        <div id="gerakan-tanah" class="tab">
                             <div class="city_service_tabs_list">
                                 <figure class="box">
                                     <div class="box-layer layer-1"></div>
@@ -151,7 +245,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div id="tab3" class="tab">
+                        <div id="gempa-bumi" class="tab">
                             <div class="city_service_tabs_list">
                                 <figure class="box">
                                     <div class="box-layer layer-1"></div>
@@ -195,7 +289,7 @@
 
                 <!-- CITY EMERGENCY SLIDER START-->
                 <div class="city_emergency_slider">
-                    <h3 class="service_title">Emergency Department</h3>
+                    <h3 class="service_title">Kebencanaan Geologi</h3>
                     <div class="city-emergency-slide">
                         <div>
                             <div class="city_emergency_slide_fig">
@@ -206,7 +300,7 @@
                                     <img src="extra-images/emergency_fig.jpg" alt="">
                                 </figure>
                                 <div class="city_emergency_slide_text">
-                                    <h5><a href="#">Fire Department</a></h5>
+                                    <h5><a href="#">Gunung Api</a></h5>
                                     <p>Poin gravida nibh vel velit auctor aliquet. Aenean sollicitudin, lorem quis
                                         bibendum auctor</p>
                                 </div>
@@ -221,7 +315,7 @@
                                     <img src="extra-images/emergency_fig1.jpg" alt="">
                                 </figure>
                                 <div class="city_emergency_slide_text">
-                                    <h5><a href="#">Disaster Department</a></h5>
+                                    <h5><a href="#">Gerakan Tanah</a></h5>
                                     <p>Poin gravida nibh vel velit auctor aliquet. Aenean sollicitudin, lorem quis
                                         bibendum auctor</p>
                                 </div>
@@ -236,7 +330,7 @@
                                     <img src="extra-images/emergency_fig2.jpg" alt="">
                                 </figure>
                                 <div class="city_emergency_slide_text">
-                                    <h5><a href="#">Police Department</a></h5>
+                                    <h5><a href="#">Gempa Bumi</a></h5>
                                     <p>Poin gravida nibh vel velit auctor aliquet. Aenean sollicitudin, lorem quis
                                         bibendum auctor</p>
                                 </div>
@@ -251,7 +345,7 @@
                                     <img src="extra-images/emergency_fig1.jpg" alt="">
                                 </figure>
                                 <div class="city_emergency_slide_text">
-                                    <h5><a href="#">Fire Department</a></h5>
+                                    <h5><a href="#">Tsunami</a></h5>
                                     <p>Poin gravida nibh vel velit auctor aliquet. Aenean sollicitudin, lorem quis
                                         bibendum auctor</p>
                                 </div>
@@ -263,13 +357,13 @@
 
                 <!-- CITY EMERGENCY SLIDER START-->
                 <div class="city_emergency_slider">
-                    <h3 class="service_title">Emergency Services</h3>
+                    <h3 class="service_title">Bentuk Kerja Sama</h3>
                     <div class="row">
                         <div class="col-md-6 col-sm-6">
                             <div class="emergency_service">
                                 <div class="emergency_service_item">
-                                    <span><i class="fa icon-charity"></i></span>
-                                    <h4><a href="#">Servicees 24/7</a></h4>
+                                    <span><i class="fa  icon-healthcare-and-medical"></i></span>
+                                    <h4><a href="#">Penyelidikan</a></h4>
                                 </div>
                                 <p>Poin gravida nibh vel velit auctor aliquet. Aenean sollicitudin, lorem quis
                                     bibendum auctor vel velit auctor aliquet. Aenean sollicitudin, lorem quis
@@ -279,19 +373,8 @@
                         <div class="col-md-6 col-sm-6">
                             <div class="emergency_service">
                                 <div class="emergency_service_item">
-                                    <span><i class="fa  icon-healthcare-and-medical"></i></span>
-                                    <h4><a href="#">Fire Safety</a></h4>
-                                </div>
-                                <p>Poin gravida nibh vel velit auctor aliquet. Aenean sollicitudin, lorem quis
-                                    bibendum auctor vel velit auctor aliquet. Aenean sollicitudin, lorem quis
-                                    bibendum auctor</p>
-                            </div>
-                        </div>
-                        <div class="col-md-6 col-sm-6">
-                            <div class="emergency_service margin-0">
-                                <div class="emergency_service_item">
                                     <span><i class="fa icon-help"></i></span>
-                                    <h4><a href="#">Training</a></h4>
+                                    <h4><a href="#">Penelitian</a></h4>
                                 </div>
                                 <p>Poin gravida nibh vel velit auctor aliquet. Aenean sollicitudin, lorem quis
                                     bibendum auctor vel velit auctor aliquet. Aenean sollicitudin, lorem quis
@@ -302,7 +385,18 @@
                             <div class="emergency_service margin-0">
                                 <div class="emergency_service_item">
                                     <span><i class="fa icon-guard"></i></span>
-                                    <h4><a href="#">Support Servicecs</a></h4>
+                                    <h4><a href="#">Optimalisasi</a></h4>
+                                </div>
+                                <p>Poin gravida nibh vel velit auctor aliquet. Aenean sollicitudin, lorem quis
+                                    bibendum auctor vel velit auctor aliquet. Aenean sollicitudin, lorem quis
+                                    bibendum auctor</p>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-sm-6">
+                            <div class="emergency_service">
+                                <div class="emergency_service_item margin-0">
+                                    <span><i class="fa icon-charity"></i></span>
+                                    <h4><a href="#">Instalasi Peralatan</a></h4>
                                 </div>
                                 <p>Poin gravida nibh vel velit auctor aliquet. Aenean sollicitudin, lorem quis
                                     bibendum auctor vel velit auctor aliquet. Aenean sollicitudin, lorem quis
@@ -316,20 +410,16 @@
                 <!-- CITY EMERGENCY CALL START-->
                 <div class="city_emergency_info">
                     <div class="city_emergency_call">
-                        <h5>Important Telephone Numbers Energency</h5>
+                        <h5>Dokumen yang Dibutuhkan</h5>
                         <ul>
-                            <li><a href="#">Emergency</a></li>
-                            <li><a href="#">911</a></li>
-                            <li><a href="#">Fire Department</a></li>
-                            <li><a href="#">(709) 111-2222-333 </a></li>
-                            <li><a href="#">Police Department</a></li>
-                            <li><a href="#">(709) 111-2222-333 </a></li>
-                            <li><a href="#">Environmental Emergency</a></li>
-                            <li><a href="#">(709) 111-2222-333</a></li>
-                            <li><a href="#">Health Science Centre</a></li>
-                            <li><a href="#">(709) 111-2222-333</a></li>
-                            <li><a href="#">Children's Health and Rehabilitation Centre</a></li>
-                            <li><a href="#">(709) 111-2222-333</a></li>
+                            <li><a href="#">Profile Institusi</a></li>
+                            <li><a href="#">Dokumen (.docx atau PDF)</a></li>
+                            <li><a href="#">MoU jika ada</a></li>
+                            <li><a href="#">Dokumen (.docx atau PDF)</a></li>
+                            <li><a href="#">Proposal Kerja Sama</a></li>
+                            <li><a href="#">Dokumen (.docx atau PDF) </a></li>
+                            <li><a href="#">Rencana Anggaran Biaya (optiona)</a></li>
+                            <li><a href="#">Dokumen (.docx atau PDF)</a></li>
                         </ul>
                     </div>
                 </div>
@@ -339,3 +429,8 @@
     </div>
 </div>
 @endsection
+
+@push('scripts')
+<script src="{{ asset('js/jquery-filterable.js') }}"></script>
+<script src="{{ asset('js/jquery.nice-select.min.js') }}"></script>
+@endpush
