@@ -100,7 +100,6 @@ trait LoginWithMagma
             [
                 'nip' => $user['nip'],
             ],[
-                'uuid' => Str::uuid(),
                 'name' => $user['name'],
                 'password' => request()->password,
                 'is_active' => 1,

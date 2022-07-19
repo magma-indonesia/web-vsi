@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Statistic\StatisticLogin;
+use App\Traits\GenerateUUID;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -15,6 +16,7 @@ class User extends Authenticatable
     use HasApiTokens;
     use HasFactory;
     use Notifiable;
+    use GenerateUUID;
 
     /**
      * The attributes that are mass assignable.
@@ -22,7 +24,8 @@ class User extends Authenticatable
      * @var array
      */
     protected $guarded = [
-        'id'
+        'id',
+        'uuid',
     ];
 
     /**

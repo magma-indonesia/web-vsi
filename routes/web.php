@@ -91,8 +91,8 @@ Route::prefix('layanan-publik')->name('layanan-publik.')->group(function () {
 
         // Layanan Publik > Kerja Sama > Informasi Kerja Sama
         Route::view(
-            'informasi-kerja-sama',
-            "$kerjaSama.informasi-kerja-sama.index"
+            'informasi',
+            "$kerjaSama.informasi.index"
         )->name('informasi-kerja-sama');
 
         // Layanan Publik > Kerja Sama > Dalam Negeri > Bilateral
