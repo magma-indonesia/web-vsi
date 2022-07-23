@@ -151,7 +151,7 @@ trait AuthenticatesUsers
 
         return $request->wantsJson()
             ? new JsonResponse([], 204)
-            : redirect('/');
+            : redirect('/')->withoutCookie('magma_user_token');
     }
 
     /**

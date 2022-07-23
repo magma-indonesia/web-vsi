@@ -12,6 +12,13 @@ use Illuminate\Validation\ValidationException;
 trait LoginWithMagma
 {
     /**
+     * Token MAGMA
+     *
+     * @var string|null
+     */
+    protected ?string $tokenUser = null;
+
+    /**
      * URL for MAGMA API
      *
      * @var string
@@ -109,14 +116,42 @@ trait LoginWithMagma
     /**
      *  Login is success or not
      *
-     * @param array $user
+     * @param array $response
      * @return boolean
      */
-    protected function successedLoginMagma(array $user): bool
+    protected function successedLoginMagma(array $response): bool
     {
-        Auth::login($this->saveToDatabase($user));
+        Auth::login($this->saveToDatabase($response['user']));
+        $this->tokenUser = $response['token'];
 
         return true;
+    }
+
+    /**
+     * Get response after login
+     *
+     * @param Request $request
+     * @return mixed
+     */
+    protected function responseLoginMagma(Request $request): mixed
+    {
+        return Http::magma()->post($this->magmaLoginApiUrl(), [
+            'username' => $request->username,
+            'password' => $request->password,
+        ])->json();
+    }
+
+    /**
+     * Get MAGMA User token
+     *
+     * @param Request $request
+     * @return string|null
+     */
+    protected function tokenUser(Request $request): ?string
+    {
+        $response = $this->responseLoginMagma($request);
+
+        return $this->tokenUser = $response['success'] ? $response['token'] : null;
     }
 
     /**
@@ -127,12 +162,9 @@ trait LoginWithMagma
      */
     public function attemptLoginMagma(Request $request): bool
     {
-        $response = Http::magma()->post($this->magmaLoginApiUrl(), [
-            'username' => $request->username,
-            'password' => $request->password,
-        ])->json();
+        $response = $this->responseLoginMagma($request);
 
         return $response['success'] ?
-            $this->successedLoginMagma($response['user']) : false;
+            $this->successedLoginMagma($response) : false;
     }
 }
