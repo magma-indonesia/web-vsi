@@ -1,15 +1,6 @@
 <div class="content ht-100v pd-0">
-    <div class="content-header">
-        <div class="content-search">
-            <i data-feather="search"></i>
-            <input type="search" class="form-control" placeholder="Search...">
-        </div>
-        <nav class="nav">
-            <a href="{{ route('home') }}" class="nav-link"><i data-feather="home"></i></a>
-            <a href="" class="nav-link"><i data-feather="user"></i></a>
-            <a href="" class="nav-link"><i data-feather="log-out"></i></a>
-        </nav>
-    </div>
+
+    @include('dashboard.template.content-header')
 
     <div class="content-body">
         <div class="container pd-x-0">
@@ -552,7 +543,9 @@
                                 </div>
                             </div><!-- row -->
                             <div class="chart-five">
-                                <div><canvas id="chartBar1"></canvas></div>
+                                <div>
+                                    <canvas id="chartBar1"></canvas>
+                                </div>
                             </div>
                         </div><!-- card-body -->
                     </div>
@@ -561,3 +554,8 @@
         </div><!-- container -->
     </div>
 </div>
+
+@if (config('app.debug'))
+    <script src="{{ asset('dashforge/assets/js/dashforge.sampledata.js') }}"></script>
+    <script src="{{ asset('dashforge/assets/js/dashboard-one.js') }}"></script>
+@endif

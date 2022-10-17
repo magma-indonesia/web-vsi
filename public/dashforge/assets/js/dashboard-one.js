@@ -162,44 +162,45 @@ $(function(){
     },
     grid: {
       borderWidth: 0,
-      labelMargin: 0
+        labelMargin: 0
     },
-    yaxis: {
-      show: false,
-      min: 0,
-      max: 60
-    },
-    xaxis: { show: false }
+      yaxis: {
+          show: false,
+          min: 0,
+          max: 60
+      },
+      xaxis: {show: false}
   });
 
-  $('#vmap').vectorMap({
-    map: 'usa_en',
-    showTooltip: true,
-    backgroundColor: '#fff',
-    color: '#d1e6fa',
-    colors: {
-      fl: '#69b2f8',
-      ca: '#69b2f8',
-      tx: '#69b2f8',
-      wy: '#69b2f8',
-      ny: '#69b2f8'
-    },
-    selectedColor: '#00cccc',
-    enableZoom: false,
-    borderWidth: 1,
-    borderColor: '#fff',
-    hoverOpacity: .85
-  });
+    // element not found, disabling
+    // $('#vmap').vectorMap({
+    //   map: 'usa_en',
+    //   showTooltip: true,
+    //   backgroundColor: '#fff',
+    //   color: '#d1e6fa',
+    //   colors: {
+    //     fl: '#69b2f8',
+    //     ca: '#69b2f8',
+    //     tx: '#69b2f8',
+    //     wy: '#69b2f8',
+    //     ny: '#69b2f8'
+    //   },
+    //   selectedColor: '#00cccc',
+    //   enableZoom: false,
+    //   borderWidth: 1,
+    //   borderColor: '#fff',
+    //   hoverOpacity: .85
+    // });
 
 
-  var ctxLabel = ['6am', '10am', '1pm', '4pm', '7pm', '10pm'];
-  var ctxData1 = [20, 60, 50, 45, 50, 60];
-  var ctxData2 = [10, 40, 30, 40, 55, 25];
+    var ctxLabel = ['6am', '10am', '1pm', '4pm', '7pm', '10pm'];
+    var ctxData1 = [20, 60, 50, 45, 50, 60];
+    var ctxData2 = [10, 40, 30, 40, 55, 25];
 
-  // Bar chart
-  var ctx1 = document.getElementById('chartBar1').getContext('2d');
-  var chartBar = new Chart(ctx1, {
-    type: 'horizontalBar',
+    // Bar chart
+    var ctx1 = document.getElementById('chartBar1').getContext('2d');
+    var chartBar = new Chart(ctx1, {
+        type: 'horizontalBar',
     data: {
       labels: ctxLabel,
       datasets: [{
@@ -274,20 +275,21 @@ $(function(){
 
     var s2 = flot2.getData();
     s2[1].color = '#f0f1f5';
-    flot2.setData(s2);
-    flot2.draw();
+      flot2.setData(s2);
+      flot2.draw();
 
-    chartBar.options.scales.xAxes[0].gridLines.color = '#eceef4';
-    chartBar.update();
+      chartBar.options.scales.xAxes[0].gridLines.color = '#eceef4';
+      chartBar.update();
 
-    $('.btn-dark').addClass('btn-white').removeClass('btn-dark');
-    $('#vmap').vectorMap('set', 'backgroundColor', '#fff');
+      $('.btn-dark').addClass('btn-white').removeClass('btn-dark');
+      $('#vmap').vectorMap('set', 'backgroundColor', '#fff');
   }
 
-  var hasMode = Cookies.get('df-mode');
-  if(hasMode === 'dark') {
-    darkMode();
-  } else {
-    lightMode();
-  }
+    // todo Cookie is not defined
+    // var hasMode = Cookies.get('df-mode');
+    // if(hasMode === 'dark') {
+    //   darkMode();
+    // } else {
+    //   lightMode();
+    // }
 })

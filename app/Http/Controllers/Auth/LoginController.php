@@ -34,7 +34,7 @@ class LoginController extends Controller
      */
     protected function updateStatisticLogin(Request $request): self
     {
-        $request->user()->statistik_logins()->updateOrCreate([
+        $request->user()->loginStatistic()->updateOrCreate([
             'user_id' => auth()->user()->id,
             'ip_address' => $request->ip()
         ])->increment('hit');

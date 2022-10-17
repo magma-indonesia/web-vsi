@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use App\Models\Statistic\StatisticLogin;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -15,6 +14,8 @@ class User extends Authenticatable
     use HasApiTokens;
     use HasFactory;
     use Notifiable;
+
+    protected $table = 'a_users';
 
     /**
      * The attributes that are mass assignable.
@@ -61,7 +62,7 @@ class User extends Authenticatable
      * @param  \Illuminate\Database\Eloquent\Builder  $query
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public static function scopeActive(Builder $query)
+    public static function scopeActive(Builder $query): \Illuminate\Database\Eloquent\Builder
     {
         return $query->where('is_active', '1');
     }
@@ -71,7 +72,7 @@ class User extends Authenticatable
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function statistik_logins()
+    public function loginStatistic(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(StatisticLogin::class);
     }

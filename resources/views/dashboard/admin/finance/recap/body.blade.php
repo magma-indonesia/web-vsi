@@ -7,7 +7,7 @@
 
 @include('dashboard.template.sidebar')
 
-@include($contents)
+@include('dashboard.template.body')
 
 @include('dashboard.template.script')
 

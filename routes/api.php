@@ -1,6 +1,5 @@
 <?php
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,3 +16,15 @@ use Illuminate\Support\Facades\Route;
 // Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 //     return $request->user();
 // });
+
+Route::get('search-city', [\App\Http\Controllers\AdministrationController::class, 'searchCity'])
+    ->middleware('log.route')
+    ->name('api.search-city');
+
+Route::get('search-employee', [\App\Http\Controllers\AdministrationController::class, 'searchEmployee'])
+    ->middleware('log.route')
+    ->name('api.search-employee');
+
+Route::get('search-activity/{segment}', [\App\Http\Controllers\AdministrationController::class, 'searchActivity'])
+    ->middleware('log.route')
+    ->name('api.search-activity');
