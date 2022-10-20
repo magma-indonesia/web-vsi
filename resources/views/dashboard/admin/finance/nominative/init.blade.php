@@ -59,7 +59,6 @@
 </div>
 
 {{-- ASSETS --}}
-{{-- ASSETS --}}
 <link href="{{ asset('dashforge/lib/select2/css/select2.min.css') }}" rel="stylesheet"/>
 <link href="{{ asset('dashforge/lib/select2/css/select2-bootstrap-5-theme.min.css') }}" rel="stylesheet"/>
 {{-- ASSETS --}}
@@ -72,9 +71,12 @@
         const opts = {
             'signal': 'fire',
             'next': '{{ route($nominativeRouteName, ['id' => '#TMP#'], false) }}',
-            'searchActivityUrl': '{{ $searchActivityRouteName }}'
+            'searchActivityUrl': '{{ $searchActivityRouteName }}',
+            'saveMasterNominativeUrl': '{{ route($saveMasterNominativeRouteName, null, false) }}',
+            'csrfToken': '{{ csrf_token() }}'
         };
         const masterNominativeHandle = MasterNominativeHandler.construct(opts);
         masterNominativeHandle.init();
     });
 </script>
+{{-- SCRIPTS --}}

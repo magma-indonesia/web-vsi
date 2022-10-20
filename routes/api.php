@@ -28,3 +28,7 @@ Route::get('search-employee', [\App\Http\Controllers\AdministrationController::c
 Route::get('search-activity/{segment}', [\App\Http\Controllers\AdministrationController::class, 'searchActivity'])
     ->middleware('log.route')
     ->name('api.search-activity');
+
+Route::get('get-mbp', [\App\Http\Controllers\AdministrationController::class, 'getMasterBudgetPlan'])
+    ->middleware('log.route')
+    ->name('api.get-mbp');

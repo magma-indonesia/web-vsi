@@ -21,7 +21,20 @@ var MasterNominativeHandler = {
                             // retrieve saved master nominative id
                             // replace route placeholder id
                             // set window location to form input nominative
-                            window.location = options.next;
+                            var data = {
+                                '_token': options.csrfToken,
+                                'id_activity': $('#code-mak').val(),
+                                'code': $('#id-sppd').val() + '/SPD/PPK/' + $('#code-mak').text() + $('#budget-year').val()
+                            }
+
+                            $.post(options.saveMasterNominativeUrl, data)
+                                .done(function (data) {
+                                    options.next = options.next.replace("#TMP#", data.id);
+                                    window.location = options.next;
+                                }).fail(function (xhr, statusText, errorThrown) {
+                                alert('Nominatif sudah terdaftar!');
+                                // window.location.reload();
+                            });
                         }, 500);
                     }
                 });
@@ -32,7 +45,7 @@ var MasterNominativeHandler = {
                     return false;
                 }
 
-                if ($('#code-mak').val().length === 0) {
+                if ($('#code-mak').val() == null) {
                     alert('NO MAK tidak boleh kosong!');
                     return false;
                 }
@@ -79,10 +92,10 @@ var MasterNominativeHandler = {
                     }
                 });
 
-                activitySelect.on('select2:selecting', function (e) {
-                    var data = e.params.args.data;
-                    options.next = options.next.replace("#TMP#", data.id);
-                });
+                // activitySelect.on('select2:selecting', function (e) {
+                //     var data = e.params.args.data;
+                //     options.next = options.next.replace("#TMP#", data.id);
+                // });
             },
             init: function () {
                 const self = this;

@@ -174,7 +174,9 @@
                             <i data-feather="shopping-bag"></i><span>Nominatif</span>
                         </a>
                     </li>
-                    <li class="nav-item"><a href="{{ route('profile.sejarah') }}"><i data-feather="clock"></i><span>Tracking SPPD</span></a>
+                    <li class="nav-item {{ request()->is('*spd*') ? 'active' : '' }}">
+                        <a href="{{ route('dashboard.admin.finance.get.track-spd') }}">
+                            <i data-feather="clock"></i><span>Tracking SPPD</span></a>
                     </li>
                 </ul>
             </li>
