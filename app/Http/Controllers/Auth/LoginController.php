@@ -9,6 +9,7 @@ use App\Traits\AuthenticatesUsers;
 use App\Traits\LoginWithMagma;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cookie;
 
 class LoginController extends Controller
 {
@@ -43,14 +44,33 @@ class LoginController extends Controller
     }
 
     /**
+     * Set cookies for MAGMA User token
+     *
+     * @param Request $request
+     * @return self
+     */
+    protected function setCookiesTokenUser(Request $request): self
+    {
+        if (isset($this->tokenUser)) {
+            Cookie::queue('magma_user_token', $this->tokenUser, 60 * 24);
+            return $this;
+        }
+
+        Cookie::queue('magma_user_token', $this->tokenUser($request), 60 * 24);
+
+        return $this;
+    }
+
+    /**
      * Get the successed login response instance.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\RedirectResponse
      */
     protected function sendSuccessedLoginResponse(Request $request)
     {
         return $this->userIsActive($request)
+            ->setCookiesTokenUser($request)
                 ->updateStatisticLogin($request)
                 ->sendLoginResponse($request);
     }

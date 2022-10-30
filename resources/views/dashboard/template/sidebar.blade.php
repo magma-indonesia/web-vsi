@@ -52,6 +52,13 @@
                 </a>
             </li>
 
+            <li class="nav-item {{ request()->routeIs('dashboard.pegawai.index') ? 'active' : '' }}">
+                <a href="{{ route('dashboard.pegawai.index') }}" class="nav-link">
+                    <i data-feather="user"></i>
+                    <span>Pegawai</span>
+                </a>
+            </li>
+
             <li class="nav-item {{ request()->routeIs('dashboard.index') ? 'active' : '' }}">
                 <a href="{{ route('dashboard.index') }}" class="nav-link">
                     <i data-feather="bar-chart-2"></i>
@@ -64,11 +71,12 @@
                 <a href="" class="nav-link"><i data-feather="layers"></i> <span>Profile</span></a>
                 <ul>
                     <li class="nav-item"><a href="{{ route('profile.tentang-pvmbg') }}"><i
-                                data-feather="shopping-bag"></i><span>Tentang PVMBG</span></a></li>
+                                data-feather="shopping-bag"></i> <span>Tentang PVMBG</span></a></li>
                     <li class="nav-item"><a href="{{ route('profile.struktur-organisasi') }}"><i
-                                data-feather="git-merge"></i><span>Struktur Organisasi</span></a></li>
-                    <li class="nav-item"><a href="{{ route('profile.sejarah') }}"><i data-feather="clock"></i><span>Sejarah</span></a>
-                    </li>
+                                data-feather="git-merge"></i>
+                            <span>Struktur Organisasi</span></a></li>
+                    <li class="nav-item"><a href="{{ route('profile.sejarah') }}"><i data-feather="clock"></i>
+                            <span>Sejarah</span></a></li>
                 </ul>
             </li>
             <li class="nav-item with-sub">
@@ -131,12 +139,13 @@
                     </li>
                     <li class="nav-item"><a href="#"><i data-feather="info"></i><span>Diseminasi Informasi</span></a>
                     </li>
-                    <li class="nav-item with-sub">
+                    <li class="nav-item with-sub {{ request()->routeIs('dashboard.layanan-publik.kerja-sama.informasi') ? 'active' : '' }}">
                         <a href="" class="nav-link"><i data-feather="users"></i> <span>Kerja Sama</span></a>
                         <ul>
-                            <li class="nav-item"><a href="page-profile-view.html">Informasi Kerja Sama</a></li>
-                            <li class="nav-item"><a href="page-connections.html">Dalam Negeri</a></li>
-                            <li class="nav-item"><a href="page-groups.html">Luar Negeri</a></li>
+                            <li><a href="{{ route('dashboard.layanan-publik.kerja-sama.informasi') }}">Informasi Kerja
+                                    Sama</a></li>
+                            <li><a href="page-connections.html">Dalam Negeri</a></li>
+                            <li><a href="page-groups.html">Luar Negeri</a></li>
                         </ul>
                     </li>
                     <li class="nav-item"><a href="#"><i data-feather="database"></i><span>Permohonan Data</span></a>

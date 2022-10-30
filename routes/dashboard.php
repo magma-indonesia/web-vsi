@@ -2,14 +2,11 @@
 
 use App\Http\Controllers\AdministrationController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 // all route here have prefix dashboard already
 // todo, FIND THE FUCK OUT WHY!?
-
-// Default routing dashboard
-Route::get('/', [DashboardController::class, 'index'])
-    ->name('index');
 
 // Tata Usaha
 Route::name('admin.')
@@ -64,3 +61,44 @@ Route::name('admin.')
         )->name('finance.post.get-spd');
 
     });
+
+// Default routing dashboard
+Route::get('/', [DashboardController::class, 'index'])
+    ->name('index');
+
+// Pegawai
+Route::prefix('pegawai')->name('pegawai.')->group(function () {
+
+    // Pegawai > Index
+    Route::get('/', [UserController::class, 'index'])->name('index');
+
+    // Pegawai > Create
+    Route::get('create', [UserController::class, 'create'])->name('create');
+
+    // Pegawai > Show
+    Route::get('/{user}', [UserController::class, 'show'])->name('show');
+
+    // Pegawai > Update
+    Route::put('/{user}', [UserController::class, 'store'])->name('update');
+
+});
+
+// Layanan Publik
+Route::prefix('layanan-publik')->name('layanan-publik.')->group(function () {
+
+    $layananPublik = 'dashboard.layanan-publik';
+
+    // Layanan Publik > Kerja Sama > Informasi Kerja Sama
+    Route::prefix('kerja-sama')->name('kerja-sama.')->group(function () use ($layananPublik) {
+
+        $kerjaSama = "$layananPublik.kerja-sama";
+
+        // Layanan Publik > Kerja Sama > Informasi Kerja Sama
+        Route::view(
+            'informasi',
+            "$kerjaSama.informasi.index"
+        )->name('informasi');
+
+    });
+
+});

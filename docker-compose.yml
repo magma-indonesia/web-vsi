@@ -22,6 +22,11 @@ services:
             DB_DATABASE_PMBGI: pmbgi
             DB_USERNAME_PMBGI: pmbgi
             DB_PASSWORD_PMBGI: pmbgi
+            SIPEG_API_KEY: SIPEG
+            SIPEG_API_USERNAME: magma
+            SIPEG_API_PASSWORD: 4ntot4mp4nsekali2022
+            SIPEG_API_URL: http://172.16.23.15
+            SIPEG_PHOTO_URL: https://ngantor.esdm.go.id/sipeg/media/person/
             REDIS_HOST: redis_tmp
         working_dir: /var/www/html
         volumes:

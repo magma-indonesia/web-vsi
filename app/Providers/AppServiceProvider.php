@@ -3,9 +3,8 @@
 namespace App\Providers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\ServiceProvider;
 use Illuminate\Pagination\Paginator;
-use Illuminate\Support\Facades\Http;
+use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -30,19 +29,6 @@ class AppServiceProvider extends ServiceProvider
 
         Request::macro('wantsAjax', function () {
             return request()->ajax();
-        });
-
-        Http::macro('magma', function() {
-            return Http::timeout(5)
-                ->acceptJson()
-                ->baseUrl(config('magma.api_url'));
-        });
-
-        Http::macro('sipeg', function () {
-            return Http::timeout(30)
-                ->withHeaders(config('sipeg.headers'))
-                ->acceptJson()
-                ->baseUrl(config('sipeg.url'));
         });
     }
 }

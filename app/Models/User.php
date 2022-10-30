@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Statistic\StatisticLogin;
+use App\Traits\GenerateUUID;
 use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -14,6 +15,7 @@ class User extends Authenticatable
     use HasApiTokens;
     use HasFactory;
     use Notifiable;
+    use GenerateUUID;
 
     protected $table = 'a_users';
 
@@ -23,7 +25,8 @@ class User extends Authenticatable
      * @var array
      */
     protected $guarded = [
-        'id'
+        'id',
+        'uuid',
     ];
 
     /**
