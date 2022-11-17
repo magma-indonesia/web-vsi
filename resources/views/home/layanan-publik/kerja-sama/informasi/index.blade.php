@@ -68,8 +68,8 @@
 
                         <!-- CITY NOTICE START-->
                         <div class="city_notice">
-                            <h4>Pengumuman Penting</h4>
-                            <p>Beberapa syarat yang dibutuhkan dalam melakukan pengajuan kerja sama</p>
+                            <h4>Infografis Kerjasama</h4>
+                            <p>Download Infografis untuk mengetahui alur kerjasama lebih detil</p>
                             <a class="theam_btn" href="#" tabindex="0">Download PDF</a>
                         </div>
                         <!-- CITY NOTICE END-->
@@ -88,6 +88,24 @@
                                         <img src="{{ asset("extra-images/permohonan-kerja-sama.png") }}" alt="">
                                     </figure>
                                     <div class="city_service_tabs_text">
+                                        <!-- CITY EMERGENCY CALL START-->
+                                        <div class="city_emergency_info">
+                                            <div class="city_emergency_call">
+                                                <h5>Dokumen yang Dibutuhkan</h5>
+                                                <ul>
+                                                    <li><a href="#">Profile Institusi</a></li>
+                                                    <li><a href="#">Dokumen (.docx atau PDF)</a></li>
+                                                    <li><a href="#">MoU jika ada</a></li>
+                                                    <li><a href="#">Dokumen (.docx atau PDF)</a></li>
+                                                    <li><a href="#">Proposal Kerja Sama</a></li>
+                                                    <li><a href="#">Dokumen (.docx atau PDF) </a></li>
+                                                    <li><a href="#">Rencana Anggaran Biaya (optional)</a></li>
+                                                    <li><a href="#">Dokumen (.docx atau PDF)</a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <!-- CITY EMERGENCY CALL END-->
+
                                         <h3>Form Pengajuan Kerja Sama</h3>
 
                                         <p>Ajukan permohonan kerja sama di bidang kebencanaan geologi melalui halaman
@@ -130,21 +148,29 @@
                                                                 <div class="event_booking_field">
                                                                     <select class="small">
                                                                         <option>Mr.</option>
+                                                                        <option>Ms.</option>
                                                                         <option>Mrs.</option>
                                                                         <option>Dr.</option>
                                                                         <option>Prof.</option>
                                                                     </select>
                                                                 </div>
                                                             </div>
-                                                            <div class="col-md-5">
+                                                            <div class="col-md-3">
                                                                 <div class="event_booking_field">
-                                                                    <input name="name" type="text" placeholder="Nama">
+                                                                    <input name="f_name" type="text"
+                                                                           placeholder="Nama Depan">
                                                                 </div>
                                                             </div>
-                                                            <div class="col-md-4">
+                                                            <div class="col-md-3">
                                                                 <div class="event_booking_field">
-                                                                    <input name="email" type="email"
-                                                                           placeholder="Email">
+                                                                    <input name="m_email" type="text"
+                                                                           placeholder="Nama Tengah">
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-3">
+                                                                <div class="event_booking_field">
+                                                                    <input name="l_email" type="text"
+                                                                           placeholder="Nama Belakang">
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-1">
@@ -154,7 +180,13 @@
                                                                     </button>
                                                                 </div>
                                                             </div>
-                                                            <div class="col-md-11">
+                                                            <div class="col-md-5">
+                                                                <div class="event_booking_field">
+                                                                    <input name="email" type="email"
+                                                                           placeholder="Email">
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6">
                                                                 <div class="event_booking_field">
                                                                     <input name="organisasi" type="text"
                                                                            placeholder="Institusi">
@@ -187,7 +219,8 @@
                                                         <div class="event_booking_field">
                                                             <select name="gov-type" id="gov-type" class="small">
                                                                 <option value="gov">Pemerintah</option>
-                                                                <option value="pvt">Swasta</option>
+                                                                <option value="uni">Univeristy</option>
+                                                                <option value="ngo">NGO</option>
                                                                 <option value="others">Lainnya</option>
                                                             </select>
                                                         </div>
@@ -215,27 +248,37 @@
                                                     </div>
 
                                                     <div class="col-md-12">
-                                                        <div class="event_booking_area">
-                                                            <label>Tugas Pokok dan Fungsi Organisasi</label>
-                                                            <textarea placeholder=""></textarea>
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="col-md-12">
-                                                        <label>Orang-orang yang akan terlibat</label>
+                                                        <label>Personnel</label>
                                                     </div>
                                                     <div class="dynamic-involved-wrapper">
                                                         <div class="dynamic-involved">
-                                                            <div class="col-md-7">
+                                                            <div class="col-md-2">
                                                                 <div class="event_booking_field">
-                                                                    <input name="name" type="text"
-                                                                           placeholder="Nama Lengkap dengan Gelar">
+                                                                    <select class="small">
+                                                                        <option>Mr.</option>
+                                                                        <option>Ms.</option>
+                                                                        <option>Mrs.</option>
+                                                                        <option>Dr.</option>
+                                                                        <option>Prof.</option>
+                                                                    </select>
                                                                 </div>
                                                             </div>
-                                                            <div class="col-md-4">
+                                                            <div class="col-md-3">
                                                                 <div class="event_booking_field">
-                                                                    <input name="email" type="email"
-                                                                           placeholder="Email">
+                                                                    <input name="f_name" type="text"
+                                                                           placeholder="Nama Depan">
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-3">
+                                                                <div class="event_booking_field">
+                                                                    <input name="m_email" type="text"
+                                                                           placeholder="Nama Tengah">
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-3">
+                                                                <div class="event_booking_field">
+                                                                    <input name="l_email" type="text"
+                                                                           placeholder="Nama Belakang">
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-1">
@@ -246,7 +289,13 @@
                                                                     </button>
                                                                 </div>
                                                             </div>
-                                                            <div class="col-md-11">
+                                                            <div class="col-md-5">
+                                                                <div class="event_booking_field">
+                                                                    <input name="email" type="email"
+                                                                           placeholder="Email">
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6">
                                                                 <div class="event_booking_field">
                                                                     <input name="organisasi" type="text"
                                                                            placeholder="Institusi">
@@ -314,7 +363,7 @@
                                                     </div>
 
                                                     <div class="col-md-12">
-                                                        <label>Mekanisme Funding</label>
+                                                        <label>Mekanisme Pendanaan</label>
                                                         <div class="event_booking_field">
                                                             <textarea name="funding" placeholder=""></textarea>
                                                         </div>
@@ -374,7 +423,7 @@
                                             diperlukannya antisipasi kemungkinan timbulnya bencana akibat bahaya gunung
                                             api tersebut secara komprehensif dalam upaya
                                             pengurangan risiko bencana erupsi gunung api.</p>
-                                        <h5>Tugas dan Peran</h5>
+                                        <h5>Tugas dan Fungsi</h5>
                                         <p>Kelompok substansi gunung api memiliki tugas antara lain pengamatan,
                                             penetapan status, peringatan dini, rekomendasi
                                             teknis mitigasi bencana gunung api; penyelidikan, pemantauan, pemetaan
@@ -422,7 +471,7 @@
                                             zona yang berbeda dari zona dengan gerakan tanah yang tinggi, menengah,
                                             rendah, dan sangat rendah.</p>
 
-                                        <h5>Tugas dan Peran</h5>
+                                        <h5>Tugas dan Fungsi</h5>
                                         <p>Tugas pokok Kelompok Substansi Mitigasi Bencana Gerakan Tanah melingkupi
                                             penyiapan penyusunan kebijakan teknis, norma,
                                             standar, prosedur, kriteria, rencana, pelaporan, pemetaan, pemodelan bahaya,
@@ -486,7 +535,7 @@
                                             kejadian historis tsunami, lokasi pantai yang terkait dengan episenter, dan
                                             perkiraan tinggi gelombang.</p>
 
-                                        <h5>Tugas dan Peran</h5>
+                                        <h5>Tugas dan Fungsi</h5>
                                         <p>Kelompok Substansi Mitigasi Gempa Bumi dan Tsunami memiliki tugas penyiapan
                                             penyusunan kebijakan teknis, norma, standar,
                                             prosedur, kriteria, rencana, pelaporan, pemetaan dan rekomendasi teknis
@@ -594,7 +643,7 @@
                                 <div class="emergency_service">
                                     <div class="emergency_service_item">
                                         <span><i class="fa icon-help"></i></span>
-                                        <h4><a href="#">Penelitian</a></h4>
+                                        <h4><a href="#">Pemetaan</a></h4>
                                     </div>
                                     <p>Poin gravida nibh vel velit auctor aliquet. Aenean sollicitudin, lorem quis
                                         bibendum auctor vel velit auctor aliquet. Aenean sollicitudin, lorem quis
@@ -605,7 +654,7 @@
                                 <div class="emergency_service margin-0">
                                     <div class="emergency_service_item">
                                         <span><i class="fa icon-guard"></i></span>
-                                        <h4><a href="#">Optimalisasi</a></h4>
+                                        <h4><a href="#">Peningkatan Kapasitas SDM</a></h4>
                                     </div>
                                     <p>Poin gravida nibh vel velit auctor aliquet. Aenean sollicitudin, lorem quis
                                         bibendum auctor vel velit auctor aliquet. Aenean sollicitudin, lorem quis
@@ -616,7 +665,7 @@
                                 <div class="emergency_service">
                                     <div class="emergency_service_item margin-0">
                                         <span><i class="fa icon-charity"></i></span>
-                                        <h4><a href="#">Instalasi Peralatan</a></h4>
+                                        <h4><a href="#">Sistem Pemantauan Kebencanaan Geologi</a></h4>
                                     </div>
                                     <p>Poin gravida nibh vel velit auctor aliquet. Aenean sollicitudin, lorem quis
                                         bibendum auctor vel velit auctor aliquet. Aenean sollicitudin, lorem quis
@@ -626,24 +675,6 @@
                         </div>
                     </div>
                     <!-- CITY EMERGENCY SLIDER START-->
-
-                    <!-- CITY EMERGENCY CALL START-->
-                    <div class="city_emergency_info">
-                        <div class="city_emergency_call">
-                            <h5>Dokumen yang Dibutuhkan</h5>
-                            <ul>
-                                <li><a href="#">Profile Institusi</a></li>
-                                <li><a href="#">Dokumen (.docx atau PDF)</a></li>
-                                <li><a href="#">MoU jika ada</a></li>
-                                <li><a href="#">Dokumen (.docx atau PDF)</a></li>
-                                <li><a href="#">Proposal Kerja Sama</a></li>
-                                <li><a href="#">Dokumen (.docx atau PDF) </a></li>
-                                <li><a href="#">Rencana Anggaran Biaya (optiona)</a></li>
-                                <li><a href="#">Dokumen (.docx atau PDF)</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <!-- CITY EMERGENCY CALL END-->
                 </div>
             </div>
         </div>
@@ -657,8 +688,8 @@
     <script type="text/javascript">
         $(document).ready(function () {
             var collabHandle = CollabHandler.construct({
-                maxPicField: 3,
-                maxInvolvedField: 3
+                maxPicField: 2,
+                maxInvolvedField: 5
             });
             collabHandle.init();
         });
