@@ -180,6 +180,7 @@ return [
         App\Providers\RouteServiceProvider::class,
         App\Providers\MagmaServiceProvider::class,
         App\Providers\SipegServiceProvider::class,
+        Itstructure\LaRbac\RbacServiceProvider::class
 
     ],
 

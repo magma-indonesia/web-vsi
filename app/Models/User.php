@@ -8,14 +8,22 @@ use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Itstructure\LaRbac\Interfaces\RbacUserInterface;
+use Itstructure\LaRbac\Traits\Administrable;
 use Laravel\Sanctum\HasApiTokens;
 
-class User extends Authenticatable
+class User extends Authenticatable implements RbacUserInterface
 {
     use HasApiTokens;
     use HasFactory;
     use Notifiable;
     use GenerateUUID;
+    use Notifiable;
+    use Administrable;
+
+    protected $fillable = [
+        'name', 'email', 'password', 'roles'
+    ];
 
     protected $table = 'a_users';
 
@@ -78,5 +86,13 @@ class User extends Authenticatable
     public function loginStatistic(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(StatisticLogin::class);
+    }
+
+    public function getAvatar()
+    {
+        $defaultAvatarPlaceholder = 'https://via.placeholder.com/500';
+        return $this->attributes['avatar'] == null || '' ?
+            $defaultAvatarPlaceholder :
+            config('sipeg.photo_url') . $this->attributes['avatar'];
     }
 }

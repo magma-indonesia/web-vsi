@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Administration;
 
 use App\Models\Activity;
 use App\Models\BudgetPlan;
@@ -19,7 +19,7 @@ use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
-class AdministrationController extends BaseController
+class FinanceController extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 

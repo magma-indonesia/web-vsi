@@ -1,6 +1,7 @@
 <?php
 
-use App\Http\Controllers\AdministrationController;
+use App\Http\Controllers\Administration\AdministrationController;
+use App\Http\Controllers\Administration\FinanceController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -13,51 +14,74 @@ Route::name('admin.')
     ->middleware('auth')
     ->group(function () {
 
+        // employee
+        // internal - todo finish internal management user
+        Route::get(
+            '/admin/employee/index',
+            [AdministrationController::class, 'index']
+        )->name('employee.index');
+
+        Route::get(
+            '/admin/employee/get',
+            [AdministrationController::class, 'getEmployee']
+        )->name('employee.get');
+
+        // sipeg
+        Route::get(
+            '/admin/employee/sipeg',
+            [AdministrationController::class, 'indexSipeg']
+        )->name('employee.sipeg');
+
+        Route::get(
+            '/admin/employee/get-sipeg',
+            [AdministrationController::class, 'getEmployeeSipeg']
+        )->name('employee.get-sipeg');
+
         // nominative
         Route::get(
             '/admin/finance/input-nominative',
-            [AdministrationController::class, 'masterNominative']
+            [FinanceController::class, 'masterNominative']
         )->name('finance.get.master-nominative');
 
         Route::post(
             '/admin/finance/input-nominative',
-            [AdministrationController::class, 'saveMasterNominative']
+            [FinanceController::class, 'saveMasterNominative']
         )->name('finance.post.master-nominative');
 
         Route::get(
             '/admin/finance/input-nominative/step/nom/{id}',
-            [AdministrationController::class, 'nominative']
+            [FinanceController::class, 'nominative']
         )->name('finance.get.nominative');
 
         Route::get(
             '/admin/finance/input-nominative/view/{id}',
-            [AdministrationController::class, 'viewNominative']
+            [FinanceController::class, 'viewNominative']
         )->name('finance.view.nominative');
 
         Route::post(
             '/admin/finance/input-nominative/step/nom',
-            [AdministrationController::class, 'saveNominative']
+            [FinanceController::class, 'saveNominative']
         )->name('finance.post.nominative');
 
         Route::post(
             '/admin/finance/input-nominative/step/bp',
-            [AdministrationController::class, 'saveBudgetPlan']
+            [FinanceController::class, 'saveBudgetPlan']
         )->name('finance.post.bp');
 
         Route::post(
             '/admin/finance/input-nominative/step/cpd',
-            [AdministrationController::class, 'saveCostPlanDetail']
+            [FinanceController::class, 'saveCostPlanDetail']
         )->name('finance.post.cpd');
 
         // tracking sppd
         Route::get(
             '/admin/finance/track-spd',
-            [AdministrationController::class, 'trackSpd']
+            [FinanceController::class, 'trackSpd']
         )->name('finance.get.track-spd');
 
         Route::get(
             '/admin/finance/get-spd',
-            [AdministrationController::class, 'getDataSpd']
+            [FinanceController::class, 'getDataSpd']
         )->name('finance.post.get-spd');
 
     });

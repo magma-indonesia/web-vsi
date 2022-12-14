@@ -71,8 +71,8 @@ class LoginController extends Controller
     {
         return $this->userIsActive($request)
             ->setCookiesTokenUser($request)
-                ->updateStatisticLogin($request)
-                ->sendLoginResponse($request);
+            ->updateStatisticLogin($request)
+            ->sendLoginResponse($request);
     }
 
     /**

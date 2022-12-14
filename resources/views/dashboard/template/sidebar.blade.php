@@ -9,7 +9,8 @@
     <div class="aside-body">
         <div class="aside-loggedin">
             <div class="d-flex align-items-center justify-content-start">
-                <a href="" class="avatar"><img src="https://via.placeholder.com/500" class="rounded-circle" alt=""></a>
+                <a href="" class="avatar"><img src="{{ auth()->user()->getAvatar() }}" class="rounded-circle"
+                                               alt=""></a>
                 <div class="aside-alert-link">
                     <a href="" class="new" data-toggle="tooltip" title="You have 2 unread messages"><i
                             data-feather="message-square"></i></a>
@@ -160,32 +161,45 @@
             </li>
 
             <li class="nav-label mg-t-25">Tata Usaha</li>
-            <li class="nav-item {{ request()->is('*employee*') ? 'active' : '' }}"><a href="" class="nav-link"><i
-                        data-feather="shopping-bag"></i><span>Sub Kepegawaian</span></a></li>
+            <li class="nav-item with-sub {{ request()->is('*employee*') ? 'active show' : '' }}">
+                <a href="" class="nav-link"><i data-feather="shopping-bag"> </i><span>Sub Kepegawaian</span></a>
+                <ul>
+                    <li class="nav-item {{ request()->is('*employee/index') ? 'active' : '' }}">
+                        <a href="{{ route('dashboard.admin.employee.index') }}"><i data-feather="users"></i><span>Pegawai</span></a>
+                    </li>
+                    <li class="nav-item {{ request()->is('*sipeg*') ? 'active' : '' }}">
+                        <a href="{{ route('dashboard.admin.employee.sipeg') }}"><i data-feather="users"></i><span>Pegawai - SIPEG</span></a>
+                    </li>
+                </ul>
+            </li>
             <li class="nav-item with-sub {{ request()->is('*bmn*') ? 'active show' : '' }}">
                 <a href="" class="nav-link"><i data-feather="layers"></i> <span>Sub BMN</span></a>
                 <ul>
-                    <li class="nav-item"><a href="{{ route('profile.struktur-organisasi') }}"><i
-                                data-feather="git-merge"></i><span>Rekapitulasi</span></a></li>
-                    <li class="nav-item"><a href="{{ route('profile.tentang-pvmbg') }}"><i
-                                data-feather="shopping-bag"></i><span>Daftar Barang</span></a></li>
-                    <li class="nav-item"><a href="{{ route('profile.sejarah') }}"><i data-feather="clock"></i><span>Keluar-Masuk Barang</span></a>
+                    <li class="nav-item">
+                        <a href="{{ route('profile.struktur-organisasi') }}"><i data-feather="git-merge"></i><span>Rekapitulasi</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('profile.tentang-pvmbg') }}"><i data-feather="shopping-bag"></i><span>Daftar Barang</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('profile.sejarah') }}"><i
+                                data-feather="clock"></i><span>Keluar-Masuk Barang</span></a>
                     </li>
                 </ul>
             </li>
             <li class="nav-item with-sub {{ request()->is('*finance*') ? 'active show' : '' }}">
                 <a href="" class="nav-link"><i data-feather="layers"></i> <span>Sub Keuangan</span></a>
                 <ul>
-                    <li class="nav-item"><a href="{{ route('profile.struktur-organisasi') }}"><i
-                                data-feather="git-merge"></i><span>Rekapitulasi</span></a></li>
+                    <li class="nav-item">
+                        <a href="{{ route('profile.struktur-organisasi') }}"><i data-feather="git-merge"></i><span>Rekapitulasi</span></a>
+                    </li>
                     <li class="nav-item {{ request()->is('*nominative*') ? 'active' : '' }}">
-                        <a href="{{ route('dashboard.admin.finance.get.master-nominative') }}">
-                            <i data-feather="shopping-bag"></i><span>Nominatif</span>
-                        </a>
+                        <a href="{{ route('dashboard.admin.finance.get.master-nominative') }}"><i
+                                data-feather="shopping-bag"></i><span>Nominatif</span></a>
                     </li>
                     <li class="nav-item {{ request()->is('*spd*') ? 'active' : '' }}">
-                        <a href="{{ route('dashboard.admin.finance.get.track-spd') }}">
-                            <i data-feather="clock"></i><span>Tracking SPPD</span></a>
+                        <a href="{{ route('dashboard.admin.finance.get.track-spd') }}"><i
+                                data-feather="clock"></i><span>Tracking SPPD</span></a>
                     </li>
                 </ul>
             </li>
