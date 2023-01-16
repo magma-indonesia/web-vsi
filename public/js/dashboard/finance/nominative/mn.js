@@ -14,7 +14,9 @@ var MasterNominativeHandler = {
                 // kosmetik banget
                 $('#initiate-nominative').on('click', function (e) {
                     if (self._validate()) {
-                        $('#initiate-nominative').html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>');
+                        $('#initiate-nominative').html('' +
+                            '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>'
+                        );
                         setTimeout(function (e) {
                             // do ajax post here,
                             // this entrypoint should act as a save or edit func
@@ -72,11 +74,7 @@ var MasterNominativeHandler = {
                         processResults: function (data) {
                             return {
                                 results: $.map(data, function (item) {
-                                    return {
-                                        text: item.code,
-                                        id: item.id,
-                                        name: item.name
-                                    }
+                                    return {text: item.code, id: item.id, name: item.name}
                                 })
                             };
                         },
@@ -84,7 +82,7 @@ var MasterNominativeHandler = {
                     }
                 });
 
-                // prevent enter key behaviour in typehead
+                // prevent enter key behaviour in select2
                 activitySelect.keydown(function (event) {
                     if (event.keyCode === 13) {
                         event.preventDefault();

@@ -13,8 +13,6 @@ var NominativeHandler = {
             _clickListener: function () {
                 var self = this;
 
-                // select2 function initialisation should always called last or else everything would break apart
-                // fuck that shit anyway
                 self._citySearch('origin-city');
                 self._citySearch('destination-city');
 
@@ -24,11 +22,21 @@ var NominativeHandler = {
 
                 dynamicPersonnelWrapper.on('click', '.add_button', function (e) {
                     if (x < maxField) {
-                        var firstOh = $(this).parent().parent().find('.oh-wrapper').find('.employee-oh').val();
-                        var firstLodging = $(this).parent().parent().find('.lodging-wrapper').find('.employee-lodging').val();
-                        var firstTransport = $(this).parent().parent().find('.transport-wrapper').find('.employee-transport').val();
+                        var firstOh = $(this)
+                            .parent().parent()
+                            .find('.oh-wrapper').find('.employee-oh')
+                            .val();
+                        var firstLodging = $(this)
+                            .parent().parent()
+                            .find('.lodging-wrapper').find('.employee-lodging')
+                            .val();
+                        var firstTransport = $(this)
+                            .parent().parent()
+                            .find('.transport-wrapper').find('.employee-transport')
+                            .val();
                         x++;
-                        $(this).closest('.dynamic-employee').append(self._dynamicPersonnelFieldTemplate(firstOh, firstLodging, firstTransport));
+                        $(this).closest('.dynamic-employee')
+                            .append(self._dynamicPersonnelFieldTemplate(firstOh, firstLodging, firstTransport));
                         self._employeeSearch();
                     }
                 });
@@ -401,6 +409,7 @@ var NominativeHandler = {
                                 is_async_step = true;
 
                                 alert('Data berhasil disimpan!');
+                                // todo move this hardcoded path to a variable
                                 window.location = '/dashboard/admin/finance/track-spd'
                             })
                             .fail(function (xhr, statusText, errorThrown) {

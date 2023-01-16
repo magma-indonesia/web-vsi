@@ -17,7 +17,6 @@ var SipegHandler = {
                     var tdi = tr.find("i.fa");
                     var row = _table.row(tr);
                     if (row.child.isShown()) {
-                        // This row is already open - close it
                         $('div.slider', row.child()).slideUp(function () {
                             row.child.hide();
                             tr.removeClass('shown');
@@ -25,15 +24,11 @@ var SipegHandler = {
                             tdi.first().addClass('fa-plus-square');
                         });
                     } else {
-                        // $.getJSON("/service-info/detail/" + row.data().serviceId, function (e) {
                         row.child(self._rowDetailFormat(row.data().json), 'no-padding').show();
-                        // Open this row
                         tr.addClass('shown');
                         tdi.first().removeClass('fa-plus-square');
                         tdi.first().addClass('fa-minus-square');
-                        // $.unblockUI();
                         $('div.slider', row.child()).slideDown();
-                        // });
                     }
                 });
             },
@@ -131,11 +126,6 @@ var SipegHandler = {
                     ],
                     order: [[1, "asc"]],
                 });
-
-                function expandCollapseAll() {
-                    tmpTable.rows('.parent').nodes().to$().find('td:first-child').trigger('click').length ||
-                    tmpTable.rows(':not(.parent)').nodes().to$().find('td:first-child').trigger('click')
-                }
 
                 return tmpTable;
             },
