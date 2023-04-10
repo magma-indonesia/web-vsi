@@ -53,8 +53,8 @@
                 </a>
             </li>
 
-            <li class="nav-item {{ request()->routeIs('dashboard.pegawai.index') ? 'active' : '' }}">
-                <a href="{{ route('dashboard.pegawai.index') }}" class="nav-link">
+            <li class="nav-item {{ request()->routeIs('settings.employee.index') ? 'active' : '' }}">
+                <a href="{{ route('settings.employee.index') }}" class="nav-link">
                     <i data-feather="user"></i>
                     <span>Pegawai</span>
                 </a>

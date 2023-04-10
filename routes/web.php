@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Landing\CollabController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -33,7 +34,6 @@ Route::post('logout', [LoginController::class, 'logout'])
 
 // Profil
 Route::name('profile.')->group(function () {
-
     $profil = 'home.profile.';
 
     // Profile > Tentang PVMBG
@@ -57,7 +57,6 @@ Route::name('profile.')->group(function () {
 
 // Gunung Api
 Route::name('gunung-api.')->group(function () {
-
     $gunungApi = 'home.gunung-api.';
 
     // Gunung Api > Data Dasar
@@ -69,7 +68,6 @@ Route::name('gunung-api.')->group(function () {
 
 // Layanan Publik
 Route::prefix('layanan-publik')->name('layanan-publik.')->group(function () {
-
     $layananPublik = 'home.layanan-publik';
 
     // Layanan Publik > Reformasi Birokrasi
@@ -86,7 +84,6 @@ Route::prefix('layanan-publik')->name('layanan-publik.')->group(function () {
 
     // Layanan Publik > Kerja Sama
     Route::prefix('kerja-sama')->name('kerja-sama.')->group(function () use ($layananPublik) {
-
         $kerjaSama = "$layananPublik.kerja-sama";
 
         // Layanan Publik > Kerja Sama > Informasi Kerja Sama
@@ -113,5 +110,16 @@ Route::prefix('layanan-publik')->name('layanan-publik.')->group(function () {
             'luar-negeri',
             "$kerjaSama.luar-negeri.index"
         )->name('luar-negeri');
+    });
+});
+
+Route::prefix('settings')->name('settings.')->group(function () {
+    Route::prefix('employee')->controller(UserController::class)->group(function () {
+        Route::get('/', 'index')->name('employee.index');
+        Route::get('/create', 'create')->name('employee.create');
+        Route::post('/', 'store')->name('employee.store');
+        Route::get('/{id}/edit', 'edit')->name('employee.edit');
+        Route::put('/{id}', 'update')->name('employee.update');
+        Route::delete('/{id}', 'destroy')->name('employee.destroy');
     });
 });
