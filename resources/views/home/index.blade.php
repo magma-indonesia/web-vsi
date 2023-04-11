@@ -71,12 +71,12 @@
                         <h5><a href="#">MAGMA Indonesia</a></h5>
                     </div>
                 </li>
-                <li>
+                <!-- <li>
                     <div class="city_service_text">
                         <span><i class="fa icon-news"></i></span>
                         <h5><a href="#">Informasi Bencana Geologi</a></h5>
                     </div>
-                </li>
+                </li> -->
                 <li>
                     <div class="city_service_text">
                         <span><i class="fa fa-download"></i></span>
