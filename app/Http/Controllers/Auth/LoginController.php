@@ -4,12 +4,13 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\LoginRequest;
-use App\Models\User;
 use App\Traits\AuthenticatesUsers;
 use App\Traits\LoginWithMagma;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cookie;
+use Illuminate\Support\Facades\Validator;
 
 class LoginController extends Controller
 {
@@ -75,34 +76,81 @@ class LoginController extends Controller
             ->sendLoginResponse($request);
     }
 
-    /**
-     * Login credentials
-     *
-     * @param LoginRequest $request
-     * @return mixed
-     */
-    public function login(LoginRequest $request): mixed
+    public function login(LoginRequest $request)
     {
-        if ($this->hasTooManyLoginAttempts($request)) {
-            $this->fireLockoutEvent($request);
-            return $this->sendLockoutResponse($request);
+        try {
+            /** Validation schema */
+            $validation = Validator::make($request->all(), $request->rules());
+            
+            /** Validation throw */
+            if ($validation->fails()) {
+                return response()->json([
+                    'message' => $validation->errors()->first(),
+                    'csrf' => csrf_token()
+                ], 400);
+            }
+
+            /** Validation too many request */
+            if ($this->hasTooManyLoginAttempts($request)) {
+                $this->fireLockoutEvent($request);
+                return response()->json([
+                    'message' => 'Terlalu banyak aksi, silahkan coba kembali nanti.',
+                    'csrf' => csrf_token()
+                ], 400);
+            }
+
+            /** Validation role guest or else */
+            $credentials = $request->only('nip', 'password');
+            if ($request->role == '5') {
+                $credentials = $request->only('email', 'password');
+            }
+
+            if (!Auth::attempt($credentials)) {
+                return response()->json([
+                    'message' => 'Email atau password kurang tepat.',
+                    'csrf' => csrf_token()
+                ], 400);
+            }
+
+            /** Validation is active user */
+            if (Auth::user()->is_active != '1') {
+                Auth::guard()->logout();
+                $request->session()->invalidate();
+                $request->session()->regenerateToken();
+                return response()->json([
+                    'message' => 'Akun tidak aktif, silahkan hubungi Admin untuk informasi lebih lanjut.',
+                    'csrf' => csrf_token()
+                ], 400);
+            }
+
+            /** Store statistic login */
+            $request->user()->loginStatistic()->updateOrCreate([
+                'user_id' => auth()->user()->id,
+                'ip_address' => $request->ip()
+            ])->increment('hit');
+
+            $request->session()->regenerate();
+            return response()->json([
+                'message' => 'Login sukses.',
+                'csrf' => csrf_token()
+            ], 200);
+        } catch (\Throwable $e) {
+            return response()->json([
+                'message' => $e->getMessage(),
+                'csrf' => csrf_token(),
+            ], 500);
         }
+    }
 
-        if ($this->attemptLogin($request)) {
-            return $this->sendSuccessedLoginResponse($request);
+    public function logout(Request $request)
+    {
+        try {
+            Auth::logout();
+            $request->session()->invalidate();
+            $request->session()->regenerateToken();
+            return redirect("/login");
+        } catch (\Throwable $e) {
+            abort(500, $e->getMessage());
         }
-
-        if (User::where('nip', $request->username)->first()) {
-            $this->incrementLoginAttempts($request);
-            return $this->sendFailedLoginResponse($request);
-        }
-
-        if ($this->attemptLoginMagma($request)) {
-            return $this->sendSuccessedLoginResponse($request);
-        }
-
-        $this->incrementLoginAttempts($request);
-
-        return $this->sendFailedLoginResponse($request);
     }
 }

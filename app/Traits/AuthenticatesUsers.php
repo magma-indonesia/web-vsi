@@ -113,9 +113,9 @@ trait AuthenticatesUsers
      */
     protected function authenticated(Request $request, $user)
     {
-        // return redirect()->route('dashboard.index');
-        $contents = 'dashboard.template.body';
-        return view('dashboard.index', compact('contents'));
+        return redirect()->route('dashboard.index');
+        // $contents = 'dashboard.template.body';
+        // return view('dashboard.index', compact('contents'));
     }
 
     /**

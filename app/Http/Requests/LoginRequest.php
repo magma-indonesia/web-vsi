@@ -15,6 +15,7 @@ class LoginRequest extends FormRequest
     {
         $this->merge([
             'nip' => $this->username,
+            'email' => $this->username,
         ]);
     }
 

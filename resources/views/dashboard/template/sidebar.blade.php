@@ -16,10 +16,7 @@
                             data-feather="message-square"></i></a>
                     <a href="" class="new" data-toggle="tooltip" title="You have 4 new notifications"><i
                             data-feather="bell"></i></a>
-                    <a href="" onclick="event.preventDefault();document.getElementById('logout-form').submit();"
-                       data-toggle="tooltip" title="Sign out"><i data-feather="log-out"></i></a>
-                    <form id="logout-form" action="{{ route('logout') }}" method="post"
-                          style="display: none;">@csrf</form>
+                    <a href="{{ route('logout') }}" data-toggle="tooltip" title="Sign out"><i data-feather="log-out"></i></a>
                 </div>
             </div>
             <div class="aside-loggedin-user">
@@ -40,7 +37,7 @@
                     </li>
                     <li class="nav-item"><a href="" class="nav-link"><i data-feather="help-circle"></i> <span>Help Center</span></a>
                     </li>
-                    <li class="nav-item"><a href="" class="nav-link"><i data-feather="log-out"></i>
+                    <li class="nav-item"><a href="{{ route('logout') }}" class="nav-link"><i data-feather="log-out"></i>
                             <span>Sign Out</span></a></li>
                 </ul>
             </div>
@@ -164,6 +161,7 @@
                     <li class="nav-item"><a href="#"><i
                                 data-feather="command"></i><span>Bimbingan Tugas Akhir</span></a></li>
                     <li class="nav-item"><a href="#"><i data-feather="flag"></i><span>Pengaduan</span></a></li>
+                    <li class="nav-item"><a href="{{ route('dashboard.layanan-publik.kontak') }}"><i data-feather="mail"></i><span>Kontak</span></a></li>
                 </ul>
             </li>
 

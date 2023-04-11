@@ -12,6 +12,7 @@
         "laravel/framework": "^9.2",
         "laravel/sanctum": "^2.14.1",
         "laravel/tinker": "^2.7",
+        "laravel/ui": "^4.2",
         "mpociot/teamwork": "^7.0",
         "pragmarx/countries": "^0.8.2"
     },
