@@ -89,6 +89,17 @@
                 </div>
             </div>
         @endif
+        <div class="form-group row row-xs">
+            <label for="role_id" class="col-sm-2 col-form-label">Peran</label>
+            <div class="col-sm-10">
+                <select class="form-control @error('role_id') is-invalid @enderror" id="role_id" name="role_id">
+                    <option value="">Pilih</option>
+                    @foreach ($roles as $role)
+                        <option value="{{ $role->id }}" {{ $role->id == Arr::get($input, 'role_id') ? 'selected' : '' }}>{{ $role->name }}</option>
+                    @endforeach
+                </select>
+            </div>
+        </div>
         @if ($isUpdate)
             <div class="form-group row row-xs">
                 <label for="is_active" class="col-sm-2 col-form-label">Status</label>

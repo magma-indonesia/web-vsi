@@ -2,12 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Roles;
 use App\Models\Segment;
 use App\Models\User;
 use Exception;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Validation\ValidationException;
 
 class UserController extends Controller
 {
@@ -31,9 +30,9 @@ class UserController extends Controller
             ->paginate(10);
 
         return view('settings.user.index', [
-            'contents'  => $this->contents,
+            'contents' => $this->contents,
             'pageTitle' => 'Pegawai',
-            'users'     => $users,
+            'users' => $users,
         ]);
     }
 
@@ -45,12 +44,13 @@ class UserController extends Controller
     public function create(Request $request)
     {
         return view('settings.user.form', [
-            'contents'  => $this->contents,
+            'contents' => $this->contents,
             'pageTitle' => 'Pegawai',
-            'saveUrl'   => route('settings.employee.store'),
-            'segments'  => Segment::all(),
-            'input'     => array_merge($request->input(), $request->old()),
-            'isUpdate'  => false
+            'saveUrl' => route('settings.employee.store'),
+            'segments' => Segment::all(),
+            'roles' => Roles::all(),
+            'input' => array_merge($request->input(), $request->old()),
+            'isUpdate' => false
         ]);
     }
 
@@ -64,25 +64,26 @@ class UserController extends Controller
     {
         $request->merge([
             'group_class' => request('class') == 'e' && request('group') != 'IV' ? '' : request('group').request('class'),
-            'group'       => request('class') == 'e' && request('group') != 'IV' ? '' : request('group'),
-            'class'       => request('class') == 'e' && request('group') != 'IV' ? '' : request('class'),
+            'group' => request('class') == 'e' && request('group') != 'IV' ? '' : request('group'),
+            'class' => request('class') == 'e' && request('group') != 'IV' ? '' : request('class'),
         ]);
-        $this->validate($request,
+        $this->validate(
+            $request,
             [
-                'segment_id'  => ['required'],
-                'nip'         => ['required'],
-                'name'        => ['required'],
-                'position'    => ['required'],
+                'segment_id' => ['required'],
+                'nip' => ['required'],
+                'name' => ['required'],
+                'position' => ['required'],
                 'group_class' => ['required'],
-                'password'    => ['required'],
+                'password' => ['required'],
             ],
             [
-                'segment_id.required'  => 'Bagian harus dipilih',
-                'nip.required'         => 'NIP harus diisi',
-                'name.required'        => 'Nama harus diisi',
-                'position.required'    => 'Jabatan harus diisi',
+                'segment_id.required' => 'Bagian harus dipilih',
+                'nip.required' => 'NIP harus diisi',
+                'name.required' => 'Nama harus diisi',
+                'position.required' => 'Jabatan harus diisi',
                 'group_class.required' => 'Golongan harus dipilih',
-                'password.required'    => 'Password harus diisi',
+                'password.required' => 'Password harus diisi',
             ]
         );
         try {
@@ -123,23 +124,26 @@ class UserController extends Controller
     public function edit(Request $request, $id)
     {
         $user = User::find($id);
+        $roles = $user->roles()->pluck('role_id');
         $request->merge([
             'segment_id' => $user->id_segment,
-            'nip'        => $user->nip,
-            'name'       => $user->name,
-            'position'   => $user->position,
-            'group'      => $user->group,
-            'class'      => $user->class,
-            'is_active'  => $user->is_active,
+            'nip' => $user->nip,
+            'name' => $user->name,
+            'position' => $user->position,
+            'group' => $user->group,
+            'class' => $user->class,
+            'role_id' => count($roles) > 0 ? $roles[0] : '',
+            'is_active' => $user->is_active,
         ]);
 
         return view('settings.user.form', [
-            'contents'  => $this->contents,
+            'contents' => $this->contents,
             'pageTitle' => 'Pegawai',
-            'saveUrl'   => route('settings.employee.update', $id),
-            'segments'  => Segment::all(),
-            'input'     => array_merge($request->input(), $request->old()),
-            'isUpdate'  => true
+            'saveUrl' => route('settings.employee.update', $id),
+            'segments' => Segment::all(),
+            'roles' => Roles::all(),
+            'input' => array_merge($request->input(), $request->old()),
+            'isUpdate' => true
         ]);
     }
 
@@ -154,22 +158,23 @@ class UserController extends Controller
     {
         $request->merge([
             'group_class' => request('class') == 'e' && request('group') != 'IV' ? '' : request('group').request('class'),
-            'group'       => request('class') == 'e' && request('group') != 'IV' ? '' : request('group'),
-            'class'       => request('class') == 'e' && request('group') != 'IV' ? '' : request('class'),
+            'group' => request('class') == 'e' && request('group') != 'IV' ? '' : request('group'),
+            'class' => request('class') == 'e' && request('group') != 'IV' ? '' : request('class'),
         ]);
-        $this->validate($request,
+        $this->validate(
+            $request,
             [
-                'segment_id'  => ['required'],
-                'nip'         => ['required'],
-                'name'        => ['required'],
-                'position'    => ['required'],
+                'segment_id' => ['required'],
+                'nip' => ['required'],
+                'name' => ['required'],
+                'position' => ['required'],
                 'group_class' => ['required'],
             ],
             [
-                'segment_id.required'  => 'Bagian harus dipilih',
-                'nip.required'         => 'NIP harus diisi',
-                'name.required'        => 'Nama harus diisi',
-                'position.required'    => 'Jabatan harus diisi',
+                'segment_id.required' => 'Bagian harus dipilih',
+                'nip.required' => 'NIP harus diisi',
+                'name.required' => 'Nama harus diisi',
+                'position.required' => 'Jabatan harus diisi',
                 'group_class.required' => 'Golongan harus dipilih',
             ]
         );
@@ -186,6 +191,12 @@ class UserController extends Controller
             }
             $user->is_active = $request->is_active;
             $user->save();
+
+            if (empty($request->role_id)) {
+                $user->roles()->detach();
+            } else {
+                $user->roles()->sync([$request->role_id]);
+            }
         } catch (Exception $e) {
             return $this->errorRedirectBack($e);
         }
