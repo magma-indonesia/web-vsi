@@ -116,6 +116,7 @@
                                     <li><a href="">Bimbingan Tugas Akhir</a></li>
                                     <hr>
                                     <li><a href="">Pengaduan</a></li>
+                                    <li><a href="{{ route('layanan-publik.kontak') }}">Hubungi Kami</a></li>
                                 </ul>
                             </li>
                             <li><a href="#">Berita</a>
@@ -201,6 +202,7 @@
                                                     Negeri</a></li>
                                         </ul>
                                     </li>
+                                    <li><a href="{{ route('layanan-publik.kontak') }}">Hubungi Kami</a></li>
                                 </ul>
                             </li>
                             <li class="menu-item kode-parent-menu"><a href="#">Berita</a>

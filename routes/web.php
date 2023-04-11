@@ -1,9 +1,12 @@
 <?php
 
+use App\Http\Controllers\Auth\ForgotController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\FileController;
 use App\Http\Controllers\Landing\CollabController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\Landing\ContactController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -29,7 +32,23 @@ Route::get('login', [LoginController::class, 'index'])
 Route::post('login', [LoginController::class, 'login'])
     ->middleware('guest')
     ->name('login.post');
-Route::post('logout', [LoginController::class, 'logout'])
+Route::get('register', [RegisterController::class, 'index'])
+    ->middleware('guest')
+    ->name('register.index');
+Route::post('register', [RegisterController::class, 'register'])
+    ->middleware('guest')
+    ->name('register.post');
+Route::get('forgot', [ForgotController::class, 'index'])
+    ->middleware('guest')
+    ->name('forgot.index');
+Route::post('forgot', [ForgotController::class, 'forgot'])
+    ->middleware('guest')
+    ->name('forgot.post');
+Route::get('/reset-password/{token}', function ($token) {
+        return view("forgot.reset", ["token" => $token]);
+    })->name('password.reset');
+Route::post('/reset-password', [ForgotController::class, 'resetPassword'])->name('reset.post');
+Route::get('logout', [LoginController::class, 'logout'])
     ->middleware('auth')
     ->name('logout');
 
@@ -112,6 +131,17 @@ Route::prefix('layanan-publik')->name('layanan-publik.')->group(function () {
             "$kerjaSama.luar-negeri.index"
         )->name('luar-negeri');
     });
+
+    // Layanan Publik > Hubungi Kami
+    Route::get(
+        'kontak',
+        [ContactController::class, 'index']
+    )->name('kontak');
+
+    Route::post(
+        'kontak',
+        [ContactController::class, 'save']
+    )->name('kontak.save');
 });
 
 Route::prefix('settings')->name('settings.')->group(function () {
