@@ -43,7 +43,6 @@ class Helper
     // Redirect kembali ke halaman sebelumnya dengan menampilkan pesan kesalahan
     public static function redirectBackErrorMessageResponse($message)
     {
-        dd($message);
         if ($message instanceof QueryException) {
             $message = [config('app.debug') ? $message->getMessage() : 'Terjadi kesalahan proses pada sistem!. Silahkan kontak Admin.'];
         } else if ($message instanceof Exception) {

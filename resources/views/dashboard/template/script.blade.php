@@ -15,6 +15,8 @@
 
 @yield('add-script')
 
+@stack('scripts')
+
 <style>
     .pagination{
         float: right;

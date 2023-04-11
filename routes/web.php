@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\FileController;
 use App\Http\Controllers\Landing\CollabController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -122,4 +123,15 @@ Route::prefix('settings')->name('settings.')->group(function () {
         Route::put('/{id}', 'update')->name('employee.update');
         Route::delete('/{id}', 'destroy')->name('employee.destroy');
     });
+
+    Route::prefix('upload')->controller(FileController::class)->group(function () {
+        Route::get('/', 'index')->name('upload.index');
+        Route::get('/create', 'create')->name('upload.create');
+        Route::post('/', 'store')->name('upload.store');
+        Route::get('/{id}/edit', 'edit')->name('upload.edit');
+        Route::put('/{id}', 'update')->name('upload.update');
+        Route::delete('/{id}', 'destroy')->name('upload.destroy');
+    });
 });
+
+Route::get('/files/{id}/{name}', [FileController::class, 'download'])->name('files.download');

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Roles;
+use App\Models\Role;
 use App\Models\Segment;
 use App\Models\User;
 use Exception;
@@ -48,7 +48,7 @@ class UserController extends Controller
             'pageTitle' => 'Pegawai',
             'saveUrl' => route('settings.employee.store'),
             'segments' => Segment::all(),
-            'roles' => Roles::all(),
+            'roles' => Role::all(),
             'input' => array_merge($request->input(), $request->old()),
             'isUpdate' => false
         ]);
@@ -141,7 +141,7 @@ class UserController extends Controller
             'pageTitle' => 'Pegawai',
             'saveUrl' => route('settings.employee.update', $id),
             'segments' => Segment::all(),
-            'roles' => Roles::all(),
+            'roles' => Role::all(),
             'input' => array_merge($request->input(), $request->old()),
             'isUpdate' => true
         ]);

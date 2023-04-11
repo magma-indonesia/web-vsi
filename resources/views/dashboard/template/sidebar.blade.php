@@ -67,6 +67,13 @@
                 </a>
             </li>
 
+            <li class="nav-item {{ request()->routeIs('settings.upload.index') ? 'active' : '' }}">
+                <a href="{{ route('settings.upload.index') }}" class="nav-link">
+                    <i data-feather="upload"></i>
+                    <span>Upload Center</span>
+                </a>
+            </li>
+
             <li class="nav-label mg-t-25">CMS</li>
             <li class="nav-item with-sub">
                 <a href="" class="nav-link"><i data-feather="layers"></i> <span>Profile</span></a>
