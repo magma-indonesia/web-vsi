@@ -152,6 +152,7 @@ Route::prefix('settings')->name('settings.')->group(function () {
         Route::get('/{id}/edit', 'edit')->name('employee.edit');
         Route::put('/{id}', 'update')->name('employee.update');
         Route::delete('/{id}', 'destroy')->name('employee.destroy');
+        Route::get('/export', 'export')->name('employee.export');
     });
 
     Route::prefix('upload')->controller(FileController::class)->group(function () {
