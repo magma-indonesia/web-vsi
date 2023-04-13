@@ -7,6 +7,14 @@ use App\Models\Segment;
 use App\Models\User;
 use Exception;
 use Illuminate\Http\Request;
+use PhpOffice\PhpSpreadsheet\Cell\DataType;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Style\Alignment;
+use PhpOffice\PhpSpreadsheet\Style\Border;
+use PhpOffice\PhpSpreadsheet\Style\Color;
+use PhpOffice\PhpSpreadsheet\Style\Fill;
+use PhpOffice\PhpSpreadsheet\Writer as Writer;
+use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class UserController extends Controller
 {
@@ -32,6 +40,9 @@ class UserController extends Controller
         return view('settings.user.index', [
             'contents' => $this->contents,
             'pageTitle' => 'Pegawai',
+            'createUrl' => route('settings.employee.create'),
+            'exportExcelUrl' => route('settings.employee.export', ['type' => 'excel']),
+            'exportCsvUrl' => route('settings.employee.export', ['type' => 'csv']),
             'users' => $users,
         ]);
     }
@@ -220,5 +231,92 @@ class UserController extends Controller
         }
 
         return $this->successRedirect('settings.employee.index', 'Data Pegawai berhasil dihapus.');
+    }
+
+    public function export(Request $request)
+    {
+        try {
+            $data = User::all();
+            $type = $request->type ?? 'excel';
+
+            $fileName = 'user-'.date('YmdHis').($type == 'csv' ? '.csv' : '.xlsx');
+            $spreadsheet = new Spreadsheet();
+            $sheet = $spreadsheet->getActiveSheet();
+
+            // Set Header
+            $sheet->setCellValue('A1', 'id');
+            $sheet->setCellValue('B1', 'id_segment');
+            $sheet->setCellValue('C1', 'uuid');
+            $sheet->setCellValue('D1', 'name');
+            $sheet->setCellValue('E1', 'avatar');
+            $sheet->setCellValue('F1', 'nip');
+            $sheet->setCellValue('G1', 'position');
+            $sheet->setCellValue('H1', 'group');
+            $sheet->setCellValue('I1', 'class');
+            $sheet->setCellValue('J1', 'ktp');
+            $sheet->setCellValue('K1', 'phone');
+            $sheet->setCellValue('L1', 'email');
+            $sheet->setCellValue('M1', 'email_esdm');
+            $sheet->setCellValue('N1', 'password');
+            $sheet->setCellValue('O1', 'is_active');
+            $sheet->setCellValue('P1', 'remember_token');
+            $sheet->setCellValue('Q1', 'created_at');
+            $sheet->setCellValue('R1', 'updated_at');
+            $sheet->setCellValue('S1', 'current_team_id');
+
+            // Set Body
+            $rowStart = 2;
+            foreach ($data as $item) {
+                $sheet->setCellValue('A'.$rowStart, $item->id);
+                $sheet->setCellValue('B'.$rowStart, $item->id_segment);
+                $sheet->setCellValue('C'.$rowStart, $item->uuid);
+                $sheet->setCellValue('D'.$rowStart, $item->name);
+                $sheet->setCellValue('E'.$rowStart, $item->avatar);
+                $sheet->setCellValueExplicit('F'.$rowStart, $item->nip, DataType::TYPE_STRING);
+                $sheet->setCellValue('G'.$rowStart, $item->position);
+                $sheet->setCellValue('H'.$rowStart, $item->group);
+                $sheet->setCellValue('I'.$rowStart, $item->class);
+                $sheet->setCellValue('J'.$rowStart, $item->ktp);
+                $sheet->setCellValue('K'.$rowStart, $item->phone);
+                $sheet->setCellValue('L'.$rowStart, $item->email);
+                $sheet->setCellValue('M'.$rowStart, $item->email_esdm);
+                $sheet->setCellValue('N'.$rowStart, $item->password);
+                $sheet->setCellValue('O'.$rowStart, $item->is_active);
+                $sheet->setCellValue('P'.$rowStart, $item->remember_token);
+                $sheet->setCellValue('Q'.$rowStart, $item->created_at);
+                $sheet->setCellValue('R'.$rowStart, $item->updated_at);
+                $sheet->setCellValue('S'.$rowStart, $item->current_team_id);
+
+                $rowStart++;
+            }
+
+            if ($type == 'csv') {
+                $writer = new Writer\Csv($spreadsheet);
+                $writer->setDelimiter(';');
+    
+                $response =  new StreamedResponse(
+                    function () use ($writer) {
+                        $writer->save('php://output');
+                    }
+                );
+                $response->headers->set('Content-Type', 'text/csv');
+                $response->headers->set('Content-Disposition', 'attachment;filename="'.$fileName.'"');
+                $response->headers->set('Cache-Control','max-age=0');
+            } else {
+                $writer = new Writer\Xlsx($spreadsheet);
+    
+                $response =  new StreamedResponse(
+                    function () use ($writer) {
+                        $writer->save('php://output');
+                    }
+                );
+                $response->headers->set('Content-Type', 'application/vnd.ms-excel');
+                $response->headers->set('Content-Disposition', 'attachment;filename="'.$fileName.'"');
+                $response->headers->set('Cache-Control','max-age=0');
+            }
+            return $response;
+        } catch (Exception $e) {
+
+        }
     }
 }

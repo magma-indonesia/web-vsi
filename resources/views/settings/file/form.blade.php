@@ -25,7 +25,7 @@
         @endif
         <div class="input-group row row-xs">
             <div class="custom-file">
-                <input type="file" class="custom-file-input" id="file_upload" name="file_upload">
+                <input type="file" class="custom-file-input" id="file_upload" name="file_uploads[]" multiple>
                 <label class="custom-file-label" for="file_upload">Choose file</label>
             </div>
             <div class="input-group-append">
@@ -40,7 +40,13 @@
         let isSuccess = '{{ Session::has("success") }}';
         $(document).ready(function() {
             $(".custom-file-input").on("change", function() {
-                var fileName = $(this).val().split("\\").pop();
+                let fileNames = [];
+                for (var i = 0; i < $(this)[0].files.length; i++) {
+                    fileNames.push($(this)[0].files[i].name);
+                }
+                
+                // var fileName = $(this).val().split("\\").pop();
+                var fileName = fileNames.join(' ');
                 $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
             });
 

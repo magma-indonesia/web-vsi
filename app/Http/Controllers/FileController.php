@@ -61,27 +61,30 @@ class FileController extends Controller
         $this->validate(
             $request,
             [
-                'file_upload' => ['required', 'file'],
+                'file_uploads' => ['required'],
+                'file_uploads.*' => ['file'],
             ],
             [
-                'file_upload.required' => 'File harus dipilih',
+                'file_uploads.required' => 'File harus dipilih',
             ]
         );
 
         try {
-            $fileName = $request->file('file_upload')->getClientOriginalName();
-            $filePath = 'files/'.$this->user()->nip;
-            Storage::putFileAs(
-                'public/'.$filePath,
-                $request->file('file_upload'),
-                $fileName
-            );
-
-            $file = new File();
-            $file->user_id = $this->user()->id;
-            $file->name = $fileName;
-            $file->path = $filePath.'/'.$fileName;
-            $file->save();
+            foreach ($request->file('file_uploads') as $fileUpload) {
+                $fileName = $fileUpload->getClientOriginalName();
+                $filePath = 'files/'.$this->user()->nip;
+                Storage::putFileAs(
+                    'public/'.$filePath,
+                    $fileUpload,
+                    $fileName
+                );
+    
+                $file = new File();
+                $file->user_id = $this->user()->id;
+                $file->name = $fileName;
+                $file->path = $filePath.'/'.$fileName;
+                $file->save();
+            }
         } catch (Exception $e) {
             return $this->errorRedirectBack($e);
         }
@@ -147,13 +150,15 @@ class FileController extends Controller
         $file = File::findOrFail($id);
         if ($file->name != $name) {
             http_response_code(404);
-	        die();
+
+            die();
         }
 
         $fileName = basename($file->path);
         $filePath = storage_path('app/public/'.$file->path);
-        if ( ! file_exists($filePath)) {
+        if (! file_exists($filePath)) {
             http_response_code(404);
+
             die();
         }
 

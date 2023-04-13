@@ -18,7 +18,7 @@
     </div>
     @include('partials.message')
     <div class="row row-xs">
-        <div class="col-sm-12 col-lg-9">
+        <div class="col-sm-12 col-lg-6">
             <form class="form-inline">
                 <div class="form-group mx-sm-1 mb-2">
                     <label for="search" class="sr-only">NIP / Nama</label>
@@ -28,9 +28,11 @@
                 <button type="submit" class="btn btn-primary mb-2"><i class="fa fa-search"></i></button>
             </form>
         </div>
-        <div class="col-sm-12 col-lg-3">
+        <div class="col-sm-12 col-lg-6">
             <div class="text-right">
-                <button type="button" class="btn btn-sm btn-outline-primary mb-2" onclick="window.location='{{ route('settings.employee.create') }}'"><i class="fa fa-plus"></i> Tambah</button>
+                <button type="button" class="btn btn-sm btn-outline-info mb-2 mr-2" onclick="window.location='{{ $exportCsvUrl }}'"><i class="fa fa-download"></i> Export Csv</button>
+                <button type="button" class="btn btn-sm btn-outline-info mb-2 mr-2" onclick="window.location='{{ $exportExcelUrl }}'"><i class="fa fa-download"></i> Export Excel</button>
+                <button type="button" class="btn btn-sm btn-outline-primary mb-2" onclick="window.location='{{ $createUrl }}'"><i class="fa fa-plus"></i> Tambah</button>
             </div>
         </div>
     </div>
