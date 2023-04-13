@@ -22401,10 +22401,5 @@ li.ant-select-tree-treenode-disabled > .ant-select-tree-node-content-wrapper:hov
 }
 .ant-form-explain {
   font-size: 12px !important;
-  margin-bottom: 10px;
-  margin-top: 5px;
 }
 
-.ant-form-item-label > label {
-  font-size: 12px !important;
-}
