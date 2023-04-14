@@ -7,7 +7,7 @@
     <div class="content content-fixed content-auth" id="app">
         <div class="container">
             <div class="media align-items-stretch justify-content-center ht-100p pos-relative">
-                <div class="sign-wrapper">
+                <div class="signup-wrapper">
                     <div class="wd-100p">
                         <h3 class="tx-color-01 mg-b-25">Daftar Akun</h3>
                         <p class="tx-color-03 tx-16 mg-b-40">Harap isi kolom dibawah ini dengan benar!.</p>

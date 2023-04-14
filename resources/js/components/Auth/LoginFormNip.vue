@@ -47,7 +47,7 @@
                 :block="true"
                 :disabled="loading"
             >
-                <span v-if="!loading"> Login With Magma </span>
+                <span v-if="!loading"> Login </span>
                 <span v-else> Mohon tunggu... </span>
             </a-button>
         </a-form-item>

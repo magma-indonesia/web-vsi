@@ -41,3 +41,17 @@
   .sign-wrapper .form-group label {
     display: block;
     margin-bottom: 5px; }
+
+
+    .signup-wrapper {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      width: 340px; }
+      @media (min-width: 1200px) {
+        .signup-wrapper {
+          width: 720px; } }
+      .signup-wrapper .form-group label {
+        display: block;
+        margin-bottom: 5px; }
