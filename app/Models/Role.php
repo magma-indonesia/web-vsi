@@ -4,10 +4,10 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Roles extends Model
+class Role extends Model
 {
     public $timestamps = false;
     public $incrementing = false;
-    protected $primaryKey = null;
+    protected $primaryKey = 'id';
 }
 

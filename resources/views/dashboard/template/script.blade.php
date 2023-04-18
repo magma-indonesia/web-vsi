@@ -14,3 +14,11 @@
 <script src="{{ asset('dashforge/assets/js/dashforge.aside.js') }}"></script>
 
 @yield('add-script')
+
+@stack('scripts')
+
+<style>
+    .pagination{
+        float: right;
+    }
+</style>

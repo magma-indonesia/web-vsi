@@ -50,8 +50,8 @@
                 </a>
             </li>
 
-            <li class="nav-item {{ request()->routeIs('dashboard.pegawai.index') ? 'active' : '' }}">
-                <a href="{{ route('dashboard.pegawai.index') }}" class="nav-link">
+            <li class="nav-item {{ request()->routeIs('settings.employee.index') ? 'active' : '' }}">
+                <a href="{{ route('settings.employee.index') }}" class="nav-link">
                     <i data-feather="user"></i>
                     <span>Pegawai</span>
                 </a>
@@ -61,6 +61,13 @@
                 <a href="{{ route('dashboard.index') }}" class="nav-link">
                     <i data-feather="bar-chart-2"></i>
                     <span>Dashboard</span>
+                </a>
+            </li>
+
+            <li class="nav-item {{ request()->routeIs('settings.upload.index') ? 'active' : '' }}">
+                <a href="{{ route('settings.upload.index') }}" class="nav-link">
+                    <i data-feather="upload"></i>
+                    <span>Upload Center</span>
                 </a>
             </li>
 

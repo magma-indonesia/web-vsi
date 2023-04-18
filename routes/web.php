@@ -2,8 +2,10 @@
 
 use App\Http\Controllers\Auth\ForgotController;
 use App\Http\Controllers\Auth\LoginController;
-use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\FileController;
 use App\Http\Controllers\Landing\CollabController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Landing\ContactController;
 use Illuminate\Support\Facades\Route;
 
@@ -52,7 +54,6 @@ Route::get('logout', [LoginController::class, 'logout'])
 
 // Profil
 Route::name('profile.')->group(function () {
-
     $profil = 'home.profile.';
 
     // Profile > Tentang PVMBG
@@ -76,7 +77,6 @@ Route::name('profile.')->group(function () {
 
 // Gunung Api
 Route::name('gunung-api.')->group(function () {
-
     $gunungApi = 'home.gunung-api.';
 
     // Gunung Api > Data Dasar
@@ -88,7 +88,6 @@ Route::name('gunung-api.')->group(function () {
 
 // Layanan Publik
 Route::prefix('layanan-publik')->name('layanan-publik.')->group(function () {
-
     $layananPublik = 'home.layanan-publik';
 
     // Layanan Publik > Reformasi Birokrasi
@@ -105,7 +104,6 @@ Route::prefix('layanan-publik')->name('layanan-publik.')->group(function () {
 
     // Layanan Publik > Kerja Sama
     Route::prefix('kerja-sama')->name('kerja-sama.')->group(function () use ($layananPublik) {
-
         $kerjaSama = "$layananPublik.kerja-sama";
 
         // Layanan Publik > Kerja Sama > Informasi Kerja Sama
@@ -145,3 +143,26 @@ Route::prefix('layanan-publik')->name('layanan-publik.')->group(function () {
         [ContactController::class, 'save']
     )->name('kontak.save');
 });
+
+Route::prefix('settings')->name('settings.')->group(function () {
+    Route::prefix('employee')->controller(UserController::class)->group(function () {
+        Route::get('/', 'index')->name('employee.index');
+        Route::get('/create', 'create')->name('employee.create');
+        Route::post('/', 'store')->name('employee.store');
+        Route::get('/{id}/edit', 'edit')->name('employee.edit');
+        Route::put('/{id}', 'update')->name('employee.update');
+        Route::delete('/{id}', 'destroy')->name('employee.destroy');
+        Route::get('/export', 'export')->name('employee.export');
+    });
+
+    Route::prefix('upload')->controller(FileController::class)->group(function () {
+        Route::get('/', 'index')->name('upload.index');
+        Route::get('/create', 'create')->name('upload.create');
+        Route::post('/', 'store')->name('upload.store');
+        Route::get('/{id}/edit', 'edit')->name('upload.edit');
+        Route::put('/{id}', 'update')->name('upload.update');
+        Route::delete('/{id}', 'destroy')->name('upload.destroy');
+    });
+});
+
+Route::get('/files/{id}/{name}', [FileController::class, 'download'])->name('files.download');

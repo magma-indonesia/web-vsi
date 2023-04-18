@@ -99,4 +99,9 @@ class User extends Authenticatable implements RbacUserInterface
             $defaultAvatarPlaceholder :
             config('sipeg.photo_url') . $this->attributes['avatar'];
     }
+
+    public function roles()
+    {
+        return $this->belongsToMany(Role::class, 'user_role', 'user_id', 'role_id');
+    }
 }
