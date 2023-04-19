@@ -4,6 +4,7 @@ use App\Http\Controllers\Administration\AdministrationController;
 use App\Http\Controllers\Administration\FinanceController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\GroundMovement\EventController as GroundMovementEventController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -84,7 +85,6 @@ Route::name('admin.')
             '/admin/finance/get-spd',
             [FinanceController::class, 'getDataSpd']
         )->name('finance.post.get-spd');
-
     });
 
 // Default routing dashboard
@@ -105,17 +105,14 @@ Route::prefix('pegawai')->name('pegawai.')->group(function () {
 
     // Pegawai > Update
     Route::put('/{user}', [UserController::class, 'store'])->name('update');
-
 });
 
 // Layanan Publik
 Route::prefix('layanan-publik')->name('layanan-publik.')->group(function () {
-
     $layananPublik = 'dashboard.layanan-publik';
 
     // Layanan Publik > Kerja Sama > Informasi Kerja Sama
     Route::prefix('kerja-sama')->name('kerja-sama.')->group(function () use ($layananPublik) {
-
         $kerjaSama = "$layananPublik.kerja-sama";
 
         // Layanan Publik > Kerja Sama > Informasi Kerja Sama
@@ -123,10 +120,21 @@ Route::prefix('layanan-publik')->name('layanan-publik.')->group(function () {
             'informasi',
             "$kerjaSama.informasi.index"
         )->name('informasi');
-
     });
 
     // Layanan Publik > Kontak
     Route::get('/kontak', [ContactController::class, 'index'])->name('kontak');
+});
 
+// Gerakan Tanah
+Route::prefix('gerakan-tanah')->name('gerakan-tanah.')->group(function () {
+    // Gerakan Tanah > Daftar Kejadian
+    Route::prefix('kejadian')->controller(GroundMovementEventController::class)->group(function () {
+        Route::get('/', 'index')->name('kejadian.index');
+        Route::get('/create', 'create')->name('kejadian.create');
+        Route::post('/', 'store')->name('kejadian.store');
+        Route::get('/{id}/edit', 'edit')->name('kejadian.edit');
+        Route::put('/{id}', 'update')->name('kejadian.update');
+        Route::delete('/{id}', 'destroy')->name('kejadian.destroy');
+    });
 });

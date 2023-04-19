@@ -166,3 +166,4 @@ Route::prefix('settings')->name('settings.')->group(function () {
 });
 
 Route::get('/files/{id}/{name}', [FileController::class, 'download'])->name('files.download');
+Route::post('/image/upload', [FileController::class, 'storeImage'])->name('image.upload');

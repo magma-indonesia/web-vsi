@@ -106,12 +106,9 @@
             <li class="nav-item with-sub">
                 <a href="" class="nav-link"><i data-feather="layers"></i> <span>Gerakan Tanah</span></a>
                 <ul>
-                    <li class="nav-item"><a href="#"><i
-                                data-feather="alert-triangle"></i><span>Rekapitulasi Kejadian</span></a></li>
-                    <li class="nav-item"><a href="{{ route('gunung-api.data-dasar') }}"><i
-                                data-feather="layers"></i><span>Daftar Kejadian</span></a></li>
-                    <li class="nav-item"><a href="#"><i
-                                data-feather="alert-triangle"></i><span>Peringatan Dini</span></a></li>
+                    <li class="nav-item"><a href="#"><i data-feather="alert-triangle"></i><span>Rekapitulasi Kejadian</span></a></li>
+                    <li class="nav-item"><a href="{{ route('dashboard.gerakan-tanah.kejadian.index') }}"><i data-feather="layers"></i><span>Daftar Kejadian</span></a></li>
+                    <li class="nav-item"><a href="#"><i data-feather="alert-triangle"></i><span>Peringatan Dini</span></a></li>
                     <li class="nav-item"><a href="#"><i data-feather="alert-triangle"></i><span>Peta ZKGT</span></a>
                     </li>
                 </ul>
