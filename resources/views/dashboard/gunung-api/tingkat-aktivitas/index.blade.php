@@ -1,6 +1,6 @@
 @extends('dashboard.template.layout')
 
-@section('title', 'Data dasar gunung api')
+@section('title', 'Tingkat aktivitas gunung api')
 
 @section('body-content')
 <div class="d-sm-flex align-items-center justify-content-between mg-b-20 mg-lg-b-25 mg-xl-b-30">
@@ -9,13 +9,13 @@
             <ol class="breadcrumb breadcrumb-style1 mg-b-10">
                 <li class="breadcrumb-item"><a href="/">Dashboard</a></li>
                 <li class="breadcrumb-item">Gunung Api</li>
-                <li class="breadcrumb-item active" aria-current="page">Data Dasar</li>
+                <li class="breadcrumb-item active" aria-current="page">Tingkat Aktivitas</li>
             </ol>
         </nav>
-        <h4 class="mg-b-0 tx-spacing--1">Data Dasar Gunung Api</h4>
+        <h4 class="mg-b-0 tx-spacing--1">Tingkat Aktivitas Gunung Api</h4>
     </div>
 </div>
 <div class="p-3" id="app">
-    <table-volcano apiurl="{{ env('APP_URL') }}" category="1"></table-volcano>
+    <table-volcano apiurl="{{ env('APP_URL') }}" category="2"></table-volcano>
 </div>
 @endsection

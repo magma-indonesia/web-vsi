@@ -17,8 +17,12 @@
     <link href="{{ asset('dashforge/assets/css/dashforge.css') }}" rel="stylesheet">
     <link href="{{ asset('dashforge/assets/css/dashforge.dashboard.css') }}" rel="stylesheet">
 
+    <link href="{{ mix('css/app.css') }}" rel="stylesheet" type="text/css" />
+
     {{-- LOAD ONLY JQUERY IN HEADER SO WE COULD SLIP IN ANOTHER JS FILE PER CONTENTS --}}
     <script src="{{ asset('dashforge/lib/jquery/jquery.min.js') }}"></script>
+
+    <meta name="csrf-token" content="{{ csrf_token() }}" />
     <style>
         .table-hover:hover {
             border-radius: 5px;

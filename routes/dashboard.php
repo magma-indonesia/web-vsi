@@ -1,8 +1,9 @@
 <?php
 
 use App\Http\Controllers\Administration\AdministrationController;
+use App\Http\Controllers\Administration\ContactController;
 use App\Http\Controllers\Administration\FinanceController;
-use App\Http\Controllers\ContactController;
+use App\Http\Controllers\Administration\NewsController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -129,4 +130,8 @@ Route::prefix('layanan-publik')->name('layanan-publik.')->group(function () {
     // Layanan Publik > Kontak
     Route::get('/kontak', [ContactController::class, 'index'])->name('kontak');
 
+});
+
+Route::prefix('gunung-api')->name('gunung-api.')->group(function () {
+    Route::get('/news', [NewsController::class, 'index'])->name('news');
 });

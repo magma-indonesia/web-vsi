@@ -6,8 +6,8 @@
 
 import "./bootstrap";
 import Vue from "vue";
-import Antd from "ant-design-vue";
-
+import Antd, { notification } from "ant-design-vue";
+import axios from "axios";
 Vue.use(Antd);
 window.Vue = require("vue");
 
@@ -26,7 +26,18 @@ Vue.component(
     require("./components/Auth/ForgotForm.vue").default
 );
 Vue.component("reset-form", require("./components/Auth/ResetForm.vue").default);
-
+Vue.component(
+    "contact-form",
+    require("./components/Auth/ContactForm.vue").default
+);
+Vue.component(
+    "table-volcano",
+    require("./components/Volcano/TableVolcano.vue").default
+);
+Vue.component(
+    "news-volcano",
+    require("./components/Volcano/NewsVolcano.vue").default
+);
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
@@ -44,6 +55,37 @@ Vue.component("reset-form", require("./components/Auth/ResetForm.vue").default);
  * an "id" attribute of "app". This element is included with the "auth"
  * scaffolding. Otherwise, you will need to add an element yourself.
  */
+
+/**
+ * Axios interceptor response handle
+ */
+axios.interceptors.response.use(
+    (response) => {
+        if (response?.config?.method !== "get") {
+            if (response?.data?.message) {
+                notification.success({
+                    message: response.data.message,
+                    placement: "bottomRight",
+                    duration: 5,
+                });
+            }
+        }
+        return response;
+    },
+    (error) => {
+        if (error) {
+            notification.error({
+                message: error.response
+                    ? `${error.response.data.message}`
+                    : "Something wrong with our server, please try again later.",
+                placement: "bottomRight",
+                duration: 5,
+            });
+        }
+        return Promise.reject(error);
+    }
+);
+
 new Vue({
     el: "#app",
 });
