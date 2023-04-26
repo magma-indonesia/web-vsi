@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Administration\NewsController;
 use App\Http\Controllers\Auth\ForgotController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\FileController;
@@ -7,6 +8,7 @@ use App\Http\Controllers\Landing\CollabController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Landing\ContactController;
+use App\Http\Controllers\UploadController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -84,6 +86,14 @@ Route::name('gunung-api.')->group(function () {
         'data-dasar',
         "$gunungApi.data-dasar.index"
     )->name('data-dasar');
+
+    // Gunung Api > Tingkat Aktivitas
+    Route::view(
+        'tingkat-aktivitas',
+        "$gunungApi.tingkat-aktivitas.index"
+    )->name('tingkat-aktivitas');
+
+    Route::get('news', [NewsController::class, 'get']);
 });
 
 // Layanan Publik
@@ -139,7 +149,7 @@ Route::prefix('layanan-publik')->name('layanan-publik.')->group(function () {
     )->name('kontak');
 
     Route::post(
-        'kontak',
+        'contact',
         [ContactController::class, 'save']
     )->name('kontak.save');
 });
@@ -167,3 +177,11 @@ Route::prefix('settings')->name('settings.')->group(function () {
 
 Route::get('/files/{id}/{name}', [FileController::class, 'download'])->name('files.download');
 Route::post('/image/upload', [FileController::class, 'storeImage'])->name('image.upload');
+
+Route::group(['middleware' => ['auth'], 'prefix' => 'apis/v1'], function () {
+    Route::get('news', [NewsController::class, 'get']);
+    Route::post('news', [NewsController::class, 'store']);
+    Route::post('news/retrieve', [NewsController::class, 'retrieve']);
+    Route::put('news', [NewsController::class, 'update']);
+    Route::delete('news', [NewsController::class, 'delete']);
+});

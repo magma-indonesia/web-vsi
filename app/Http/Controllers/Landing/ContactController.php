@@ -4,8 +4,8 @@ namespace App\Http\Controllers\Landing;
 
 use App\Http\Controllers\Controller;
 use App\Models\Contact;
-use GuzzleHttp\Client;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use PragmaRX\Countries\Package\Countries;
 
@@ -54,6 +54,7 @@ class ContactController extends Controller
     }
 
     public function save(Request $request) {
+        DB::beginTransaction();
         try {
             $validator = Validator::make($request->all(), [
                 'name' => 'required',
@@ -61,28 +62,11 @@ class ContactController extends Controller
                 'subject' => 'required'
             ]);
             if ($validator->fails()) {
-                return redirect()
-                            ->back()
-                            ->with("error", $validator->errors()->first())
-                            ->withInput();
-            }
-
-            $clientIps = request()->getClientIps();
-            $visitorIp = end($clientIps);
-
-            $client = new Client();
-            $response = $client->post('https://www.google.com/recaptcha/api/siteverify', [
-                'form_params' => [
-                    'secret' => env('RECAPTCHA_SERVERKEY'),
-                    'response' => $request->token,
-                    'remoteip' => $visitorIp
-                ]
-            ]);
-            $dirtyResult = $response->getBody()->getContents();
-            $result = json_decode($dirtyResult, true);
-            
-            if (!$result['success']) {
-                return redirect()->back()->with("error", "Recaptcha error");
+                DB::commit();
+                return response()->json([
+                    'message' => $validator->errors()->first(),
+                    'serve' => []
+                ], 400);
             }
 
             $c = new Contact();
@@ -92,9 +76,17 @@ class ContactController extends Controller
             $c->message = $request->message;
             $c->save();
             
-            return redirect()->back()->with("success", "Pesan berhasil terkirim dan telah kami terima, harap tunggu balasan dari kami.");
+            DB::commit();
+            return response()->json([
+                'message' => 'Pesan berhasil terkirim dan telah kami terima, harap tunggu balasan dari kami.',
+                'serve' => [],
+            ], 200);
         } catch (\Throwable $e) {
-            abort(500, $e->getMessage());
+            DB::rollBack();
+            return response()->json([
+                'message' => $e->getMessage(),
+                'serve' => [],
+            ], 500);
         }
     }
 }

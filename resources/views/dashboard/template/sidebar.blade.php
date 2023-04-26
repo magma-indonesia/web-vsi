@@ -87,9 +87,9 @@
             <li class="nav-item with-sub">
                 <a href="" class="nav-link"><i data-feather="layers"></i> <span>Gunung Api</span></a>
                 <ul>
-                    <li class="nav-item"><a href="{{ route('gunung-api.data-dasar') }}"><i
+                    <li class="nav-item"><a href="{{ route('dashboard.gunung-api.news') }}?category=1"><i
                                 data-feather="layers"></i><span>Data Dasar</span></a></li>
-                    <li class="nav-item"><a href="#"><i data-feather="airplay"></i><span>Tingkat Aktivitas</span></a>
+                    <li class="nav-item"><a href="{{ route('dashboard.gunung-api.news') }}?category=2"><i data-feather="airplay"></i><span>Tingkat Aktivitas</span></a>
                     </li>
                     <li class="nav-item"><a href="#"><i data-feather="airplay"></i><span>Laporan Aktivitas</span></a>
                     </li>

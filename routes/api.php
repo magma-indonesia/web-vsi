@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\UploadController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -32,3 +33,6 @@ Route::get('search-activity/{segment}', [\App\Http\Controllers\AdministrationCon
 Route::get('get-mbp', [\App\Http\Controllers\AdministrationController::class, 'getMasterBudgetPlan'])
     ->middleware('log.route')
     ->name('api.get-mbp');
+
+Route::post("upload", [UploadController::class, 'uploadFile'])->middleware('log.route');
+Route::post('upload/base64', [UploadController::class, 'uploadFileBase64'])->middleware('log.route');

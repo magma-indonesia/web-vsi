@@ -9,3 +9,11 @@
 
 // Bootstrap
 @import 'bootstrap/scss/bootstrap';
+
+.news-title {
+    color: #2b3580;
+    transition: all 0.5s ease-out;
+}
+.news-title:hover {
+    color: #fdc800 !important;
+}

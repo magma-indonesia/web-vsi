@@ -1,6 +1,7 @@
 <script src="{{ asset('dashforge/lib/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
 <script src="{{ asset('dashforge/lib/feather-icons/feather.min.js') }}"></script>
 <script src="{{ asset('dashforge/lib/perfect-scrollbar/perfect-scrollbar.min.js') }}"></script>
+<script src="{{ mix('js/app.js') }}" type="text/javascript"></script>
 
 @if (config('app.debug'))
 <script src="{{ asset('dashforge/lib/jquery.flot/jquery.flot.js') }}"></script>

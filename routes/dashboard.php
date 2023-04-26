@@ -1,8 +1,9 @@
 <?php
 
 use App\Http\Controllers\Administration\AdministrationController;
+use App\Http\Controllers\Administration\ContactController;
 use App\Http\Controllers\Administration\FinanceController;
-use App\Http\Controllers\ContactController;
+use App\Http\Controllers\Administration\NewsController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\GroundMovement\EventController as GroundMovementEventController;
 use App\Http\Controllers\UserController;
@@ -137,4 +138,8 @@ Route::prefix('gerakan-tanah')->name('gerakan-tanah.')->group(function () {
         Route::put('/{id}', 'update')->name('kejadian.update');
         Route::delete('/{id}', 'destroy')->name('kejadian.destroy');
     });
+});
+
+Route::prefix('gunung-api')->name('gunung-api.')->group(function () {
+    Route::get('/news', [NewsController::class, 'index'])->name('news');
 });
