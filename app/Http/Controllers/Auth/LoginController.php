@@ -100,14 +100,14 @@ class LoginController extends Controller
             }
 
             /** Validation role guest or else */
-            $credentials = $request->only('nip', 'password');
-            if ($request->role == '5') {
-                $credentials = $request->only('email', 'password');
+            $credentials = ["nip" => $request->username, "password" => $request->password];
+            if (filter_var($request->username, FILTER_VALIDATE_EMAIL)) {
+                $credentials = ["email" => $request->username, "password" => $request->password];
             }
 
             if (!Auth::attempt($credentials)) {
                 return response()->json([
-                    'message' => 'Email atau password kurang tepat.',
+                    'message' => 'Username atau password kurang tepat.',
                     'csrf' => csrf_token()
                 ], 400);
             }

@@ -49,8 +49,9 @@
                             </li>
                             <li><a href="#">Gunung Api</a>
                                 <ul class="child">
-                                    <li><a href="">Data Dasar</a></li>
-                                    <li><a href="">Tingkat Aktivitas</a></li>
+                                    <li><a href="{{ route('gunung-api.data-dasar') }}">Data Dasar</a></li>
+                                    <li><a href="https://magma.esdm.go.id">Sebaran Gunung Api</a></li>
+                                    <li><a href="{{ route('gunung-api.tingkat-aktivitas') }}">Tingkat Aktivitas</a></li>
                                     <li><a href="">Laporan Aktivitas</a></li>
                                     <li><a href="">Informasi Letusan</a></li>
                                     <li><a href="">CCTV Gunung Api</a></li>

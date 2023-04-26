@@ -21,6 +21,7 @@ class FileController extends Controller
         $search = $request->search;
         $files = File::query()
             ->where('user_id', $this->user()->id)
+            ->where('is_tmp', false)
             ->when($search, function ($query) use ($search) {
                 $query->where('name', 'like', '%'.$search.'%');
             })
@@ -165,5 +166,32 @@ class FileController extends Controller
         return Storage::download('public/'.$file->path, $fileName, [
             'Content-Disposition' => 'inline; filename='.$fileName
         ]);
+    }
+
+    public function storeImage(Request $request)
+    {
+        if ($request->hasFile('upload')) {
+            $fileUpload = $request->file('upload');
+            $fileName = $fileUpload->getClientOriginalName();
+            $ext = '.'.$fileUpload->getClientOriginalExtension();
+            $fileName = str_replace($ext, '-'.date('dmYHi').$ext, $fileName);
+            $filePath = 'images';
+            Storage::putFileAs(
+                'public/'.$filePath,
+                $fileUpload,
+                $fileName
+            );
+
+            $file = new File();
+            $file->user_id = $this->user()->id;
+            $file->name = $fileName;
+            $file->path = $filePath.'/'.$fileName;
+            $file->is_tmp = true;
+            $file->save();
+
+            return json_encode([
+                'location' => $file->url(),
+            ]);
+        }
     }
 }

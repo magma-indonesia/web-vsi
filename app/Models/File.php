@@ -9,6 +9,10 @@ class File extends Model
 {
     use HasFactory;
 
+    protected $casts = [
+        'is_tmp' => 'boolean',
+    ];
+
     public function url()
     {
         return route('files.download', [
