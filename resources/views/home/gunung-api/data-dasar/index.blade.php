@@ -26,7 +26,7 @@
 <div class="city_blog2_wrap team" style="background: #fff">
     <div class="container">
         <div id="app">
-            <news-volcano apiurl="{{ env('APP_URL') }}" category="1"></news-volcano>
+            <news apiurl="{{ env('APP_URL') }}" category="1"></news>
         </div>
     </div>
 </div>

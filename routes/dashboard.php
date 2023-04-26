@@ -142,4 +142,6 @@ Route::prefix('gerakan-tanah')->name('gerakan-tanah.')->group(function () {
 
 Route::prefix('gunung-api')->name('gunung-api.')->group(function () {
     Route::get('/news', [NewsController::class, 'index'])->name('news');
+    Route::get('/news/add', [NewsController::class, 'add'])->name('news.add');
+    Route::get('/news/edit/{id}', [NewsController::class, 'edit'])->name('news.edit');
 });

@@ -47,6 +47,33 @@ class NewsController extends Controller
         }
     }
 
+    public function add(Request $request)
+    {
+        $contents = 'dashboard.template.body'; 
+        $path = $request->query('category');
+        if ($path == '2') {
+            return view("dashboard.gunung-api.tingkat-aktivitas.add", compact("contents"));    
+        }
+        return view("dashboard.gunung-api.data-dasar.add", compact("contents"));
+    }
+
+    public function edit(Request $request)
+    {
+        $contents = 'dashboard.template.body'; 
+        $path = $request->query('category');
+        $id = $request->id;
+
+        $retrieve = News::where("id", $id)->first();
+        if (!$retrieve) {
+            abort(404);
+        }
+
+        if ($path == '2') {
+            return view("dashboard.gunung-api.tingkat-aktivitas.edit", compact("contents", "retrieve"));    
+        }
+        return view("dashboard.gunung-api.data-dasar.edit", compact("contents", "retrieve"));
+    }
+
     public function store(Request $request)
     {
         DB::beginTransaction();
@@ -64,11 +91,21 @@ class NewsController extends Controller
             }
 
             $n = new News;
-            $n->title = $request->title;
             $n->content = $request->desc;
             $n->thumbnail = $request->thumbnail;
             $n->created_at = $request->created_at;
             $n->created_by = Auth::user()->name;
+
+            $title = News::where('route', strtolower(preg_replace('/\s+/', '-', preg_replace('/[^a-zA-Z0-9_ -]/s','',$request->title))))
+                        ->get();
+            if (count($title) > 0) {
+                $n->title = $request->title;
+                $n->route = strtolower(preg_replace('/\s+/', '-', preg_replace('/[^a-zA-Z0-9_ -]/s','',$request->title)))."-".(count($title)+1);
+            } else {
+                $n->title = $request->title;
+                $n->route = strtolower(preg_replace('/\s+/', '-', preg_replace('/[^a-zA-Z0-9_ -]/s','',$request->title)));
+            }
+
             $n->save();
 
             foreach ($request->categories as $cat) {
@@ -140,10 +177,21 @@ class NewsController extends Controller
                 ], 400);
             }
 
-            $n->title = $request->title;
+            
             $n->content = $request->desc;
             $n->thumbnail = $request->thumbnail;
             $n->created_at = $request->created_at;
+            if ($n->title !== $request->title) {
+                $title = News::where('route', strtolower(preg_replace('/\s+/', '-', preg_replace('/[^a-zA-Z0-9_ -]/s','',$request->title))))
+                            ->get();
+                if (count($title) > 0) {
+                    $n->title = $request->title;
+                    $n->route = strtolower(preg_replace('/\s+/', '-', preg_replace('/[^a-zA-Z0-9_ -]/s','',$request->title)))."-".(count($title)+1);
+                } else {
+                    $n->title = $request->title;
+                    $n->route = strtolower(preg_replace('/\s+/', '-', preg_replace('/[^a-zA-Z0-9_ -]/s','',$request->title)));
+                }
+            }
             $n->save();
 
             if(count($request->categories) > 0){

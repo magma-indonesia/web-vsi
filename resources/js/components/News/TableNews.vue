@@ -88,30 +88,14 @@
                 </div>
             </template>
         </a-table>
-        <a-drawer
-            :width="360"
-            title="Kelola data"
-            placement="right"
-            :visible="openDrawer"
-            @close="handleCloseDrawer"
-        >
-            <form-volcano
-                :category="category"
-                :retrieve="current"
-                @close="handleCloseDrawer"
-                :apiurl="apiurl"
-            ></form-volcano>
-        </a-drawer>
     </div>
 </template>
 <script>
 import axios from "axios";
-import FormVolcano from "./FormVolcano.vue";
 import helper from "../../utils/helper";
 
 export default {
-    components: { FormVolcano },
-    props: ["apiurl", "category"],
+    props: ["apiurl", "addurl", "editurl", "category"],
     data() {
         return {
             columns: [
@@ -145,7 +129,6 @@ export default {
             params: {
                 name: "",
             },
-            openDrawer: false,
             loading: false,
             current: false,
         };
@@ -167,15 +150,19 @@ export default {
         },
         handleCloseDrawer() {
             this.current = false;
-            this.openDrawer = false;
             this.fetchData(this.params, this.pagination);
         },
         handleAdd() {
-            this.openDrawer = true;
+            window.location.href = this.addurl;
         },
         handleEdit(val) {
             this.current = val;
-            this.openDrawer = true;
+            window.location.href =
+                this.editurl.replace(/\/0/g, "") +
+                "/" +
+                val.id +
+                "?category=" +
+                this.category;
         },
         handleDelete(val) {
             const postData = { id: val.id };

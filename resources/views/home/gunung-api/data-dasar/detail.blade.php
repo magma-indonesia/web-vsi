@@ -1,6 +1,6 @@
 @extends('template.layanan-publik.layout')
 
-@section('title', 'Tingkat Aktivitas Gunung Api')
+@section('title', $retrieve->title)
 
 @push('styles')
 <link href="{{ asset('css/selectric.css') }}" rel="stylesheet">
@@ -12,12 +12,11 @@
 <div class="sab_banner overlay">
     <div class="container">
         <div class="sab_banner_text">
-            <h2>Tingkat Aktivitas Gunung Api</h2>
+            <h2>{{ $retrieve->title }}</h2>
             <ul class="breadcrumb">
                 <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
                 <li class="breadcrumb-item"><a href="#">Gunung Api</a></li>
-                <li class="breadcrumb-item active"><a href="{{ route('gunung-api.tingkat-aktivitas') }}">Tingkat Aktivitas Gunung
-                        Api</a></li>
+                <li class="breadcrumb-item active"><a href="{{ route('gunung-api.data-dasar.detail', $retrieve->route) }}">{{ $retrieve->title }}</a></li>
             </ul>
         </div>
     </div>
@@ -26,7 +25,7 @@
 <div class="city_blog2_wrap team" style="background: #fff">
     <div class="container">
         <div id="app">
-            <news apiurl="{{ env('APP_URL') }}" category="2"></news>
+            <news-detail retrieve="{{ $retrieve }}"></news-detail>
         </div>
     </div>
 </div>

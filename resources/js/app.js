@@ -30,13 +30,12 @@ Vue.component(
     "contact-form",
     require("./components/Auth/ContactForm.vue").default
 );
+Vue.component("table-news", require("./components/News/TableNews.vue").default);
+Vue.component("form-news", require("./components/News/FormNews.vue").default);
+Vue.component("news", require("./components/News/News.vue").default);
 Vue.component(
-    "table-volcano",
-    require("./components/Volcano/TableVolcano.vue").default
-);
-Vue.component(
-    "news-volcano",
-    require("./components/Volcano/NewsVolcano.vue").default
+    "news-detail",
+    require("./components/News/NewsDetail.vue").default
 );
 /**
  * The following block of code may be used to automatically register your

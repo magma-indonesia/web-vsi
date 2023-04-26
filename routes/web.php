@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Administration\NewsController;
+use App\Http\Controllers\Landing\NewsController as LandingNewsController;
 use App\Http\Controllers\Auth\ForgotController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\FileController;
@@ -86,12 +87,15 @@ Route::name('gunung-api.')->group(function () {
         'data-dasar',
         "$gunungApi.data-dasar.index"
     )->name('data-dasar');
+    
+    Route::get('/data-dasar/{route}', [LandingNewsController::class, 'detailDataDasar'])->name("data-dasar.detail");
 
     // Gunung Api > Tingkat Aktivitas
     Route::view(
         'tingkat-aktivitas',
         "$gunungApi.tingkat-aktivitas.index"
     )->name('tingkat-aktivitas');
+    Route::get('/tingkat-aktivitas/{route}', [LandingNewsController::class, 'detailTingkatAktivitas'])->name("tingkat-aktivitas.detail");
 
     Route::get('news', [NewsController::class, 'get']);
 });

@@ -43,7 +43,11 @@
                         v-for="(item, index) in news"
                         :key="index"
                     >
-                        <a-card hoverable style="position: relative">
+                        <a-card
+                            hoverable
+                            style="position: relative"
+                            @click="handleDetail(item)"
+                        >
                             <div
                                 slot="cover"
                                 :style="{
@@ -106,9 +110,10 @@
                                         {{ item.title }}
                                     </a>
                                 </div>
-                                <div slot="description">
-                                    {{ truncString(item.content) }}
-                                </div>
+                                <div
+                                    slot="description"
+                                    v-html="truncString(item.content)"
+                                ></div>
                             </a-card-meta>
                         </a-card>
                     </a-col>
@@ -161,7 +166,7 @@ export default {
             return helper.truncString(item, 120, "...");
         },
         handleDetail(item) {
-            window.location.href = this.apiurl + "/news/" + item.id;
+            window.location.href = this.apiurl + "/data-dasar/" + item.route;
         },
         handlePageChange(page, pageSize) {
             this.pagination.current = page;

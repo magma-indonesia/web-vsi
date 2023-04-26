@@ -16,7 +16,11 @@
             />
         </a-form-item>
         <a-form-item label="Deskripsi">
-            <a-textarea v-decorator="['desc']" :auto-size="{ minRows: 5 }" />
+            <tiny-mce
+                @change="handleChangeTiny($event)"
+                :value.sync="desc"
+                :apiurl="apiurl"
+            ></tiny-mce>
         </a-form-item>
         <a-form-item label="Waktu" :hasFeedback="true">
             <a-input
@@ -74,6 +78,14 @@
                 <span v-if="!loading"> Simpan </span>
                 <span v-else> Mohon tunggu... </span>
             </a-button>
+            <a-button
+                style="margin-top: 10px"
+                type="link"
+                :block="true"
+                @click="handleClose"
+            >
+                Tutup
+            </a-button>
         </a-form-item>
     </a-form>
 </template>
@@ -81,63 +93,51 @@
 <script>
 import axios from "axios";
 import helper from "../../utils/helper";
+import TinyMce from "../Utils/TinyMce.vue";
+
 export default {
-    props: ["apiurl", "retrieve", "category"],
+    components: { TinyMce },
+    props: ["apiurl", "backurl", "retrieve", "category"],
     data() {
         return {
             formLayout: "vertical",
             form: null,
             loading: false,
             thumbnail: null,
+            desc: null,
         };
     },
-    created() {
-        this.thumbnail = this.retrieve.thumbnail;
+    async created() {
+        let retrieve = null;
+        if (this.retrieve) {
+            retrieve = await JSON.parse(this.retrieve);
+        }
+
+        this.thumbnail = retrieve?.thumbnail;
+        this.desc = retrieve?.content;
         this.form = this.$form.createForm(this, {
-            name: "form-volcano",
+            name: "form-news",
 
             mapPropsToFields: () => {
                 return {
                     title: this.$form.createFormField({
-                        ...this.retrieve,
-                        value: this.retrieve?.title,
-                    }),
-                    desc: this.$form.createFormField({
-                        ...this.retrieve,
-                        value: this.retrieve?.content,
+                        ...retrieve,
+                        value: retrieve?.title,
                     }),
                     created_at: this.$form.createFormField({
-                        ...this.retrieve,
+                        ...retrieve,
                         value: helper.formattedTime(
-                            new Date(this.retrieve?.created_at)
+                            new Date(retrieve?.created_at)
                         ),
                     }),
                 };
             },
         });
     },
-    watch: {
-        retrieve: function (val) {
-            this.thumbnail = this.retrieve.thumbnail;
-            this.form.updateFields({
-                title: this.$form.createFormField({
-                    ...this.retrieve,
-                    value: this.retrieve?.title,
-                }),
-                desc: this.$form.createFormField({
-                    ...this.retrieve,
-                    value: this.retrieve?.content,
-                }),
-                created_at: this.$form.createFormField({
-                    ...this.retrieve,
-                    value: helper.formattedTime(
-                        new Date(this.retrieve?.created_at)
-                    ),
-                }),
-            });
-        },
-    },
     methods: {
+        handleChangeTiny(e) {
+            this.desc = e;
+        },
         handleUpload() {
             const input = document.createElement("input");
             input.type = "file";
@@ -160,10 +160,13 @@ export default {
             };
             input.click();
         },
+        handleClose() {
+            window.location.href = this.backurl;
+        },
         handleSubmit(e) {
             this.loading = true;
             e.preventDefault();
-            this.form.validateFields((err, values) => {
+            this.form.validateFields(async (err, values) => {
                 if (!err) {
                     var postData = {
                         ...values,
@@ -171,14 +174,16 @@ export default {
 
                     postData.categories = [this.category];
                     postData.thumbnail = this.thumbnail;
+                    postData.desc = this.desc;
                     if (this.retrieve) {
-                        postData.id = this.retrieve.id;
+                        let retrieve = await JSON.parse(this.retrieve);
+                        postData.id = retrieve.id;
                         axios
                             .put(`${this.apiurl}/apis/v1/news`, postData)
                             .then(() => {
                                 this.form.resetFields();
                                 this.loading = false;
-                                this.$emit("close");
+                                this.handleClose();
                             })
                             .catch(() => {
                                 this.loading = false;
@@ -189,7 +194,7 @@ export default {
                             .then(() => {
                                 this.form.resetFields();
                                 this.loading = false;
-                                this.$emit("close");
+                                this.handleClose();
                             })
                             .catch(() => {
                                 this.loading = false;

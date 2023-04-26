@@ -16,6 +16,8 @@
     </div>
 </div>
 <div class="p-3" id="app">
-    <table-volcano apiurl="{{ env('APP_URL') }}" category="1"></table-volcano>
+    <table-news apiurl="{{ env('APP_URL') }}" addurl="{{ route('dashboard.gunung-api.news.add') }}?category=1"
+        editurl="{{ route('dashboard.gunung-api.news.edit', 0) }}" category="1">
+    </table-news>
 </div>
 @endsection
