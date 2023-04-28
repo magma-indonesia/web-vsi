@@ -15,6 +15,7 @@ return new class () extends Migration {
         Schema::table('ground_movements', function (Blueprint $table) {
             $table->text("thumbnail")->nullable()->after('description');
             $table->boolean("is_highlight")->default(false)->after('thumbnail');
+            $table->string("slug")->nullable()->after('is_highlight');
         });
     }
 
@@ -28,6 +29,7 @@ return new class () extends Migration {
         Schema::table('ground_movements', function (Blueprint $table) {
             $table->dropColumn('thumbnail');
             $table->dropColumn('is_highlight');
+            $table->dropColumn('slug');
         });
     }
 };

@@ -6,8 +6,10 @@ use App\Http\Controllers\Controller;
 use App\Models\GroundMovement;
 use App\Param;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
 use Throwable;
 
 class GroundMovementController extends Controller
@@ -79,6 +81,13 @@ class GroundMovementController extends Controller
             $data->thumbnail = $request->thumbnail;
             $data->author_id = $this->user()->id;
             $data->save();
+            
+            $slug = implode('-', [
+                Crypt::encryptString($data->id),
+                Str::slug($request->title),
+            ]);
+            $data->slug = $slug;
+            $data->save();
 
             DB::commit();
 
@@ -143,6 +152,14 @@ class GroundMovementController extends Controller
                     'message' => "Gagal mendapatkan data.",
                     'serve' => []
                 ], 400);
+            }
+            
+            if ($data->title != $request->title) {
+                $slug = implode('-', [
+                    Crypt::encryptString($data->id),
+                    Str::slug($request->title),
+                ]);
+                $data->slug = $slug;
             }
             $data->title = $request->title;
             $data->description = $request->description;
