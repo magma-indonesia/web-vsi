@@ -197,6 +197,7 @@ return [
 
     'aliases' => Facade::defaultAliases()->merge([
         // ...
+        'Param'  => App\Param::class,
     ])->toArray(),
 
 ];

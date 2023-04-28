@@ -37,6 +37,8 @@ Vue.component(
     "news-detail",
     require("./components/News/NewsDetail.vue").default
 );
+Vue.component("table-ground-movement", require("./components/GroundMovement/TableGroundMovement.vue").default);
+Vue.component("form-ground-movement", require("./components/GroundMovement/FormGroundMovement.vue").default);
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue

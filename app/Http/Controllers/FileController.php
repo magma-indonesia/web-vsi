@@ -6,6 +6,7 @@ use App\Models\File;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Throwable;
 
 class FileController extends Controller
 {
@@ -170,8 +171,39 @@ class FileController extends Controller
 
     public function storeImage(Request $request)
     {
-        if ($request->hasFile('upload')) {
-            $fileUpload = $request->file('upload');
+        // if ($request->hasFile('upload')) {
+        //     $fileUpload = $request->file('upload');
+        //     $fileName = $fileUpload->getClientOriginalName();
+        //     $ext = '.'.$fileUpload->getClientOriginalExtension();
+        //     $fileName = str_replace($ext, '-'.date('dmYHi').$ext, $fileName);
+        //     $filePath = 'images';
+        //     Storage::putFileAs(
+        //         'public/'.$filePath,
+        //         $fileUpload,
+        //         $fileName
+        //     );
+
+        //     $file = new File();
+        //     $file->user_id = $this->user()->id;
+        //     $file->name = $fileName;
+        //     $file->path = $filePath.'/'.$fileName;
+        //     $file->is_tmp = true;
+        //     $file->save();
+
+        //     return json_encode([
+        //         'location' => $file->url(),
+        //     ]);
+        // }
+        
+        try {
+            if(!$request->file()){
+                return response()->json([
+                    'message' => 'Upload gagal.', 
+                    'serve' => []
+                ], 400);
+            }
+            
+            $fileUpload = $request->file('file');
             $fileName = $fileUpload->getClientOriginalName();
             $ext = '.'.$fileUpload->getClientOriginalExtension();
             $fileName = str_replace($ext, '-'.date('dmYHi').$ext, $fileName);
@@ -188,10 +220,18 @@ class FileController extends Controller
             $file->path = $filePath.'/'.$fileName;
             $file->is_tmp = true;
             $file->save();
-
-            return json_encode([
-                'location' => $file->url(),
-            ]);
+            
+            return response()->json([
+                'message' => '', 
+                'serve' => [
+                    'url' => $file->url(),
+                ]
+            ], 200);
+        } catch (Throwable $e) {
+            return response()->json([
+                'message' => $e->getMessage(),
+                'serve' => [],
+            ], 500);
         }
     }
 }

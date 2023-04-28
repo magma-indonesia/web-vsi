@@ -103,12 +103,18 @@
                     <li class="nav-item"><a href="#"><i data-feather="airplay"></i><span>VONA</span></a></li>
                 </ul>
             </li>
-            <li class="nav-item with-sub">
+            <li class="nav-item with-sub  {{ request()->routeIs('dashboard.gerakan-tanah.index') ? 'active show' : '' }}">
                 <a href="" class="nav-link"><i data-feather="layers"></i> <span>Gerakan Tanah</span></a>
                 <ul>
-                    <li class="nav-item"><a href="#"><i data-feather="alert-triangle"></i><span>Rekapitulasi Kejadian</span></a></li>
-                    <li class="nav-item"><a href="{{ route('dashboard.gerakan-tanah.kejadian.index') }}"><i data-feather="layers"></i><span>Daftar Kejadian</span></a></li>
-                    <li class="nav-item"><a href="#"><i data-feather="alert-triangle"></i><span>Peringatan Dini</span></a></li>
+                    <li class="nav-item {{ request()->routeIs('dashboard.gerakan-tanah.index') && request()->get('category') == Param::GROUND_MOVEMENT_EVENT ? 'active' : '' }}">
+                        <a href="{{ route('dashboard.gerakan-tanah.index', ['category' => Param::GROUND_MOVEMENT_EVENT]) }}"><i data-feather="layers"></i><span>Daftar Kejadian</span></a>
+                    </li>
+                    <li class="nav-item {{ request()->routeIs('dashboard.gerakan-tanah.index') && request()->get('category') == Param::GROUND_MOVEMENT_EARLY_WARNING ? 'active' : '' }}">
+                        <a href="{{ route('dashboard.gerakan-tanah.index', ['category' => Param::GROUND_MOVEMENT_EARLY_WARNING]) }}"><i data-feather="alert-triangle"></i><span>Peringatan Dini</span></a>
+                    </li>
+                    <li class="nav-item {{ request()->routeIs('dashboard.gerakan-tanah.index') && request()->get('category') == Param::GROUND_MOVEMENT_EVENT_RECAP ? 'active' : '' }}">
+                        <a href="{{ route('dashboard.gerakan-tanah.index', ['category' => Param::GROUND_MOVEMENT_EVENT_RECAP]) }}"><i data-feather="alert-triangle"></i><span>Rekapitulasi Kejadian</span></a>
+                    </li>
                     <li class="nav-item"><a href="#"><i data-feather="alert-triangle"></i><span>Peta ZKGT</span></a>
                     </li>
                 </ul>
