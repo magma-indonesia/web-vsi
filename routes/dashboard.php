@@ -5,9 +5,11 @@ use App\Http\Controllers\Administration\ContactController;
 use App\Http\Controllers\Administration\FinanceController;
 use App\Http\Controllers\Administration\NewsController;
 use App\Http\Controllers\Api\GroundMovementController as ApiGroundMovementController;
+use App\Http\Controllers\Api\ProfileController as ApiProfileController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\GroundMovement\EventController as GroundMovementEventController;
 use App\Http\Controllers\GroundMovementController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -154,15 +156,30 @@ Route::prefix('gunung-api')->name('gunung-api.')->group(function () {
     Route::get('/news/edit/{id}', [NewsController::class, 'edit'])->name('news.edit');
 });
 
+// Profile
+Route::prefix('profile')->name('profile.')->group(function () {
+    Route::controller(ProfileController::class)->group(function () {
+        Route::get('/{id}/form', 'edit')->name('index');
+    });
+});
+
+// Api
 Route::group(['middleware' => ['auth'], 'prefix' => 'api'], function () {
     // Gerakan Tanah
     Route::group(['prefix' => 'gerakan-tanah'], function () {
-        // Gerakan Tanah > Daftar Kejadian
         Route::controller(ApiGroundMovementController::class)->group(function () {
             Route::get('/', 'index');
             Route::post('/', 'store');
             Route::put('/', 'update');
             Route::delete('/', 'destroy');
+        });
+    });
+
+    // Profile
+    Route::group(['prefix' => 'profile'], function () {
+        Route::controller(ApiProfileController::class)->group(function () {
+            Route::post('/', 'store');
+            Route::put('/', 'update');
         });
     });
 });

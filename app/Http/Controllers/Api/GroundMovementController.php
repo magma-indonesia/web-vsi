@@ -66,20 +66,19 @@ class GroundMovementController extends Controller
             );
            
             if ($validator->fails()) {
-                DB::commit();
                 return response()->json([
                     'message' => $validator->errors()->first(),
                     'serve' => []
                 ], 400);
             }
 
-            $event = new GroundMovement();
-            $event->category_id = $request->category;
-            $event->title = $request->title;
-            $event->description = $request->description;
-            $event->thumbnail = $request->thumbnail;
-            $event->author_id = $this->user()->id;
-            $event->save();
+            $data = new GroundMovement();
+            $data->category_id = $request->category;
+            $data->title = $request->title;
+            $data->description = $request->description;
+            $data->thumbnail = $request->thumbnail;
+            $data->author_id = $this->user()->id;
+            $data->save();
 
             DB::commit();
 

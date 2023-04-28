@@ -20,7 +20,7 @@
     <div class="p-3" id="app">
         <form-ground-movement
             apiurl="{{ $appUrl }}"
-            category="1"
+            category="{{ $category }}"
             backurl="{{ route('dashboard.gerakan-tanah.index', ['category' => $category]) }}"
             retrieve="{{ $retrieve }}"
         ></form-ground-movement>

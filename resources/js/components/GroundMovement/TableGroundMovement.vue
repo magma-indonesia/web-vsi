@@ -105,7 +105,7 @@ export default {
                 },
                 {
                     title: "Author",
-                    dataIndex: "author",
+                    dataIndex: "author_name",
                 },
                 {
                     title: "Waktu",

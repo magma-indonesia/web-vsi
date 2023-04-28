@@ -31,7 +31,7 @@ class GroundMovementController extends Controller
             'category' => $category,
             'appUrl' => env('APP_URL'),
             'addUrl' => route('dashboard.gerakan-tanah.create', ['category' => $category]),
-            'editUrl' => route('dashboard.gerakan-tanah.edit', '##ID##'),
+            'editUrl' => route('dashboard.gerakan-tanah.edit', '##ID##') . '?category=' . $category,
         ]);
     }
 
@@ -42,7 +42,7 @@ class GroundMovementController extends Controller
      */
     public function create(Request $request)
     {
-        $category = $request->query('category');
+        $category = $request->query('category') ?? Param::GROUND_MOVEMENT_EVENT;
         $pageTitle = 'Daftar Kejadian';
         if ($category == Param::GROUND_MOVEMENT_EARLY_WARNING) {
             $pageTitle = 'Peringatan Dini';
@@ -58,28 +58,6 @@ class GroundMovementController extends Controller
             'retrieve' => null,
             'isUpdate' => false,
         ]);
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
     }
 
     /**
@@ -110,28 +88,5 @@ class GroundMovementController extends Controller
             'retrieve' => $data,
             'isUpdate' => true,
         ]);
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
     }
 }

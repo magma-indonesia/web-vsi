@@ -10,16 +10,16 @@ class GroundMovement extends Model
     use HasFactory;
 
     protected $appends = [
-        'author'
+        'author_name'
     ];
 
-    public function user()
+    public function author()
     {
         return $this->belongsTo(User::class, 'author_id');
     }
 
-    public function getAuthorAttribute()
+    public function getAuthorNameAttribute()
     {
-        return $this->user->name;
+        return $this->author->name;
     }
 }

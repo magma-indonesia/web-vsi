@@ -50,17 +50,17 @@
                 </a>
             </li>
 
+            <li class="nav-item {{ request()->routeIs('dashboard.index') ? 'active' : '' }}">
+                <a href="{{ route('dashboard.index') }}" class="nav-link">
+                    <i data-feather="trending-up"></i>
+                    <span>Dashboard</span>
+                </a>
+            </li>
+
             <li class="nav-item {{ request()->routeIs('settings.employee.index') ? 'active' : '' }}">
                 <a href="{{ route('settings.employee.index') }}" class="nav-link">
                     <i data-feather="user"></i>
                     <span>Pegawai</span>
-                </a>
-            </li>
-
-            <li class="nav-item {{ request()->routeIs('dashboard.index') ? 'active' : '' }}">
-                <a href="{{ route('dashboard.index') }}" class="nav-link">
-                    <i data-feather="bar-chart-2"></i>
-                    <span>Dashboard</span>
                 </a>
             </li>
 
@@ -73,19 +73,21 @@
 
             <li class="nav-label mg-t-25">CMS</li>
             <li class="nav-item with-sub">
-                <a href="" class="nav-link"><i data-feather="layers"></i> <span>Profile</span></a>
+                <a href="" class="nav-link"><i data-feather="award"></i> <span>Profile</span></a>
                 <ul>
-                    <li class="nav-item"><a href="{{ route('profile.tentang-pvmbg') }}"><i
-                                data-feather="shopping-bag"></i> <span>Tentang PVMBG</span></a></li>
-                    <li class="nav-item"><a href="{{ route('profile.struktur-organisasi') }}"><i
-                                data-feather="git-merge"></i>
-                            <span>Struktur Organisasi</span></a></li>
-                    <li class="nav-item"><a href="{{ route('profile.sejarah') }}"><i data-feather="clock"></i>
-                            <span>Sejarah</span></a></li>
+                    <li class="nav-item">
+                        <a href="{{ route('dashboard.profile.index', Param::PROFILE_ABOUT) }}"><i data-feather="info"></i> <span>Tentang PVMBG</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('dashboard.profile.index', Param::PROFILE_STRUCTURE) }}"><i data-feather="git-merge"></i> <span>Struktur Organisasi</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('dashboard.profile.index', Param::PROFILE_HISTORY) }}"><i data-feather="clock"></i> <span>Sejarah</span></a>
+                    </li>
                 </ul>
             </li>
             <li class="nav-item with-sub">
-                <a href="" class="nav-link"><i data-feather="layers"></i> <span>Gunung Api</span></a>
+                <a href="" class="nav-link"><i data-feather="bar-chart-2"></i> <span>Gunung Api</span></a>
                 <ul>
                     <li class="nav-item"><a href="{{ route('dashboard.gunung-api.news') }}?category=1"><i
                                 data-feather="layers"></i><span>Data Dasar</span></a></li>
@@ -103,24 +105,24 @@
                     <li class="nav-item"><a href="#"><i data-feather="airplay"></i><span>VONA</span></a></li>
                 </ul>
             </li>
-            <li class="nav-item with-sub  {{ request()->routeIs('dashboard.gerakan-tanah.index') ? 'active show' : '' }}">
-                <a href="" class="nav-link"><i data-feather="layers"></i> <span>Gerakan Tanah</span></a>
+            <li class="nav-item with-sub  {{ request()->is('*gerakan-tanah*') ? 'active show' : '' }}">
+                <a href="" class="nav-link"><i data-feather="activity"></i> <span>Gerakan Tanah</span></a>
                 <ul>
-                    <li class="nav-item {{ request()->routeIs('dashboard.gerakan-tanah.index') && request()->get('category') == Param::GROUND_MOVEMENT_EVENT ? 'active' : '' }}">
-                        <a href="{{ route('dashboard.gerakan-tanah.index', ['category' => Param::GROUND_MOVEMENT_EVENT]) }}"><i data-feather="layers"></i><span>Daftar Kejadian</span></a>
+                    <li class="nav-item {{ request()->is('*gerakan-tanah*') && request()->get('category') == Param::GROUND_MOVEMENT_EVENT ? 'active' : '' }}">
+                        <a href="{{ route('dashboard.gerakan-tanah.index', ['category' => Param::GROUND_MOVEMENT_EVENT]) }}"><i data-feather="list"></i><span>Daftar Kejadian</span></a>
                     </li>
-                    <li class="nav-item {{ request()->routeIs('dashboard.gerakan-tanah.index') && request()->get('category') == Param::GROUND_MOVEMENT_EARLY_WARNING ? 'active' : '' }}">
+                    <li class="nav-item {{ request()->is('*gerakan-tanah*') && request()->get('category') == Param::GROUND_MOVEMENT_EARLY_WARNING ? 'active' : '' }}">
                         <a href="{{ route('dashboard.gerakan-tanah.index', ['category' => Param::GROUND_MOVEMENT_EARLY_WARNING]) }}"><i data-feather="alert-triangle"></i><span>Peringatan Dini</span></a>
                     </li>
-                    <li class="nav-item {{ request()->routeIs('dashboard.gerakan-tanah.index') && request()->get('category') == Param::GROUND_MOVEMENT_EVENT_RECAP ? 'active' : '' }}">
-                        <a href="{{ route('dashboard.gerakan-tanah.index', ['category' => Param::GROUND_MOVEMENT_EVENT_RECAP]) }}"><i data-feather="alert-triangle"></i><span>Rekapitulasi Kejadian</span></a>
+                    <li class="nav-item {{ request()->is('*gerakan-tanah*') && request()->get('category') == Param::GROUND_MOVEMENT_EVENT_RECAP ? 'active' : '' }}">
+                        <a href="{{ route('dashboard.gerakan-tanah.index', ['category' => Param::GROUND_MOVEMENT_EVENT_RECAP]) }}"><i data-feather="book-open"></i><span>Rekapitulasi Kejadian</span></a>
                     </li>
-                    <li class="nav-item"><a href="#"><i data-feather="alert-triangle"></i><span>Peta ZKGT</span></a>
+                    <li class="nav-item"><a href="#"><i data-feather="map"></i><span>Peta ZKGT</span></a>
                     </li>
                 </ul>
             </li>
             <li class="nav-item with-sub">
-                <a href="" class="nav-link"><i data-feather="layers"></i> <span>Gempa Bumi & Tsunami</span></a>
+                <a href="" class="nav-link"><i data-feather="globe"></i> <span>Gempa Bumi & Tsunami</span></a>
                 <ul>
                     <li class="nav-item"><a href="{{ route('gunung-api.data-dasar') }}"><i
                                 data-feather="layers"></i><span>Rekapitulasi Kejadian</span></a></li>
@@ -141,7 +143,7 @@
                 </ul>
             </li>
             <li class="nav-item with-sub">
-                <a href="" class="nav-link"><i data-feather="layers"></i> <span>Layanan Publik</span></a>
+                <a href="" class="nav-link"><i data-feather="menu"></i> <span>Layanan Publik</span></a>
                 <ul>
                     <li class="nav-item"><a href=""><i data-feather="award"></i><span>Reformasi Birokrasi</span></a>
                     </li>
