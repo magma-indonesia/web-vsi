@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Administration\NewsController;
+use App\Http\Controllers\Api\GroundMovementController;
 use App\Http\Controllers\Landing\NewsController as LandingNewsController;
 use App\Http\Controllers\Auth\ForgotController;
 use App\Http\Controllers\Auth\LoginController;
@@ -9,6 +10,8 @@ use App\Http\Controllers\Landing\CollabController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Landing\ContactController;
+use App\Http\Controllers\Landing\GroundMovementController as LandingGroundMovementController;
+use App\Http\Controllers\Landing\ProfileController as LandingProfileController;
 use App\Http\Controllers\UploadController;
 use Illuminate\Support\Facades\Route;
 
@@ -60,22 +63,25 @@ Route::name('profile.')->group(function () {
     $profil = 'home.profile.';
 
     // Profile > Tentang PVMBG
-    Route::view(
-        'tentang-pvmbg',
-        "$profil.tentang-pvmbg.index"
-    )->name('tentang-pvmbg');
+    // Route::view(
+    //     'tentang-pvmbg',
+    //     "$profil.tentang-pvmbg.index"
+    // )->name('tentang-pvmbg');
+    Route::get('/tentang-pvmbg', [LandingProfileController::class, 'showAbout'])->name("tentang-pvmbg");
 
     // Profile > Struktur Organisasi
-    Route::view(
-        'struktur-organisasi',
-        "$profil.struktur-organisasi.index"
-    )->name('struktur-organisasi');
+    // Route::view(
+    //     'struktur-organisasi',
+    //     "$profil.struktur-organisasi.index"
+    // )->name('struktur-organisasi');
+    Route::get('/struktur-organisasi', [LandingProfileController::class, 'showStructure'])->name("struktur-organisasi");
 
     // Profile > sejarah
-    Route::view(
-        'sejarah',
-        "$profil.sejarah.index"
-    )->name('sejarah');
+    // Route::view(
+    //     'sejarah',
+    //     "$profil.sejarah.index"
+    // )->name('sejarah');
+    Route::get('/sejarah', [LandingProfileController::class, 'showHistory'])->name("sejarah");
 });
 
 // Gunung Api
@@ -98,6 +104,37 @@ Route::name('gunung-api.')->group(function () {
     Route::get('/tingkat-aktivitas/{route}', [LandingNewsController::class, 'detailTingkatAktivitas'])->name("tingkat-aktivitas.detail");
 
     Route::get('news', [NewsController::class, 'get']);
+});
+
+// Gerakan Tanah
+Route::name('gerakan-tanah.')->group(function () {
+    $gerakanTanah = 'home.gerakan-tanah.';
+
+    Route::get('gerakan-tanah', [GroundMovementController::class, 'index']);
+
+    // Gerakan Tanah > Daftar Kejadian
+    Route::view(
+        'daftar-kejadian',
+        "$gerakanTanah.daftar-kejadian.index"
+    )->name('daftar-kejadian');
+    
+    Route::get('/daftar-kejadian/{route}', [LandingGroundMovementController::class, 'showEvent'])->name("daftar-kejadian.detail");
+
+    // Gerakan Tanah > Peringatan Dini
+    Route::view(
+        'peringatan-dini',
+        "$gerakanTanah.peringatan-dini.index"
+    )->name('peringatan-dini');
+    
+    Route::get('/peringatan-dini/{route}', [LandingGroundMovementController::class, 'showEvent'])->name("peringatan-dini.detail");
+
+    // Gerakan Tanah > Rekapitulasi Kejadian
+    Route::view(
+        'rekapitulasi-kejadian',
+        "$gerakanTanah.rekapitulasi-kejadian.index"
+    )->name('rekapitulasi-kejadian');
+    
+    Route::get('/rekapitulasi-kejadian/{route}', [LandingGroundMovementController::class, 'showEvent'])->name("rekapitulasi-kejadian.detail");
 });
 
 // Layanan Publik

@@ -42,8 +42,7 @@
                             <li><a href="#">Profile</a>
                                 <ul class="child">
                                     <li><a href="{{ route('profile.tentang-pvmbg') }}">Tentang PVMBG</a></li>
-                                    <li><a href="{{ route('profile.struktur-organisasi') }}">Struktur Organisasi</a>
-                                    </li>
+                                    <li><a href="{{ route('profile.struktur-organisasi') }}">Struktur Organisasi</a></li>
                                     <li><a href="{{ route('profile.sejarah') }}">Sejarah</a></li>
                                 </ul>
                             </li>
@@ -64,9 +63,9 @@
                             </li>
                             <li><a href="#">Gerakan Tanah</a>
                                 <ul class="child">
-                                    <li><a href="">Daftar Kejadian</a></li>
-                                    <li><a href="">Peringatan Dini</a></li>
-                                    <li><a href="">Rekapitulasi Kejadian</a></li>
+                                    <li><a href="{{ route('gerakan-tanah.daftar-kejadian') }}">Daftar Kejadian</a></li>
+                                    <li><a href="{{ route('gerakan-tanah.peringatan-dini') }}">Peringatan Dini</a></li>
+                                    <li><a href="{{ route('gerakan-tanah.rekapitulasi-kejadian') }}">Rekapitulasi Kejadian</a></li>
                                     <li><a href="">Peta ZKGT</a></li>
                                 </ul>
                             </li>

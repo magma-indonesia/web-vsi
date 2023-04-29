@@ -39,7 +39,10 @@ Vue.component(
 );
 Vue.component("table-ground-movement", require("./components/GroundMovement/TableGroundMovement.vue").default);
 Vue.component("form-ground-movement", require("./components/GroundMovement/FormGroundMovement.vue").default);
+Vue.component("ground-movement", require("./components/GroundMovement/GroundMovement.vue").default);
+Vue.component("ground-movement-detail", require("./components/GroundMovement/GroundMovementDetail.vue").default);
 Vue.component("form-profile", require("./components/Profile/FormProfile.vue").default);
+Vue.component("profile-detail", require("./components/Profile/ProfileDetail.vue").default);
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
