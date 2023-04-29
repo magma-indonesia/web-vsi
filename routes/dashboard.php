@@ -6,6 +6,7 @@ use App\Http\Controllers\Administration\FinanceController;
 use App\Http\Controllers\Administration\NewsController;
 use App\Http\Controllers\Api\GroundMovementController as ApiGroundMovementController;
 use App\Http\Controllers\Api\ProfileController as ApiProfileController;
+use App\Http\Controllers\Api\UserController as ApiUserController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\GroundMovement\EventController as GroundMovementEventController;
 use App\Http\Controllers\GroundMovementController;
@@ -97,19 +98,11 @@ Route::get('/', [DashboardController::class, 'index'])
     ->name('index');
 
 // Pegawai
-Route::prefix('pegawai')->name('pegawai.')->group(function () {
-
-    // Pegawai > Index
-    Route::get('/', [UserController::class, 'index'])->name('index');
-
-    // Pegawai > Create
-    Route::get('create', [UserController::class, 'create'])->name('create');
-
-    // Pegawai > Show
-    Route::get('/{user}', [UserController::class, 'show'])->name('show');
-
-    // Pegawai > Update
-    Route::put('/{user}', [UserController::class, 'store'])->name('update');
+Route::prefix('pegawai')->controller(UserController::class)->group(function () {
+    Route::get('/', 'index')->name('pegawai.index');
+    Route::get('/create', 'create')->name('pegawai.create');
+    Route::get('/{id}/edit', 'edit')->name('pegawai.edit');
+    Route::get('/export', 'export')->name('pegawai.export');
 });
 
 // Layanan Publik
@@ -180,6 +173,16 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'api'], function () {
         Route::controller(ApiProfileController::class)->group(function () {
             Route::post('/', 'store');
             Route::put('/', 'update');
+        });
+    });
+
+    // Pegawai
+    Route::group(['prefix' => 'pegawai'], function () {
+        Route::controller(ApiUserController::class)->group(function () {
+            Route::get('/', 'index');
+            Route::post('/', 'store');
+            Route::put('/', 'update');
+            Route::delete('/', 'destroy');
         });
     });
 });

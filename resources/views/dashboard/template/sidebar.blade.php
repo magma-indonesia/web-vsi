@@ -57,8 +57,8 @@
                 </a>
             </li>
 
-            <li class="nav-item {{ request()->routeIs('settings.employee.index') ? 'active' : '' }}">
-                <a href="{{ route('settings.employee.index') }}" class="nav-link">
+            <li class="nav-item {{ request()->routeIs('dashboard.pegawai.index') ? 'active' : '' }}">
+                <a href="{{ route('dashboard.pegawai.index') }}" class="nav-link">
                     <i data-feather="user"></i>
                     <span>Pegawai</span>
                 </a>
@@ -72,16 +72,16 @@
             </li>
 
             <li class="nav-label mg-t-25">CMS</li>
-            <li class="nav-item with-sub">
+            <li class="nav-item with-sub  {{ request()->is('*profile*') ? 'active show' : '' }}">
                 <a href="" class="nav-link"><i data-feather="award"></i> <span>Profile</span></a>
                 <ul>
-                    <li class="nav-item">
+                    <li class="nav-item {{ request()->is('*profile*') && request()->route('id') == Param::PROFILE_ABOUT ? 'active' : '' }}">
                         <a href="{{ route('dashboard.profile.index', Param::PROFILE_ABOUT) }}"><i data-feather="info"></i> <span>Tentang PVMBG</span></a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item {{ request()->is('*profile*') && request()->route('id') == Param::PROFILE_STRUCTURE ? 'active' : '' }}">
                         <a href="{{ route('dashboard.profile.index', Param::PROFILE_STRUCTURE) }}"><i data-feather="git-merge"></i> <span>Struktur Organisasi</span></a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item {{ request()->is('*profile*') && request()->route('id') == Param::PROFILE_HISTORY ? 'active' : '' }}">
                         <a href="{{ route('dashboard.profile.index', Param::PROFILE_HISTORY) }}"><i data-feather="clock"></i> <span>Sejarah</span></a>
                     </li>
                 </ul>

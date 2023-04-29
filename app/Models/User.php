@@ -57,6 +57,11 @@ class User extends Authenticatable implements RbacUserInterface
         'is_active' => 'boolean',
     ];
 
+    protected $appends = [
+        'group_class',
+        'role_id',
+    ];
+
     /**
      * Set password encrypting
      *
@@ -98,6 +103,17 @@ class User extends Authenticatable implements RbacUserInterface
         return $this->attributes['avatar'] == null || '' ?
             $defaultAvatarPlaceholder :
             config('sipeg.photo_url') . $this->attributes['avatar'];
+    }
+
+    public function getGroupClassAttribute()
+    {
+        return $this->group.'/'.$this->class;
+    }
+
+    public function getRoleIdAttribute()
+    {
+        $roles = $this->roles()->pluck('role_id');
+        return count($roles) > 0 ? $roles[0] : '';
     }
 
     public function roles()
