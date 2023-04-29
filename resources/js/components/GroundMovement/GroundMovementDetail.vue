@@ -25,34 +25,6 @@
                 {{ JSON.parse(retrieve).title || "Untitled" }}
             </div>
             <div
-                slot="cover"
-                :style="{
-                    'background-image': `url(${
-                        JSON.parse(retrieve).thumbnail
-                            ? JSON.parse(retrieve).thumbnail
-                            : apiurl +
-                                '/images/placeholder-image.jpeg'
-                    })`,
-                    'background-repeat': 'no-repeat',
-                    'background-size': 'cover',
-                    'background-position': 'center',
-                    'height': '200px',
-                    'width': '100%',
-                }"
-            ></div>
-            <!-- <div
-                v-if="JSON.parse(retrieve)?.news_categories?.length > 0"
-                style="display: flex; flex-wrap: wrap; margin-top: 10px"
-            >
-                <a-tag
-                    color="blue-inverse"
-                    v-for="(cat, idx) in JSON.parse(retrieve).news_categories"
-                    :key="idx"
-                >
-                    {{ cat.category }}
-                </a-tag>
-            </div> -->
-            <div
                 v-html="JSON.parse(retrieve).description"
                 style="margin-bottom: 10px; margin-top: 10px"
             />
