@@ -4,8 +4,15 @@ use App\Http\Controllers\Administration\AdministrationController;
 use App\Http\Controllers\Administration\ContactController;
 use App\Http\Controllers\Administration\FinanceController;
 use App\Http\Controllers\Administration\NewsController;
+use App\Http\Controllers\Api\FileController as ApiFileController;
+use App\Http\Controllers\Api\GroundMovementController as ApiGroundMovementController;
+use App\Http\Controllers\Api\ProfileController as ApiProfileController;
+use App\Http\Controllers\Api\UserController as ApiUserController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\FileController;
 use App\Http\Controllers\GroundMovement\EventController as GroundMovementEventController;
+use App\Http\Controllers\GroundMovementController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -89,23 +96,14 @@ Route::name('admin.')
     });
 
 // Default routing dashboard
-Route::get('/', [DashboardController::class, 'index'])
-    ->name('index');
+Route::get('/', [DashboardController::class, 'index'])->name('index');
 
 // Pegawai
-Route::prefix('pegawai')->name('pegawai.')->group(function () {
-
-    // Pegawai > Index
-    Route::get('/', [UserController::class, 'index'])->name('index');
-
-    // Pegawai > Create
-    Route::get('create', [UserController::class, 'create'])->name('create');
-
-    // Pegawai > Show
-    Route::get('/{user}', [UserController::class, 'show'])->name('show');
-
-    // Pegawai > Update
-    Route::put('/{user}', [UserController::class, 'store'])->name('update');
+Route::prefix('pegawai')->controller(UserController::class)->group(function () {
+    Route::get('/', 'index')->name('pegawai.index');
+    Route::get('/create', 'create')->name('pegawai.create');
+    Route::get('/{id}/edit', 'edit')->name('pegawai.edit');
+    Route::get('/export', 'export')->name('pegawai.export');
 });
 
 // Layanan Publik
@@ -142,6 +140,12 @@ Route::prefix('gerakan-tanah')->name('gerakan-tanah.')->group(function () {
     Route::get('/news', [NewsController::class, 'index'])->name('news');
     Route::get('/news/add', [NewsController::class, 'add'])->name('news.add');
     Route::get('/news/edit/{id}', [NewsController::class, 'edit'])->name('news.edit');
+    
+    Route::controller(GroundMovementController::class)->group(function () {
+        Route::get('/', 'index')->name('index');
+        Route::get('/create', 'create')->name('create');
+        Route::get('/{id}/edit', 'edit')->name('edit');
+    });
 });
 
 Route::prefix('gunung-api')->name('gunung-api.')->group(function () {
@@ -154,4 +158,59 @@ Route::prefix('gempa-bumi-tsunami')->name('gempa-bumi-tsunami.')->group(function
     Route::get('/news', [NewsController::class, 'index'])->name('news');
     Route::get('/news/add', [NewsController::class, 'add'])->name('news.add');
     Route::get('/news/edit/{id}', [NewsController::class, 'edit'])->name('news.edit');
+});
+// Profile
+Route::prefix('profile')->name('profile.')->group(function () {
+    Route::controller(ProfileController::class)->group(function () {
+        Route::get('/{id}/form', 'edit')->name('index');
+    });
+});
+
+// Upload Center
+Route::prefix('upload-center')->name('upload-center.')->group(function () {
+    Route::controller(FileController::class)->group(function () {
+        Route::get('/', 'index')->name('index');
+        Route::get('/create', 'create')->name('create');
+    });
+});
+
+// Api
+Route::group(['middleware' => ['auth'], 'prefix' => 'api'], function () {
+    // Gerakan Tanah
+    Route::group(['prefix' => 'gerakan-tanah'], function () {
+        Route::controller(ApiGroundMovementController::class)->group(function () {
+            Route::get('/', 'index');
+            Route::post('/', 'store');
+            Route::put('/', 'update');
+            Route::delete('/', 'destroy');
+        });
+    });
+
+    // Profile
+    Route::group(['prefix' => 'profile'], function () {
+        Route::controller(ApiProfileController::class)->group(function () {
+            Route::post('/', 'store');
+            Route::put('/', 'update');
+        });
+    });
+
+    // Pegawai
+    Route::group(['prefix' => 'pegawai'], function () {
+        Route::controller(ApiUserController::class)->group(function () {
+            Route::get('/', 'index');
+            Route::post('/', 'store');
+            Route::put('/', 'update');
+            Route::delete('/', 'destroy');
+        });
+    });
+
+    // Upload Center
+    Route::group(['prefix' => 'upload-center'], function () {
+        Route::controller(ApiFileController::class)->group(function () {
+            Route::get('/', 'index');
+            Route::post('/', 'store');
+            Route::delete('/', 'destroy');
+            Route::get('/label', 'indexLabel');
+        });
+    });
 });

@@ -48,7 +48,7 @@ class Kernel extends HttpKernel
 
         'dashboard' => [
             'web',
-            'auth',
+            // 'auth',
         ],
 
         'test' => [

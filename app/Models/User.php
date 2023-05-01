@@ -57,6 +57,12 @@ class User extends Authenticatable implements RbacUserInterface
         'is_active' => 'boolean',
     ];
 
+    protected $appends = [
+        'group_class',
+        'role_id',
+        'role',
+    ];
+
     /**
      * Set password encrypting
      *
@@ -65,7 +71,7 @@ class User extends Authenticatable implements RbacUserInterface
      */
     public function setPasswordAttribute(string $password): void
     {
-        if(Hash::needsRehash($password) ) {
+        if (Hash::needsRehash($password)) {
             $password = Hash::make($password);
         }
         $this->attributes['password'] = $password;
@@ -95,13 +101,38 @@ class User extends Authenticatable implements RbacUserInterface
     public function getAvatar()
     {
         $defaultAvatarPlaceholder = 'https://via.placeholder.com/500';
+
         return $this->attributes['avatar'] == null || '' ?
             $defaultAvatarPlaceholder :
             config('sipeg.photo_url') . $this->attributes['avatar'];
     }
 
+    public function getGroupClassAttribute()
+    {
+        return $this->group.'/'.$this->class;
+    }
+
+    public function getRoleIdAttribute()
+    {
+        $roles = $this->roles()->pluck('role_id');
+
+        return count($roles) > 0 ? $roles[0] : '';
+    }
+
+    public function getRoleAttribute()
+    {
+        $roles = $this->roles();
+
+        return $roles->count() > 0 ? $roles->first() : null;
+    }
+
     public function roles()
     {
         return $this->belongsToMany(Role::class, 'user_role', 'user_id', 'role_id');
+    }
+
+    public function uploadCenters()
+    {
+        return $this->hasMany(File::class, 'user_id');
     }
 }

@@ -9,10 +9,6 @@ use Exception;
 use Illuminate\Http\Request;
 use PhpOffice\PhpSpreadsheet\Cell\DataType;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
-use PhpOffice\PhpSpreadsheet\Style\Alignment;
-use PhpOffice\PhpSpreadsheet\Style\Border;
-use PhpOffice\PhpSpreadsheet\Style\Color;
-use PhpOffice\PhpSpreadsheet\Style\Fill;
 use PhpOffice\PhpSpreadsheet\Writer as Writer;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 
@@ -25,25 +21,16 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index()
     {
-        $search = $request->search;
-        $users = User::query()
-            ->when($search, function ($query) use ($search) {
-                $query
-                    ->where('name', 'like', '%'.$search.'%')
-                    ->orWhere('nip', 'like', '%'.$search.'%');
-            })
-            ->orderBy('nip', 'asc')
-            ->paginate(10);
-
-        return view('settings.user.index', [
+        return view('dashboard.user.index', [
             'contents' => $this->contents,
             'pageTitle' => 'Pegawai',
-            'createUrl' => route('settings.employee.create'),
-            'exportExcelUrl' => route('settings.employee.export', ['type' => 'excel']),
-            'exportCsvUrl' => route('settings.employee.export', ['type' => 'csv']),
-            'users' => $users,
+            'appUrl' => env('APP_URL'),
+            'addUrl' => route('dashboard.pegawai.create'),
+            'editUrl' => route('dashboard.pegawai.edit', '##ID##'),
+            'exportExcelUrl' => route('dashboard.pegawai.export', ['type' => 'excel']),
+            'exportCsvUrl' => route('dashboard.pegawai.export', ['type' => 'csv']),
         ]);
     }
 
@@ -52,78 +39,89 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Request $request)
+    public function create()
     {
-        return view('settings.user.form', [
-            'contents' => $this->contents,
-            'pageTitle' => 'Pegawai',
-            'saveUrl' => route('settings.employee.store'),
-            'segments' => Segment::all(),
-            'roles' => Role::all(),
-            'input' => array_merge($request->input(), $request->old()),
-            'isUpdate' => false
-        ]);
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        $request->merge([
-            'group_class' => request('class') == 'e' && request('group') != 'IV' ? '' : request('group').request('class'),
-            'group' => request('class') == 'e' && request('group') != 'IV' ? '' : request('group'),
-            'class' => request('class') == 'e' && request('group') != 'IV' ? '' : request('class'),
-        ]);
-        $this->validate(
-            $request,
+        $groupClasses = [
             [
-                'segment_id' => ['required'],
-                'nip' => ['required'],
-                'name' => ['required'],
-                'position' => ['required'],
-                'group_class' => ['required'],
-                'password' => ['required'],
+                'id' => 'I/a',
+                'name' => 'I/a',
             ],
             [
-                'segment_id.required' => 'Bagian harus dipilih',
-                'nip.required' => 'NIP harus diisi',
-                'name.required' => 'Nama harus diisi',
-                'position.required' => 'Jabatan harus diisi',
-                'group_class.required' => 'Golongan harus dipilih',
-                'password.required' => 'Password harus diisi',
-            ]
-        );
-        try {
-            $user = new User();
-            $user->id_segment = $request->segment_id;
-            $user->nip = $request->nip;
-            $user->name = $request->name;
-            $user->position = $request->position;
-            $user->group = $request->group;
-            $user->class = $request->class;
-            $user->password = $request->password;
-            $user->is_active = 1;
-            $user->save();
-        } catch (Exception $e) {
-            return $this->errorRedirectBack($e);
-        }
+                'id' => 'I/b',
+                'name' => 'I/b',
+            ],
+            [
+                'id' => 'I/c',
+                'name' => 'I/c',
+            ],
+            [
+                'id' => 'I/d',
+                'name' => 'I/d',
+            ],
+            [
+                'id' => 'II/a',
+                'name' => 'II/a',
+            ],
+            [
+                'id' => 'II/b',
+                'name' => 'II/b',
+            ],
+            [
+                'id' => 'II/c',
+                'name' => 'II/c',
+            ],
+            [
+                'id' => 'II/d',
+                'name' => 'II/d',
+            ],
+            [
+                'id' => 'III/a',
+                'name' => 'III/a',
+            ],
+            [
+                'id' => 'III/b',
+                'name' => 'III/b',
+            ],
+            [
+                'id' => 'III/c',
+                'name' => 'III/c',
+            ],
+            [
+                'id' => 'III/d',
+                'name' => 'III/d',
+            ],
+            [
+                'id' => 'IV/a',
+                'name' => 'IV/a',
+            ],
+            [
+                'id' => 'IV/b',
+                'name' => 'IV/b',
+            ],
+            [
+                'id' => 'IV/c',
+                'name' => 'IV/c',
+            ],
+            [
+                'id' => 'IV/d',
+                'name' => 'IV/d',
+            ],
+            [
+                'id' => 'IV/e',
+                'name' => 'IV/e',
+            ],
+        ];
 
-        return $this->successRedirect('settings.employee.index', 'Data Pegawai berhasil ditambahkan.');
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param \App\Models\User $user
-     * @return \Illuminate\Http\Response
-     */
-    public function show(User $user)
-    {
-        //
+        return view('dashboard.user.form', [
+            'contents' => $this->contents,
+            'pageTitle' => 'Pegawai',
+            'segments' => Segment::all(),
+            'roles' => Role::all(),
+            'groupClasses' => $groupClasses,
+            'appUrl' => env('APP_URL'),
+            'retrieve' => null,
+            'isUpdate' => false
+        ]);
     }
 
     /**
@@ -132,105 +130,93 @@ class UserController extends Controller
      * @param \App\Models\User $user
      * @return \Illuminate\Http\Response
      */
-    public function edit(Request $request, $id)
+    public function edit($id)
     {
         $user = User::find($id);
-        $roles = $user->roles()->pluck('role_id');
-        $request->merge([
-            'segment_id' => $user->id_segment,
-            'nip' => $user->nip,
-            'name' => $user->name,
-            'position' => $user->position,
-            'group' => $user->group,
-            'class' => $user->class,
-            'role_id' => count($roles) > 0 ? $roles[0] : '',
-            'is_active' => $user->is_active,
-        ]);
-
-        return view('settings.user.form', [
-            'contents' => $this->contents,
-            'pageTitle' => 'Pegawai',
-            'saveUrl' => route('settings.employee.update', $id),
-            'segments' => Segment::all(),
-            'roles' => Role::all(),
-            'input' => array_merge($request->input(), $request->old()),
-            'isUpdate' => true
-        ]);
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @param \App\Models\User $user
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        $request->merge([
-            'group_class' => request('class') == 'e' && request('group') != 'IV' ? '' : request('group').request('class'),
-            'group' => request('class') == 'e' && request('group') != 'IV' ? '' : request('group'),
-            'class' => request('class') == 'e' && request('group') != 'IV' ? '' : request('class'),
-        ]);
-        $this->validate(
-            $request,
+        if (!$user) {
+            abort(404);
+        }
+        $groupClasses = [
             [
-                'segment_id' => ['required'],
-                'nip' => ['required'],
-                'name' => ['required'],
-                'position' => ['required'],
-                'group_class' => ['required'],
+                'id' => 'I/a',
+                'name' => 'I/a',
             ],
             [
-                'segment_id.required' => 'Bagian harus dipilih',
-                'nip.required' => 'NIP harus diisi',
-                'name.required' => 'Nama harus diisi',
-                'position.required' => 'Jabatan harus diisi',
-                'group_class.required' => 'Golongan harus dipilih',
-            ]
-        );
-        try {
-            $user = User::find($id);
-            $user->id_segment = $request->segment_id;
-            $user->nip = $request->nip;
-            $user->name = $request->name;
-            $user->position = $request->position;
-            $user->group = $request->group;
-            $user->class = $request->class;
-            if ($request->password) {
-                $user->password = $request->password;
-            }
-            $user->is_active = $request->is_active;
-            $user->save();
+                'id' => 'I/b',
+                'name' => 'I/b',
+            ],
+            [
+                'id' => 'I/c',
+                'name' => 'I/c',
+            ],
+            [
+                'id' => 'I/d',
+                'name' => 'I/d',
+            ],
+            [
+                'id' => 'II/a',
+                'name' => 'II/a',
+            ],
+            [
+                'id' => 'II/b',
+                'name' => 'II/b',
+            ],
+            [
+                'id' => 'II/c',
+                'name' => 'II/c',
+            ],
+            [
+                'id' => 'II/d',
+                'name' => 'II/d',
+            ],
+            [
+                'id' => 'III/a',
+                'name' => 'III/a',
+            ],
+            [
+                'id' => 'III/b',
+                'name' => 'III/b',
+            ],
+            [
+                'id' => 'III/c',
+                'name' => 'III/c',
+            ],
+            [
+                'id' => 'III/d',
+                'name' => 'III/d',
+            ],
+            [
+                'id' => 'IV/a',
+                'name' => 'IV/a',
+            ],
+            [
+                'id' => 'IV/b',
+                'name' => 'IV/b',
+            ],
+            [
+                'id' => 'IV/c',
+                'name' => 'IV/c',
+            ],
+            [
+                'id' => 'IV/d',
+                'name' => 'IV/d',
+            ],
+            [
+                'id' => 'IV/e',
+                'name' => 'IV/e',
+            ],
+        ];
 
-            if (empty($request->role_id)) {
-                $user->roles()->detach();
-            } else {
-                $user->roles()->sync([$request->role_id]);
-            }
-        } catch (Exception $e) {
-            return $this->errorRedirectBack($e);
-        }
-
-        return $this->successRedirect('settings.employee.index', 'Data Pegawai berhasil diubah.');
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param \App\Models\User $user
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        try {
-            $user = User::find($id);
-            $user->delete();
-        } catch (Exception $e) {
-            return $this->errorRedirectBack($e);
-        }
-
-        return $this->successRedirect('settings.employee.index', 'Data Pegawai berhasil dihapus.');
+        return view('dashboard.user.form', [
+            'contents' => $this->contents,
+            'pageTitle' => 'Pegawai',
+            'segments' => Segment::all(),
+            'roles' => Role::all(),
+            'groupClasses' => $groupClasses,
+            'appUrl' => env('APP_URL'),
+            'retrieve' => $user,
+            'isUpdate' => true
+        ]);
     }
 
     public function export(Request $request)
@@ -316,7 +302,10 @@ class UserController extends Controller
             }
             return $response;
         } catch (Exception $e) {
-
+            return response()->json([
+                'message' => $e->getMessage(),
+                'serve' => [],
+            ], 500);
         }
     }
 }
