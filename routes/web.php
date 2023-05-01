@@ -9,6 +9,7 @@ use App\Http\Controllers\Landing\CollabController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Landing\ContactController;
+use App\Http\Controllers\Landing\LandingController;
 use App\Http\Controllers\UploadController;
 use Illuminate\Support\Facades\Route;
 
@@ -24,9 +25,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 // Home
-Route::get('/', function () {
-    return view('home.index');
-})->name('home');
+Route::get('/', [LandingController::class, 'index'])->name('home');
 
 // Login
 Route::get('login', [LoginController::class, 'index'])
@@ -82,20 +81,45 @@ Route::name('profile.')->group(function () {
 Route::name('gunung-api.')->group(function () {
     $gunungApi = 'home.gunung-api.';
 
-    // Gunung Api > Data Dasar
-    Route::view(
-        'data-dasar',
-        "$gunungApi.data-dasar.index"
-    )->name('data-dasar');
-    
+    // Gunung Api > Data Dasar    
+    Route::get('/data-dasar', [LandingNewsController::class, 'indexDataDasar'])->name("data-dasar");
     Route::get('/data-dasar/{route}', [LandingNewsController::class, 'detailDataDasar'])->name("data-dasar.detail");
 
     // Gunung Api > Tingkat Aktivitas
-    Route::view(
-        'tingkat-aktivitas',
-        "$gunungApi.tingkat-aktivitas.index"
-    )->name('tingkat-aktivitas');
+    Route::get('/tingkat-aktivitas', [LandingNewsController::class, 'indexTingkatAktivitas'])->name("tingkat-aktivitas");
     Route::get('/tingkat-aktivitas/{route}', [LandingNewsController::class, 'detailTingkatAktivitas'])->name("tingkat-aktivitas.detail");
+
+    // Gunung Api > Press Release
+    Route::get('/press-release', [LandingNewsController::class, 'indexPressRelease'])->name("press-release");
+    Route::get('/press-release/{route}', [LandingNewsController::class, 'detailPressRelease'])->name("press-release.detail");
+
+    Route::get('news', [NewsController::class, 'get']);
+});
+
+Route::name('gerakan-tanah.')->group(function () {
+    $gunungApi = 'home.gerakan-tanah.';
+
+    // Gerakan Tanah > Tanggapan Kejadian
+    Route::get('/tanggapan-kejadian', [LandingNewsController::class, 'indexTanggapanKejadian'])->name("tanggapan-kejadian");
+    Route::get('/tanggapan-kejadian/{route}', [LandingNewsController::class, 'detailTanggapanKejadian'])->name("tanggapan-kejadian.detail");
+
+    Route::get('news', [NewsController::class, 'get']);
+});
+
+Route::name('gempa-bumi-tsunami.')->group(function () {
+    $gunungApi = 'home.gempa-bumi-tsunami.';
+
+    Route::get('/kajian-kejadian', [LandingNewsController::class, 'indexKajianKejadian'])->name("kajian-kejadian");
+    Route::get('/kajian-kejadian/{route}', [LandingNewsController::class, 'detailKajianKejadian'])->name("kajian-kejadian.detail");
+
+    Route::get('/daftar-kejadian', [LandingNewsController::class, 'indexDaftarKejadian'])->name("daftar-kejadian");
+    Route::get('/daftar-kejadian/{route}', [LandingNewsController::class, 'detailDaftarKejadian'])->name("daftar-kejadian.detail");
+
+    Route::get('/publikasi-mitigasi', [LandingNewsController::class, 'indexPublikasiMitigasi'])->name("publikasi-mitigasi");
+    Route::get('/publikasi-mitigasi/{route}', [LandingNewsController::class, 'detailPublikasiMitigasi'])->name("publikasi-mitigasi.detail");
+
+    Route::get('/laporan-singkat', [LandingNewsController::class, 'indexLaporanSingkat'])->name("laporan-singkat");
+    Route::get('/laporan-singkat/{route}', [LandingNewsController::class, 'detailLaporanSingkat'])->name("laporan-singkat.detail");
 
     Route::get('news', [NewsController::class, 'get']);
 });

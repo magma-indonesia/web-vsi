@@ -49,8 +49,10 @@ class ContactController extends Controller
             })
             ->values()
             ->toArray();
-
-        return view('home.layanan-publik.hubungi-kami.index', compact('countries'));
+        
+        $lc = new LandingController();
+        $tingkatAktivitas = $lc->getTingkatAktivitas();
+        return view('home.layanan-publik.hubungi-kami.index', compact('countries', 'tingkatAktivitas'));
     }
 
     public function save(Request $request) {

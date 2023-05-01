@@ -4,8 +4,7 @@
 @include('template.head')
 
 <body class="demo-5">
-
-@include('template.body')
+@include('template.body', ['tingkatAktivitas' => $tingkatAktivitas])
 
 @include('template.js')
 </body>

@@ -19,10 +19,10 @@
                         "
                         :value="pagination.pageSize"
                     >
-                        <a-select-option value="10">10</a-select-option>
-                        <a-select-option value="50">50</a-select-option>
-                        <a-select-option value="100">100</a-select-option>
-                        <a-select-option value="500">500</a-select-option>
+                        <a-select-option value="12">12</a-select-option>
+                        <a-select-option value="60">60</a-select-option>
+                        <a-select-option value="120">120</a-select-option>
+                        <a-select-option value="600">600</a-select-option>
                     </a-select>
                     <span style="font-size: 12px">entries</span>
                     <div style="margin-left: auto">
@@ -153,7 +153,7 @@ export default {
             },
             pagination: {
                 current: 1,
-                pageSize: 2,
+                pageSize: 12,
                 total: 0,
             },
         };
@@ -166,7 +166,28 @@ export default {
             return helper.truncString(item, 120, "...");
         },
         handleDetail(item) {
-            window.location.href = this.apiurl + "/data-dasar/" + item.route;
+            window.location.href =
+                this.apiurl +
+                "/" +
+                (this.category == "1"
+                    ? "data-dasar"
+                    : this.category == "2"
+                    ? "tingkat-aktivitas"
+                    : this.category == "3"
+                    ? "press-release"
+                    : this.category == "4"
+                    ? "tanggapan-kejadian"
+                    : this.category == "5"
+                    ? "kajian-kejadian"
+                    : this.category == "6"
+                    ? "daftar-kejadian"
+                    : this.category == "7"
+                    ? "publikasi-mitigasi"
+                    : this.category == "8"
+                    ? "laporan-singkat"
+                    : "") +
+                "/" +
+                item.route;
         },
         handlePageChange(page, pageSize) {
             this.pagination.current = page;

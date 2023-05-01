@@ -11,18 +11,17 @@
             <div class="city_top_news">
                 <span>Tingkat Aktivitas Gunung Api</span>
                 <div class="city-news-slider">
+                    @if (count($tingkatAktivitas) > 0)
+                        @foreach ($tingkatAktivitas as $row)
+                        <div>
+                            <a href="{{ $row->link }}">{{ $row->title }}</a>
+                        </div>
+                        @endforeach
+                    @else
                     <div>
-                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry <i
-                                class="fa fa-star"></i></p>
+                        <p>Belum ada informasi terbaru</p>
                     </div>
-                    <div>
-                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry <i
-                                class="fa fa-star"></i></p>
-                    </div>
-                    <div>
-                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry <i
-                                class="fa fa-star"></i></p>
-                    </div>
+                    @endif
                 </div>
             </div>
 
@@ -50,8 +49,9 @@
                             <li><a href="#">Gunung Api</a>
                                 <ul class="child">
                                     <li><a href="{{ route('gunung-api.data-dasar') }}">Data Dasar</a></li>
-                                    <li><a href="https://magma.esdm.go.id">Sebaran Gunung Api</a></li>
+                                    <li><a href="https://magma.esdm.go.id" target="_blank">Sebaran Gunung Api</a></li>
                                     <li><a href="{{ route('gunung-api.tingkat-aktivitas') }}">Tingkat Aktivitas</a></li>
+                                    <li><a href="{{ route('gunung-api.press-release') }}">Press Release</a></li>
                                     <li><a href="">Laporan Aktivitas</a></li>
                                     <li><a href="">Informasi Letusan</a></li>
                                     <li><a href="">CCTV Gunung Api</a></li>
@@ -65,6 +65,7 @@
                             <li><a href="#">Gerakan Tanah</a>
                                 <ul class="child">
                                     <li><a href="">Daftar Kejadian</a></li>
+                                    <li><a href="{{ route('gerakan-tanah.tanggapan-kejadian') }}">Tanggapan Kejadian</a></li>
                                     <li><a href="">Peringatan Dini</a></li>
                                     <li><a href="">Rekapitulasi Kejadian</a></li>
                                     <li><a href="">Peta ZKGT</a></li>
@@ -72,9 +73,10 @@
                             </li>
                             <li><a href="#">Gempa Bumi dan Tsunami</a>
                                 <ul class="child">
-                                    <li><a href="">Daftar Kejadian</a></li>
-                                    <li><a href="">laporan Singkat dan Rekomendasi Teknis</a></li>
-                                    <li><a href="">Publikasi Mitigasi Gempa Bumi</a></li>
+                                    <li><a href="{{ route('gempa-bumi-tsunami.daftar-kejadian') }}">Daftar Kejadian</a></li>
+                                    <li><a href="{{ route('gempa-bumi-tsunami.kajian-kejadian') }}">Kajian Kejadian</a></li>
+                                    <li><a href="{{ route('gempa-bumi-tsunami.laporan-singkat') }}">laporan Singkat dan Rekomendasi Teknis</a></li>
+                                    <li><a href="{{ route('gempa-bumi-tsunami.publikasi-mitigasi') }}">Publikasi Mitigasi Gempa Bumi</a></li>
                                     <li><a href="">Katalog Gempa Bumi Merusak</a></li>
                                     <li><a href="">Peta KRB Gempa Bumi</a></li>
                                     <li><a href="">Peta KRB Tsunami</a></li>
@@ -117,7 +119,7 @@
                                     <li><a href="">Bimbingan Tugas Akhir</a></li>
                                     <hr>
                                     <li><a href="">Pengaduan</a></li>
-                                    <li><a href="{{ route('layanan-publik.kontak') }}">Hubungi Kami</a></li>
+                                    <!-- <li><a href="{{ route('layanan-publik.kontak') }}">Hubungi Kami</a></li> -->
                                 </ul>
                             </li>
                             <li><a href="{{ route('layanan-publik.kontak') }}">Hubungi Kami</a></li>
@@ -220,7 +222,7 @@
                     <!--DL Menu END-->
                 </div>
                 <div class="col-md-2">
-                    <div class="city_top_form">
+                    <div class="city_top_form" style="display: flex; gap: 10px;">
                         <div class="city_top_search">
                             <input type="text" placeholder="Search">
                             <a href="#"><i class="fa fa-search"></i></a>

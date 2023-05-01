@@ -138,9 +138,19 @@ Route::prefix('gerakan-tanah')->name('gerakan-tanah.')->group(function () {
         Route::put('/{id}', 'update')->name('kejadian.update');
         Route::delete('/{id}', 'destroy')->name('kejadian.destroy');
     });
+
+    Route::get('/news', [NewsController::class, 'index'])->name('news');
+    Route::get('/news/add', [NewsController::class, 'add'])->name('news.add');
+    Route::get('/news/edit/{id}', [NewsController::class, 'edit'])->name('news.edit');
 });
 
 Route::prefix('gunung-api')->name('gunung-api.')->group(function () {
+    Route::get('/news', [NewsController::class, 'index'])->name('news');
+    Route::get('/news/add', [NewsController::class, 'add'])->name('news.add');
+    Route::get('/news/edit/{id}', [NewsController::class, 'edit'])->name('news.edit');
+});
+
+Route::prefix('gempa-bumi-tsunami')->name('gempa-bumi-tsunami.')->group(function () {
     Route::get('/news', [NewsController::class, 'index'])->name('news');
     Route::get('/news/add', [NewsController::class, 'add'])->name('news.add');
     Route::get('/news/edit/{id}', [NewsController::class, 'edit'])->name('news.edit');

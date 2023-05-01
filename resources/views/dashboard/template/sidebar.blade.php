@@ -91,6 +91,8 @@
                                 data-feather="layers"></i><span>Data Dasar</span></a></li>
                     <li class="nav-item"><a href="{{ route('dashboard.gunung-api.news') }}?category=2"><i data-feather="airplay"></i><span>Tingkat Aktivitas</span></a>
                     </li>
+                    <li class="nav-item"><a href="{{ route('dashboard.gunung-api.news') }}?category=3"><i data-feather="airplay"></i><span>Press Release</span></a>
+                    </li>
                     <li class="nav-item"><a href="#"><i data-feather="airplay"></i><span>Laporan Aktivitas</span></a>
                     </li>
                     <li class="nav-item"><a href="#"><i data-feather="alert-triangle"></i><span>Informasi Letusan</span></a>
@@ -108,6 +110,8 @@
                 <ul>
                     <li class="nav-item"><a href="#"><i data-feather="alert-triangle"></i><span>Rekapitulasi Kejadian</span></a></li>
                     <li class="nav-item"><a href="{{ route('dashboard.gerakan-tanah.kejadian.index') }}"><i data-feather="layers"></i><span>Daftar Kejadian</span></a></li>
+                    <li class="nav-item"><a href="{{ route('dashboard.gerakan-tanah.news') }}?category=4"><i data-feather="alert-triangle"></i><span>Tanggapan Kejadian</span></a>
+                    </li>
                     <li class="nav-item"><a href="#"><i data-feather="alert-triangle"></i><span>Peringatan Dini</span></a></li>
                     <li class="nav-item"><a href="#"><i data-feather="alert-triangle"></i><span>Peta ZKGT</span></a>
                     </li>
@@ -118,16 +122,16 @@
                 <ul>
                     <li class="nav-item"><a href="{{ route('gunung-api.data-dasar') }}"><i
                                 data-feather="layers"></i><span>Rekapitulasi Kejadian</span></a></li>
-                    <li class="nav-item"><a href="#"><i
+                    <li class="nav-item"><a href="{{ route('dashboard.gempa-bumi-tsunami.news') }}?category=6"><i
                                 data-feather="alert-triangle"></i><span>Daftar Kejadian</span></a></li>
-                    <li class="nav-item"><a href="#"><i
+                    <li class="nav-item"><a href="{{ route('dashboard.gempa-bumi-tsunami.news') }}?category=5"><i data-feather="airplay"></i><span>Kajian Kejadian</span></a>
+                    </li>
+                    <li class="nav-item"><a href="{{ route('dashboard.gempa-bumi-tsunami.news') }}?category=8"><i
                                 data-feather="alert-triangle"></i><span>Laporan Singkat</span></a></li>
-                    <li class="nav-item"><a href="#"><i
+                    <li class="nav-item"><a href="{{ route('dashboard.gempa-bumi-tsunami.news') }}?category=7"><i
                                 data-feather="alert-triangle"></i><span>Publikasi Dan Mitigasi</span></a></li>
                     <li class="nav-item"><a href="#"><i
                                 data-feather="alert-triangle"></i><span>Katalog Gempa Merusak</span></a></li>
-                    <li class="nav-item"><a href="#"><i
-                                data-feather="alert-triangle"></i><span>Daftar Kejadian</span></a></li>
                     <li class="nav-item"><a href="#"><i
                                 data-feather="alert-triangle"></i><span>Peta KRB Gempa Bumi</span></a></li>
                     <li class="nav-item"><a href="#"><i data-feather="alert-triangle"></i><span>Peta KRB Tsunami</span></a>

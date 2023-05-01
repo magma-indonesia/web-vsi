@@ -18,6 +18,24 @@ class NewsController extends Controller
         $path = $request->query('category');
         if ($path == '2') {
             return view("dashboard.gunung-api.tingkat-aktivitas.index", compact("contents"));    
+        } 
+        if ($path == '3') {
+            return view("dashboard.gunung-api.press-release.index", compact("contents"));    
+        }
+        if ($path == '4') {
+            return view("dashboard.gerakan-tanah.tanggapan-kejadian.index", compact("contents"));    
+        }
+        if ($path == '5') {
+            return view("dashboard.gempa-bumi-tsunami.kajian-kejadian.index", compact("contents"));    
+        }
+        if ($path == '6') {
+            return view("dashboard.gempa-bumi-tsunami.daftar-kejadian.index", compact("contents"));    
+        }
+        if ($path == '7') {
+            return view("dashboard.gempa-bumi-tsunami.publikasi-mitigasi.index", compact("contents"));    
+        }
+        if ($path == '8') {
+            return view("dashboard.gempa-bumi-tsunami.laporan-singkat.index", compact("contents"));    
         }
         return view("dashboard.gunung-api.data-dasar.index", compact("contents"));
     }
@@ -54,6 +72,24 @@ class NewsController extends Controller
         if ($path == '2') {
             return view("dashboard.gunung-api.tingkat-aktivitas.add", compact("contents"));    
         }
+        if ($path == '3') {
+            return view("dashboard.gunung-api.press-release.add", compact("contents"));    
+        }
+        if ($path == '4') {
+            return view("dashboard.gerakan-tanah.tanggapan-kejadian.add", compact("contents"));    
+        }
+        if ($path == '5') {
+            return view("dashboard.gempa-bumi-tsunami.kajian-kejadian.add", compact("contents"));    
+        }
+        if ($path == '6') {
+            return view("dashboard.gempa-bumi-tsunami.daftar-kejadian.add", compact("contents"));    
+        }
+        if ($path == '7') {
+            return view("dashboard.gempa-bumi-tsunami.publikasi-mitigasi.add", compact("contents"));    
+        }
+        if ($path == '8') {
+            return view("dashboard.gempa-bumi-tsunami.laporan-singkat.add", compact("contents"));    
+        }
         return view("dashboard.gunung-api.data-dasar.add", compact("contents"));
     }
 
@@ -70,6 +106,24 @@ class NewsController extends Controller
 
         if ($path == '2') {
             return view("dashboard.gunung-api.tingkat-aktivitas.edit", compact("contents", "retrieve"));    
+        }
+        if ($path == '3') {
+            return view("dashboard.gunung-api.press-release.edit", compact("contents", "retrieve"));    
+        }
+        if ($path == '4') {
+            return view("dashboard.gerakan-tanah.tanggapan-kejadian.edit", compact("contents", "retrieve"));    
+        }
+        if ($path == '5') {
+            return view("dashboard.gempa-bumi-tsunami.kajian-kejadian.edit", compact("contents", "retrieve"));    
+        }
+        if ($path == '6') {
+            return view("dashboard.gempa-bumi-tsunami.daftar-kejadian.edit", compact("contents", "retrieve"));    
+        }
+        if ($path == '7') {
+            return view("dashboard.gempa-bumi-tsunami.publikasi-mitigasi.edit", compact("contents", "retrieve"));    
+        }
+        if ($path == '8') {
+            return view("dashboard.gempa-bumi-tsunami.laporan-singkat.edit", compact("contents", "retrieve"));    
         }
         return view("dashboard.gunung-api.data-dasar.edit", compact("contents", "retrieve"));
     }

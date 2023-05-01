@@ -24,7 +24,7 @@
             >
                 {{ JSON.parse(retrieve).title || "Untitled" }}
             </div>
-            <img :src="JSON.parse(retrieve).thumbnail" alt="Thumbnail" />
+            <!-- <img :src="JSON.parse(retrieve).thumbnail" alt="Thumbnail" /> -->
             <div
                 v-if="JSON.parse(retrieve)?.news_categories?.length > 0"
                 style="display: flex; flex-wrap: wrap; margin-top: 10px"
