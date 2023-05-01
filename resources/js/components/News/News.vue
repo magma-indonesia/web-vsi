@@ -180,7 +180,7 @@ export default {
                     : this.category == "5"
                     ? "kajian-kejadian"
                     : this.category == "6"
-                    ? "daftar-kejadian"
+                    ? "daftar-kejadian-gempa"
                     : this.category == "7"
                     ? "publikasi-mitigasi"
                     : this.category == "8"

@@ -117,8 +117,8 @@ Route::name('gempa-bumi-tsunami.')->group(function () {
     Route::get('/kajian-kejadian', [LandingNewsController::class, 'indexKajianKejadian'])->name("kajian-kejadian");
     Route::get('/kajian-kejadian/{route}', [LandingNewsController::class, 'detailKajianKejadian'])->name("kajian-kejadian.detail");
 
-    Route::get('/daftar-kejadian', [LandingNewsController::class, 'indexDaftarKejadian'])->name("daftar-kejadian");
-    Route::get('/daftar-kejadian/{route}', [LandingNewsController::class, 'detailDaftarKejadian'])->name("daftar-kejadian.detail");
+    Route::get('/daftar-kejadian-gempa', [LandingNewsController::class, 'indexDaftarKejadian'])->name("daftar-kejadian-gempa");
+    Route::get('/daftar-kejadian-gempa/{route}', [LandingNewsController::class, 'detailDaftarKejadian'])->name("daftar-kejadian-gempa.detail");
 
     Route::get('/publikasi-mitigasi', [LandingNewsController::class, 'indexPublikasiMitigasi'])->name("publikasi-mitigasi");
     Route::get('/publikasi-mitigasi/{route}', [LandingNewsController::class, 'detailPublikasiMitigasi'])->name("publikasi-mitigasi.detail");
