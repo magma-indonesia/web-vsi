@@ -25,7 +25,7 @@
                     <h6 class="tx-semibold mg-b-0">{{ auth()->user()->name }}</h6>
                     <i data-feather="chevron-down"></i>
                 </a>
-                <p class="tx-color-03 tx-12 mg-b-0">Administrator</p>
+                <p class="tx-color-03 tx-12 mg-b-0">{{ optional(auth()->user()->role)->description }}</p>
             </div>
             <div class="collapse" id="loggedinMenu">
                 <ul class="nav nav-aside mg-b-0">
