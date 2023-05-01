@@ -57,7 +57,7 @@ Route::get('logout', [LoginController::class, 'logout'])
     ->name('logout');
 
 // Profil
-Route::name('profile.')->group(function () {
+Route::prefix('profile')->name('profile.')->group(function () {
     $profil = 'home.profile.';
 
     // Profile > Tentang PVMBG
@@ -137,27 +137,27 @@ Route::name('gerakan-tanah.')->group(function () {
 
     // Gerakan Tanah > Daftar Kejadian
     Route::view(
-        'daftar-kejadian',
+        'gerakan-tanah/daftar-kejadian',
         "$gerakanTanah.daftar-kejadian.index"
     )->name('daftar-kejadian');
     
-    Route::get('/daftar-kejadian/{route}', [LandingGroundMovementController::class, 'showEvent'])->name("daftar-kejadian.detail");
+    Route::get('/gerakan-tanah/daftar-kejadian/{route}', [LandingGroundMovementController::class, 'showEvent'])->name("daftar-kejadian.detail");
 
     // Gerakan Tanah > Peringatan Dini
     Route::view(
-        'peringatan-dini',
+        'gerakan-tanah/peringatan-dini',
         "$gerakanTanah.peringatan-dini.index"
     )->name('peringatan-dini');
     
-    Route::get('/peringatan-dini/{route}', [LandingGroundMovementController::class, 'showEvent'])->name("peringatan-dini.detail");
+    Route::get('gerakan-tanah/peringatan-dini/{route}', [LandingGroundMovementController::class, 'showEvent'])->name("peringatan-dini.detail");
 
     // Gerakan Tanah > Rekapitulasi Kejadian
     Route::view(
-        'rekapitulasi-kejadian',
+        'gerakan-tanah/rekapitulasi-kejadian',
         "$gerakanTanah.rekapitulasi-kejadian.index"
     )->name('rekapitulasi-kejadian');
     
-    Route::get('/rekapitulasi-kejadian/{route}', [LandingGroundMovementController::class, 'showEvent'])->name("rekapitulasi-kejadian.detail");
+    Route::get('gerakan-tanah/rekapitulasi-kejadian/{route}', [LandingGroundMovementController::class, 'showEvent'])->name("rekapitulasi-kejadian.detail");
 });
 
 // Layanan Publik

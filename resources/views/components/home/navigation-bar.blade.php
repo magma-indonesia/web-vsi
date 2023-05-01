@@ -11,17 +11,21 @@
             <div class="city_top_news">
                 <span>Tingkat Aktivitas Gunung Api</span>
                 <div class="city-news-slider">
-                    @if (count($tingkatAktivitas) > 0)
-                        @foreach ($tingkatAktivitas as $row)
+                    @inject('activityLevels', 'App\Services\ActivityLevelService')
+
+                    @php
+                    $activityLevels = $activityLevels->get();
+                    @endphp
+
+                    @forelse ($activityLevels as $row)
                         <div>
                             <a href="{{ $row->link }}">{{ $row->title }}</a>
+                        </div
+                    @empty
+                        <div>
+                            <p>Belum ada informasi terbaru</p>
                         </div>
-                        @endforeach
-                    @else
-                    <div>
-                        <p>Belum ada informasi terbaru</p>
-                    </div>
-                    @endif
+                    @endforelse
                 </div>
             </div>
 

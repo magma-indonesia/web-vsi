@@ -1,4 +1,4 @@
-@extends('template.layanan-publik.layout')
+@extends('template.layout')
 
 @section('title', 'Peringatan Dini')
 
@@ -7,7 +7,7 @@
 <link href="{{ mix('css/app.css') }}" rel="stylesheet" type="text/css" />
 @endpush
 
-@section('body')
+@section('content')
 <!-- SAB BANNER START-->
 <div class="sab_banner overlay">
     <div class="container">

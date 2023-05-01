@@ -175,7 +175,7 @@ export default {
             return helper.truncString(item, 120, "...");
         },
         handleDetail(item) {
-            window.location.href = this.apiurl + "/daftar-kejadian/" + item.slug;
+            window.location.href = this.apiurl + "/gerakan-tanah/daftar-kejadian/" + item.slug;
         },
         handlePageChange(page, pageSize) {
             this.pagination.current = page;

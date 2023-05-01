@@ -22,7 +22,7 @@
                 :apiurl="apiurl"
             ></tiny-mce>
         </a-form-item>
-        <a-form-item label="Thumbnail">
+        <!-- <a-form-item label="Thumbnail">
             <div v-if="thumbnail" class="d-flex flex-column">
                 <img
                     :src="thumbnail"
@@ -51,7 +51,7 @@
                 <span v-if="!loading"> Upload Thumbnail </span>
                 <span v-else> Mohon tunggu... </span>
             </a-button>
-        </a-form-item>
+        </a-form-item> -->
         <a-form-item>
             <a-button
                 type="primary"

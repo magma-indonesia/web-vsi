@@ -57,7 +57,7 @@ class ProfileController extends Controller
             $data->category_id = $request->category;
             $data->title = $request->title;
             $data->description = $request->description;
-            $data->thumbnail = $request->thumbnail;
+            // $data->thumbnail = $request->thumbnail;
             $slug = Str::slug($request->title);
             $data->slug = $slug;
             $data->author_id = $this->user()->id;
@@ -134,7 +134,7 @@ class ProfileController extends Controller
             }
             $data->title = $request->title;
             $data->description = $request->description;
-            $data->thumbnail = $request->thumbnail;
+            // $data->thumbnail = $request->thumbnail;
             $data->author_id = $this->user()->id;
             $data->save();
 
