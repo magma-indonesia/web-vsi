@@ -12,4 +12,9 @@ class Param
     public const PROFILE_ABOUT = '1';
     public const PROFILE_STRUCTURE = '2';
     public const PROFILE_HISTORY = '3';
+
+    public const ROLE_SLUG_ADMIN = 'admin';
+    public const ROLE_SLUG_MANAGER = 'manager';
+    public const ROLE_SLUG_EDITOR = 'editor';
+    public const ROLE_SLUG_USER = 'user';
 }

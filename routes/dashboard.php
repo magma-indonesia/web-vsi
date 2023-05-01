@@ -4,10 +4,12 @@ use App\Http\Controllers\Administration\AdministrationController;
 use App\Http\Controllers\Administration\ContactController;
 use App\Http\Controllers\Administration\FinanceController;
 use App\Http\Controllers\Administration\NewsController;
+use App\Http\Controllers\Api\FileController as ApiFileController;
 use App\Http\Controllers\Api\GroundMovementController as ApiGroundMovementController;
 use App\Http\Controllers\Api\ProfileController as ApiProfileController;
 use App\Http\Controllers\Api\UserController as ApiUserController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\FileController;
 use App\Http\Controllers\GroundMovement\EventController as GroundMovementEventController;
 use App\Http\Controllers\GroundMovementController;
 use App\Http\Controllers\ProfileController;
@@ -94,8 +96,7 @@ Route::name('admin.')
     });
 
 // Default routing dashboard
-Route::get('/', [DashboardController::class, 'index'])
-    ->name('index');
+Route::get('/', [DashboardController::class, 'index'])->name('index');
 
 // Pegawai
 Route::prefix('pegawai')->controller(UserController::class)->group(function () {
@@ -156,6 +157,14 @@ Route::prefix('profile')->name('profile.')->group(function () {
     });
 });
 
+// Upload Center
+Route::prefix('upload-center')->name('upload-center.')->group(function () {
+    Route::controller(FileController::class)->group(function () {
+        Route::get('/', 'index')->name('index');
+        Route::get('/create', 'create')->name('create');
+    });
+});
+
 // Api
 Route::group(['middleware' => ['auth'], 'prefix' => 'api'], function () {
     // Gerakan Tanah
@@ -182,6 +191,15 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'api'], function () {
             Route::get('/', 'index');
             Route::post('/', 'store');
             Route::put('/', 'update');
+            Route::delete('/', 'destroy');
+        });
+    });
+
+    // Upload Center
+    Route::group(['prefix' => 'upload-center'], function () {
+        Route::controller(ApiFileController::class)->group(function () {
+            Route::get('/', 'index');
+            Route::post('/', 'store');
             Route::delete('/', 'destroy');
         });
     });

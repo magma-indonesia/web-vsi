@@ -64,8 +64,8 @@
                 </a>
             </li>
 
-            <li class="nav-item {{ request()->routeIs('settings.upload.index') ? 'active' : '' }}">
-                <a href="{{ route('settings.upload.index') }}" class="nav-link">
+            <li class="nav-item {{ request()->routeIs('dashboard.upload-center.index') ? 'active' : '' }}">
+                <a href="{{ route('dashboard.upload-center.index') }}" class="nav-link">
                     <i data-feather="upload"></i>
                     <span>Upload Center</span>
                 </a>

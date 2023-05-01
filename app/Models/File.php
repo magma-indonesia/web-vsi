@@ -13,11 +13,20 @@ class File extends Model
         'is_tmp' => 'boolean',
     ];
 
+    protected $appends = [
+        'url',
+    ];
+
     public function url()
     {
         return route('files.download', [
             'id'    => $this->id,
             'name'  => $this->name
         ]);
+    }
+
+    public function getUrlAttribute()
+    {
+        return $this->url();
     }
 }

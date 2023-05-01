@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\File;
+use App\Models\User;
+use App\Param;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -19,22 +21,26 @@ class FileController extends Controller
      */
     public function index(Request $request)
     {
-        $search = $request->search;
-        $files = File::query()
-            ->where('user_id', $this->user()->id)
-            ->where('is_tmp', false)
-            ->when($search, function ($query) use ($search) {
-                $query->where('name', 'like', '%'.$search.'%');
-            })
-            ->orderBy('created_at', 'asc')
-            ->paginate(10);
-
-        return view('settings.file.index', [
-            'contents' => $this->contents,
-            'pageTitle' => 'Upload Center',
-            'createUrl' => route('settings.upload.create'),
-            'files' => $files,
-        ]);
+        $roleSlug = $this->user()->role->slug;
+        $employee = User::where('id', $request->user_id)->first();
+        $user = empty($employee) ? $this->user() : $employee;
+        if (($roleSlug == Param::ROLE_SLUG_ADMIN && !empty($employee)) || $roleSlug != Param::ROLE_SLUG_ADMIN) {
+            return view('dashboard.upload-center.employee-index', [
+                'contents' => $this->contents,
+                'pageTitle' => 'Upload Center',
+                'roleSlug' => $roleSlug,
+                'user' => $user,
+                'appUrl' => env('APP_URL'),
+                'addUrl' => route('dashboard.upload-center.create'),
+            ]);
+        } else {
+            return view('dashboard.upload-center.admin-index', [
+                'contents' => $this->contents,
+                'pageTitle' => 'Upload Center',
+                'appUrl' => env('APP_URL'),
+                'detailUrl' => route('dashboard.upload-center.index'),
+            ]);
+        }
     }
 
     /**
@@ -44,107 +50,11 @@ class FileController extends Controller
      */
     public function create()
     {
-        return view('settings.file.form', [
-            'contents' => $this->contents,
+        return view('dashboard.upload-center.form', [
             'pageTitle' => 'Upload Center',
-            'saveUrl' => route('settings.upload.store'),
+            'appUrl' => env('APP_URL'),
             'isUpdate' => false,
         ]);
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        $this->validate(
-            $request,
-            [
-                'file_uploads' => ['required'],
-                'file_uploads.*' => ['file'],
-            ],
-            [
-                'file_uploads.required' => 'File harus dipilih',
-            ]
-        );
-
-        try {
-            foreach ($request->file('file_uploads') as $fileUpload) {
-                $fileName = $fileUpload->getClientOriginalName();
-                $filePath = 'files/'.$this->user()->nip;
-                Storage::putFileAs(
-                    'public/'.$filePath,
-                    $fileUpload,
-                    $fileName
-                );
-    
-                $file = new File();
-                $file->user_id = $this->user()->id;
-                $file->name = $fileName;
-                $file->path = $filePath.'/'.$fileName;
-                $file->save();
-            }
-        } catch (Exception $e) {
-            return $this->errorRedirectBack($e);
-        }
-
-        return $this->successRedirect('settings.upload.create', 'Data upload berhasil ditambahkan.');
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        try {
-            $file = File::find($id);
-            Storage::delete('public/'.$file->path);
-            $file->delete();
-        } catch (Exception $e) {
-            return $this->errorRedirectBack($e);
-        }
-
-        return $this->successRedirect('settings.upload.index', 'Data upload berhasil dihapus.');
     }
 
     public function download($id, $name)
@@ -194,15 +104,15 @@ class FileController extends Controller
         //         'location' => $file->url(),
         //     ]);
         // }
-        
+
         try {
-            if(!$request->file()){
+            if (!$request->file()) {
                 return response()->json([
-                    'message' => 'Upload gagal.', 
+                    'message' => 'Upload gagal.',
                     'serve' => []
                 ], 400);
             }
-            
+
             $fileUpload = $request->file('file');
             $fileName = $fileUpload->getClientOriginalName();
             $ext = '.'.$fileUpload->getClientOriginalExtension();
@@ -220,9 +130,9 @@ class FileController extends Controller
             $file->path = $filePath.'/'.$fileName;
             $file->is_tmp = true;
             $file->save();
-            
+
             return response()->json([
-                'message' => '', 
+                'message' => '',
                 'serve' => [
                     'url' => $file->url(),
                 ]
