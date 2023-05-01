@@ -201,6 +201,7 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'api'], function () {
             Route::get('/', 'index');
             Route::post('/', 'store');
             Route::delete('/', 'destroy');
+            Route::get('/label', 'indexLabel');
         });
     });
 });

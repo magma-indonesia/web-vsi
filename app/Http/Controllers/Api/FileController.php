@@ -184,4 +184,26 @@ class FileController extends Controller
             ], 500);
         }
     }
+
+    public function indexLabel()
+    {
+        try {
+            $data = File::query()
+                ->where('is_tmp', false)
+                ->select('label')
+                ->distinct()
+                ->get()
+                ->map(fn($item) => $item->label);
+
+            return response()->json([
+                'message' => '',
+                'serve' => $data,
+            ], 200);
+        } catch (Throwable $e) {
+            return response()->json([
+                'message' => $e->getMessage(),
+                'serve' => [],
+            ], 500);
+        }
+    }
 }

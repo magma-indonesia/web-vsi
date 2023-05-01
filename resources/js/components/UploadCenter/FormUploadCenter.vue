@@ -1,37 +1,7 @@
 <template>
     <a-form :form="form" @submit="handleSubmit" :layout="formLayout">
-        <a-form-item>
-            <a-upload
-                accept=".doc, .docx, .xlx, .xlxs, .pdf, .zip, .rar, .7zip"
-                :file-list="files"
-                :remove="handleRemove"
-                :before-upload="beforeUpload"
-                :multiple="true"
-            >
-                <a-button icon="upload">
-                    Select File
-                </a-button>
-            </a-upload>
-        </a-form-item>
         <a-form-item label="Label" :hasFeedback="true">
-            <a-input
-                v-decorator="[
-                    'label',
-                    {
-                        rules: [
-                            {
-                                required: true,
-                                message: 'Label wajib diisi!',
-                            },
-                        ],
-                    },
-                ]"
-            />
-            <!-- <a-auto-complete
-                :value="label"
-                :options="labelReference"
-                placeholder="Input here"
-                :filter-option="handleAutocomplete"
+            <!-- <a-input
                 v-decorator="[
                     'label',
                     {
@@ -44,6 +14,55 @@
                     },
                 ]"
             /> -->
+            <a-auto-complete
+                :data-source="labelReference"
+                placeholder=""
+                :filter-option="handleAutocomplete"
+                v-decorator="[
+                    'label',
+                    {
+                        rules: [
+                            {
+                                required: true,
+                                message: 'Label wajib diisi!',
+                            },
+                        ],
+                    },
+                ]"
+            />
+        </a-form-item>
+        <a-form-item>
+            <div style="display: flex; flex-direction: column;">
+                <span>Tipe File</span>
+                <a-select
+                    style="
+                        width: 120px;
+                        margin-top: 10px;
+                        margin-bottom: 10px;
+                    "
+                    :value="ext"
+                    @change="handleChange"
+                >
+                    <a-select-option value=".doc, .docx, .xlx, .xlxs, .pdf, .zip, .rar, .7zip, image/*, .shp">All</a-select-option>
+                    <a-select-option value=".pdf">PDF</a-select-option>
+                    <a-select-option value=".doc, .docx">Word</a-select-option>
+                    <a-select-option value=".xlx, .xlxs">Excel</a-select-option>
+                    <a-select-option value=".zip, .rar, .7zip">Archive</a-select-option>
+                    <a-select-option value="image/*">Image</a-select-option>
+                    <a-select-option value=".shp">Shape File</a-select-option>
+                </a-select>
+                <a-upload
+                    :accept="ext"
+                    :file-list="files"
+                    :remove="handleRemove"
+                    :before-upload="beforeUpload"
+                    :multiple="true"
+                >
+                    <a-button icon="upload">
+                        Select File
+                    </a-button>
+                </a-upload>
+            </div>
         </a-form-item>
         <a-form-item>
             <a-button
@@ -80,14 +99,9 @@ export default {
             form: null,
             loading: false,
             files: [],
-            labelReference: [
-                {
-                    value: "Gunung Api"
-                },
-                {
-                    value: "Gerakan Tanah"
-                }
-            ]
+            label: "",
+            labelReference: [],
+            ext: ".doc, .docx, .xlx, .xlxs, .pdf, .zip, .rar, .7zip",
         };
     },
     async created() {
@@ -95,7 +109,22 @@ export default {
             name: "form-upload-center",
         });
     },
+    mounted() {
+        this.getLabelReference();
+    },
     methods: {
+        getLabelReference() {
+            this.loading = true;
+            axios
+                .get(`${this.apiurl}/dashboard/api/upload-center/label`)
+                .then(async (data) => {
+                    this.loading = false;
+                    this.labelReference = data?.data?.serve;
+                })
+                .catch(() => {
+                    this.loading = false;
+                });
+        },
         beforeUpload(file) {
             this.files = [...this.files, file];
             return false;
@@ -107,8 +136,10 @@ export default {
             this.files = newFile;
         },
         handleAutocomplete(input, option) {
-            console.log(option);
-            return option.value.toUpperCase().indexOf(input.toUpperCase()) >= 0;
+            return option.componentOptions.children[0].text.toUpperCase().indexOf(input.toUpperCase()) >= 0;
+        },
+        handleChange(val) {
+            this.ext = val;
         },
         handleClose() {
             window.close('','_parent','');
