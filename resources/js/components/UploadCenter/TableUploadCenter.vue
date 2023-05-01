@@ -74,6 +74,7 @@
                             @click="handleCopyToClipboard(record)"
                         ></a-button>
                         <a-popconfirm
+                            v-if="role != 'admin'"
                             placement="left"
                             title="Anda yakin ingin menghapus data ini?"
                             @confirm="handleDelete(record)"
