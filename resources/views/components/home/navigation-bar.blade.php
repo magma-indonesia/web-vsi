@@ -72,7 +72,7 @@
                             </li>
                             <li><a href="#">Gempa Bumi dan Tsunami</a>
                                 <ul class="child">
-                                    <li><a href="{{ route('gempa-bumi-tsunami.daftar-kejadian') }}">Daftar Kejadian</a></li>
+                                    <li><a href="{{ route('gempa-bumi-tsunami.daftar-kejadian-gempa') }}">Daftar Kejadian</a></li>
                                     <li><a href="{{ route('gempa-bumi-tsunami.kajian-kejadian') }}">Kajian Kejadian</a></li>
                                     <li><a href="{{ route('gempa-bumi-tsunami.laporan-singkat') }}">laporan Singkat dan Rekomendasi Teknis</a></li>
                                     <li><a href="{{ route('gempa-bumi-tsunami.publikasi-mitigasi') }}">Publikasi Mitigasi Gempa Bumi</a></li>

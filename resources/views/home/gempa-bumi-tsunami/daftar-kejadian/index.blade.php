@@ -16,7 +16,7 @@
             <ul class="breadcrumb">
                 <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
                 <li class="breadcrumb-item"><a href="#">Gempa Bumi & Tsunami</a></li>
-                <li class="breadcrumb-item active"><a href="{{ route('gempa-bumi-tsunami.daftar-kejadian') }}">Daftar Kejadian Gempa Bumi & Tsunami</a></li>
+                <li class="breadcrumb-item active"><a href="{{ route('gempa-bumi-tsunami.daftar-kejadian-gempa') }}">Daftar Kejadian Gempa Bumi & Tsunami</a></li>
             </ul>
         </div>
     </div>
