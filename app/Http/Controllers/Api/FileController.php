@@ -90,6 +90,7 @@ class FileController extends Controller
             foreach ($request->file('files') as $fileUpload) {
                 $fileName = $fileUpload->getClientOriginalName();
                 $fileNameExist = File::query()
+                    ->where('user_id', $this->user()->id)
                     ->where('name', $fileName)
                     ->get();
                 if ($fileNameExist->count() > 0) {
