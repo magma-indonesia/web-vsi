@@ -68,6 +68,22 @@
                 <span v-else> Mohon tunggu... </span>
             </a-button>
         </a-form-item>
+        <div
+            v-if="category == '1'"
+            style="
+                margin-bottom: 10px;
+                display: flex;
+                align-items: center;
+                gap: 10px;
+            "
+        >
+            <a-button type="primary" @click="openModal = true"
+                >Upload PDF</a-button
+            >
+            <div style="font-size: 12px; font-weight: bold">
+                {{ files.length }} File PDF diupload
+            </div>
+        </div>
         <a-form-item>
             <a-button
                 type="primary"
@@ -87,6 +103,9 @@
                 Tutup
             </a-button>
         </a-form-item>
+        <a-modal v-model="openModal" title="Upload PDF" :footer="false">
+            <form-news-file @close="handleCloseModalFile" :apiurl="apiurl" />
+        </a-modal>
     </a-form>
 </template>
 
@@ -94,9 +113,10 @@
 import axios from "axios";
 import helper from "../../utils/helper";
 import TinyMce from "../Utils/TinyMce.vue";
+import FormNewsFile from "./FormNewsFile.vue";
 
 export default {
-    components: { TinyMce },
+    components: { TinyMce, FormNewsFile },
     props: ["apiurl", "backurl", "retrieve", "category"],
     data() {
         return {
@@ -105,6 +125,8 @@ export default {
             loading: false,
             thumbnail: null,
             desc: null,
+            openModal: false,
+            files: [],
         };
     },
     async created() {
@@ -160,6 +182,10 @@ export default {
             };
             input.click();
         },
+        handleCloseModalFile(res) {
+            this.files = res;
+            this.openModal = false;
+        },
         handleClose() {
             window.location.href = this.backurl;
         },
@@ -175,6 +201,7 @@ export default {
                     postData.categories = [this.category];
                     postData.thumbnail = this.thumbnail;
                     postData.desc = this.desc;
+                    postData.news_files = this.files;
                     if (this.retrieve) {
                         let retrieve = await JSON.parse(this.retrieve);
                         postData.id = retrieve.id;

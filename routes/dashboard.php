@@ -123,6 +123,10 @@ Route::prefix('layanan-publik')->name('layanan-publik.')->group(function () {
 
     // Layanan Publik > Kontak
     Route::get('/kontak', [ContactController::class, 'index'])->name('kontak');
+
+    Route::get('/news', [NewsController::class, 'index'])->name('news');
+    Route::get('/news/add', [NewsController::class, 'add'])->name('news.add');
+    Route::get('/news/edit/{id}', [NewsController::class, 'edit'])->name('news.edit');
 });
 
 // Gerakan Tanah

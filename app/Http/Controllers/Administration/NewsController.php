@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use App\Models\News;
+use App\Models\New;
+use App\Models\NewsFile;
 use App\Models\NewsPublishCategory;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -36,6 +38,9 @@ class NewsController extends Controller
         }
         if ($path == '8') {
             return view("dashboard.gempa-bumi-tsunami.laporan-singkat.index", compact("contents"));    
+        }
+        if ($path == '9') {
+            return view("dashboard.layanan-publik.pengumuman.index", compact("contents"));    
         }
         return view("dashboard.gunung-api.data-dasar.index", compact("contents"));
     }
@@ -90,6 +95,9 @@ class NewsController extends Controller
         if ($path == '8') {
             return view("dashboard.gempa-bumi-tsunami.laporan-singkat.add", compact("contents"));    
         }
+        if ($path == '9') {
+            return view("dashboard.layanan-publik.pengumuman.add", compact("contents"));    
+        }
         return view("dashboard.gunung-api.data-dasar.add", compact("contents"));
     }
 
@@ -124,6 +132,9 @@ class NewsController extends Controller
         }
         if ($path == '8') {
             return view("dashboard.gempa-bumi-tsunami.laporan-singkat.edit", compact("contents", "retrieve"));    
+        }
+        if ($path == '9') {
+            return view("dashboard.layanan-publik.pengumuman.edit", compact("contents", "retrieve"));    
         }
         return view("dashboard.gunung-api.data-dasar.edit", compact("contents", "retrieve"));
     }
@@ -167,6 +178,13 @@ class NewsController extends Controller
                 $np->news_id = $n->id;
                 $np->news_category_id = $cat;
                 $np->save();
+            }
+
+            foreach ($request->news_files as $file) {
+                $nf = new NewsFile();
+                $nf->news_id = $n->id;
+                $nf->file_id = $file;
+                $nf->save();
             }
 
             DB::commit();
@@ -259,6 +277,20 @@ class NewsController extends Controller
                     $np->news_id = $n->id;
                     $np->news_category_id = $cat;
                     $np->save();
+                }
+            }
+
+            if(count($request->files) > 0){
+                $validateCount = NewsFile::where('news_id', $n->id)->count();
+                if($validateCount > 0){
+                    NewsFile::where('news_id',$n->id)->delete();
+                }
+
+                foreach ($request->files as $file) {
+                    $nf = new NewsFile;
+                    $nf->news_id = $n->id;
+                    $nf->file_id = $file;
+                    $nf->save();
                 }
             }
 

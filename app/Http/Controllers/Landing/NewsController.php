@@ -10,10 +10,7 @@ class NewsController extends Controller
 {
     public function indexDataDasar(Request $request)
     {
-        $lc = new LandingController;
-        $tingkatAktivitas = $lc->getTingkatAktivitas();
-
-        return view("home.gunung-api.data-dasar.index", compact("tingkatAktivitas"));
+        return view("home.gunung-api.data-dasar.index");
     }
 
     public function detailDataDasar(Request $request)
@@ -25,17 +22,12 @@ class NewsController extends Controller
             abort(404);
         }
 
-        $lc = new LandingController;
-        $tingkatAktivitas = $lc->getTingkatAktivitas();
-        return view("home.gunung-api.data-dasar.detail", compact("retrieve", "tingkatAktivitas"));
+        return view("home.gunung-api.data-dasar.detail", compact("retrieve"));
     }
 
     public function indexTingkatAktivitas(Request $request)
     {
-        $lc = new LandingController;
-        $tingkatAktivitas = $lc->getTingkatAktivitas();
-
-        return view("home.gunung-api.tingkat-aktivitas.index", compact("tingkatAktivitas"));
+        return view("home.gunung-api.tingkat-aktivitas.index");
     }
 
     public function detailTingkatAktivitas(Request $request)
@@ -47,17 +39,12 @@ class NewsController extends Controller
             abort(404);
         }
 
-        $lc = new LandingController;
-        $tingkatAktivitas = $lc->getTingkatAktivitas();
-        return view("home.gunung-api.tingkat-aktivitas.detail", compact("retrieve", "tingkatAktivitas"));
+        return view("home.gunung-api.tingkat-aktivitas.detail", compact("retrieve"));
     }
 
     public function indexPressRelease(Request $request)
     {
-        $lc = new LandingController;
-        $tingkatAktivitas = $lc->getTingkatAktivitas();
-
-        return view("home.gunung-api.press-release.index", compact("tingkatAktivitas"));
+        return view("home.gunung-api.press-release.index");
     }
 
     public function detailPressRelease(Request $request)
@@ -69,17 +56,12 @@ class NewsController extends Controller
             abort(404);
         }
 
-        $lc = new LandingController;
-        $tingkatAktivitas = $lc->getTingkatAktivitas();
-        return view("home.gunung-api.press-release.detail", compact("retrieve", "tingkatAktivitas"));
+        return view("home.gunung-api.press-release.detail", compact("retrieve"));
     }
 
     public function indexTanggapanKejadian(Request $request)
     {
-        $lc = new LandingController;
-        $tingkatAktivitas = $lc->getTingkatAktivitas();
-
-        return view("home.gerakan-tanah.tanggapan-kejadian.index", compact("tingkatAktivitas"));
+        return view("home.gerakan-tanah.tanggapan-kejadian.index");
     }
 
     public function detailTanggapanKejadian(Request $request)
@@ -91,17 +73,12 @@ class NewsController extends Controller
             abort(404);
         }
 
-        $lc = new LandingController;
-        $tingkatAktivitas = $lc->getTingkatAktivitas();
-        return view("home.gerakan-tanah.tanggapan-kejadian.detail", compact("retrieve", "tingkatAktivitas"));
+        return view("home.gerakan-tanah.tanggapan-kejadian.detail", compact("retrieve"));
     }
 
     public function indexKajianKejadian(Request $request)
     {
-        $lc = new LandingController;
-        $tingkatAktivitas = $lc->getTingkatAktivitas();
-
-        return view("home.gempa-bumi-tsunami.kajian-kejadian.index", compact("tingkatAktivitas"));
+        return view("home.gempa-bumi-tsunami.kajian-kejadian.index");
     }
 
     public function detailKajianKejadian(Request $request)
@@ -113,17 +90,12 @@ class NewsController extends Controller
             abort(404);
         }
 
-        $lc = new LandingController;
-        $tingkatAktivitas = $lc->getTingkatAktivitas();
-        return view("home.gempa-bumi-tsunami.kajian-kejadian.detail", compact("retrieve", "tingkatAktivitas"));
+        return view("home.gempa-bumi-tsunami.kajian-kejadian.detail", compact("retrieve"));
     }
 
     public function indexDaftarKejadian(Request $request)
     {
-        $lc = new LandingController;
-        $tingkatAktivitas = $lc->getTingkatAktivitas();
-
-        return view("home.gempa-bumi-tsunami.daftar-kejadian.index", compact("tingkatAktivitas"));
+        return view("home.gempa-bumi-tsunami.daftar-kejadian.index");
     }
 
     public function detailDaftarKejadian(Request $request)
@@ -135,17 +107,12 @@ class NewsController extends Controller
             abort(404);
         }
 
-        $lc = new LandingController;
-        $tingkatAktivitas = $lc->getTingkatAktivitas();
-        return view("home.gempa-bumi-tsunami.daftar-kejadian.detail", compact("retrieve", "tingkatAktivitas"));
+        return view("home.gempa-bumi-tsunami.daftar-kejadian.detail", compact("retrieve"));
     }
 
     public function indexPublikasiMitigasi(Request $request)
     {
-        $lc = new LandingController;
-        $tingkatAktivitas = $lc->getTingkatAktivitas();
-
-        return view("home.gempa-bumi-tsunami.publikasi-mitigasi.index", compact("tingkatAktivitas"));
+        return view("home.gempa-bumi-tsunami.publikasi-mitigasi.index");
     }
 
     public function detailPublikasiMitigasi(Request $request)
@@ -157,17 +124,12 @@ class NewsController extends Controller
             abort(404);
         }
 
-        $lc = new LandingController;
-        $tingkatAktivitas = $lc->getTingkatAktivitas();
-        return view("home.gempa-bumi-tsunami.publikasi-mitigasi.detail", compact("retrieve", "tingkatAktivitas"));
+        return view("home.gempa-bumi-tsunami.publikasi-mitigasi.detail", compact("retrieve"));
     }
 
     public function indexLaporanSingkat(Request $request)
     {
-        $lc = new LandingController;
-        $tingkatAktivitas = $lc->getTingkatAktivitas();
-
-        return view("home.gempa-bumi-tsunami.laporan-singkat.index", compact("tingkatAktivitas"));
+        return view("home.gempa-bumi-tsunami.laporan-singkat.index");
     }
 
     public function detailLaporanSingkat(Request $request)
@@ -179,8 +141,6 @@ class NewsController extends Controller
             abort(404);
         }
 
-        $lc = new LandingController;
-        $tingkatAktivitas = $lc->getTingkatAktivitas();
-        return view("home.gempa-bumi-tsunami.laporan-singkat.detail", compact("retrieve", "tingkatAktivitas"));
+        return view("home.gempa-bumi-tsunami.laporan-singkat.detail", compact("retrieve"));
     }
 }

@@ -84,14 +84,8 @@
                     <div class="widget_list">
                         <h4 class="widget_title">Hubungi Kami</h4>
                         <div class="widget_text text2">
-                            <ul>
-                                <li><a href="#">Senin<span>08.00 - 16.00 WIB</span></a></li>
-                                <li><a href="#">Selasa <span>08.00 - 16.00 WIB</span></a></li>
-                                <li><a href="#">Rabu<span>08.00 - 16.00 WIB</span></a></li>
-                                <li><a href="#">Kamis<span>08.00 - 16.00 WIB</span></a></li>
-                                <li><a href="#">Jumat <span>08.00 - 16.30 WIB</span></a></li>
-                                <li><a href="#">Sabtu - Minggu<span>Tutup</span></a></li>
-                            </ul>
+                            <contact-form csrf="{{ csrf_token() }}" apiurl="{{ env('APP_URL') }}"
+                        geetestid="{{ env('GEETEST_EVENT_ID') }}"></contact-form>
                         </div>
                     </div>
                 </div>

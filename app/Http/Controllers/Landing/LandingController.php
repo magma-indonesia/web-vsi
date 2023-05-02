@@ -42,40 +42,64 @@ class LandingController extends Controller
         }
         return $tingkatAktivitas;
     }
-
+    
     public function index() {
-        $tingkatAktivitas = [];
-        $pressRelease = News::select("news.*")
-                            ->where('news_publish_categories.news_category_id', 3)
+        $news = [];
+        $pengumuman = News::select("news.*")
+                            ->where('news_publish_categories.news_category_id', 9)
                             ->join('news_publish_categories','news_publish_categories.news_id','=','news.id')
                             ->orderBy("news.created_at", "desc")
                             ->first();
 
-        if ($pressRelease) {
-            $pressRelease->link = env('APP_URL')."/press-release/".$pressRelease->route;
-            array_push($tingkatAktivitas, $pressRelease);
+        $pressRelease = News::select("news.*")
+                            ->where('news_publish_categories.news_category_id', 3)
+                            ->join('news_publish_categories','news_publish_categories.news_id','=','news.id')
+                            ->orderBy("news.created_at", "desc")
+                            ->limit(2)
+                            ->get();
+
+        if (count($pressRelease) > 0) {
+            foreach ($pressRelease as $row) {
+                $row->link = env('APP_URL')."/press-release/".$row->route;
+                array_push($news, $row);
+            }
+            $pressRelease = $pressRelease[0];
+        } else {
+            $pressRelease = null;
         }
 
         $tanggapanKejadian = News::select("news.*")
                             ->where('news_publish_categories.news_category_id', 4)
                             ->join('news_publish_categories','news_publish_categories.news_id','=','news.id')
                             ->orderBy("news.created_at", "desc")
-                            ->first();
+                            ->limit(2)
+                            ->get();
 
-        if ($tanggapanKejadian) {
-            $tanggapanKejadian->link = env('APP_URL')."/tanggapan-kejadian/".$tanggapanKejadian->route;
-            array_push($tingkatAktivitas, $tanggapanKejadian);
+        if (count($tanggapanKejadian) > 0) {
+            foreach ($tanggapanKejadian as $row) {
+                $row->link = env('APP_URL')."/tanggapan-kejadian/".$row->route;
+                array_push($news, $row);
+            }
+            $tanggapanKejadian = $tanggapanKejadian[0];
+        } else {
+            $tanggapanKejadian = null;
         }
 
         $kajianKejadian = News::select("news.*")
                             ->where('news_publish_categories.news_category_id', 5)
                             ->join('news_publish_categories','news_publish_categories.news_id','=','news.id')
                             ->orderBy("news.created_at", "desc")
-                            ->first();
+                            ->limit(2)
+                            ->get();
 
-        if ($kajianKejadian) {
-            $kajianKejadian->link = env('APP_URL')."/kajian-kejadian/".$kajianKejadian->route;
-            array_push($tingkatAktivitas, $kajianKejadian);
+        if (count($kajianKejadian) > 0) {
+            foreach ($kajianKejadian as $row) {
+                $row->link = env('APP_URL')."/kajian-kejadian/".$row->route;
+                array_push($news, $row);
+            }
+            $kajianKejadian = $kajianKejadian[0];
+        } else {
+            $kajianKejadian = null;
         }
 
         $lastNews = News::select("news.*", "news_publish_categories.news_category_id")
@@ -83,7 +107,37 @@ class LandingController extends Controller
                             ->join('news_publish_categories','news_publish_categories.news_id','=','news.id')
                             ->orderBy("news.created_at", "desc")
                             ->first();
+                            
+        usort($news,function($first,$second){
+            return strtolower($first->created_at) < strtolower($second->created_at);
+        });
 
-        return view('home.index', compact('tingkatAktivitas', 'pressRelease', 'tanggapanKejadian', 'kajianKejadian','lastNews'));
+        $statusGunung = [];
+        $curl = curl_init();
+
+        curl_setopt_array($curl, array(
+        CURLOPT_URL => 'https://magma.esdm.go.id/api/v1/home/gunung-api/status',
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_ENCODING => '',
+        CURLOPT_MAXREDIRS => 10,
+        CURLOPT_TIMEOUT => 0,
+        CURLOPT_FOLLOWLOCATION => true,
+        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+        CURLOPT_CUSTOMREQUEST => 'GET',
+        CURLOPT_HTTPHEADER => array(
+            'Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczpcL1wvbWFnbWEuZXNkbS5nby5pZFwvYXBpXC9sb2dpblwvc3Rha2Vob2xkZXIiLCJpYXQiOjE2ODEwOTI2MDEsImV4cCI6MTgzODg1OTAwMSwibmJmIjoxNjgxMDkyNjAxLCJqdGkiOiJzeXdxeGtjTW9BOXhPZnRuIiwic3ViIjoyNCwicHJ2IjoiNGE5ZDlhMmQyNjgwMmMzMTJlOGU1YTViZTYwZmYyNmYwZmM2M2Q3ZCIsInNvdXJjZSI6Ik1BR01BIEluZG9uZXNpYSIsImFwaV92ZXJzaW9uIjoidjEiLCJkYXlzX3JlbWFpbmluZyI6MTgyNSwiZXhwaXJlZF9hdCI6IjIwMjgtMDQtMDkgMDA6MDA6MDAifQ.hol8d2rgvChG5Kth6JAV3o9xIWKljP-Opi7mhSSLxIY'
+        ),
+        ));
+
+        $response = curl_exec($curl);
+
+        curl_close($curl);
+
+        if ($response) {
+            $parseJson = json_decode($response);
+            $statusGunung = json_encode($parseJson->latest);
+        }
+        
+        return view('home.index', compact('statusGunung','pengumuman','pressRelease', 'tanggapanKejadian', 'kajianKejadian','lastNews', 'news'));
     }
 }

@@ -41,6 +41,20 @@
                 v-html="JSON.parse(retrieve).content"
                 style="margin-bottom: 10px; margin-top: 10px"
             />
+            <div
+                style="margin-top: 10px"
+                v-if="JSON.parse(retrieve)?.news_files?.length > 0"
+            >
+                <a-button
+                    type="link"
+                    icon="file-pdf"
+                    @click="openLink(file)"
+                    v-for="(file, idx) in JSON.parse(retrieve).news_files"
+                    :key="idx"
+                >
+                    {{ file.name }}
+                </a-button>
+            </div>
             <a-divider />
             <div style="font-size: 14px; margin-bottom: 10px">
                 Bagikan postingan ini ke :
@@ -96,6 +110,9 @@ export default {
         },
         truncString(str) {
             return helper.truncString(str, 30, "...");
+        },
+        openLink(item) {
+            window.open(`/files/${item.id}/${item.name}`);
         },
     },
 };

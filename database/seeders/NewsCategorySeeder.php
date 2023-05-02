@@ -47,6 +47,10 @@ class NewsCategorySeeder extends Seeder
             [
                 "id" => 8,
                 "category" => "Laporan Singkat Gempa Bumi & Tsunami",
+            ],
+            [
+                "id" => 9,
+                "category" => "Pengumuman",
             ]
         ]);
     }

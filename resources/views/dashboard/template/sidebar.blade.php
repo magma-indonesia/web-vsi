@@ -172,6 +172,7 @@
                                 data-feather="command"></i><span>Bimbingan Tugas Akhir</span></a></li>
                     <li class="nav-item"><a href="#"><i data-feather="flag"></i><span>Pengaduan</span></a></li>
                     <li class="nav-item"><a href="{{ route('dashboard.layanan-publik.kontak') }}"><i data-feather="mail"></i><span>Kontak</span></a></li>
+                    <li class="nav-item"><a href="{{ route('dashboard.layanan-publik.news') }}?category=9"><i data-feather="info"></i><span>Pengumuman</span></a></li>
                 </ul>
             </li>
 

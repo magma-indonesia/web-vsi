@@ -106,6 +106,7 @@ class FileController extends Controller
                     $fileTags[] = $dataTag->id;
                 }
 
+                $responseFile = [];
                 foreach ($request->file('files') as $fileUpload) {
                     $fileName = $fileUpload->getClientOriginalName();
                     $fileNameExist = File::query()
@@ -131,13 +132,14 @@ class FileController extends Controller
                     $file->save();
 
                     $file->tags()->sync($fileTags);
+                    array_push($responseFile, $file->id);
                 }
 
                 DB::commit();
 
                 return response()->json([
                     'message' => 'Data berhasil ditambahkan.',
-                    'serve' => [],
+                    'serve' => $responseFile,
                 ], 200);
             } else {
                 return response()->json([

@@ -2,8 +2,9 @@
     <a-form :form="form" @submit="handleVerifyCaptcha" :layout="formLayout">
         <a-row :gutter="[12, 12]">
             <a-col :xs="24" :sm="24" :md="24" :lg="12">
-                <a-form-item label="Nama" :hasFeedback="true">
+                <a-form-item :hasFeedback="true">
                     <a-input
+                        placeholder="Nama lengkap"
                         v-decorator="[
                             'name',
                             {
@@ -19,8 +20,9 @@
                 </a-form-item>
             </a-col>
             <a-col :xs="24" :sm="24" :md="24" :lg="12">
-                <a-form-item label="Email" :hasFeedback="true">
+                <a-form-item :hasFeedback="true">
                     <a-input
+                        placeholder="Email"
                         v-decorator="[
                             'email',
                             {
@@ -40,8 +42,9 @@
                 </a-form-item>
             </a-col>
         </a-row>
-        <a-form-item label="Subject" :hasFeedback="true">
+        <a-form-item :hasFeedback="true">
             <a-input
+                placeholder="Subject"
                 v-decorator="[
                     'subject',
                     {
@@ -55,7 +58,7 @@
                 ]"
             />
         </a-form-item>
-        <a-form-item label="Pesan">
+        <a-form-item>
             <a-textarea
                 v-decorator="['message']"
                 placeholder="Ketik pesan Anda disini"
@@ -67,7 +70,7 @@
                 html-type="submit"
                 :block="true"
                 :disabled="loading"
-                style="background: #293d50; color: #fff"
+                style="color: #293d50; background: #fee50f"
             >
                 <span v-if="!loading"> Submit </span>
                 <span v-else> Mohon tunggu... </span>

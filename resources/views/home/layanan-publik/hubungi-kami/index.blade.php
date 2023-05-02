@@ -1,10 +1,10 @@
-@extends('template.layout', ['tingkatAktivitas' => $tingkatAktivitas])
+@extends('template.layout')
 
 @section('title', 'Hubungi Kami')
 
 @push('styles')
 <link href="{{ asset('css/selectric.css') }}" rel="stylesheet">
-<link href="{{ mix('css/app.css') }}" rel="stylesheet" type="text/css" />
+
 @endpush
 
 @section('content')
@@ -74,6 +74,6 @@
     });
 
 </script>
-<script src="{{ asset('js/gt4.js') }}" type="text/javascript"></script>
-<script src="{{ mix('js/app.js') }}" type="text/javascript"></script>
+
+
 @endpush

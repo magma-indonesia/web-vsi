@@ -37,17 +37,48 @@ Vue.component(
     "news-detail",
     require("./components/News/NewsDetail.vue").default
 );
-Vue.component("table-ground-movement", require("./components/GroundMovement/TableGroundMovement.vue").default);
-Vue.component("form-ground-movement", require("./components/GroundMovement/FormGroundMovement.vue").default);
-Vue.component("ground-movement", require("./components/GroundMovement/GroundMovement.vue").default);
-Vue.component("ground-movement-detail", require("./components/GroundMovement/GroundMovementDetail.vue").default);
-Vue.component("form-profile", require("./components/Profile/FormProfile.vue").default);
-Vue.component("profile-detail", require("./components/Profile/ProfileDetail.vue").default);
+Vue.component(
+    "status-gunung",
+    require("./components/News/StatusGunung.vue").default
+);
+Vue.component(
+    "table-ground-movement",
+    require("./components/GroundMovement/TableGroundMovement.vue").default
+);
+Vue.component(
+    "form-ground-movement",
+    require("./components/GroundMovement/FormGroundMovement.vue").default
+);
+Vue.component(
+    "ground-movement",
+    require("./components/GroundMovement/GroundMovement.vue").default
+);
+Vue.component(
+    "ground-movement-detail",
+    require("./components/GroundMovement/GroundMovementDetail.vue").default
+);
+Vue.component(
+    "form-profile",
+    require("./components/Profile/FormProfile.vue").default
+);
+Vue.component(
+    "profile-detail",
+    require("./components/Profile/ProfileDetail.vue").default
+);
 Vue.component("table-user", require("./components/User/TableUser.vue").default);
 Vue.component("form-user", require("./components/User/FormUser.vue").default);
-Vue.component("table-upload-center", require("./components/UploadCenter/TableUploadCenter.vue").default);
-Vue.component("table-upload-center-employee", require("./components/UploadCenter/TableEmployee.vue").default);
-Vue.component("form-upload-center", require("./components/UploadCenter/FormUploadCenter.vue").default);
+Vue.component(
+    "table-upload-center",
+    require("./components/UploadCenter/TableUploadCenter.vue").default
+);
+Vue.component(
+    "table-upload-center-employee",
+    require("./components/UploadCenter/TableEmployee.vue").default
+);
+Vue.component(
+    "form-upload-center",
+    require("./components/UploadCenter/FormUploadCenter.vue").default
+);
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue

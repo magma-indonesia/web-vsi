@@ -29,4 +29,5 @@
     <link href="{{ asset('css/vsi.css') }}" rel="stylesheet">
     @stack('styles')
     <link href="{{ asset('css/responsive.css') }}" rel="stylesheet">
+    <link href="{{ mix('css/app.css') }}" rel="stylesheet" type="text/css" />
 </head>

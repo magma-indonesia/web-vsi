@@ -1,4 +1,4 @@
-@extends('template.layout', ['tingkatAktivitas' => $tingkatAktivitas])
+@extends('template.layout')
 
 @section('title', 'Kajian Kejadian Gempa Bumi & Tsunami')
 

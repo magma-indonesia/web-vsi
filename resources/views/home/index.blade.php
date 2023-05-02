@@ -1,4 +1,4 @@
-@extends('template.layout', ['tingkatAktivitas' => $tingkatAktivitas])
+@extends('template.layout')
 
 @section('content')
 <!--CITY MAIN BANNER START-->
@@ -39,21 +39,17 @@
 </a>
             </figure>
         </div>
-
+        @if ($pengumuman)
         <div>
             <figure class="overlay">
                 <img src="extra-images/main-banner-pvmbg2.jpg" alt="">
                 <div class="banner_text">
-                    <div class="small_text animated">Laporan Aktivitas</div>
-                    <div class="medium_text animated">Gunung Api</div>
-                    <div class="large_text animated">Jan 2022</div>
-                    <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Illum modi natus officia repellendus
-                        impedit veritatis exercitationem, vitae quidem obcaecati sit adipisci atque tenetur beatae qui
-                        dolorem doloribus iste dolorum animi.</p>
-                    <a class="theam_btn animated" href="#">Detail</a>
+                    <div class="small_text animated">{{ $pengumuman->title }}</div>
+                    <p>{!! $pengumuman->content !!}</p>
                 </div>
             </figure>
         </div>
+        @endif
     </div>
 </div>
 <!--CITY MAIN BANNER END-->
@@ -204,91 +200,29 @@
                     <div class="col-md-6 col-sm-6">
                         <div class="city_news_row">
                             <ul>
+                                @if (count($news) > 0)
+                                @foreach ($news as $n)
                                 <li>
                                     <div class="city_news_list">
                                         <figure class="box">
                                             <div class="box-layer layer-1"></div>
                                             <div class="box-layer layer-2"></div>
                                             <div class="box-layer layer-3"></div>
-                                            <img src="extra-images/news-fig1.jpg" alt="">
+                                            <img src="{{ $n->thumbnail }}" alt="">
                                         </figure>
                                         <div class="city_news_list_text">
-                                            <h5>Lorem Ipsum Proin gravida nibh </h5>
+                                            <h5>{{ $n->title }}</h5>
                                             <ul class="city_news_meta">
-                                                <li><a href="#">May 22, 2018</a></li>
-                                                <li><a href="#">Public Notices</a></li>
+                                                <li><a href="#">{{ date('d F Y', strtotime($n->created_at)) }}</a></li>
+                                                <li><a href="#">{{ $n->created_by }}</a></li>
                                             </ul>
                                         </div>
                                     </div>
                                 </li>
-                                <li>
-                                    <div class="city_news_list">
-                                        <figure class="box">
-                                            <div class="box-layer layer-1"></div>
-                                            <div class="box-layer layer-2"></div>
-                                            <div class="box-layer layer-3"></div>
-                                            <img src="extra-images/news-fig2.jpg" alt="">
-                                        </figure>
-                                        <div class="city_news_list_text">
-                                            <h5>Lorem Ipsum Proin gravida nibh </h5>
-                                            <ul class="city_news_meta">
-                                                <li><a href="#">May 22, 2018</a></li>
-                                                <li><a href="#">Public Notices</a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="city_news_list">
-                                        <figure class="box">
-                                            <div class="box-layer layer-1"></div>
-                                            <div class="box-layer layer-2"></div>
-                                            <div class="box-layer layer-3"></div>
-                                            <img src="extra-images/news-fig3.jpg" alt="">
-                                        </figure>
-                                        <div class="city_news_list_text">
-                                            <h5>Lorem Ipsum Proin gravida nibh </h5>
-                                            <ul class="city_news_meta">
-                                                <li><a href="#">May 22, 2018</a></li>
-                                                <li><a href="#">Public Notices</a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="city_news_list">
-                                        <figure class="box">
-                                            <div class="box-layer layer-1"></div>
-                                            <div class="box-layer layer-2"></div>
-                                            <div class="box-layer layer-3"></div>
-                                            <img src="extra-images/news-fig4.jpg" alt="">
-                                        </figure>
-                                        <div class="city_news_list_text">
-                                            <h5>Lorem Ipsum Proin gravida nibh </h5>
-                                            <ul class="city_news_meta">
-                                                <li><a href="#">May 22, 2018</a></li>
-                                                <li><a href="#">Public Notices</a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="city_news_list">
-                                        <figure class="box">
-                                            <div class="box-layer layer-1"></div>
-                                            <div class="box-layer layer-2"></div>
-                                            <div class="box-layer layer-3"></div>
-                                            <img src="extra-images/news-fig5.jpg" alt="">
-                                        </figure>
-                                        <div class="city_news_list_text">
-                                            <h5>Lorem Ipsum Proin gravida nibh </h5>
-                                            <ul class="city_news_meta">
-                                                <li><a href="#">May 22, 2018</a></li>
-                                                <li><a href="#">Public Notices</a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </li>
+                                @endforeach
+                                @else 
+                                <div>No data news...</div>
+                                @endif
                             </ul>
                         </div>
                     </div>
@@ -297,32 +231,11 @@
             </div>
             <div class="col-md-4">
                 <div class="city_news_form">
-                    <div class="city_news_feild">
-                        <span>Signup</span>
-                        <h4>Newsletter</h4>
-                        <p>This is Photoshop's version of Lorem Ipsum. Proin gravida </p>
-                        <div class="city_news_search">
-                            <input type="text" name="text" placeholder="Enter Your Email Adress Here" required="">
-                            <button class="theam_btn border-color color">Subcribe Now</button>
-                        </div>
-                    </div>
                     <div class="city_news_feild feild2">
-                        <span>Recent</span>
-                        <h4>Documents</h4>
-                        <p>This is Photoshop's version of Lorem Ipsum. Proin gravida </p>
+                        <h4>Status Gunung Api</h4>
+                        <p>Daftar status gunung api diatas normal</p>
                         <div class="city_document_list">
-                            <ul>
-                                <li><a href="#"><i class="fa icon-document"></i>Council Agenda April 24, 2015 (27
-                                        kB)</a></li>
-                                <li><a href="#"><i class="fa icon-document"></i>Council Agenda April 24, 2015 (27
-                                        kB)</a></li>
-                                <li><a href="#"><i class="fa icon-document"></i>Council Agenda April 24, 2015 (27
-                                        kB)</a></li>
-                                <li><a href="#"><i class="fa icon-document"></i>Council Agenda April 24, 2015 (27
-                                        kB)</a></li>
-                                <li><a href="#"><i class="fa icon-document"></i>Council Agenda April 24, 2015 (27
-                                        kB)</a></li>
-                            </ul>
+                            <status-gunung data="{{ $statusGunung }}"></status-gunung>
                         </div>
                     </div>
                 </div>
