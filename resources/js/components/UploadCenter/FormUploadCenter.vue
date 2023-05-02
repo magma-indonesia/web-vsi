@@ -64,12 +64,13 @@
                     :value="ext"
                     @change="handleChange"
                 >
-                    <a-select-option value=".doc, .docx, .xlx, .xlxs, .pdf, .zip, .rar, .7zip, image/*, .shp">All</a-select-option>
+                    <a-select-option value=".doc, .docx, .xlx, .xlxs, .pdf, .zip, .rar, .7zip, image/*, video/mp4, .shp">All</a-select-option>
                     <a-select-option value=".pdf">PDF</a-select-option>
                     <a-select-option value=".doc, .docx">Word</a-select-option>
                     <a-select-option value=".xlx, .xlxs">Excel</a-select-option>
                     <a-select-option value=".zip, .rar, .7zip">Archive</a-select-option>
                     <a-select-option value="image/*">Image</a-select-option>
+                    <a-select-option value="video/mp4">Video</a-select-option>
                     <a-select-option value=".shp">Shape File</a-select-option>
                 </a-select>
                 <a-upload
@@ -78,11 +79,21 @@
                     :remove="handleRemove"
                     :before-upload="beforeUpload"
                     :multiple="true"
+                    @preview="handlePreview"
                 >
                     <a-button icon="upload">
                         Select File
                     </a-button>
                 </a-upload>
+                <a-modal
+                    width="70%"
+                    :visible="previewVisible"
+                    :footer="null"
+                    @cancel="handleCancelPreview"
+                >
+                    <img v-if="previewType == 'image'" alt="example" style="width: 100%" :src="previewSrc" />
+                    <iframe v-else :src="previewSrc" style="width: 100%; height: 460px;" frameborder="0" type="video/mp4"></iframe>
+                </a-modal>
             </div>
         </a-form-item>
         <a-form-item>
@@ -121,7 +132,10 @@ export default {
             loading: false,
             files: [],
             tags: [],
-            ext: ".doc, .docx, .xlx, .xlxs, .pdf, .zip, .rar, .7zip, image/*, .shp",
+            ext: ".doc, .docx, .xlx, .xlxs, .pdf, .zip, .rar, .7zip, image/*, video/mp4, .shp",
+            previewVisible: false,
+            previewSrc: '',
+            previewType: 'image',
         };
     },
     async created() {
@@ -162,7 +176,29 @@ export default {
             this.ext = val;
         },
         handleTags(val) {
-            console.log(`selected ${val}`);
+            // console.log(`selected ${val}`);
+        },
+        getBase64(file) {
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.readAsDataURL(file);
+                reader.onload = () => resolve(reader.result);
+                reader.onerror = error => reject(error);
+            });
+        },
+        async handlePreview(file) {
+            if (/*file.type == "video/mp4" || */file.type == "application/pdf") {
+                this.previewType = "iframe";
+                this.previewSrc = await this.getBase64(file) + "#toolbar=0";
+                this.previewVisible = true;
+            } else if (file.type.indexOf("image") !== -1) {
+                this.previewType = "image";
+                this.previewSrc = await this.getBase64(file);
+                this.previewVisible = true;
+            }
+        },
+        handleCancelPreview() {
+            this.previewVisible = false;
         },
         handleClose() {
             window.close('','_parent','');
