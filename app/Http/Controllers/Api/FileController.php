@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\File;
+use App\Models\Tag;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -79,7 +80,7 @@ class FileController extends Controller
                     'files.required' => 'File harus dipilih',
                 ]
             );
-           
+
             if ($validator->fails()) {
                 return response()->json([
                     'message' => $validator->errors()->first(),
@@ -87,39 +88,66 @@ class FileController extends Controller
                 ], 400);
             }
 
-            foreach ($request->file('files') as $fileUpload) {
-                $fileName = $fileUpload->getClientOriginalName();
-                $fileNameExist = File::query()
-                    ->where('user_id', $this->user()->id)
-                    ->where('name', $fileName)
-                    ->get();
-                if ($fileNameExist->count() > 0) {
-                    $ext = '.'.$fileUpload->getClientOriginalExtension();
-                    $fileName = str_replace($ext, '('.$fileNameExist->count().')'.$ext, $fileName);
+            if ($request->hasFile('files')) {
+                $tags = explode(',', $request->tags);
+                $fileTags = [];
+                foreach ($tags as $tag) {
+                    $tag = trim($tag);
+                    $tag = ucwords($tag);
+                    $dataTag = Tag::query()
+                        ->where('name', $tag)
+                        ->first();
+                    if (empty($dataTag)) {
+                        $dataTag = new Tag();
+                        $dataTag->name = $tag;
+                        $dataTag->save();
+                    }
+
+                    $fileTags[] = $dataTag->id;
                 }
-                $filePath = 'files/'.$this->user()->nip;
-                Storage::putFileAs(
-                    'public/'.$filePath,
-                    $fileUpload,
-                    $fileName
-                );
 
-                $file = new File();
-                $file->user_id = $this->user()->id;
-                $file->name = $fileName;
-                $file->path = $filePath.'/'.$fileName;
-                $file->label = $request->label;
-                $file->save();
+                foreach ($request->file('files') as $fileUpload) {
+                    $fileName = $fileUpload->getClientOriginalName();
+                    $fileNameExist = File::query()
+                        ->where('user_id', $this->user()->id)
+                        ->where('name', $fileName)
+                        ->get();
+                    if ($fileNameExist->count() > 0) {
+                        $ext = '.'.$fileUpload->getClientOriginalExtension();
+                        $fileName = str_replace($ext, '('.$fileNameExist->count().')'.$ext, $fileName);
+                    }
+                    $filePath = 'files/'.$this->user()->nip;
+                    Storage::putFileAs(
+                        'public/'.$filePath,
+                        $fileUpload,
+                        $fileName
+                    );
+
+                    $file = new File();
+                    $file->user_id = $this->user()->id;
+                    $file->name = $fileName;
+                    $file->path = $filePath.'/'.$fileName;
+                    $file->label = $request->label;
+                    $file->save();
+
+                    $file->tags()->sync($fileTags);
+                }
+
+                DB::commit();
+
+                return response()->json([
+                    'message' => 'Data berhasil ditambahkan.',
+                    'serve' => [],
+                ], 200);
+            } else {
+                return response()->json([
+                    'message' => 'File tidak ditemukan.',
+                    'serve' => [],
+                ], 422);
             }
-
-            DB::commit();
-
-            return response()->json([
-                'message' => 'Data berhasil ditambahkan.',
-                'serve' => [],
-            ], 200);
         } catch (Throwable $e) {
             DB::rollBack();
+
             return response()->json([
                 'message' => $e->getMessage(),
                 'serve' => [],
@@ -178,6 +206,7 @@ class FileController extends Controller
             ], 200);
         } catch (Throwable $e) {
             DB::rollBack();
+
             return response()->json([
                 'message' => $e->getMessage(),
                 'serve' => [],
@@ -193,7 +222,28 @@ class FileController extends Controller
                 ->select('label')
                 ->distinct()
                 ->get()
-                ->map(fn($item) => $item->label);
+                ->map(fn ($item) => $item->label);
+
+            return response()->json([
+                'message' => '',
+                'serve' => $data,
+            ], 200);
+        } catch (Throwable $e) {
+            return response()->json([
+                'message' => $e->getMessage(),
+                'serve' => [],
+            ], 500);
+        }
+    }
+
+    public function indexTags()
+    {
+        try {
+            $data = Tag::query()
+                ->select('name')
+                ->distinct()
+                ->get()
+                ->map(fn ($item) => $item->name);
 
             return response()->json([
                 'message' => '',

@@ -91,6 +91,27 @@
                     {{ formattedTime(new Date(record.created_at)) }}
                 </div>
             </template>
+            <template slot="tags_name" slot-scope="text, record">
+                <div
+                    style="
+                        display: flex;
+                        flex-wrap: wrap;
+                        margin-top: 10px;
+                    "
+                    v-if="record.tags_name.split(',').length > 0"
+                >
+                    <a-tag
+                        color="#4682B4"
+                        style="margin-bottom: 10px"
+                        v-for="(
+                            tag, idx
+                        ) in record.tags_name.split(',')"
+                        :key="idx"
+                    >
+                        {{ tag }}
+                    </a-tag>
+                </div>
+            </template>
         </a-table>
     </div>
 </template>
@@ -120,7 +141,8 @@ export default {
                 },
                 {
                     title: "Label",
-                    dataIndex: "label",
+                    dataIndex: "tags_name",
+                    scopedSlots: { customRender: "tags_name" },
                 },
                 {
                     title: "Waktu",

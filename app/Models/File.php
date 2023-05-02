@@ -15,6 +15,7 @@ class File extends Model
 
     protected $appends = [
         'url',
+        'tags_name',
     ];
 
     public function url()
@@ -28,5 +29,16 @@ class File extends Model
     public function getUrlAttribute()
     {
         return $this->url();
+    }
+
+    public function getTagsNameAttribute()
+    {
+        $tags = $this->tags;
+        return $tags->count() > 0 ? implode(', ', $tags->pluck('name')->toArray()) : '';
+    }
+
+    public function tags()
+    {
+        return $this->belongsToMany(Tag::class, 'file_tags', 'file_id', 'tag_id');
     }
 }

@@ -14,7 +14,7 @@
                     },
                 ]"
             /> -->
-            <a-auto-complete
+            <!-- <a-auto-complete
                 :data-source="labelReference"
                 placeholder=""
                 :filter-option="handleAutocomplete"
@@ -29,7 +29,28 @@
                         ],
                     },
                 ]"
-            />
+            /> -->
+            <a-select
+                mode="tags"
+                style="width: 100%"
+                placeholder=""
+                @change="handleTags"
+                v-decorator="[
+                    'tags',
+                    {
+                        rules: [
+                            {
+                                required: true,
+                                message: 'Label wajib diisi!',
+                            },
+                        ],
+                    },
+                ]"
+            >
+                <a-select-option v-for="item in tags" :key="item">
+                    {{ item }}
+                </a-select-option>
+            </a-select>
         </a-form-item>
         <a-form-item>
             <div style="display: flex; flex-direction: column;">
@@ -99,9 +120,8 @@ export default {
             form: null,
             loading: false,
             files: [],
-            label: "",
-            labelReference: [],
-            ext: ".doc, .docx, .xlx, .xlxs, .pdf, .zip, .rar, .7zip",
+            tags: [],
+            ext: ".doc, .docx, .xlx, .xlxs, .pdf, .zip, .rar, .7zip, image/*, .shp",
         };
     },
     async created() {
@@ -110,16 +130,16 @@ export default {
         });
     },
     mounted() {
-        this.getLabelReference();
+        this.getTags();
     },
     methods: {
-        getLabelReference() {
+        getTags() {
             this.loading = true;
             axios
-                .get(`${this.apiurl}/dashboard/api/upload-center/label`)
+                .get(`${this.apiurl}/dashboard/api/upload-center/tags`)
                 .then(async (data) => {
                     this.loading = false;
-                    this.labelReference = data?.data?.serve;
+                    this.tags = data?.data?.serve;
                 })
                 .catch(() => {
                     this.loading = false;
@@ -141,6 +161,9 @@ export default {
         handleChange(val) {
             this.ext = val;
         },
+        handleTags(val) {
+            console.log(`selected ${val}`);
+        },
         handleClose() {
             window.close('','_parent','');
         },
@@ -153,7 +176,7 @@ export default {
                     this.files.forEach(file => {
                         postData.append('files[]', file);
                     });
-                    postData.append('label', values.label);
+                    postData.append('tags', values.tags);
                     axios
                         .post(`${this.apiurl}/dashboard/api/upload-center`, postData)
                         .then(() => {

@@ -140,7 +140,7 @@ Route::prefix('gerakan-tanah')->name('gerakan-tanah.')->group(function () {
     Route::get('/news', [NewsController::class, 'index'])->name('news');
     Route::get('/news/add', [NewsController::class, 'add'])->name('news.add');
     Route::get('/news/edit/{id}', [NewsController::class, 'edit'])->name('news.edit');
-    
+
     Route::controller(GroundMovementController::class)->group(function () {
         Route::get('/', 'index')->name('index');
         Route::get('/create', 'create')->name('create');
@@ -211,6 +211,7 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'api'], function () {
             Route::post('/', 'store');
             Route::delete('/', 'destroy');
             Route::get('/label', 'indexLabel');
+            Route::get('/tags', 'indexTags');
         });
     });
 });
