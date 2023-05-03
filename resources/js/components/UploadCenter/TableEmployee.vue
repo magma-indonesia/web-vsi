@@ -31,6 +31,14 @@
                         placeholder="Cari data"
                         @search="handleSearch"
                     />
+                    <a-button
+                        icon="plus"
+                        type="primary"
+                        @click="handleAdd"
+                        style="margin-left: 10px"
+                    >
+                        Create new
+                    </a-button>
                 </div>
             </div>
         </a-card>
@@ -70,6 +78,7 @@ import axios from "axios";
 export default {
     props: [
         "apiurl",
+        "addurl",
         "detailurl",
     ],
     data() {
@@ -82,6 +91,10 @@ export default {
                 {
                     title: "Nama",
                     dataIndex: "name",
+                },
+                {
+                    title: "Kelompok Kerja",
+                    dataIndex: "segment_name",
                 },
                 {
                     title: "#",
@@ -120,15 +133,18 @@ export default {
             this.current = false;
             this.fetchData(this.params, this.pagination);
         },
+        handleAdd() {
+            window.location.href = this.addurl;
+        },
         handleDetail(val) {
             this.current = val;
             window.location.href = this.detailurl + "?user_id=" + val.id;
         },
         handleSearch(e) {
-            this.params.name = e;
+            this.params.search = e;
             this.fetchData(
                 {
-                    name: e,
+                    search: e,
                 },
                 this.pagination
             );

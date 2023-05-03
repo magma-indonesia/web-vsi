@@ -32,7 +32,7 @@
                         @search="handleSearch"
                     />
                     <a-button
-                        v-if="role != 'admin'"
+                        v-if="loginid == userid"
                         icon="plus"
                         type="primary"
                         @click="handleAdd"
@@ -74,7 +74,7 @@
                             @click="handleCopyToClipboard(record)"
                         ></a-button>
                         <a-popconfirm
-                            v-if="role != 'admin'"
+                            v-if="loginid == record.user_id"
                             placement="left"
                             title="Anda yakin ingin menghapus data ini?"
                             @confirm="handleDelete(record)"
@@ -126,6 +126,7 @@ export default {
         "addurl",
         "editurl",
         "role",
+        "loginid",
         "userid",
     ],
     data() {
@@ -135,10 +136,10 @@ export default {
                     title: "Nama File",
                     dataIndex: "name",
                 },
-                {
-                    title: "Path File",
-                    dataIndex: "path",
-                },
+                // {
+                //     title: "Path File",
+                //     dataIndex: "path",
+                // },
                 {
                     title: "Label",
                     dataIndex: "tags_name",
@@ -190,7 +191,15 @@ export default {
             this.fetchData(this.params, this.pagination);
         },
         handleAdd() {
-            window.open(this.addurl, '_blank', 'height=400,width=1024,toolbar=1,Location=0,Directories=0,Status=0,menubar=0,Scrollbars=0,Resizable=0');
+            var win = window.open(this.addurl, '_blank', 'height=400,width=1024,toolbar=1,Location=0,Directories=0,Status=0,menubar=0,Scrollbars=0,Resizable=0');
+            win.onbeforeunload = () => {
+                this.$notification.success({
+                    message: 'File berhasil diupload!',
+                    placement: "bottomRight",
+                    duration: 0,
+                });
+                this.fetchData(this.params, this.pagination);
+            }
         },
         handleDelete(val) {
             const postData = { id: val.id };

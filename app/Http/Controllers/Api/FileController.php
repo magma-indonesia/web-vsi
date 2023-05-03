@@ -32,13 +32,11 @@ class FileController extends Controller
                     ->when($search, function ($query) use ($search) {
                         $query->where('name', 'like', '%'.$search.'%');
                     })
-                    ->orderBy('created_at', 'asc')
+                    ->orderBy('created_at', 'desc')
                     ->paginate($request->pageSize);
             } else {
                 $data = User::query()
-                    ->whereHas('uploadCenters', function ($query) {
-                        $query->where('is_tmp', false);
-                    })
+                    ->where('id', '!=', $this->user()->id)
                     ->when($search, function ($query) use ($search) {
                         $query
                             ->where('name', 'like', '%'.$search.'%')
@@ -132,7 +130,7 @@ class FileController extends Controller
                     $file->save();
 
                     $file->tags()->sync($fileTags);
-                    array_push($responseFile, $file->id);
+                    $responseFile[] = $file->id;
                 }
 
                 DB::commit();

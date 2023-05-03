@@ -114,7 +114,7 @@ axios.interceptors.response.use(
         return response;
     },
     (error) => {
-        if (error) {
+        if (error.response) {
             notification.error({
                 message: error.response
                     ? `${error.response.data.message}`

@@ -61,6 +61,8 @@ class User extends Authenticatable implements RbacUserInterface
         'group_class',
         'role_id',
         'role',
+        'role_name',
+        'segment_name',
     ];
 
     /**
@@ -126,9 +128,26 @@ class User extends Authenticatable implements RbacUserInterface
         return $roles->count() > 0 ? $roles->first() : null;
     }
 
+    public function getRoleNameAttribute()
+    {
+        $roles = $this->roles();
+
+        return $roles->count() > 0 ? optional($roles->first())->description : null;
+    }
+
+    public function getSegmentNameAttribute()
+    {
+        return $this->segment->pronounce;
+    }
+
     public function roles()
     {
         return $this->belongsToMany(Role::class, 'user_role', 'user_id', 'role_id');
+    }
+
+    public function segment()
+    {
+        return $this->belongsTo(Segment::class, 'id_segment');
     }
 
     public function uploadCenters()
