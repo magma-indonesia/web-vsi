@@ -1,6 +1,6 @@
 @extends('dashboard.template.layout')
 
-@section('title', 'Tambah tanggapan kejadian')
+@section('title', 'Tambah tanggapan kejadian gerakan tanah')
 
 @section('body-content')
 <div class="d-sm-flex align-items-center justify-content-between mg-b-20 mg-lg-b-25 mg-xl-b-30">
@@ -10,14 +10,13 @@
                 <li class="breadcrumb-item"><a href="/">Dashboard</a></li>
                 <li class="breadcrumb-item">Gerakan Tanah</li>
                 <li class="breadcrumb-item" aria-current="page"><a
-                        href="{{ route('dashboard.gerakan-tanah.news') }}?category=4">Tanggapan Kejadian</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Tambah Tanggapan Kejadian</li>
+                        href="{{ route('dashboard.gerakan-tanah.tanggapan-kejadian.index') }}">Tanggapan kejadian</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Tambah tanggapan kejadian</li>
             </ol>
         </nav>
-        <h4 class="mg-b-0 tx-spacing--1">Tambah Tanggapan Kejadian</h4>
     </div>
 </div>
 <div class="p-3" id="app">
-    <form-news apiurl="{{ env('APP_URL') }}" category="4" backurl="{{ route('dashboard.gerakan-tanah.news') }}?category=4"></form-news>
+    <form-news apiurl="{{ route('dashboard.gerakan-tanah.tanggapan-kejadian.save') }}" backurl="{{ route('dashboard.gerakan-tanah.tanggapan-kejadian.index') }}"></form-news>
 </div>
 @endsection

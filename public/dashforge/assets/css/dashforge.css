@@ -13809,6 +13809,7 @@ textarea.parsley-success:focus {
       color: #1b2e4b; }
 
 .content-body {
+  background: #eee;
   position: relative;
   padding: 15px;
   height: calc(100% - 54px);

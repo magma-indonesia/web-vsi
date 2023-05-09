@@ -16,16 +16,19 @@
             <ul class="breadcrumb">
                 <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
                 <li class="breadcrumb-item"><a href="#">Gerakan Tanah</a></li>
-                <li class="breadcrumb-item active"><a href="{{ route('gerakan-tanah.tanggapan-kejadian') }}">Tanggapan Kejadian Gerakan Tanah</a></li>
+                <li class="breadcrumb-item active"><a href="{{ route('gerakan-tanah.tanggapan-kejadian.index') }}">Tanggapan Kejadian Gerakan Tanah</a></li>
             </ul>
         </div>
     </div>
 </div>
 <!-- SAB BANNER END-->
-<div class="city_blog2_wrap team" style="background: #fff">
+<div class="city_blog2_wrap team" style="background: #f0f2f7">
     <div class="container">
         <div id="app">
-            <news apiurl="{{ env('APP_URL') }}" category="4"></news>
+            <news 
+                apiurl="{{ route('gerakan-tanah.tanggapan-kejadian.get') }}" 
+                detailurl="{{ route('gerakan-tanah.tanggapan-kejadian.detail', '') }}" 
+            ></news>
         </div>
     </div>
 </div>

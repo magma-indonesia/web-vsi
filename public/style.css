@@ -345,7 +345,7 @@
 	position:fixed;
 	z-index: 999;
 	top:0px;
-	padding: 27px 85px 28px;
+	padding: 20px 50px 20px;
 	transition:all 1s ease-in-out;
 }
 /*
@@ -1202,7 +1202,7 @@
 	float:right;
 }
 .city_jobs_item.pull-right.overlay:before{
-	opacity:0.9;
+	opacity:0.7;
 }
 .city_jobs_item.pull-right .ciy_jobs_caption{
 	padding: 0px 30px 0px 0px;

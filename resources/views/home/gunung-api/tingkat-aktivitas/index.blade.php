@@ -4,7 +4,6 @@
 
 @push('styles')
 <link href="{{ asset('css/selectric.css') }}" rel="stylesheet">
-<link href="{{ mix('css/app.css') }}" rel="stylesheet" type="text/css" />
 @endpush
 
 @section('content')
@@ -16,17 +15,20 @@
             <ul class="breadcrumb">
                 <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
                 <li class="breadcrumb-item"><a href="#">Gunung Api</a></li>
-                <li class="breadcrumb-item active"><a href="{{ route('gunung-api.tingkat-aktivitas') }}">Tingkat Aktivitas Gunung
+                <li class="breadcrumb-item active"><a href="{{ route('gunung-api.tingkat-aktivitas.index') }}">Tingkat Aktivitas Gunung
                         Api</a></li>
             </ul>
         </div>
     </div>
 </div>
 <!-- SAB BANNER END-->
-<div class="city_blog2_wrap team" style="background: #fff">
+<div class="city_blog2_wrap team" style="background: #f0f2f7">
     <div class="container">
         <div id="app">
-            <news apiurl="{{ env('APP_URL') }}" category="2"></news>
+            <news 
+                apiurl="{{ route('gunung-api.tingkat-aktivitas.get') }}" 
+                detailurl="{{ route('gunung-api.tingkat-aktivitas.detail', '') }}" 
+            ></news>
         </div>
     </div>
 </div>
@@ -46,5 +48,4 @@
     });
 
 </script>
-<script src="{{ mix('js/app.js') }}" type="text/javascript"></script>
 @endpush

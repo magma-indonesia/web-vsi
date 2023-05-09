@@ -1,60 +1,61 @@
 <header>
     <!--CITY TOP WRAP START-->
-    <div class="city_top_wrap">
-        <div class="container-fluid">
-            <div class="city_top_logo">
-                <figure>
-                    <h1><a href="{{ route('home') }}"><img src="{{ asset('images/pvmbg-logo.svg') }}" alt="Pusat Vulkanologi dan Mitigasi Bencana Geologi"
-                                style="width: 400px"></a></h1>
-                </figure>
+    <div class="city_top_wrap flex items-center" style="justify-content: space-between;padding: 0 25px;">
+        <div class="city_top_logo">
+            <a href="{{ route('home') }}"><img src="{{ asset('images/pvmbg-logo.svg') }}"
+                    alt="Pusat Vulkanologi dan Mitigasi Bencana Geologi" style="width: 400px"></a>
+        </div>
+        <div class="news-container">
+            <div class="title">
+                Tingkat Aktivitas Gunung Api
             </div>
-            <div class="city_top_news">
-                <span>Tingkat Aktivitas Gunung Api</span>
-                <div class="city-news-slider">
-                    @inject('activityLevels', 'App\Services\ActivityLevelService')
+            <marquee class="news-marquee">
+                @inject('activityLevels', 'App\Services\ActivityLevelService')
 
-                    @php
-                    $activityLevels = $activityLevels->get();
-                    @endphp
+                @php
+                $activityLevels = $activityLevels->get();
+                @endphp
 
-                    @forelse ($activityLevels as $row)
-                        <div>
-                            <a href="{{ $row->link }}">{{ $row->title }}</a>
-                        </div
-                    @empty
-                        <div>
-                            <p>Belum ada informasi terbaru</p>
-                        </div>
-                    @endforelse
-                </div>
-            </div>
+                @if (isset($activityLevels) && count($activityLevels) > 0)
+                @foreach($activityLevels as $row)
+                <a href="{{ $row->link }}">{{ $row->title }}</a>
+                @endforeach
+                @else
+                <p>Belum ada informasi terbaru</p>
+                @endif
+            </marquee>
+        </div>
 
-            <x-home.media-sosial/>
-
+        <div class="city_top_social">
+            <ul>
+                <li><a href="https://www.facebook.com/PVMBG/?locale=id_ID"><i class="fa fa-facebook"></i></a></li>
+                <li><a href="https://twitter.com/PVMBG_"><i class="fa fa-twitter"></i></a></li>
+                <li><a href="https://www.instagram.com/pvmbg_/?hl=en"><i class="fa fa-instagram"></i></a></li>
+                <li><a href="https://www.youtube.com/channel/UCl6iW8jAJ9X-Fv68GIkCG_Q"><i class="fa fa-youtube"></i></a></li>
+            </ul>
         </div>
     </div>
     <!--CITY TOP WRAP END-->
 
     <!--CITY TOP NAVIGATION START-->
     <div class="city_top_navigation">
-        <div class="container-fluid">
             <div class="row">
                 <div class="col-md-10">
                     <div class="navigation">
-                        <ul>
+                        <ul style="margin-bottom: 0;">
                             <li><a href="#">Profile</a>
                                 <ul class="child">
                                     <li><a href="{{ route('profile.tentang-pvmbg') }}">Tentang PVMBG</a></li>
-                                    <li><a href="{{ route('profile.struktur-organisasi') }}">Struktur Organisasi</a></li>
+                                    <li><a href="{{ route('profile.struktur-organisasi') }}">Struktur Organisasi</a>
+                                    </li>
                                     <li><a href="{{ route('profile.sejarah') }}">Sejarah</a></li>
                                 </ul>
                             </li>
                             <li><a href="#">Gunung Api</a>
                                 <ul class="child">
-                                    <li><a href="{{ route('gunung-api.data-dasar') }}">Data Dasar</a></li>
+                                    <li><a href="{{ route('gunung-api.data-dasar.index') }}">Data Dasar</a></li>
                                     <li><a href="https://magma.esdm.go.id" target="_blank">Sebaran Gunung Api</a></li>
-                                    <li><a href="{{ route('gunung-api.tingkat-aktivitas') }}">Tingkat Aktivitas</a></li>
-                                    <li><a href="{{ route('gunung-api.press-release') }}">Press Release</a></li>
+                                    <li><a href="{{ route('gunung-api.tingkat-aktivitas.index') }}">Tingkat Aktivitas</a></li>
                                     <li><a href="">Laporan Aktivitas</a></li>
                                     <li><a href="">Informasi Letusan</a></li>
                                     <li><a href="">CCTV Gunung Api</a></li>
@@ -68,18 +69,24 @@
                             <li><a href="#">Gerakan Tanah</a>
                                 <ul class="child">
                                     <li><a href="{{ route('gerakan-tanah.daftar-kejadian') }}">Daftar Kejadian</a></li>
-                                    <li><a href="{{ route('gerakan-tanah.tanggapan-kejadian') }}">Tanggapan Kejadian</a></li>
+                                    <li><a href="{{ route('gerakan-tanah.tanggapan-kejadian.index') }}">Tanggapan Kejadian</a>
+                                    </li>
                                     <li><a href="{{ route('gerakan-tanah.peringatan-dini') }}">Peringatan Dini</a></li>
-                                    <li><a href="{{ route('gerakan-tanah.rekapitulasi-kejadian') }}">Rekapitulasi Kejadian</a></li>
+                                    <li><a href="{{ route('gerakan-tanah.rekapitulasi-kejadian') }}">Rekapitulasi
+                                            Kejadian</a></li>
                                     <li><a href="">Peta ZKGT</a></li>
                                 </ul>
                             </li>
                             <li><a href="#">Gempa Bumi dan Tsunami</a>
                                 <ul class="child">
-                                    <li><a href="{{ route('gempa-bumi-tsunami.daftar-kejadian-gempa') }}">Daftar Kejadian</a></li>
-                                    <li><a href="{{ route('gempa-bumi-tsunami.kajian-kejadian') }}">Kajian Kejadian</a></li>
-                                    <li><a href="{{ route('gempa-bumi-tsunami.laporan-singkat') }}">laporan Singkat dan Rekomendasi Teknis</a></li>
-                                    <li><a href="{{ route('gempa-bumi-tsunami.publikasi-mitigasi') }}">Publikasi Mitigasi Gempa Bumi</a></li>
+                                    <li><a href="{{ route('gempa-bumi-tsunami.daftar-kejadian.index') }}">Daftar
+                                            Kejadian</a></li>
+                                    <li><a href="{{ route('gempa-bumi-tsunami.kajian-kejadian.index') }}">Kajian Kejadian</a>
+                                    </li>
+                                    <li><a href="{{ route('gempa-bumi-tsunami.laporan-singkat.index') }}">laporan Singkat dan
+                                            Rekomendasi Teknis</a></li>
+                                    <li><a href="{{ route('gempa-bumi-tsunami.publikasi-mitigasi.index') }}">Publikasi
+                                            Mitigasi Gempa Bumi</a></li>
                                     <li><a href="">Katalog Gempa Bumi Merusak</a></li>
                                     <li><a href="">Peta KRB Gempa Bumi</a></li>
                                     <li><a href="">Peta KRB Tsunami</a></li>
@@ -126,6 +133,7 @@
                                 </ul>
                             </li>
                             <li><a href="{{ route('layanan-publik.kontak') }}">Hubungi Kami</a></li>
+                            <li><a href="{{ route('press-release.index') }}">Press Release</a></li>
                             <!-- <li><a href="#">Berita</a>
                                 <ul class="child">
                                     <li><a href="">Artikel</a></li>
@@ -234,7 +242,6 @@
                     </div>
                 </div>
             </div>
-        </div>
     </div>
     <!--CITY TOP NAVIGATION END-->
 </header>

@@ -1,6 +1,6 @@
 @extends('dashboard.template.layout')
 
-@section('title', 'Edit daftar kejadian')
+@section('title', 'Edit daftar kejadian gempa & tsunami')
 
 @section('body-content')
 <div class="d-sm-flex align-items-center justify-content-between mg-b-20 mg-lg-b-25 mg-xl-b-30">
@@ -10,15 +10,17 @@
                 <li class="breadcrumb-item"><a href="/">Dashboard</a></li>
                 <li class="breadcrumb-item">Gempa Bumi & Tsunami</li>
                 <li class="breadcrumb-item" aria-current="page"><a
-                        href="{{ route('dashboard.gempa-bumi-tsunami.news') }}?category=6">Daftar Kejadian</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Edit Daftar Kejadian</li>
+                        href="{{ route('dashboard.gempa-bumi-tsunami.daftar-kejadian.index') }}">Daftar kejadian</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Edit daftar kejadian</li>
             </ol>
         </nav>
-        <h4 class="mg-b-0 tx-spacing--1">Edit Daftar Kejadian</h4>
     </div>
 </div>
 <div class="p-3" id="app">
-    <form-news apiurl="{{ env('APP_URL') }}" category="6" backurl="{{ route('dashboard.gempa-bumi-tsunami.news') }}?category=6"
-        retrieve="{{ $retrieve }}"></form-news>
+    <form-news 
+        apiurl="{{ route('dashboard.gempa-bumi-tsunami.daftar-kejadian.update') }}" 
+        backurl="{{ route('dashboard.gempa-bumi-tsunami.daftar-kejadian.index') }}"
+        retrieve="{{ $retrieve }}"
+    ></form-news>
 </div>
 @endsection

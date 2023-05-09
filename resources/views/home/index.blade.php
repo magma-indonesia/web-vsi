@@ -7,7 +7,7 @@
         <div>
             <figure class="overlay">
                 <img src="extra-images/main-banner-pvmbg.jpg" alt="">
-                <div class="banner_text">
+                <div class="banner_text" style="padding: 20px 30px">
                     <div class="small_text animated">Selamat Datang</div>
                     <div class="medium_text animated">di web</div>
                     <div class="banner_btn" style="margin-top: 10px;margin-bottom: 10px;">
@@ -28,7 +28,8 @@
         <div>
             <figure class="overlay">
                 <img src="extra-images/main-banner-pvmbg1.jpg" alt="">
-                <a href="/images/ikm-pvmbg.png" target="_blank" class="banner_text" style="background: url('/images/ikm-pvmbg.png');background-repeat: no-repeat;background-size: contain;height: 300px;box-shadow: 0 4px 24px 0 rgb(34 41 47 / 10%)">
+                <a href="/images/ikm-pvmbg.png" target="_blank" class="banner_text"
+                    style="background: url('/images/ikm-pvmbg.png');background-repeat: no-repeat;background-size: contain;height: 300px;box-shadow: 0 4px 24px 0 rgb(34 41 47 / 10%)">
                     <!-- <div class="small_text animated">Indeks Kepuasan Masyarakat,</div> -->
                     <!-- <div class="medium_text animated">Gerakan Tanah</div> -->
                     <!-- <div class="large_text animated">Nov 2021</div> -->
@@ -36,14 +37,14 @@
                         impedit veritatis exercitationem, vitae quidem obcaecati sit adipisci atque tenetur beatae qui
                         dolorem doloribus iste dolorum animi.</p>
                     <a class="theam_btn animated" href="#">Detail</a> -->
-</a>
+                </a>
             </figure>
         </div>
         @if ($pengumuman)
         <div>
             <figure class="overlay">
                 <img src="extra-images/main-banner-pvmbg2.jpg" alt="">
-                <div class="banner_text">
+                <div class="banner_text" style="padding: 20px 30px">
                     <div class="small_text animated">{{ $pengumuman->title }}</div>
                     <p>{!! $pengumuman->content !!}</p>
                 </div>
@@ -87,160 +88,198 @@
     </div>
 </div>
 
-<div class="city_jobs_wrap"
-    style="background-image: url('https://magma.vsi.esdm.go.id/img/crs/VEN_LEW20220214142737.png')">
-    <div class="city_jobs_fig">
-        <div class="city_job_text">
-            @if ($lastNews)
-            @if ($lastNews->news_category_id == '3')
-            <h3>Press Release</h3>
-            @elseif ($lastNews->news_category_id == '4')
-            <h3>Tanggapan Kejadian</h3>
-            @elseif ($lastNews->news_category_id == '5')
-            <h3>Kajian Kejadian</h3>
-            @endif
-            <h2>{{ $lastNews->title }}</h2>
-            @if ($lastNews->news_category_id == '3')
-            <a class="theam_btn_yellow" href="{{ env('APP_URL').'/press-release/'.$lastNews->route }}" tabindex="0">Get
-                In Touch</a>
-            @elseif ($lastNews->news_category_id == '4')
-            <a class="theam_btn_yellow" href="{{ env('APP_URL').'/tanggapan-kejadian/'.$lastNews->route }}"
-                tabindex="0">Selengkapnya</a>
-            @elseif ($lastNews->news_category_id == '5')
-            <a class="theam_btn_yellow" href="{{ env('APP_URL').'/kajian-kejadian/'.$lastNews->route }}"
-                tabindex="0">Selengkapnya</a>
-            @endif
-            @endif
+@if (isset($news) && count($news) > 0)
+<div class="city_jobs_wrap" style="background-image: url('{{ $news[0]->thumbnail }}'); 
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+    ">
+    @else
+    <div class="city_jobs_wrap" style="background-image: url('https://magma.vsi.esdm.go.id/img/crs/VEN_LEW20220214142737.png'); 
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+    ">
+        @endif
+        <div class="city_jobs_fig">
+            <div class="city_job_text">
+                @if (isset($news) && count($news) > 0)
+                <h3>{{ $news[0]->type }}</h3>
+                <h2>{{ (strlen($news[0]->title) > 25) ? substr($news[0]->title,0,25).'...' : $news[0]->title  }}</h2>
+                <a class="theam_btn_yellow" href="{{ $news[0]->link }}" tabindex="0">Selengkapnya</a>
+                @else
+                <h3>Belum ada data</h3>
+                <h2>------------------</h2>
+                @endif
+            </div>
+        </div>
+        <div class="city_jobs_list">
+            <ul style="margin-bottom: 0;">
+                <li>
+                    <div class="city_jobs_item overlay">
+                        <span><i class="fa icon-volcano-warning" style="font-family: 'magma' !important;"></i></span>
+                        <div class="ciy_jobs_caption">
+                            <h2>Press Release Gunung Api</h2>
+                            @if ($pressRelease)
+                            <h5>{{ (strlen($pressRelease->title) > 25) ? substr($pressRelease->title,0,25).'...' : $pressRelease->title  }}
+                            </h5>
+                            <a href="/press-release">Selengkapnya</a>
+                            @else
+                            <h5>Belum ada data</h5>
+                            @endif
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    @if ($tanggapanKejadian)
+                    <div class="city_jobs_item pull-right overlay" style="background-image: url('{{ $tanggapanKejadian->thumbnail }}'); 
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+    ">
+                        @else
+                        <div class="city_jobs_item pull-right overlay" style="background-image: url('/images/gertan.jpeg'); 
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+    ">
+                            @endif
+                            <div class="ciy_jobs_caption ciy_jobs_caption_dark">
+                                <h2>Tanggapan Kejadian Gerakan Tanah</h2>
+                                @if ($tanggapanKejadian)
+                                <h5 style="color: #fff">
+                                    {{ (strlen($tanggapanKejadian->title) > 25) ? substr($tanggapanKejadian->title,0,25).'...' : $tanggapanKejadian->title  }}
+                                </h5>
+                                <a href="/tanggapan-kejadian">Selengkapnya</a>
+                                @else
+                                <h5 style="color: #fff">Belum ada data</h5>
+                                @endif
+                            </div>
+                            <span><i class="fa icon-landslide" style="font-family: 'magma' !important;"></i></span>
+                        </div>
+                </li>
+                <li>
+                    <div class="city_jobs_item overlay">
+                        <span><i class="fa icon-earthquake" style="font-family: 'magma' !important;"></i></span>
+                        <div class="ciy_jobs_caption">
+                            <h2>Kajian Kejadian Gempa Bumi & Tsunami</h2>
+                            @if ($kajianKejadian)
+                            <h5>{{ (strlen($kajianKejadian->title) > 25) ? substr($kajianKejadian->title,0,25).'...' : $kajianKejadian->title  }}
+                            </h5>
+                            <a href="/kajian-kejadian">Selengkapnya</a>
+                            @else
+                            <h5>Belum ada data</h5>
+                            @endif
+                        </div>
+                    </div>
+                </li>
+            </ul>
         </div>
     </div>
-    <div class="city_jobs_list">
-        <ul>
-            @if ($pressRelease)
-            <li>
-                <div class="city_jobs_item overlay">
-                    <span><i class="fa icon-volcano-warning" style="font-family: 'magma' !important;"></i></span>
-                    <div class="ciy_jobs_caption">
-                        <h2>Press Release Gunung Api</h2>
-                        <h5>{{ $pressRelease->title }}</h5>
-                        <a href="/press-release">Selengkapnya</a>
-                    </div>
-                </div>
-            </li>
-            @endif
-            @if ($tanggapanKejadian)
-            <li>
-                <div class="city_jobs_item pull-right overlay">
-                    <div class="ciy_jobs_caption ciy_jobs_caption_dark">
-                        <h2>Tanggapan Kejadian Gerakan Tanah</h2>
-                        <h5>{{ $tanggapanKejadian->title }}</h5>
-                        <a href="/tanggapan-kejadian">Selengkapnya</a>
-                    </div>
-                    <span><i class="fa icon-landslide" style="font-family: 'magma' !important;"></i></span>
-                </div>
-            </li>
-            @endif
-            @if ($kajianKejadian)
-            <li>
-                <div class="city_jobs_item overlay">
-                    <span><i class="fa icon-earthquake" style="font-family: 'magma' !important;"></i></span>
-                    <div class="ciy_jobs_caption">
-                        <h2>Kajian Kejadian Gempa Bumi & Tsunami</h2>
-                        <h5>{{ $kajianKejadian->title }}</h5>
-                        <a href="/kajian-kejadian">Selengkapnya</a>
-                    </div>
-                </div>
-            </li>
-            @endif
-        </ul>
-    </div>
-</div>
 
-<div class="city_news_wrap">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-8">
-                <!--SECTION HEADING START-->
-                <div class="section_heading margin-bottom">
-                    <span>Informasi</span>
-                    <h2>News Releases</h2>
-                </div>
-                @if ($lastNews)
-                <!--SECTION HEADING START-->
-                <div class="row">
-                    <div class="col-md-6 col-sm-6">
-                        <div class="city_news_fig">
-                            <figure class="box">
-                                <div class="box-layer layer-1"></div>
-                                <div class="box-layer layer-2"></div>
-                                <div class="box-layer layer-3"></div>
-                                <img src="{{ $lastNews->thumbnail }}" alt="">
-                            </figure>
-                            <div class="city_news_text">
-                                <h2>{{ $lastNews->title }}</h2>
-                                <ul class="city_news_meta">
-                                    <li><a href="#">{{ date('d F Y', strtotime($lastNews->created_at))}}</a></li>
-                                    <li><a href="#">{{ $lastNews->created_by }}</a></li>
+    <div class="city_news_wrap">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8">
+                    <!--SECTION HEADING START-->
+                    <div class="section_heading margin-bottom">
+                        <span>Terbaru</span>
+                        @if (isset($news) && count($news) > 0)
+                        <h2>{{ $news[0]->type }}</h2>
+                        @else
+                        <h2>Belum ada data</h2>
+                        @endif
+                    </div>
+                    @if (isset($news) && count($news) > 0)
+                    <!--SECTION HEADING START-->
+                    <div class="row">
+                        <div class="col-md-6 col-sm-6">
+                            <div class="city_news_fig">
+                                <figure class="box">
+                                    <a href="{{ $news[0]->link }}">
+                                        <div class="box-layer layer-1"></div>
+                                        <div class="box-layer layer-2"></div>
+                                        <div class="box-layer layer-3"></div>
+                                        <img src="{{ $news[0]->thumbnail ? $news[0]->thumbnail : '/images/mican.png'  }}"
+                                            alt="">
+                                    </a>
+                                </figure>
+                                <div class="city_news_text">
+                                    <h2>
+                                        <a href="{{ $news[0]->link }}">
+                                            {{ (strlen($news[0]->title) > 25) ? substr($news[0]->title,0,25).'...' : $news[0]->title  }}
+                                        </a>
+                                    </h2>
+                                    <div class="flex items-center" style="margin-bottom: 10px;">
+                                        <div style="border-right: 2px solid #333;padding-right: 10px;">
+                                            {{ date('d F Y', strtotime($news[0]->created_at))}}</div>
+                                        <div style="padding-left: 10px;">{{ $news[0]->created_by }}</div>
+                                    </div>
+                                    <a class="theam_btn border-color color" href="{{ $news[0]->link }}" tabindex="0">
+                                        Selengkapnya</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-sm-6">
+                            <div class="city_news_row">
+                                <ul>
+                                    @if (count($news) > 0)
+                                    @foreach ($news as $n)
+                                    <li>
+                                        <div class="city_news_list">
+                                            <figure class="box">
+                                                <a href="{{ $n->link }}">
+                                                    <div class="box-layer layer-1"></div>
+                                                    <div class="box-layer layer-2"></div>
+                                                    <div class="box-layer layer-3"></div>
+                                                    <img src="{{ $n->thumbnail ? $n->thumbnail : '/images/mican.png' }}"
+                                                        alt="">
+                                                </a>
+                                            </figure>
+                                            <div class="city_news_list_text">
+                                                <h5>
+                                                    <a href="{{ $n->link }}">
+                                                        {{ $n->title }}
+                                                    </a>
+                                                </h5>
+                                                <div class="flex items-center" style="margin-bottom: 10px;">
+                                                    <div style="border-right: 2px solid #333;padding-right: 10px;">
+                                                        {{ date('d F Y', strtotime($n->created_at))}}</div>
+                                                    <div style="padding-left: 10px;">{{ $n->created_by }}</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    @endforeach
+                                    @else
+                                    <div>No data news...</div>
+                                    @endif
                                 </ul>
-                                @if ($lastNews->news_category_id == '3')
-                                <a class="theam_btn border-color color"
-                                    href="{{ env('APP_URL').'/press-release/'.$lastNews->route }}" tabindex="0">Read
-                                    more</a>
-                                @elseif ($lastNews->news_category_id == '4')
-                                <a class="theam_btn border-color color"
-                                    href="{{ env('APP_URL').'/tanggapan-kejadian/'.$lastNews->route }}"
-                                    tabindex="0">Read more</a>
-                                @elseif ($lastNews->news_category_id == '5')
-                                <a class="theam_btn border-color color"
-                                    href="{{ env('APP_URL').'/kajian-kejadian/'.$lastNews->route }}" tabindex="0">Read
-                                    more</a>
-                                @endif
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-6 col-sm-6">
-                        <div class="city_news_row">
-                            <ul>
-                                @if (count($news) > 0)
-                                @foreach ($news as $n)
-                                <li>
-                                    <div class="city_news_list">
-                                        <figure class="box">
-                                            <div class="box-layer layer-1"></div>
-                                            <div class="box-layer layer-2"></div>
-                                            <div class="box-layer layer-3"></div>
-                                            <img src="{{ $n->thumbnail }}" alt="">
-                                        </figure>
-                                        <div class="city_news_list_text">
-                                            <h5>{{ $n->title }}</h5>
-                                            <ul class="city_news_meta">
-                                                <li><a href="#">{{ date('d F Y', strtotime($n->created_at)) }}</a></li>
-                                                <li><a href="#">{{ $n->created_by }}</a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </li>
-                                @endforeach
-                                @else 
-                                <div>No data news...</div>
-                                @endif
-                            </ul>
+                    @else
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="city_news_fig">
+                                <result-not-found />
+                            </div>
                         </div>
                     </div>
+                    @endif
                 </div>
-                @endif
-            </div>
-            <div class="col-md-4">
-                <div class="city_news_form">
-                    <div class="city_news_feild feild2">
-                        <h4>Status Gunung Api</h4>
-                        <p>Daftar status gunung api diatas normal</p>
-                        <div class="city_document_list">
-                            <status-gunung data="{{ $statusGunung }}"></status-gunung>
+                <div class="col-md-4">
+                    <div class="city_news_form">
+                        <div class="city_news_feild feild2">
+                            <h4>Status Gunung Api</h4>
+                            <p>Daftar status gunung api diatas normal</p>
+                            <div class="city_document_list">
+                                <status-gunung data="{{ $statusGunung }}"></status-gunung>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
-@endsection
+    @endsection

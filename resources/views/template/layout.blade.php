@@ -6,9 +6,8 @@
 <body class="demo-5">
     <div id="app">
         @include('template.body')
-
-        @include('template.js')
     </div>
+    @include('template.js')
 </body>
 
 </html>
