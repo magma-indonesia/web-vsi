@@ -32,6 +32,14 @@ Vue.component(
 );
 Vue.component("table-news", require("./components/News/TableNews.vue").default);
 Vue.component("form-news", require("./components/News/FormNews.vue").default);
+Vue.component(
+    "table-press-release",
+    require("./components/PressRelease/TablePressRelease.vue").default
+);
+Vue.component(
+    "form-press-release",
+    require("./components/PressRelease/FormPressRelease.vue").default
+);
 Vue.component("news", require("./components/News/News.vue").default);
 Vue.component(
     "news-detail",
@@ -78,6 +86,10 @@ Vue.component(
 Vue.component(
     "form-upload-center",
     require("./components/UploadCenter/FormUploadCenter.vue").default
+);
+Vue.component(
+    "result-not-found",
+    require("./components/Utils/404.vue").default
 );
 /**
  * The following block of code may be used to automatically register your

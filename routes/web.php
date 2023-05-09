@@ -1,6 +1,14 @@
 <?php
 
+use App\Http\Controllers\Administration\EqtListEventController as AdministrationEqtListEventController;
+use App\Http\Controllers\Administration\EqtMitigationPublicationController as AdministrationEqtMitigationPublicationController;
+use App\Http\Controllers\Administration\EqtReportController as AdministrationEqtReportController;
+use App\Http\Controllers\Administration\EqtStudyEventController as AdministrationEqtStudyEventController;
+use App\Http\Controllers\Administration\GroundResponseController as AdministrationGroundResponseController;
 use App\Http\Controllers\Administration\NewsController;
+use App\Http\Controllers\Administration\PressReleaseController as AdministrationPressReleaseController;
+use App\Http\Controllers\Administration\VolcanoActivityController as AdministrationVolcanoActivityController;
+use App\Http\Controllers\Administration\VolcanoBaseController as AdministrationVolcanoBaseController;
 use App\Http\Controllers\Api\GroundMovementController;
 use App\Http\Controllers\Landing\NewsController as LandingNewsController;
 use App\Http\Controllers\Auth\ForgotController;
@@ -10,9 +18,17 @@ use App\Http\Controllers\Landing\CollabController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Landing\ContactController;
+use App\Http\Controllers\Landing\EqtListEventController;
+use App\Http\Controllers\Landing\EqtMitigationPublicationController;
+use App\Http\Controllers\Landing\EqtReportController;
+use App\Http\Controllers\Landing\EqtStudyEventController;
 use App\Http\Controllers\Landing\LandingController;
 use App\Http\Controllers\Landing\GroundMovementController as LandingGroundMovementController;
+use App\Http\Controllers\Landing\GroundResponseController;
+use App\Http\Controllers\Landing\PressReleaseController;
 use App\Http\Controllers\Landing\ProfileController as LandingProfileController;
+use App\Http\Controllers\Landing\VolcanoActivityController;
+use App\Http\Controllers\Landing\VolcanoBaseController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -84,49 +100,81 @@ Route::prefix('profile')->name('profile.')->group(function () {
 
 // Gunung Api
 Route::name('gunung-api.')->group(function () {
-    $gunungApi = 'home.gunung-api.';
+    Route::prefix('tingkat-aktivitas')->name('tingkat-aktivitas.')->group(function () {
+        Route::get('/', [VolcanoActivityController::class, 'index'])->name("index");
+        Route::get('/{route}', [VolcanoActivityController::class, 'detail'])->name("detail");
 
-    // Gunung Api > Data Dasar    
-    Route::get('/data-dasar', [LandingNewsController::class, 'indexDataDasar'])->name("data-dasar");
-    Route::get('/data-dasar/{route}', [LandingNewsController::class, 'detailDataDasar'])->name("data-dasar.detail");
+        Route::group(['prefix' => 'apis'], function () {
+            Route::get('/get', [AdministrationVolcanoActivityController::class, 'get'])->name('get');
+        });
+    });
+    
+    Route::prefix('data-dasar')->name('data-dasar.')->group(function () {
+        Route::get('/', [VolcanoBaseController::class, 'index'])->name("index");
+        Route::get('/{route}', [VolcanoBaseController::class, 'detail'])->name("detail");
 
-    // Gunung Api > Tingkat Aktivitas
-    Route::get('/tingkat-aktivitas', [LandingNewsController::class, 'indexTingkatAktivitas'])->name("tingkat-aktivitas");
-    Route::get('/tingkat-aktivitas/{route}', [LandingNewsController::class, 'detailTingkatAktivitas'])->name("tingkat-aktivitas.detail");
+        Route::group(['prefix' => 'apis'], function () {
+            Route::get('/get', [AdministrationVolcanoBaseController::class, 'get'])->name('get');
+        });
+    });
+});
 
-    // Gunung Api > Press Release
-    Route::get('/press-release', [LandingNewsController::class, 'indexPressRelease'])->name("press-release");
-    Route::get('/press-release/{route}', [LandingNewsController::class, 'detailPressRelease'])->name("press-release.detail");
+Route::prefix('press-release')->name('press-release.')->group(function () {
+    Route::get('', [PressReleaseController::class, 'index'])->name("index");
+    Route::get('/{route}', [PressReleaseController::class, 'detail'])->name("detail");
 
-    Route::get('news', [NewsController::class, 'get']);
+    Route::group(['prefix' => 'apis'], function () {
+        Route::get('/get', [AdministrationPressReleaseController::class, 'get'])->name('get');
+    });
 });
 
 Route::name('gerakan-tanah.')->group(function () {
-    $gunungApi = 'home.gerakan-tanah.';
+    Route::prefix('tanggapan-kejadian')->name('tanggapan-kejadian.')->group(function () {
+        Route::get('/', [GroundResponseController::class, 'index'])->name("index");
+        Route::get('/{route}', [GroundResponseController::class, 'detail'])->name("detail");
 
-    // Gerakan Tanah > Tanggapan Kejadian
-    Route::get('/tanggapan-kejadian', [LandingNewsController::class, 'indexTanggapanKejadian'])->name("tanggapan-kejadian");
-    Route::get('/tanggapan-kejadian/{route}', [LandingNewsController::class, 'detailTanggapanKejadian'])->name("tanggapan-kejadian.detail");
-
-    Route::get('news', [NewsController::class, 'get']);
+        Route::group(['prefix' => 'apis'], function () {
+            Route::get('/get', [AdministrationGroundResponseController::class, 'get'])->name('get');
+        });
+    });
 });
 
 Route::name('gempa-bumi-tsunami.')->group(function () {
-    $gunungApi = 'home.gempa-bumi-tsunami.';
+    Route::prefix('kajian-kejadian')->name('kajian-kejadian.')->group(function () {
+        Route::get('/', [EqtStudyEventController::class, 'index'])->name("index");
+        Route::get('/{route}', [EqtStudyEventController::class, 'detail'])->name("detail");
 
-    Route::get('/kajian-kejadian', [LandingNewsController::class, 'indexKajianKejadian'])->name("kajian-kejadian");
-    Route::get('/kajian-kejadian/{route}', [LandingNewsController::class, 'detailKajianKejadian'])->name("kajian-kejadian.detail");
+        Route::group(['prefix' => 'apis'], function () {
+            Route::get('/get', [AdministrationEqtStudyEventController::class, 'get'])->name('get');
+        });
+    });
 
-    Route::get('/daftar-kejadian-gempa', [LandingNewsController::class, 'indexDaftarKejadian'])->name("daftar-kejadian-gempa");
-    Route::get('/daftar-kejadian-gempa/{route}', [LandingNewsController::class, 'detailDaftarKejadian'])->name("daftar-kejadian-gempa.detail");
+    Route::prefix('daftar-kejadian')->name('daftar-kejadian.')->group(function () {
+        Route::get('/', [EqtListEventController::class, 'index'])->name("index");
+        Route::get('/{route}', [EqtListEventController::class, 'detail'])->name("detail");
 
-    Route::get('/publikasi-mitigasi', [LandingNewsController::class, 'indexPublikasiMitigasi'])->name("publikasi-mitigasi");
-    Route::get('/publikasi-mitigasi/{route}', [LandingNewsController::class, 'detailPublikasiMitigasi'])->name("publikasi-mitigasi.detail");
+        Route::group(['prefix' => 'apis'], function () {
+            Route::get('/get', [AdministrationEqtListEventController::class, 'get'])->name('get');
+        });
+    });
 
-    Route::get('/laporan-singkat', [LandingNewsController::class, 'indexLaporanSingkat'])->name("laporan-singkat");
-    Route::get('/laporan-singkat/{route}', [LandingNewsController::class, 'detailLaporanSingkat'])->name("laporan-singkat.detail");
+    Route::prefix('publikasi-mitigasi')->name('publikasi-mitigasi.')->group(function () {
+        Route::get('/', [EqtMitigationPublicationController::class, 'index'])->name("index");
+        Route::get('/{route}', [EqtMitigationPublicationController::class, 'detail'])->name("detail");
 
-    Route::get('news', [NewsController::class, 'get']);
+        Route::group(['prefix' => 'apis'], function () {
+            Route::get('/get', [AdministrationEqtMitigationPublicationController::class, 'get'])->name('get');
+        });
+    });
+
+    Route::prefix('laporan-singkat')->name('laporan-singkat.')->group(function () {
+        Route::get('/', [EqtReportController::class, 'index'])->name("index");
+        Route::get('/{route}', [EqtReportController::class, 'detail'])->name("detail");
+
+        Route::group(['prefix' => 'apis'], function () {
+            Route::get('/get', [AdministrationEqtReportController::class, 'get'])->name('get');
+        });
+    });
 });
 
 // Gerakan Tanah
@@ -241,11 +289,3 @@ Route::prefix('settings')->name('settings.')->group(function () {
 
 Route::get('/files/{id}/{name}', [FileController::class, 'download'])->name('files.download');
 Route::post('/image/upload', [FileController::class, 'storeImage'])->name('image.upload');
-
-Route::group(['middleware' => ['auth'], 'prefix' => 'apis/v1'], function () {
-    Route::get('news', [NewsController::class, 'get']);
-    Route::post('news', [NewsController::class, 'store']);
-    Route::post('news/retrieve', [NewsController::class, 'retrieve']);
-    Route::put('news', [NewsController::class, 'update']);
-    Route::delete('news', [NewsController::class, 'delete']);
-});

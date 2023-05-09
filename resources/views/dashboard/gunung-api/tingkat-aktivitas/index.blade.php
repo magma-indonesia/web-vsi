@@ -12,12 +12,11 @@
                 <li class="breadcrumb-item active" aria-current="page">Tingkat Aktivitas</li>
             </ol>
         </nav>
-        <h4 class="mg-b-0 tx-spacing--1">Tingkat Aktivitas Gunung Api</h4>
     </div>
 </div>
 <div class="p-3" id="app">
-    <table-news apiurl="{{ env('APP_URL') }}" addurl="{{ route('dashboard.gunung-api.news.add') }}?category=2"
-        editurl="{{ route('dashboard.gunung-api.news.edit', 0) }}" category="2">
+    <table-news apiurl="{{ route('dashboard.gunung-api.tingkat-aktivitas.get') }}" addurl="{{ route('dashboard.gunung-api.tingkat-aktivitas.add') }}"
+        editurl="{{ route('dashboard.gunung-api.tingkat-aktivitas.edit', 0) }}">
     </table-news>
 </div>
 @endsection

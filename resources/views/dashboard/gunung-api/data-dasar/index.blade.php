@@ -9,15 +9,17 @@
             <ol class="breadcrumb breadcrumb-style1 mg-b-10">
                 <li class="breadcrumb-item"><a href="/">Dashboard</a></li>
                 <li class="breadcrumb-item">Gunung Api</li>
-                <li class="breadcrumb-item active" aria-current="page">Data Dasar</li>
+                <li class="breadcrumb-item active" aria-current="page">Data dasar</li>
             </ol>
         </nav>
-        <h4 class="mg-b-0 tx-spacing--1">Data Dasar Gunung Api</h4>
     </div>
 </div>
 <div class="p-3" id="app">
-    <table-news apiurl="{{ env('APP_URL') }}" addurl="{{ route('dashboard.gunung-api.news.add') }}?category=1"
-        editurl="{{ route('dashboard.gunung-api.news.edit', 0) }}" category="1">
+    <table-news 
+        apiurl="{{ route('dashboard.gunung-api.data-dasar.get') }}" 
+        addurl="{{ route('dashboard.gunung-api.data-dasar.add') }}"
+        editurl="{{ route('dashboard.gunung-api.data-dasar.edit', 0) }}"
+    >
     </table-news>
 </div>
 @endsection

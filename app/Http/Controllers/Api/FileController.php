@@ -236,11 +236,15 @@ class FileController extends Controller
         }
     }
 
-    public function indexTags()
+    public function indexTags(Request $request)
     {
         try {
+            $isPessRelease = $request->query('is_press_release');
             $data = Tag::query()
                 ->select('name')
+                ->when($isPessRelease, function ($query) use ($isPessRelease) {
+                    return $query->where('is_press_release', $isPessRelease);
+                })
                 ->distinct()
                 ->get()
                 ->map(fn ($item) => $item->name);
@@ -248,6 +252,26 @@ class FileController extends Controller
             return response()->json([
                 'message' => '',
                 'serve' => $data,
+            ], 200);
+        } catch (Throwable $e) {
+            return response()->json([
+                'message' => $e->getMessage(),
+                'serve' => [],
+            ], 500);
+        }
+    }
+
+    public function storeTag(Request $request)
+    {
+        try {
+            $tag = new Tag();
+            $tag->name = $request->tag;
+            $tag->is_press_release = $request->is_press_release;
+            $tag->save();
+            
+            return response()->json([
+                'message' => '',
+                'serve' => $tag,
             ], 200);
         } catch (Throwable $e) {
             return response()->json([

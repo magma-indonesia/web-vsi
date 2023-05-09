@@ -19,7 +19,7 @@
                         "
                         :value="pagination.pageSize"
                     >
-                        <a-select-option value="12">12</a-select-option>
+                        <a-select-option value="10">10</a-select-option>
                         <a-select-option value="60">60</a-select-option>
                         <a-select-option value="120">120</a-select-option>
                         <a-select-option value="600">600</a-select-option>
@@ -39,82 +39,124 @@
                         :xs="24"
                         :sm="24"
                         :md="24"
-                        :lg="8"
+                        :lg="24"
                         v-for="(item, index) in news"
                         :key="index"
                     >
                         <a-card
-                            hoverable
                             style="position: relative"
-                            @click="handleDetail(item)"
+                            :bodyStyle="{ padding: 0 }"
                         >
-                            <div
-                                slot="cover"
-                                :style="{
-                                    'background-image': `url(${
-                                        item.thumbnail
-                                            ? item.thumbnail
-                                            : apiurl +
-                                              '/images/placeholder-image.jpeg'
-                                    })`,
-                                    'background-repeat': 'no-repeat',
-                                    'background-size': 'cover',
-                                    'background-position': 'center',
-                                    height: '200px',
-                                    width: '100%',
-                                }"
-                                @click="handleDetail(item)"
-                            />
-                            <template slot="actions">
-                                <a-button
-                                    type="primary"
-                                    style="background: #293d50"
-                                    @click="handleDetail(item)"
+                            <a-row class="flex items-center">
+                                <a-col
+                                    :xs="24"
+                                    :sm="24"
+                                    :md="24"
+                                    :lg="6"
+                                    style="height: 300px"
                                 >
-                                    Selengkapnya
-                                </a-button>
-                            </template>
-                            <a-card-meta>
-                                <div
-                                    style="
-                                        display: flex;
-                                        flex-direction: column;
-                                    "
-                                    slot="title"
-                                >
+                                    <div
+                                        :style="{
+                                            height: '100%',
+                                            cursor: 'pointer',
+                                            background: `url('${generateImage(
+                                                item
+                                            )}`,
+                                            backgroundSize: 'cover',
+                                            backgroundRepeat: 'no-repeat',
+                                        }"
+                                        @click="openImage(generateImage(item))"
+                                    ></div>
+                                </a-col>
+                                <a-col :xs="24" :sm="24" :md="24" :lg="18">
                                     <div
                                         style="
                                             display: flex;
-                                            flex-wrap: wrap;
-                                            margin-top: 10px;
+                                            flex-direction: column;
+                                            margin: 20px;
+                                            border-radius: 8px;
                                         "
-                                        v-if="item.news_categories?.length > 0"
                                     >
-                                        <a-tag
-                                            color="#fee50f"
-                                            style="margin-bottom: 10px"
-                                            v-for="(
-                                                cat, idx
-                                            ) in item.news_categories"
-                                            :key="idx"
+                                        <div
+                                            style="
+                                                color: #868ba1;
+                                                font-size: 12px;
+                                            "
                                         >
-                                            {{ cat.category }}
-                                        </a-tag>
+                                            {{ formatDate(item.created_at) }}
+                                        </div>
+                                        <a
+                                            @click="handleDetail(item)"
+                                            href="javascript:;"
+                                            class="news-title"
+                                            style="
+                                                font-size: 24px;
+                                                margin-bottom: 10px;
+                                            "
+                                        >
+                                            {{ truncString(item.title, 100) }}
+                                        </a>
+
+                                        <div
+                                            v-html="
+                                                truncString(item.content, 250)
+                                            "
+                                        ></div>
+                                        <div class="flex">
+                                            <div
+                                                style="
+                                                    display: flex;
+                                                    flex-wrap: wrap;
+                                                "
+                                                v-if="item.tags?.length > 0"
+                                            >
+                                                <a-tag
+                                                    style="margin-bottom: 5px"
+                                                    color="#dc3545"
+                                                    v-for="(
+                                                        cat, idx
+                                                    ) in removeDuplicate(
+                                                        item.tags
+                                                    )"
+                                                    :key="idx"
+                                                >
+                                                    {{ cat.name }}
+                                                </a-tag>
+                                            </div>
+                                            <div
+                                                style="
+                                                    display: flex;
+                                                    flex-wrap: wrap;
+                                                "
+                                                v-if="
+                                                    item.categories?.length > 0
+                                                "
+                                            >
+                                                <a-tag
+                                                    style="margin-bottom: 5px"
+                                                    color="#1b84e7"
+                                                    v-for="(
+                                                        cat, idx
+                                                    ) in item.categories"
+                                                    :key="idx"
+                                                >
+                                                    {{ cat.category }}
+                                                </a-tag>
+                                            </div>
+                                            <a-tag
+                                                style="margin-bottom: 5px"
+                                                color="#1b84e7"
+                                                v-if="item.mountain"
+                                            >
+                                                Gunung Api
+                                                {{
+                                                    item.mountain?.ga_nama_gapi
+                                                }}
+                                            </a-tag>
+                                        </div>
                                     </div>
-                                    <a
-                                        @click="handleDetail(item)"
-                                        href="javascript:;"
-                                        class="news-title"
-                                        style="margin-top: 10px"
-                                    >
-                                        {{ item.title }}
-                                    </a>
-                                </div>
-                                <div
-                                    slot="description"
-                                    v-html="truncString(item.content)"
-                                ></div>
-                            </a-card-meta>
+                                </a-col>
+                            </a-row>
                         </a-card>
                     </a-col>
                 </a-row>
@@ -141,9 +183,14 @@
     </div>
 </template>
 <script>
+import moment from "moment";
+import "moment/locale/id";
+import _ from "lodash";
 import helper from "../../utils/helper";
+moment.locale("id");
+
 export default {
-    props: ["category", "apiurl"],
+    props: ["apiurl", "detailurl"],
     data() {
         return {
             news: [],
@@ -153,7 +200,7 @@ export default {
             },
             pagination: {
                 current: 1,
-                pageSize: 12,
+                pageSize: 10,
                 total: 0,
             },
         };
@@ -162,32 +209,27 @@ export default {
         this.fetchData(this.params, this.pagination);
     },
     methods: {
-        truncString(item) {
-            return helper.truncString(item, 120, "...");
+        removeDuplicate(data) {
+            return _.uniqBy(data, function (e) {
+                return e.name;
+            });
+        },
+        generateImage(item) {
+            return item.thumbnail
+                ? item.thumbnail
+                : window.location.origin + "/images/placeholder-image.jpeg";
+        },
+        truncString(item, n) {
+            return helper.truncString(item, n, "...");
+        },
+        formatDate(date) {
+            return moment(date).format("dddd, DD MMM YYYY");
         },
         handleDetail(item) {
-            window.location.href =
-                this.apiurl +
-                "/" +
-                (this.category == "1"
-                    ? "data-dasar"
-                    : this.category == "2"
-                    ? "tingkat-aktivitas"
-                    : this.category == "3"
-                    ? "press-release"
-                    : this.category == "4"
-                    ? "tanggapan-kejadian"
-                    : this.category == "5"
-                    ? "kajian-kejadian"
-                    : this.category == "6"
-                    ? "daftar-kejadian-gempa"
-                    : this.category == "7"
-                    ? "publikasi-mitigasi"
-                    : this.category == "8"
-                    ? "laporan-singkat"
-                    : "") +
-                "/" +
-                item.route;
+            window.location.href = this.detailurl + "/" + item.route;
+        },
+        openImage(item) {
+            window.open(item, "_blank");
         },
         handlePageChange(page, pageSize) {
             this.pagination.current = page;
@@ -218,7 +260,7 @@ export default {
         fetchData(param = this.params, p = this.pagination) {
             this.loading = true;
             axios
-                .get(`${this.apiurl}/news`, {
+                .get(`${this.apiurl}?is_published=1`, {
                     params: {
                         ...param,
                         page: p.current,

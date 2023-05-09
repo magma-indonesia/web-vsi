@@ -22,7 +22,7 @@
     </div>
 </div>
 <!-- SAB BANNER END-->
-<div class="city_blog2_wrap team" style="background: #fff">
+<div class="city_blog2_wrap team" style="background: #f0f2f7">
     <div class="container">
         <div id="app">
             <profile-detail apiurl="{{ env('APP_URL') }}" retrieve="{{ $retrieve }}"></profile-detail>

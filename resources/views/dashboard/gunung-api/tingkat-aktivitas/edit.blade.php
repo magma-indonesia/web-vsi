@@ -10,15 +10,14 @@
                 <li class="breadcrumb-item"><a href="/">Dashboard</a></li>
                 <li class="breadcrumb-item">Gunung Api</li>
                 <li class="breadcrumb-item" aria-current="page"><a
-                        href="{{ route('dashboard.gunung-api.news') }}?category=2">Tingkat Aktivitas</a></li>
+                        href="{{ route('dashboard.gunung-api.tingkat-aktivitas.index') }}">Tingkat Aktivitas</a></li>
                 <li class="breadcrumb-item active" aria-current="page">Edit Tingkat Aktivitas</li>
             </ol>
         </nav>
-        <h4 class="mg-b-0 tx-spacing--1">Edit Tingkat Aktivitas Gunung Api</h4>
     </div>
 </div>
 <div class="p-3" id="app">
-    <form-news apiurl="{{ env('APP_URL') }}" category="2" backurl="{{ route('dashboard.gunung-api.news') }}?category=2"
+    <form-news apiurl="{{ route('dashboard.gunung-api.tingkat-aktivitas.update') }}" backurl="{{ route('dashboard.gunung-api.tingkat-aktivitas.index') }}"
         retrieve="{{ $retrieve }}"></form-news>
 </div>
 @endsection

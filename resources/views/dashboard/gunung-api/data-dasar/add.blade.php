@@ -10,14 +10,17 @@
                 <li class="breadcrumb-item"><a href="/">Dashboard</a></li>
                 <li class="breadcrumb-item">Gunung Api</li>
                 <li class="breadcrumb-item" aria-current="page"><a
-                        href="{{ route('dashboard.gunung-api.news') }}?category=1">Data Dasar</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Tambah Data Dasar</li>
+                        href="{{ route('dashboard.gunung-api.data-dasar.index') }}">Data dasar</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Tambah data dasar</li>
             </ol>
         </nav>
-        <h4 class="mg-b-0 tx-spacing--1">Tambah data dasar Gunung Api</h4>
     </div>
 </div>
 <div class="p-3" id="app">
-    <form-news apiurl="{{ env('APP_URL') }}" category="1" backurl="{{ route('dashboard.gunung-api.news') }}?category=1"></form-news>
+    <form-news 
+        category="1" 
+        apiurl="{{ route('dashboard.gunung-api.data-dasar.save') }}" 
+        backurl="{{ route('dashboard.gunung-api.data-dasar.index') }}"
+    ></form-news>
 </div>
 @endsection

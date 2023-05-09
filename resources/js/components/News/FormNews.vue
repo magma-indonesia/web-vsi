@@ -1,112 +1,114 @@
 <template>
-    <a-form :form="form" @submit="handleSubmit" :layout="formLayout">
-        <a-form-item label="Judul" :hasFeedback="true">
-            <a-input
-                v-decorator="[
-                    'title',
-                    {
-                        rules: [
-                            {
-                                required: true,
-                                message: 'Judul wajib diisi!',
-                            },
-                        ],
-                    },
-                ]"
-            />
-        </a-form-item>
-        <a-form-item label="Deskripsi">
-            <tiny-mce
-                @change="handleChangeTiny($event)"
-                :value.sync="desc"
-                :apiurl="apiurl"
-            ></tiny-mce>
-        </a-form-item>
-        <a-form-item label="Waktu" :hasFeedback="true">
-            <a-input
-                type="datetime-local"
-                v-decorator="[
-                    'created_at',
-                    {
-                        rules: [
-                            {
-                                required: true,
-                                message: 'Waktu wajib diisi!',
-                            },
-                        ],
-                    },
-                ]"
-            />
-        </a-form-item>
-        <a-form-item label="Thumbnail">
-            <div v-if="thumbnail" class="d-flex flex-column">
-                <img
-                    :src="thumbnail"
-                    alt="avatar"
-                    style="
-                        width: 100%;
-                        height: 152px;
-                        object-fit: contain;
-                        margin-bottom: 10px;
-                    "
+    <a-card>
+        <a-form :form="form" @submit="handleSubmit" :layout="formLayout">
+            <a-form-item label="Judul" :hasFeedback="true">
+                <a-input
+                    v-decorator="[
+                        'title',
+                        {
+                            rules: [
+                                {
+                                    required: true,
+                                    message: 'Judul wajib diisi!',
+                                },
+                            ],
+                        },
+                    ]"
                 />
+            </a-form-item>
+            <a-form-item label="Tanggal" :hasFeedback="true">
+                <a-input
+                    type="datetime-local"
+                    v-decorator="[
+                        'created_at',
+                        {
+                            rules: [
+                                {
+                                    required: true,
+                                    message: 'Tanggal wajib diisi!',
+                                },
+                            ],
+                        },
+                    ]"
+                />
+            </a-form-item>
+            <a-form-item label="Konten">
+                <tiny-mce
+                    @change="handleChangeTiny($event)"
+                    :value.sync="desc"
+                    :apiurl="apiurl"
+                ></tiny-mce>
+            </a-form-item>
+            <a-form-item label="Thumbnail">
+                <div v-if="thumbnail" class="d-flex flex-column">
+                    <img
+                        :src="thumbnail"
+                        alt="avatar"
+                        style="
+                            width: 100%;
+                            height: 152px;
+                            object-fit: contain;
+                            margin-bottom: 10px;
+                        "
+                    />
+                    <a-button
+                        type="link"
+                        style="color: red"
+                        icon="delete"
+                        @click="thumbnail = null"
+                    >
+                        Hapus
+                    </a-button>
+                </div>
                 <a-button
-                    type="link"
-                    style="color: red"
-                    icon="delete"
-                    @click="thumbnail = null"
+                    v-else
+                    style="margin-top: 8px; font-size: 12px"
+                    @click="handleUpload"
                 >
-                    Hapus
+                    <span v-if="!loading"> Upload Thumbnail </span>
+                    <span v-else> Mohon tunggu... </span>
                 </a-button>
+            </a-form-item>
+            <div
+                v-if="category == '1'"
+                style="
+                    margin-bottom: 10px;
+                    display: flex;
+                    align-items: center;
+                    gap: 10px;
+                "
+            >
+                <a-button type="primary" @click="openModal = true"
+                    >Upload PDF</a-button
+                >
+                <div style="font-size: 12px; font-weight: bold">
+                    {{ files.length }} File PDF diupload
+                </div>
             </div>
-            <a-button
-                v-else
-                style="margin-top: 8px; font-size: 12px"
-                @click="handleUpload"
-            >
-                <span v-if="!loading"> Upload Thumbnail </span>
-                <span v-else> Mohon tunggu... </span>
-            </a-button>
-        </a-form-item>
-        <div
-            v-if="category == '1'"
-            style="
-                margin-bottom: 10px;
-                display: flex;
-                align-items: center;
-                gap: 10px;
-            "
-        >
-            <a-button type="primary" @click="openModal = true"
-                >Upload PDF</a-button
-            >
-            <div style="font-size: 12px; font-weight: bold">
-                {{ files.length }} File PDF diupload
-            </div>
-        </div>
-        <a-form-item>
-            <a-button
-                type="primary"
-                html-type="submit"
-                :block="true"
-                :disabled="loading"
-            >
-                <span v-if="!loading"> Simpan </span>
-                <span v-else> Mohon tunggu... </span>
-            </a-button>
-            <a-button
-                style="margin-top: 10px"
-                type="link"
-                :block="true"
-                @click="handleClose"
-            >
-                Tutup
-            </a-button>
-        </a-form-item>
-        <a-modal v-model="openModal" title="Upload PDF" :footer="false">
-            <form-news-file @close="handleCloseModalFile" :apiurl="apiurl" />
-        </a-modal>
-    </a-form>
+            <a-divider />
+            <a-form-item>
+                <a-button
+                    style="margin-right: 5px"
+                    type="danger"
+                    ghost
+                    @click="handleClose"
+                >
+                    Tutup
+                </a-button>
+                <a-button type="primary" html-type="submit" :disabled="loading">
+                    <span v-if="!loading"> Simpan </span>
+                    <span v-else> Mohon tunggu... </span>
+                </a-button>
+            </a-form-item>
+
+            <a-modal v-model="openModal" title="Upload PDF" :footer="false">
+                <form-news-file
+                    @close="handleCloseModalFile"
+                    :apiurl="apiurl"
+                />
+            </a-modal>
+        </a-form>
+    </a-card>
 </template>
 
 <script>
@@ -114,7 +116,6 @@ import axios from "axios";
 import helper from "../../utils/helper";
 import TinyMce from "../Utils/TinyMce.vue";
 import FormNewsFile from "./FormNewsFile.vue";
-
 export default {
     components: { TinyMce, FormNewsFile },
     props: ["apiurl", "backurl", "retrieve", "category"],
@@ -169,7 +170,7 @@ export default {
                 const fd = new FormData();
                 fd.append("file", file);
                 axios
-                    .post(`${this.apiurl}/api/upload`, fd)
+                    .post(`${window.location.origin}/api/upload`, fd)
                     .then(async (res) => {
                         this.loading = false;
                         if (res) {
@@ -198,7 +199,6 @@ export default {
                         ...values,
                     };
 
-                    postData.categories = [this.category];
                     postData.thumbnail = this.thumbnail;
                     postData.desc = this.desc;
                     postData.news_files = this.files;
@@ -206,7 +206,7 @@ export default {
                         let retrieve = await JSON.parse(this.retrieve);
                         postData.id = retrieve.id;
                         axios
-                            .put(`${this.apiurl}/apis/v1/news`, postData)
+                            .put(`${this.apiurl}`, postData)
                             .then(() => {
                                 this.form.resetFields();
                                 this.loading = false;
@@ -217,7 +217,7 @@ export default {
                             });
                     } else {
                         axios
-                            .post(`${this.apiurl}/apis/v1/news`, postData)
+                            .post(`${this.apiurl}`, postData)
                             .then(() => {
                                 this.form.resetFields();
                                 this.loading = false;

@@ -1,6 +1,6 @@
 @extends('dashboard.template.layout')
 
-@section('title', 'Tambah publikasi mitigasi')
+@section('title', 'Tambah laporan singkat gerakan tanah')
 
 @section('body-content')
 <div class="d-sm-flex align-items-center justify-content-between mg-b-20 mg-lg-b-25 mg-xl-b-30">
@@ -10,14 +10,16 @@
                 <li class="breadcrumb-item"><a href="/">Dashboard</a></li>
                 <li class="breadcrumb-item">Gempa Bumi & Tsunami</li>
                 <li class="breadcrumb-item" aria-current="page"><a
-                        href="{{ route('dashboard.gempa-bumi-tsunami.news') }}?category=7">Publikasi Mitigasi</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Tambah Publikasi Mitigasi</li>
+                        href="{{ route('dashboard.gempa-bumi-tsunami.laporan-singkat.index') }}">Laporan singkat</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Tambah laporan singkat</li>
             </ol>
         </nav>
-        <h4 class="mg-b-0 tx-spacing--1">Tambah Publikasi Mitigasi</h4>
     </div>
 </div>
 <div class="p-3" id="app">
-    <form-news apiurl="{{ env('APP_URL') }}" category="7" backurl="{{ route('dashboard.gempa-bumi-tsunami.news') }}?category=7"></form-news>
+    <form-news 
+        apiurl="{{ route('dashboard.gempa-bumi-tsunami.laporan-singkat.save') }}" 
+        backurl="{{ route('dashboard.gempa-bumi-tsunami.laporan-singkat.index') }}"
+    ></form-news>
 </div>
 @endsection

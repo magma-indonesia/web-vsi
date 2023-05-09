@@ -1,6 +1,6 @@
 @extends('dashboard.template.layout')
 
-@section('title', 'Daftar Kejadian Gempa Bumi & Tsunami')
+@section('title', 'Daftar kejadian gempa & tsunami')
 
 @section('body-content')
 <div class="d-sm-flex align-items-center justify-content-between mg-b-20 mg-lg-b-25 mg-xl-b-30">
@@ -9,15 +9,17 @@
             <ol class="breadcrumb breadcrumb-style1 mg-b-10">
                 <li class="breadcrumb-item"><a href="/">Dashboard</a></li>
                 <li class="breadcrumb-item">Gempa Bumi & Tsunami</li>
-                <li class="breadcrumb-item active" aria-current="page">Daftar Kejadian</li>
+                <li class="breadcrumb-item active" aria-current="page">Daftar kejadian</li>
             </ol>
         </nav>
-        <h4 class="mg-b-0 tx-spacing--1">Daftar Kejadian</h4>
     </div>
 </div>
 <div class="p-3" id="app">
-    <table-news apiurl="{{ env('APP_URL') }}" addurl="{{ route('dashboard.gempa-bumi-tsunami.news.add') }}?category=6"
-        editurl="{{ route('dashboard.gempa-bumi-tsunami.news.edit', 0) }}" category="6">
+    <table-news 
+        apiurl="{{ route('dashboard.gempa-bumi-tsunami.daftar-kejadian.get') }}" 
+        addurl="{{ route('dashboard.gempa-bumi-tsunami.daftar-kejadian.add') }}"
+        editurl="{{ route('dashboard.gempa-bumi-tsunami.daftar-kejadian.edit', 0) }}"
+    >
     </table-news>
 </div>
 @endsection

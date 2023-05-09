@@ -109,7 +109,9 @@ export default {
         getTags() {
             this.loading = true;
             axios
-                .get(`${this.apiurl}/dashboard/api/upload-center/tags`)
+                .get(
+                    `${window.location.origin}/dashboard/api/upload-center/tags`
+                )
                 .then(async (data) => {
                     this.loading = false;
                     this.tags = data?.data?.serve;
@@ -180,7 +182,7 @@ export default {
                     postData.append("tags", values.tags);
                     axios
                         .post(
-                            `${this.apiurl}/dashboard/api/upload-center`,
+                            `${window.location.origin}/dashboard/api/upload-center`,
                             postData
                         )
                         .then((res) => {

@@ -85,7 +85,7 @@
                         <h4 class="widget_title">Hubungi Kami</h4>
                         <div class="widget_text text2">
                             <contact-form csrf="{{ csrf_token() }}" apiurl="{{ env('APP_URL') }}"
-                        geetestid="{{ env('GEETEST_EVENT_ID') }}"></contact-form>
+                                geetestid="{{ env('GEETEST_EVENT_ID') }}"></contact-form>
                         </div>
                     </div>
                 </div>
@@ -102,7 +102,17 @@
                         </div>
                     </div>
                     <div class="col-md-3 col-sm-6">
-                        <x-home.media-sosial />
+                        <div class="city_top_social">
+                            <ul>
+                                <li><a href="https://www.facebook.com/PVMBG/?locale=id_ID"><i
+                                            class="fa fa-facebook"></i></a></li>
+                                <li><a href="https://twitter.com/PVMBG_"><i class="fa fa-twitter"></i></a></li>
+                                <li><a href="https://www.instagram.com/pvmbg_/?hl=en"><i
+                                            class="fa fa-instagram"></i></a></li>
+                                <li><a href="https://www.youtube.com/channel/UCl6iW8jAJ9X-Fv68GIkCG_Q"><i
+                                            class="fa fa-youtube"></i></a></li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>

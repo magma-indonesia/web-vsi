@@ -8,16 +8,15 @@
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb breadcrumb-style1 mg-b-10">
                 <li class="breadcrumb-item"><a href="/">Dashboard</a></li>
-                <li class="breadcrumb-item">Layanan Publik</li>
+                <li class="breadcrumb-item">Layanan publik</li>
                 <li class="breadcrumb-item" aria-current="page"><a
-                        href="{{ route('dashboard.layanan-publik.news') }}?category=9">Pengumuman</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Tambah Pengumuman</li>
+                        href="{{ route('dashboard.layanan-publik.pengumuman.index') }}">Pengumuman</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Tambah pengumuman</li>
             </ol>
         </nav>
-        <h4 class="mg-b-0 tx-spacing--1">Tambah Pengumuman</h4>
     </div>
 </div>
 <div class="p-3" id="app">
-    <form-news apiurl="{{ env('APP_URL') }}" category="9" backurl="{{ route('dashboard.layanan-publik.news') }}?category=9"></form-news>
+    <form-news apiurl="{{ route('dashboard.layanan-publik.pengumuman.save') }}" backurl="{{ route('dashboard.layanan-publik.pengumuman.index') }}"></form-news>
 </div>
 @endsection

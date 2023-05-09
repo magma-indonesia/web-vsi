@@ -28,13 +28,22 @@
                                 gap: 10px;
                             "
                         >
-                            <a-badge status="error" v-if="item.level === 4" />
-                            <a-badge status="warning" v-if="item.level === 3" />
-                            <a-badge
-                                status="processing"
+                            <img
+                                src="/images/led_red_blink.gif"
+                                v-if="item.level === 4"
+                            />
+                            <img
+                                src="/images/led_orange_blink.gif"
+                                v-if="item.level === 3"
+                            />
+                            <img
+                                src="/images/led_yellow.gif"
                                 v-if="item.level === 2"
                             />
-                            <a-badge status="success" v-if="item.level === 1" />
+                            <img
+                                src="/images/led_green.gif"
+                                v-if="item.level === 1"
+                            />
                             G. {{ g }}
                         </div>
                     </div>
@@ -42,16 +51,16 @@
                 <hr />
                 Keterangan:
                 <div style="display: flex; align-items: center; gap: 10px">
-                    <a-badge status="error" /> Level IV (AWAS)
+                    <img src="/images/led_red_blink.gif" /> Level IV (AWAS)
                 </div>
                 <div style="display: flex; align-items: center; gap: 10px">
-                    <a-badge status="warning" /> Level III (SIAGA)
+                    <img src="/images/led_orange_blink.gif" /> Level III (SIAGA)
                 </div>
                 <div style="display: flex; align-items: center; gap: 10px">
-                    <a-badge status="processing" /> Level II (WASPADA)
+                    <img src="/images/led_yellow.gif" /> Level II (WASPADA)
                 </div>
                 <div style="display: flex; align-items: center; gap: 10px">
-                    <a-badge status="success" /> Level I (NORMAL)
+                    <img src="/images/led_green.gif" /> Level I (NORMAL)
                 </div>
             </div>
         </a-card>

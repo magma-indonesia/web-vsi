@@ -41,53 +41,58 @@
                     </a-button>
                 </div>
             </div>
-        </a-card>
-        <a-table
-            :rowKey="'id'"
-            style="margin-top: 10px"
-            :columns="columns"
-            :data-source="data"
-            :pagination="pagination"
-            :loading="loading"
-            @change="handleTableChange"
-        >
-            <template slot="action" slot-scope="text, record">
-                <div
-                    class="d-flex align-items-center justify-content-center flex-column"
-                    style="gap: 10px"
-                >
+            <a-divider />
+            <a-table
+                :rowKey="'id'"
+                style="margin-top: 10px"
+                :columns="columns"
+                :data-source="data"
+                :pagination="pagination"
+                :loading="loading"
+                @change="handleTableChange"
+            >
+                <template slot="action" slot-scope="text, record">
                     <div
-                        class="d-flex align-items-center justify-content-center"
+                        class="d-flex align-items-center justify-content-center flex-column"
                         style="gap: 10px"
                     >
-                        <a-button
-                            type="primary"
-                            key="/edit"
-                            icon="edit"
-                            @click="handleEdit(record)"
+                        <div
+                            class="d-flex align-items-center justify-content-center"
+                            style="gap: 10px"
                         >
-                            Edit
-                        </a-button>
-                        <a-popconfirm
-                            placement="left"
-                            title="Anda yakin ingin menghapus data ini?"
-                            @confirm="handleDelete(record)"
-                            ok-text="Iya"
-                            cancel-text="Tidak"
-                        >
-                            <a-button type="danger" key="/delete" icon="delete">
-                                Hapus
+                            <a-button
+                                type="primary"
+                                key="/edit"
+                                icon="edit"
+                                @click="handleEdit(record)"
+                            >
+                                Edit
                             </a-button>
-                        </a-popconfirm>
+                            <a-popconfirm
+                                placement="left"
+                                title="Anda yakin ingin menghapus data ini?"
+                                @confirm="handleDelete(record)"
+                                ok-text="Iya"
+                                cancel-text="Tidak"
+                            >
+                                <a-button
+                                    type="danger"
+                                    key="/delete"
+                                    icon="delete"
+                                >
+                                    Hapus
+                                </a-button>
+                            </a-popconfirm>
+                        </div>
                     </div>
-                </div>
-            </template>
-            <template slot="created_at" slot-scope="text, record">
-                <div style="font-size: 12px">
-                    {{ formattedTime(new Date(record.created_at)) }}
-                </div>
-            </template>
-        </a-table>
+                </template>
+                <template slot="created_at" slot-scope="text, record">
+                    <div style="font-size: 12px">
+                        {{ formattedTime(new Date(record.created_at)) }}
+                    </div>
+                </template>
+            </a-table>
+        </a-card>
     </div>
 </template>
 <script>
@@ -167,7 +172,7 @@ export default {
         handleDelete(val) {
             const postData = { id: val.id };
             axios({
-                url: `${this.apiurl}/apis/v1/news`,
+                url: `${this.apiurl}`,
                 method: "DELETE",
                 data: postData,
             }).then(() => {
@@ -189,7 +194,7 @@ export default {
         fetchData(param = this.params, p = this.pagination) {
             this.loading = true;
             axios
-                .get(`${this.apiurl}/apis/v1/news`, {
+                .get(`${this.apiurl}`, {
                     params: {
                         ...param,
                         page: p.current,

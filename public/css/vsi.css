@@ -292,7 +292,7 @@ body {
     right: 0px;
     bottom: 0px;
     background-color: #293d50;
-    width: 22%;
+    width: 20%;
 }
 
 .navigation>ul>li>a {
@@ -313,7 +313,7 @@ body {
 }
 
 .city_top_navigation {
-    padding: 20px 85px 20px;
+    padding: 20px 50px 20px;
     position: relative;
 }
 

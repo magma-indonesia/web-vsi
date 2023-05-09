@@ -1,6 +1,66 @@
 <template>
     <div>
-        <div v-if="retrieve" style="display: flex; flex-direction: column">
+        <div
+            v-if="retrieve"
+            style="
+                display: flex;
+                flex-direction: column;
+                background: #fff;
+                padding: 20px;
+            "
+        >
+            <img
+                :src="JSON.parse(retrieve).thumbnail"
+                alt="Thumbnail"
+                style="
+                    width: 100%;
+                    height: 500px;
+                    object-fit: contain;
+                    margin-bottom: 50px;
+                "
+            />
+            <div
+                v-if="
+                    JSON.parse(retrieve)?.categories?.length > 0 ||
+                    JSON.parse(retrieve)?.tags?.length > 0
+                "
+                class="flex"
+                style="
+                    margin-top: 10px;
+                    background: rgba(0, 0, 0, 0.03);
+                    padding: 10px;
+                    margin-bottom: 20px;
+                "
+            >
+                <div
+                    v-if="JSON.parse(retrieve)?.categories?.length > 0"
+                    style="display: flex; flex-wrap: wrap"
+                >
+                    <a-tag
+                        color="#dc3545"
+                        v-for="(cat, idx) in removeDuplicate(
+                            JSON.parse(retrieve).categories
+                        )"
+                        :key="idx"
+                    >
+                        {{ cat.category }}
+                    </a-tag>
+                </div>
+                <div
+                    v-if="JSON.parse(retrieve)?.tags?.length > 0"
+                    style="display: flex; flex-wrap: wrap"
+                >
+                    <a-tag
+                        color="#1b84e7"
+                        v-for="(cat, idx) in removeDuplicate(
+                            JSON.parse(retrieve).tags
+                        )"
+                        :key="idx"
+                    >
+                        {{ cat.name }}
+                    </a-tag>
+                </div>
+            </div>
             <div
                 style="
                     display: flex;
@@ -24,32 +84,70 @@
             >
                 {{ JSON.parse(retrieve).title || "Untitled" }}
             </div>
-            <!-- <img :src="JSON.parse(retrieve).thumbnail" alt="Thumbnail" /> -->
-            <div
-                v-if="JSON.parse(retrieve)?.news_categories?.length > 0"
-                style="display: flex; flex-wrap: wrap; margin-top: 10px"
-            >
-                <a-tag
-                    color="blue-inverse"
-                    v-for="(cat, idx) in JSON.parse(retrieve).news_categories"
-                    :key="idx"
-                >
-                    {{ cat.category }}
-                </a-tag>
-            </div>
+
             <div
                 v-html="JSON.parse(retrieve).content"
                 style="margin-bottom: 10px; margin-top: 10px"
             />
             <div
                 style="margin-top: 10px"
-                v-if="JSON.parse(retrieve)?.news_files?.length > 0"
+                v-if="JSON.parse(retrieve)?.files?.length > 0"
             >
                 <a-button
-                    type="link"
+                    style="margin-bottom: 5px"
+                    type="primary"
+                    ghost
                     icon="file-pdf"
                     @click="openLink(file)"
-                    v-for="(file, idx) in JSON.parse(retrieve).news_files"
+                    v-for="(file, idx) in JSON.parse(retrieve).files"
+                    :key="idx"
+                >
+                    {{ file.name }}
+                </a-button>
+            </div>
+            <div
+                style="margin-top: 10px"
+                v-if="JSON.parse(retrieve)?.thumbnails?.length > 0"
+            >
+                <a-button
+                    style="margin-bottom: 5px"
+                    type="primary"
+                    ghost
+                    icon="file-image"
+                    @click="openLink(file)"
+                    v-for="(file, idx) in JSON.parse(retrieve).thumbnails"
+                    :key="idx"
+                >
+                    {{ file.name }}
+                </a-button>
+            </div>
+            <div
+                style="margin-top: 10px"
+                v-if="JSON.parse(retrieve)?.maps?.length > 0"
+            >
+                <a-button
+                    style="margin-bottom: 5px"
+                    type="primary"
+                    ghost
+                    icon="file"
+                    @click="openLink(file)"
+                    v-for="(file, idx) in JSON.parse(retrieve).maps"
+                    :key="idx"
+                >
+                    {{ file.name }}
+                </a-button>
+            </div>
+            <div
+                style="margin-top: 10px"
+                v-if="JSON.parse(retrieve)?.documents?.length > 0"
+            >
+                <a-button
+                    style="margin-bottom: 5px"
+                    type="primary"
+                    ghost
+                    icon="file"
+                    @click="openLink(file)"
+                    v-for="(file, idx) in JSON.parse(retrieve).documents"
                     :key="idx"
                 >
                     {{ file.name }}
@@ -97,6 +195,7 @@ import "moment/locale/id";
 moment.locale("id");
 import Vue from "vue";
 import SocialSharing from "vue-social-sharing";
+import _ from "lodash";
 Vue.use(SocialSharing);
 import helper from "../../utils/helper";
 export default {
@@ -113,6 +212,11 @@ export default {
         },
         openLink(item) {
             window.open(`/files/${item.id}/${item.name}`);
+        },
+        removeDuplicate(data) {
+            return _.uniqBy(data, function (e) {
+                return e.name;
+            });
         },
     },
 };

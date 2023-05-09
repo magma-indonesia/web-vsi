@@ -4,7 +4,6 @@
 
 @push('styles')
 <link href="{{ asset('css/selectric.css') }}" rel="stylesheet">
-<link href="{{ mix('css/app.css') }}" rel="stylesheet" type="text/css" />
 @endpush
 
 @section('content')
@@ -22,7 +21,7 @@
     </div>
 </div>
 <!-- SAB BANNER END-->
-<div class="city_blog2_wrap team" style="background: #fff">
+<div class="city_blog2_wrap team" style="background: #f0f2f7">
     <div class="container">
         <div id="app">
             <news-detail retrieve="{{ $retrieve }}"></news-detail>
@@ -45,5 +44,4 @@
     });
 
 </script>
-<script src="{{ mix('js/app.js') }}" type="text/javascript"></script>
 @endpush

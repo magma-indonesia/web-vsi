@@ -58,7 +58,7 @@ export default {
             const fd = new FormData();
             fd.append("file", blobInfo.blob());
             axios
-                .post(`${this.apiurl}/api/upload`, fd)
+                .post(`${window.location.origin}/image/upload`, fd)
                 .then(async (res) => {
                     this.loading = false;
                     if (res) {
