@@ -207,9 +207,11 @@
         <li class="nav-item with-sub {{ request()->is('*layanan-publik*') ? 'active show' : '' }}">
             <a href="" class="nav-link"><i data-feather="menu"></i> <span>Layanan Publik</span></a>
             <ul>
-                <li class="nav-item"><a href=""><i data-feather="award"></i><span>Reformasi Birokrasi</span></a>
+                <li class="nav-item {{ request()->is('*layanan-publik*') && request()->get('category') == Param::PUBLIC_SERVICE_BUREAUCRATIC_REFORM ? 'active' : '' }}">
+                    <a href="{{ route('dashboard.layanan-publik.index', ['category' => Param::PUBLIC_SERVICE_BUREAUCRATIC_REFORM]) }}"><i data-feather="award"></i><span>Reformasi Birokrasi</span></a>
                 </li>
-                <li class="nav-item"><a href="#"><i data-feather="info"></i><span>Diseminasi Informasi</span></a>
+                <li class="nav-item {{ request()->is('*layanan-publik*') && request()->get('category') == Param::PUBLIC_SERVICE_INFORMATION_DISSEMINATION ? 'active' : '' }}">
+                    <a href="{{ route('dashboard.layanan-publik.index', ['category' => Param::PUBLIC_SERVICE_INFORMATION_DISSEMINATION]) }}"><i data-feather="info"></i><span>Diseminasi Informasi</span></a>
                 </li>
                 <li
                     class="nav-item with-sub {{ request()->routeIs('dashboard.layanan-publik.kerja-sama.informasi') ? 'active' : '' }}">

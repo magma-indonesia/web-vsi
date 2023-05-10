@@ -10,6 +10,7 @@ use App\Http\Controllers\Administration\PressReleaseController as Administration
 use App\Http\Controllers\Administration\VolcanoActivityController as AdministrationVolcanoActivityController;
 use App\Http\Controllers\Administration\VolcanoBaseController as AdministrationVolcanoBaseController;
 use App\Http\Controllers\Api\GroundMovementController;
+use App\Http\Controllers\Api\PublicServiceController;
 use App\Http\Controllers\Landing\NewsController as LandingNewsController;
 use App\Http\Controllers\Auth\ForgotController;
 use App\Http\Controllers\Auth\LoginController;
@@ -27,6 +28,7 @@ use App\Http\Controllers\Landing\GroundMovementController as LandingGroundMoveme
 use App\Http\Controllers\Landing\GroundResponseController;
 use App\Http\Controllers\Landing\PressReleaseController;
 use App\Http\Controllers\Landing\ProfileController as LandingProfileController;
+use App\Http\Controllers\Landing\PublicServiceController as LandingPublicServiceController;
 use App\Http\Controllers\Landing\VolcanoActivityController;
 use App\Http\Controllers\Landing\VolcanoBaseController;
 use Illuminate\Support\Facades\Route;
@@ -197,7 +199,7 @@ Route::name('gerakan-tanah.')->group(function () {
         "$gerakanTanah.peringatan-dini.index"
     )->name('peringatan-dini');
     
-    Route::get('gerakan-tanah/peringatan-dini/{route}', [LandingGroundMovementController::class, 'showEvent'])->name("peringatan-dini.detail");
+    Route::get('gerakan-tanah/peringatan-dini/{route}', [LandingGroundMovementController::class, 'showEarlyWarning'])->name("peringatan-dini.detail");
 
     // Gerakan Tanah > Rekapitulasi Kejadian
     Route::view(
@@ -205,18 +207,22 @@ Route::name('gerakan-tanah.')->group(function () {
         "$gerakanTanah.rekapitulasi-kejadian.index"
     )->name('rekapitulasi-kejadian');
     
-    Route::get('gerakan-tanah/rekapitulasi-kejadian/{route}', [LandingGroundMovementController::class, 'showEvent'])->name("rekapitulasi-kejadian.detail");
+    Route::get('gerakan-tanah/rekapitulasi-kejadian/{route}', [LandingGroundMovementController::class, 'showEventRecap'])->name("rekapitulasi-kejadian.detail");
 });
 
 // Layanan Publik
 Route::prefix('layanan-publik')->name('layanan-publik.')->group(function () {
     $layananPublik = 'home.layanan-publik';
 
+    Route::get('/', [PublicServiceController::class, 'index']);
+
     // Layanan Publik > Reformasi Birokrasi
     Route::view(
         'reformasi-birokrasi',
         "$layananPublik.reformasi-birokrasi.index"
     )->name('reformasi-birokrasi');
+    
+    Route::get('/reformasi-birokrasi/{route}', [LandingPublicServiceController::class, 'showBureaucraticReform'])->name("reformasi-birokrasi.detail");
 
     // Layanan Publik > Diseminasi Informasi > Gunung Api
     Route::view(

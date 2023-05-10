@@ -25,7 +25,7 @@
 <div class="city_blog2_wrap team" style="background: #f0f2f7">
     <div class="container">
         <div id="app">
-            <ground-movement apiurl="{{ env('APP_URL') }}" category="{{ Param::GROUND_MOVEMENT_EVENT }}"></ground-movement>
+            <ground-movement apiurl="{{ env('APP_URL') }}" category="{{ Param::GROUND_MOVEMENT_EVENT }}" menuslug="{{Param::GROUND_MOVEMENT_EVENT_SLUG}}"></ground-movement>
         </div>
     </div>
 </div>

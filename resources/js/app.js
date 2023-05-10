@@ -91,6 +91,22 @@ Vue.component(
     "result-not-found",
     require("./components/Utils/404.vue").default
 );
+Vue.component(
+  "table-public-service",
+  require("./components/PublicService/TablePublicService.vue").default
+);
+Vue.component(
+  "form-public-service",
+  require("./components/PublicService/FormPublicService.vue").default
+);
+Vue.component(
+  "public-service",
+  require("./components/PublicService/PublicService.vue").default
+);
+Vue.component(
+  "public-service-detail",
+  require("./components/PublicService/PublicServiceDetail.vue").default
+);
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue

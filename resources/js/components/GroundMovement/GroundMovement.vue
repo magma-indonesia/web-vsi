@@ -152,7 +152,7 @@
 <script>
 import helper from "../../utils/helper";
 export default {
-    props: ["category", "apiurl"],
+    props: ["category", "apiurl", "menuslug"],
     data() {
         return {
             articles: [],
@@ -175,7 +175,7 @@ export default {
             return helper.truncString(item, 120, "...");
         },
         handleDetail(item) {
-            window.location.href = this.apiurl + "/gerakan-tanah/daftar-kejadian/" + item.slug;
+            window.location.href = this.apiurl + "/gerakan-tanah/" + this.menuslug + "/" + item.slug;
         },
         handlePageChange(page, pageSize) {
             this.pagination.current = page;
