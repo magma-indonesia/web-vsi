@@ -99,7 +99,9 @@
                     ghost
                     icon="file-pdf"
                     @click="openLink(file)"
-                    v-for="(file, idx) in JSON.parse(retrieve).files"
+                    v-for="(file, idx) in removeDuplicate(
+                        JSON.parse(retrieve).files
+                    )"
                     :key="idx"
                 >
                     {{ file.name }}
@@ -115,7 +117,9 @@
                     ghost
                     icon="file-image"
                     @click="openLink(file)"
-                    v-for="(file, idx) in JSON.parse(retrieve).thumbnails"
+                    v-for="(file, idx) in removeDuplicate(
+                        JSON.parse(retrieve).thumbnails
+                    )"
                     :key="idx"
                 >
                     {{ file.name }}
@@ -131,7 +135,9 @@
                     ghost
                     icon="file"
                     @click="openLink(file)"
-                    v-for="(file, idx) in JSON.parse(retrieve).maps"
+                    v-for="(file, idx) in removeDuplicate(
+                        JSON.parse(retrieve).maps
+                    )"
                     :key="idx"
                 >
                     {{ file.name }}
@@ -147,7 +153,9 @@
                     ghost
                     icon="file"
                     @click="openLink(file)"
-                    v-for="(file, idx) in JSON.parse(retrieve).documents"
+                    v-for="(file, idx) in removeDuplicate(
+                        JSON.parse(retrieve).documents
+                    )"
                     :key="idx"
                 >
                     {{ file.name }}
