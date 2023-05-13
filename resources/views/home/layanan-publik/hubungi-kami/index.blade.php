@@ -47,8 +47,11 @@
                         Bandung - Jawa Barat
 
                         40122 Indonesia <br/>
-                       <a href="mailto:pvmbg@esdm.go.id">pvmbg@esdm.go.id</a> <br/>
-                       <a href="tel:+62227271402">+62227271402</a>
+                        <hr/>
+                       Email: <a href="mailto:pvmbg@esdm.go.id">pvmbg@esdm.go.id</a> <br/>
+                       Telepon 1: <a href="tel:+62227271402">+62227271402</a><br/>
+                       Telepon 2: <a href="tel:+62227272606">+62227272606</a><br/>
+                       Fax: <a href="tel:+62227202761">+62227202761</a><br/>
                     </div>
                     <!-- <contact-form csrf="{{ csrf_token() }}" apiurl="{{ env('APP_URL') }}"
                         geetestid="{{ env('GEETEST_EVENT_ID') }}"></contact-form> -->

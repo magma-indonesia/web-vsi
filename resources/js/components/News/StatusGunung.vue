@@ -28,22 +28,20 @@
                                 gap: 10px;
                             "
                         >
-                            <img
-                                src="/images/led_red_blink.gif"
-                                v-if="item.level === 4"
-                            />
-                            <img
-                                src="/images/led_orange_blink.gif"
+                            <div class="blob red" v-if="item.level === 4"></div>
+                            <div
+                                class="blob orange"
                                 v-if="item.level === 3"
-                            />
-                            <img
-                                src="/images/led_yellow.gif"
+                            ></div>
+                            <div
+                                class="blob yellow"
                                 v-if="item.level === 2"
-                            />
-                            <img
-                                src="/images/led_green.gif"
+                            ></div>
+                            <div
+                                class="blob green"
                                 v-if="item.level === 1"
-                            />
+                            ></div>
+
                             G. {{ g }}
                         </div>
                     </div>
@@ -51,16 +49,20 @@
                 <hr />
                 Keterangan:
                 <div style="display: flex; align-items: center; gap: 10px">
-                    <img src="/images/led_red_blink.gif" /> Level IV (AWAS)
+                    <div class="blob red" />
+                    Level IV (AWAS)
                 </div>
                 <div style="display: flex; align-items: center; gap: 10px">
-                    <img src="/images/led_orange_blink.gif" /> Level III (SIAGA)
+                    <div class="blob orange" />
+                    Level III (SIAGA)
                 </div>
                 <div style="display: flex; align-items: center; gap: 10px">
-                    <img src="/images/led_yellow.gif" /> Level II (WASPADA)
+                    <div class="blob yellow" />
+                    Level II (WASPADA)
                 </div>
                 <div style="display: flex; align-items: center; gap: 10px">
-                    <img src="/images/led_green.gif" /> Level I (NORMAL)
+                    <div class="blob green" />
+                    Level I (NORMAL)
                 </div>
             </div>
         </a-card>
@@ -71,3 +73,104 @@ export default {
     props: ["data"],
 };
 </script>
+<style scoped>
+.blob {
+    background: black;
+    border-radius: 50%;
+    box-shadow: 0 0 0 0 rgba(0, 0, 0, 1);
+    margin: 10px;
+    height: 20px;
+    width: 20px;
+    transform: scale(1);
+    animation: pulse-black 2s infinite;
+}
+.blob.red {
+    background: rgba(255, 82, 82, 1);
+    box-shadow: 0 0 0 0 rgba(255, 82, 82, 1);
+    animation: pulse-red 2s infinite;
+}
+@keyframes pulse-red {
+    0% {
+        transform: scale(0.95);
+        box-shadow: 0 0 0 0 rgba(255, 82, 82, 0.7);
+    }
+
+    70% {
+        transform: scale(1);
+        box-shadow: 0 0 0 10px rgba(255, 82, 82, 0);
+    }
+
+    100% {
+        transform: scale(0.95);
+        box-shadow: 0 0 0 0 rgba(255, 82, 82, 0);
+    }
+}
+
+.blob.orange {
+    background: rgba(255, 121, 63, 1);
+    box-shadow: 0 0 0 0 rgba(255, 121, 63, 1);
+    animation: pulse-orange 2s infinite;
+}
+
+@keyframes pulse-orange {
+    0% {
+        transform: scale(0.95);
+        box-shadow: 0 0 0 0 rgba(255, 121, 63, 0.7);
+    }
+
+    70% {
+        transform: scale(1);
+        box-shadow: 0 0 0 10px rgba(255, 121, 63, 0);
+    }
+
+    100% {
+        transform: scale(0.95);
+        box-shadow: 0 0 0 0 rgba(255, 121, 63, 0);
+    }
+}
+
+.blob.yellow {
+    background: rgba(255, 177, 66, 1);
+    box-shadow: 0 0 0 0 rgba(255, 177, 66, 1);
+    animation: pulse-yellow 2s infinite;
+}
+
+@keyframes pulse-yellow {
+    0% {
+        transform: scale(0.95);
+        box-shadow: 0 0 0 0 rgba(255, 177, 66, 0.7);
+    }
+
+    70% {
+        transform: scale(1);
+        box-shadow: 0 0 0 10px rgba(255, 177, 66, 0);
+    }
+
+    100% {
+        transform: scale(0.95);
+        box-shadow: 0 0 0 0 rgba(255, 177, 66, 0);
+    }
+}
+.blob.green {
+    background: rgba(51, 217, 178, 1);
+    box-shadow: 0 0 0 0 rgba(51, 217, 178, 1);
+    animation: pulse-green 2s infinite;
+}
+
+@keyframes pulse-green {
+    0% {
+        transform: scale(0.95);
+        box-shadow: 0 0 0 0 rgba(51, 217, 178, 0.7);
+    }
+
+    70% {
+        transform: scale(1);
+        box-shadow: 0 0 0 10px rgba(51, 217, 178, 0);
+    }
+
+    100% {
+        transform: scale(0.95);
+        box-shadow: 0 0 0 0 rgba(51, 217, 178, 0);
+    }
+}
+</style>
