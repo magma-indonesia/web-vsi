@@ -1,6 +1,6 @@
 @extends('template.layout')
 
-@section('title', 'Daftar Kejadian')
+@section('title', $retrieve->title)
 
 @push('styles')
 <link href="{{ asset('css/selectric.css') }}" rel="stylesheet">
@@ -12,11 +12,12 @@
 <div class="sab_banner overlay">
     <div class="container">
         <div class="sab_banner_text">
-            <h2>Daftar Kejadian</h2>
+            <h2>{{ $retrieve->title }}</h2>
             <ul class="breadcrumb">
                 <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
-                <li class="breadcrumb-item">Gerakan Tanah</li>
-                <li class="breadcrumb-item active">Daftar Kejadian</li>
+                <li class="breadcrumb-item">Layanan Publik</li>
+                <li class="breadcrumb-item"><a href="{{ route('layanan-publik.reformasi-birokrasi') }}">Reformasi Birokrasi</a></li>
+                <li class="breadcrumb-item active">{{ $retrieve->title }}</li>
             </ul>
         </div>
     </div>
@@ -25,7 +26,7 @@
 <div class="city_blog2_wrap team" style="background: #f0f2f7">
     <div class="container">
         <div id="app">
-            <ground-movement apiurl="{{ env('APP_URL') }}" category="{{ Param::GROUND_MOVEMENT_EVENT }}" menuslug="{{Param::GROUND_MOVEMENT_EVENT_SLUG}}"></ground-movement>
+            <public-service-detail apiurl="{{ env('APP_URL') }}" retrieve="{{ $retrieve }}"></public-service-detail>
         </div>
     </div>
 </div>

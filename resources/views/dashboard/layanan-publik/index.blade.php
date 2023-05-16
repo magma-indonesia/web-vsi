@@ -17,11 +17,8 @@
         </div>
     </div>
     <div class="p-3" id="app">
-        <table-upload-center-employee
-            apiurl="{{ $appUrl }}"
-            addurl="{{ $addUrl }}"
-            detailurl="{{ $detailUrl }}"
-        >
-        </table-upload-center-employee>
+        <table-public-service apiurl="{{ $appUrl }}" addurl="{{ $addUrl }}"
+            editurl="{{ $editUrl }}" category="{{ $category }}">
+        </table-public-service>
     </div>
 @endsection

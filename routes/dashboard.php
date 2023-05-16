@@ -15,12 +15,14 @@ use App\Http\Controllers\Administration\VolcanoBaseController;
 use App\Http\Controllers\Api\FileController as ApiFileController;
 use App\Http\Controllers\Api\GroundMovementController as ApiGroundMovementController;
 use App\Http\Controllers\Api\ProfileController as ApiProfileController;
+use App\Http\Controllers\Api\PublicServiceController as ApiPublicServiceController;
 use App\Http\Controllers\Api\UserController as ApiUserController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FileController;
 use App\Http\Controllers\GroundMovement\EventController as GroundMovementEventController;
 use App\Http\Controllers\GroundMovementController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\PublicServiceController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -142,6 +144,12 @@ Route::prefix('layanan-publik')->name('layanan-publik.')->group(function () {
             Route::put('/', [AnnouncementController::class, 'update'])->name('update');
             Route::delete('/', [AnnouncementController::class, 'delete'])->name('delete');
         });
+    });
+
+    Route::controller(PublicServiceController::class)->group(function () {
+        Route::get('/', 'index')->name('index');
+        Route::get('/create', 'create')->name('create');
+        Route::get('/{id}/edit', 'edit')->name('edit');
     });
 });
 
@@ -317,6 +325,16 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'api'], function () {
             Route::get('/label', 'indexLabel');
             Route::get('/tags', 'indexTags');
             Route::post('/tags', 'storeTag');
+        });
+    });
+
+    // Layanan Publik
+    Route::group(['prefix' => 'layanan-publik'], function () {
+        Route::controller(ApiPublicServiceController::class)->group(function () {
+            Route::get('/', 'index');
+            Route::post('/', 'store');
+            Route::put('/', 'update');
+            Route::delete('/', 'destroy');
         });
     });
 });

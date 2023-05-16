@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\File;
 use App\Models\User;
 use App\Param;
-use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Throwable;
@@ -22,6 +21,7 @@ class FileController extends Controller
     public function index(Request $request)
     {
         $roleSlug = $this->user()->role->slug;
+        $loginId = $this->user()->id;
         $employee = User::where('id', $request->user_id)->first();
         $user = empty($employee) ? $this->user() : $employee;
         if (($roleSlug == Param::ROLE_SLUG_ADMIN && !empty($employee)) || $roleSlug != Param::ROLE_SLUG_ADMIN) {
@@ -29,6 +29,7 @@ class FileController extends Controller
                 'contents' => $this->contents,
                 'pageTitle' => 'Upload Center',
                 'roleSlug' => $roleSlug,
+                'loginId' => $loginId,
                 'user' => $user,
                 'appUrl' => env('APP_URL'),
                 'addUrl' => route('dashboard.upload-center.create'),
@@ -38,6 +39,7 @@ class FileController extends Controller
                 'contents' => $this->contents,
                 'pageTitle' => 'Upload Center',
                 'appUrl' => env('APP_URL'),
+                'addUrl' => route('dashboard.upload-center.index', ['user_id' => $loginId]),
                 'detailUrl' => route('dashboard.upload-center.index'),
             ]);
         }

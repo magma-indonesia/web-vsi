@@ -62,11 +62,29 @@
                     >
                         <a-button
                             type="primary"
-                            key="/detail"
-                            icon="eye"
-                            @click="handleDetail(record)"
-                        ></a-button>
+                            key="/edit"
+                            icon="edit"
+                            @click="handleEdit(record)"
+                        >
+                            Edit
+                        </a-button>
+                        <a-popconfirm
+                            placement="left"
+                            title="Anda yakin ingin menghapus data ini?"
+                            @confirm="handleDelete(record)"
+                            ok-text="Iya"
+                            cancel-text="Tidak"
+                        >
+                            <a-button type="danger" key="/delete" icon="delete">
+                                Hapus
+                            </a-button>
+                        </a-popconfirm>
                     </div>
+                </div>
+            </template>
+            <template slot="created_at" slot-scope="text, record">
+                <div style="font-size: 12px">
+                    {{ formattedTime(new Date(record.created_at)) }}
                 </div>
             </template>
         </a-table>
@@ -74,27 +92,25 @@
 </template>
 <script>
 import axios from "axios";
+import helper from "../../utils/helper";
 
 export default {
-    props: [
-        "apiurl",
-        "addurl",
-        "detailurl",
-    ],
+    props: ["apiurl", "addurl", "editurl", "category"],
     data() {
         return {
             columns: [
                 {
-                    title: "NIP",
-                    dataIndex: "nip",
+                    title: "Judul",
+                    dataIndex: "title",
                 },
                 {
-                    title: "Nama",
-                    dataIndex: "name",
+                    title: "Author",
+                    dataIndex: "author_name",
                 },
                 {
-                    title: "Kelompok Kerja",
-                    dataIndex: "segment_name",
+                    title: "Waktu",
+                    dataIndex: "created_at",
+                    scopedSlots: { customRender: "created_at" },
                 },
                 {
                     title: "#",
@@ -121,6 +137,9 @@ export default {
         this.fetchData(this.params, this.pagination);
     },
     methods: {
+        formattedTime(data) {
+            return helper.formattedTime(data);
+        },
         handlePageSize(val) {
             this.pagination.pageSize = val;
             this.fetchData(this.params, {
@@ -136,9 +155,19 @@ export default {
         handleAdd() {
             window.location.href = this.addurl;
         },
-        handleDetail(val) {
+        handleEdit(val) {
             this.current = val;
-            window.location.href = this.detailurl + "?user_id=" + val.id;
+            window.location.href = this.editurl.replace("##ID##", val.id);
+        },
+        handleDelete(val) {
+            const postData = { id: val.id };
+            axios({
+                url: `${this.apiurl}/dashboard/api/layanan-publik`,
+                method: "DELETE",
+                data: postData,
+            }).then(() => {
+                this.fetchData(this.params, this.pagination);
+            });
         },
         handleSearch(e) {
             this.params.search = e;
@@ -155,11 +184,12 @@ export default {
         fetchData(param = this.params, p = this.pagination) {
             this.loading = true;
             axios
-                .get(`${this.apiurl}/dashboard/api/upload-center`, {
+                .get(`${this.apiurl}/dashboard/api/layanan-publik`, {
                     params: {
                         ...param,
                         page: p.current,
                         pageSize: p.pageSize,
+                        category_id: this.category,
                     },
                 })
                 .then(async (data) => {

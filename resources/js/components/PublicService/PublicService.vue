@@ -175,7 +175,7 @@ export default {
             return helper.truncString(item, 120, "...");
         },
         handleDetail(item) {
-            window.location.href = this.apiurl + "/gerakan-tanah/" + this.menuslug + "/" + item.slug;
+            window.location.href = this.apiurl + "/layanan-publik/" + this.menuslug + "/" + item.slug;
         },
         handlePageChange(page, pageSize) {
             this.pagination.current = page;
@@ -216,7 +216,7 @@ export default {
         fetchData(param = this.params, p = this.pagination) {
             this.loading = true;
             axios
-                .get(`${this.apiurl}/gerakan-tanah`, {
+                .get(`${this.apiurl}/layanan-publik`, {
                     params: {
                         ...param,
                         page: p.current,

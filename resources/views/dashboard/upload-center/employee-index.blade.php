@@ -26,6 +26,7 @@
             apiurl="{{ $appUrl }}"
             addurl="{{ $addUrl }}"
             role="{{ $roleSlug }}"
+            loginid="{{ $loginId }}"
             userid="{{ $user->id }}"
         >
         </table-upload-center>
