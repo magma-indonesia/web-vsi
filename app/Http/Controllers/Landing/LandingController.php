@@ -6,6 +6,7 @@ use App\Models\EqtStudyEvent;
 use App\Models\GroundResponse;
 use App\Models\News;
 use App\Models\PressRelease;
+use DOMDocument;
 use Illuminate\Support\Facades\Redis;
 
 class LandingController extends Controller

@@ -11,8 +11,8 @@
                     <div class="small_text animated">Selamat Datang</div>
                     <div class="medium_text animated">di web</div>
                     <div class="banner_btn" style="margin-top: 10px;margin-bottom: 10px;">
-                        <a class="theam_btn animated" href="#">MAGMA Indonesia</a>
-                        <a class="theam_btn animated" href="#">Portal MGB</a>
+                        <a class="theam_btn animated" style="background: #293d50; color: #fff" href="https://magma.vsi.esdm.go.id">MAGMA Indonesia</a>
+                        <a class="theam_btn animated" style="background: #293d50; color: #fff" href="">Portal MGB</a>
                     </div>
                     <div class="banner_search_form">
                         <label>Cari artikel</label>
@@ -62,7 +62,7 @@
                 <li>
                     <div class="city_service_text">
                         <span><i class="fa fa-map"></i></span>
-                        <h5><a href="#">MAGMA Indonesia</a></h5>
+                        <h5><a href="https://magma.vsi.esdm.go.id">MAGMA Indonesia</a></h5>
                     </div>
                 </li>
                 <!-- <li>
@@ -215,6 +215,9 @@
                                             {{ date('d F Y', strtotime($news[0]->created_at))}}</div>
                                         <div style="padding-left: 10px;">{{ $news[0]->created_by }}</div>
                                     </div>
+                                    <p>
+                                        {!! strip_tags((strlen($news[0]->content) > 250) ? substr($news[0]->content,0,250).'...' : $news[0]->content)  !!}
+                                    </p>
                                     <a class="theam_btn border-color color" href="{{ $news[0]->link }}" tabindex="0">
                                         Selengkapnya</a>
                                 </div>
@@ -233,13 +236,13 @@
                                                     <div class="box-layer layer-2"></div>
                                                     <div class="box-layer layer-3"></div>
                                                     <img src="{{ $n->thumbnail ? $n->thumbnail : '/images/mican.png' }}"
-                                                        alt="">
+                                                        alt="" style="width: 104px;height: 102px;object-fit: cover"/>
                                                 </a>
                                             </figure>
                                             <div class="city_news_list_text">
                                                 <h5>
-                                                    <a href="{{ $n->link }}">
-                                                        {{ $n->title }}
+                                                    <a href="{{ $n->link }}" title="{{ $n->title }}">
+                                                    {{ (strlen($n->title) > 25) ? substr($n->title,0,25).'...' : $n->title }}
                                                     </a>
                                                 </h5>
                                                 <div class="flex items-center" style="margin-bottom: 10px;">

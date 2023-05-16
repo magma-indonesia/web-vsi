@@ -950,7 +950,6 @@ export default {
         handleSubmit(e) {
             e.preventDefault();
             this.loading = true;
-            e.preventDefault();
             this.form.validateFields(async (err, values) => {
                 if (!err) {
                     const fd = new FormData();
@@ -1008,18 +1007,30 @@ export default {
                         let retrieve = await JSON.parse(this.retrieve);
                         fd.append("id", retrieve?.id);
 
-                        fd.append(
-                            "documents_old_data",
-                            JSON.stringify(this.$refs["tableDocuments"].data)
-                        );
-                        fd.append(
-                            "maps_old_data",
-                            JSON.stringify(this.$refs["tableMaps"].data)
-                        );
-                        fd.append(
-                            "thumbnails_old_data",
-                            JSON.stringify(this.$refs["tableThumbnails"].data)
-                        );
+                        if (this.$refs["tableDocuments"]) {
+                            fd.append(
+                                "documents_old_data",
+                                JSON.stringify(
+                                    this.$refs["tableDocuments"]?.data
+                                )
+                            );
+                        }
+
+                        if (this.$refs["tableMaps"]) {
+                            fd.append(
+                                "maps_old_data",
+                                JSON.stringify(this.$refs["tableMaps"]?.data)
+                            );
+                        }
+
+                        if (this.$refs["tableThumbnails"]) {
+                            fd.append(
+                                "thumbnails_old_data",
+                                JSON.stringify(
+                                    this.$refs["tableThumbnails"]?.data
+                                )
+                            );
+                        }
                         fd.append("_method", "PUT");
                         axios
                             .post(
@@ -1031,7 +1042,7 @@ export default {
                                 this.loading = false;
                                 this.handleClose();
                             })
-                            .catch(() => {
+                            .catch((err) => {
                                 this.loading = false;
                             });
                     } else {

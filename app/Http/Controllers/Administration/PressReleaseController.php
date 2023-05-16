@@ -386,7 +386,7 @@ class PressReleaseController extends Controller
             }
             $n->save();
 
-            if (count(json_decode($request->documents_old_data)) > 0) {
+            if (isset($request->documents_old_data) && count(json_decode($request->documents_old_data)) > 0) {
                 foreach(json_decode($request->documents_old_data) as $old) {
                     if ($old->is_deleted) {
                         $file = new FileController();
@@ -405,7 +405,7 @@ class PressReleaseController extends Controller
                 }
             }
 
-            if (count(json_decode($request->maps_old_data)) > 0) {
+            if (isset($request->maps_old_data) && count(json_decode($request->maps_old_data)) > 0) {
                 foreach(json_decode($request->maps_old_data) as $old) {
                     if ($old->is_deleted) {
                         $file = new FileController();
@@ -424,7 +424,7 @@ class PressReleaseController extends Controller
                 }
             }
 
-            if (count(json_decode($request->thumbnails_old_data)) > 0) {
+            if (isset($request->thumbnails_old_data) && count(json_decode($request->thumbnails_old_data)) > 0) {
                 foreach(json_decode($request->thumbnails_old_data) as $old) {
                     if ($old->is_deleted) {
                         $file = new FileController();
