@@ -92,7 +92,8 @@
             <div
                 style="margin-top: 10px"
                 v-if="
-                    JSON.parse(retrieve)?.files?.length > 0 && !retrieve?.maps
+                    JSON.parse(retrieve)?.files?.length > 0 &&
+                    window.location.pathname.indexOf('/press-release') === -1
                 "
             >
                 <a-button
