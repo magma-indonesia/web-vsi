@@ -1,12 +1,12 @@
-@extends('template.layanan-publik.layout')
+@extends('template.layout')
 
 @section('title', 'Informasi Kerja Sama')
 
 @push('styles')
-    <link href="{{ asset('css/selectric.css') }}" rel="stylesheet">
+    <!-- <link href="{{ asset('css/selectric.css') }}" rel="stylesheet"> -->
 @endpush
 
-@section('body')
+@section('content')
     <!-- SAB BANNER START-->
     <div class="sab_banner overlay">
         <div class="container">
@@ -85,7 +85,7 @@
                                         <div class="box-layer layer-1"></div>
                                         <div class="box-layer layer-2"></div>
                                         <div class="box-layer layer-3"></div>
-                                        <img src="{{ asset("extra-images/informasi-kerja-sama-gunung-api.png") }}"
+                                        <img src="{{ asset('extra-images/informasi-kerja-sama-gunung-api.png') }}"
                                              alt="">
                                     </figure>
                                     <div class="city_service_tabs_text">
@@ -185,7 +185,7 @@
                                         <div class="box-layer layer-1"></div>
                                         <div class="box-layer layer-2"></div>
                                         <div class="box-layer layer-3"></div>
-                                        <img src="{{ asset("extra-images/informasi-kerja-sama-gempa-bumi.png") }}"
+                                        <img src="{{ asset('extra-images/informasi-kerja-sama-gempa-bumi.png') }}"
                                              alt="">
                                     </figure>
                                     <div class="city_service_tabs_text">
@@ -241,7 +241,7 @@
                                         <div class="box-layer layer-1"></div>
                                         <div class="box-layer layer-2"></div>
                                         <div class="box-layer layer-3"></div>
-                                        <img src="{{ asset("extra-images/permohonan-kerja-sama.png") }}" alt="">
+                                        <img src="{{ asset('extra-images/permohonan-kerja-sama.png') }}" alt="">
                                     </figure>
                                     <div class="city_service_tabs_text">
                                         <!-- CITY EMERGENCY CALL START-->
@@ -363,9 +363,8 @@
                                                     <div class="col-md-12">
                                                         <div class="event_booking_field">
                                                             <select name="kategori" class="small">
-                                                                @foreach($countries as $k => $v) {
-                                                                <option
-                                                                    value="{{ $v['code'] }}" {{ $v['code'] == 'IDN' ? 'selected' : '' }}>{{ $v['native'] }}</option>
+                                                                @foreach($countries as $k => $v)
+                                                                <option value="{{ $v['code'] }}" {{ $v['code'] == 'IDN' ? 'selected' : '' }}>{{ $v['native'] }}</option>
                                                                 @endforeach
                                                             </select>
                                                         </div>
@@ -683,7 +682,7 @@
 
 @push('scripts')
     <script src="{{ asset('js/jquery-filterable.js') }}"></script>
-    <script src="{{ asset('js/jquery.nice-select.min.js') }}"></script>
+    <!-- <script src="{{ asset('js/jquery.nice-select.min.js') }}"></script> -->
     <script src="{{ asset('js/web/collab/index.js') }}"></script>
     <script type="text/javascript">
         $(document).ready(function () {
@@ -694,4 +693,5 @@
             collabHandle.init();
         });
     </script>
+    <script src="{{ mix('js/app.js') }}" type="text/javascript"></script>
 @endpush
