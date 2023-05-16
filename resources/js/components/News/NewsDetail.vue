@@ -92,8 +92,7 @@
             <div
                 style="margin-top: 10px"
                 v-if="
-                    JSON.parse(retrieve)?.files?.length > 0 &&
-                    window.location.pathname.indexOf('/press-release') === -1
+                    JSON.parse(retrieve)?.files?.length > 0 && !isPressRelease
                 "
             >
                 <a-button
@@ -211,7 +210,11 @@ Vue.use(SocialSharing);
 import helper from "../../utils/helper";
 export default {
     props: ["retrieve"],
-
+    computed: {
+        isPressRelease() {
+            return window.location.pathname.indexOf("/press-release") > -1;
+        },
+    },
     methods: {
         convertDate(date) {
             return moment(date).format("DD MMM YYYY HH:mm:ss");
