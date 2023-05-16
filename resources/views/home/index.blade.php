@@ -11,8 +11,8 @@
                     <div class="small_text animated">Selamat Datang</div>
                     <div class="medium_text animated">di web</div>
                     <div class="banner_btn" style="margin-top: 10px;margin-bottom: 10px;">
-                        <a class="theam_btn animated" href="#">MAGMA Indonesia</a>
-                        <a class="theam_btn animated" href="#">Portal MGB</a>
+                        <a class="theam_btn animated" style="background: #293d50; color: #fff" href="https://magma.vsi.esdm.go.id">MAGMA Indonesia</a>
+                        <a class="theam_btn animated" style="background: #293d50; color: #fff" href="">Portal MGB</a>
                     </div>
                     <div class="banner_search_form">
                         <label>Cari artikel</label>
@@ -62,7 +62,7 @@
                 <li>
                     <div class="city_service_text">
                         <span><i class="fa fa-map"></i></span>
-                        <h5><a href="#">MAGMA Indonesia</a></h5>
+                        <h5><a href="https://magma.vsi.esdm.go.id">MAGMA Indonesia</a></h5>
                     </div>
                 </li>
                 <!-- <li>

@@ -91,7 +91,9 @@
             />
             <div
                 style="margin-top: 10px"
-                v-if="JSON.parse(retrieve)?.files?.length > 0"
+                v-if="
+                    JSON.parse(retrieve)?.files?.length > 0 && !retrieve?.maps
+                "
             >
                 <a-button
                     style="margin-bottom: 5px"
@@ -208,9 +210,7 @@ Vue.use(SocialSharing);
 import helper from "../../utils/helper";
 export default {
     props: ["retrieve"],
-    mounted() {
-        console.log(this.retrieve);
-    },
+
     methods: {
         convertDate(date) {
             return moment(date).format("DD MMM YYYY HH:mm:ss");
