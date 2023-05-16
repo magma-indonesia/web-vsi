@@ -208,6 +208,9 @@ Vue.use(SocialSharing);
 import helper from "../../utils/helper";
 export default {
     props: ["retrieve"],
+    mounted() {
+        console.log(this.retrieve);
+    },
     methods: {
         convertDate(date) {
             return moment(date).format("DD MMM YYYY HH:mm:ss");

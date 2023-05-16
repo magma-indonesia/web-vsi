@@ -16,7 +16,8 @@ class PressRelease extends Model
 
     protected function getFilesAttribute()
     {
-        return PressReleaseFile::select('press_release_files.type', 'files.*')->join('files', 'files.id', '=', 'press_release_files.file_id')
+        return PressReleaseFile::select('press_release_files.type', 'files.*')
+                                    ->join('files', 'files.id', '=', 'press_release_files.file_id')
                                     ->where('press_release_id', $this->attributes['id'])
                                     ->get();
     }
