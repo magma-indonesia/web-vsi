@@ -950,7 +950,6 @@ export default {
         handleSubmit(e) {
             e.preventDefault();
             this.loading = true;
-            e.preventDefault();
             this.form.validateFields(async (err, values) => {
                 if (!err) {
                     const fd = new FormData();
@@ -1031,7 +1030,8 @@ export default {
                                 this.loading = false;
                                 this.handleClose();
                             })
-                            .catch(() => {
+                            .catch((err) => {
+                                console.log(err);
                                 this.loading = false;
                             });
                     } else {
@@ -1050,6 +1050,7 @@ export default {
                             });
                     }
                 } else {
+                    console.log(err);
                     this.loading = false;
                 }
             });
