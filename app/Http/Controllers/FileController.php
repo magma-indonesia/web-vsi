@@ -24,6 +24,7 @@ class FileController extends Controller
         $loginId = $this->user()->id;
         $employee = User::where('id', $request->user_id)->first();
         $user = empty($employee) ? $this->user() : $employee;
+        $mode = $request->mode ?? 'folder';
         if (($roleSlug == Param::ROLE_SLUG_ADMIN && !empty($employee)) || $roleSlug != Param::ROLE_SLUG_ADMIN) {
             return view('dashboard.upload-center.employee-index', [
                 'contents' => $this->contents,
@@ -41,6 +42,7 @@ class FileController extends Controller
                 'appUrl' => env('APP_URL'),
                 'addUrl' => route('dashboard.upload-center.index', ['user_id' => $loginId]),
                 'detailUrl' => route('dashboard.upload-center.index'),
+                'mode' => $mode,
             ]);
         }
     }

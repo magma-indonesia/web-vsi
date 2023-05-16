@@ -42,7 +42,7 @@ class FileController extends Controller
                             ->where('name', 'like', '%'.$search.'%')
                             ->orWhere('nip', 'like', '%'.$search.'%');
                     })
-                    ->orderBy('nip', 'asc')
+                    ->orderBy('name', 'asc')
                     ->paginate($request->pageSize);
             }
 

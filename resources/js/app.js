@@ -84,6 +84,10 @@ Vue.component(
     require("./components/UploadCenter/TableEmployee.vue").default
 );
 Vue.component(
+    "card-upload-center-employee",
+    require("./components/UploadCenter/CardEmployee.vue").default
+);
+Vue.component(
     "form-upload-center",
     require("./components/UploadCenter/FormUploadCenter.vue").default
 );
