@@ -16,6 +16,10 @@
     </div>
 </div>
 <div class="p-3" id="app">
-    <form-press-release apiurl="{{ env('APP_URL') }}" backurl="{{ route('dashboard.press-release.index') }}"></form-press-release>
+    <form-press-release 
+        apiurl="{{ env('APP_URL') }}" 
+        backurl="{{ route('dashboard.press-release.index') }}"
+        role="{{ auth()->user()->role->id }}"
+    ></form-press-release>
 </div>
 @endsection

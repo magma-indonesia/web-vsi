@@ -22,9 +22,12 @@ class VolcanoBaseController extends Controller
     public function get(Request $request)
     {
         try {
+            $isPublished = $request->query('is_published');
             $name = $request->query('name');
             $data = VolcanoBase::when($name, function ($query) use ($name) {
                 return $query->where('title', 'like', '%' . $name . '%');
+            })->when($isPublished, function ($query) {
+                return $query->where('status', 1);
             })->orderBy("created_at", "desc")
             ->paginate($request->pageSize);
 
@@ -76,9 +79,16 @@ class VolcanoBaseController extends Controller
             }
 
             $n = new VolcanoBase();
-            $n->content = $request->desc;
+            $n->intro = $request->intro;
+            $n->history = $request->history;
+            $n->geology = $request->geology;
+            $n->geophysic = $request->geophysic;
+            $n->geochemistry = $request->geochemistry;
+            $n->disaster_area = $request->disaster_area;
+            $n->reference = $request->reference;
             $n->thumbnail = $request->thumbnail;
             $n->created_at = $request->created_at;
+            $n->status = $request->status;
             $n->created_by = Auth::user()->name;
 
             $title = VolcanoBase::where('route', strtolower(preg_replace('/\s+/', '-', preg_replace('/[^a-zA-Z0-9_ -]/s','',$request->title))))
@@ -163,7 +173,13 @@ class VolcanoBaseController extends Controller
             }
 
             
-            $n->content = $request->desc;
+            $n->intro = $request->intro;
+            $n->history = $request->history;
+            $n->geology = $request->geology;
+            $n->geophysic = $request->geophysic;
+            $n->geochemistry = $request->geochemistry;
+            $n->disaster_area = $request->disaster_area;
+            $n->reference = $request->reference;
             $n->thumbnail = $request->thumbnail;
             $n->created_at = $request->created_at;
             if ($n->title !== $request->title) {

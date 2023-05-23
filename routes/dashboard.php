@@ -190,6 +190,7 @@ Route::prefix('press-release')->middleware('auth')->name('press-release.')->grou
     Route::get('/edit/{id}', [PressReleaseController::class, 'edit'])->name('edit');
     Route::group(['prefix' => 'apis'], function () {
         Route::get('/', [PressReleaseController::class, 'get'])->name('get');
+        Route::get('/files', [PressReleaseController::class, 'files'])->name('files');
         Route::post('/', [PressReleaseController::class, 'store'])->name('save');
         Route::put('/', [PressReleaseController::class, 'update'])->name('update');
         Route::delete('/', [PressReleaseController::class, 'delete'])->name('delete');

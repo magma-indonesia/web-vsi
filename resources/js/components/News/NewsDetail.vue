@@ -85,7 +85,52 @@
                 {{ JSON.parse(retrieve).title || "Untitled" }}
             </div>
 
+            <a-tabs default-active-key="1" v-if="isDataDasar">
+                <a-tab-pane key="1" tab="Intro">
+                    <div
+                        v-html="JSON.parse(retrieve).intro"
+                        style="margin-bottom: 10px; margin-top: 10px"
+                    />
+                </a-tab-pane>
+                <a-tab-pane key="2" tab="Sejarah Letusan">
+                    <div
+                        v-html="JSON.parse(retrieve).history"
+                        style="margin-bottom: 10px; margin-top: 10px"
+                    />
+                </a-tab-pane>
+                <a-tab-pane key="3" tab="Geologi">
+                    <div
+                        v-html="JSON.parse(retrieve).geology"
+                        style="margin-bottom: 10px; margin-top: 10px"
+                    />
+                </a-tab-pane>
+                <a-tab-pane key="4" tab="Geofisika">
+                    <div
+                        v-html="JSON.parse(retrieve).geophysic"
+                        style="margin-bottom: 10px; margin-top: 10px"
+                    />
+                </a-tab-pane>
+                <a-tab-pane key="5" tab="Geokimia">
+                    <div
+                        v-html="JSON.parse(retrieve).geochemistry"
+                        style="margin-bottom: 10px; margin-top: 10px"
+                    />
+                </a-tab-pane>
+                <a-tab-pane key="6" tab="Kawasan Rawan Bencana">
+                    <div
+                        v-html="JSON.parse(retrieve).disaster_area"
+                        style="margin-bottom: 10px; margin-top: 10px"
+                    />
+                </a-tab-pane>
+                <a-tab-pane key="7" tab="Daftar Pustaka">
+                    <div
+                        v-html="JSON.parse(retrieve).reference"
+                        style="margin-bottom: 10px; margin-top: 10px"
+                    />
+                </a-tab-pane>
+            </a-tabs>
             <div
+                v-else
                 v-html="JSON.parse(retrieve).content"
                 style="margin-bottom: 10px; margin-top: 10px"
             />
@@ -213,6 +258,9 @@ export default {
     computed: {
         isPressRelease() {
             return window.location.pathname.indexOf("/press-release") > -1;
+        },
+        isDataDasar() {
+            return window.location.pathname.indexOf("/data-dasar") > -1;
         },
     },
     methods: {

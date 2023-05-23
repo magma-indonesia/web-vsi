@@ -113,6 +113,7 @@ class PressReleaseController extends Controller
                     $file->path = $filePath.'/'.$fileName;
                     $file->label = $request->label;
                     $file->notes = $request['document-notes-'.$i];
+                    $file->is_press_release = 1;
                     $file->save();
                     
                     $pFile = new PressReleaseFile();
@@ -173,6 +174,7 @@ class PressReleaseController extends Controller
                     $file->path = $filePath.'/'.$fileName;
                     $file->label = $request->label;
                     $file->notes = $request['map-notes-'.$i];
+                    $file->is_press_release = 1;
                     $file->save();
                     
                     $pFile = new PressReleaseFile();
@@ -233,6 +235,7 @@ class PressReleaseController extends Controller
                     $file->path = $filePath.'/'.$fileName;
                     $file->label = $request->label;
                     $file->notes = $request['thumbnail-notes-'.$i];
+                    $file->is_press_release = 1;
                     $file->save();
                     
                     $pFile = new PressReleaseFile();
@@ -286,9 +289,47 @@ class PressReleaseController extends Controller
 
             $n->save();
             
-            $this->uploadDocument($request, $n->id);
-            $this->uploadMap($request, $n->id);
-            $this->uploadThumbnail($request, $n->id);
+            if ($request->is_manual_document == '2') {
+                $this->uploadDocument($request, $n->id);
+            } else {
+                if ($request->count_document_media > 0) {
+                    for ($i=0;$i<$request->count_document_media;$i++) {                            
+                        $pFile = new PressReleaseFile();
+                        $pFile->type = 1;
+                        $pFile->press_release_id = $n->id;
+                        $pFile->file_id = $request['document-media-'.$i];
+                        $pFile->save();
+                    }
+                }
+            }
+
+            if ($request->is_manual_map == '2') {
+                $this->uploadMap($request, $n->id);
+            } else {
+                if ($request->count_map_media > 0) {
+                    for ($i=0;$i<$request->count_map_media;$i++) {                            
+                        $pFile = new PressReleaseFile();
+                        $pFile->type = 2;
+                        $pFile->press_release_id = $n->id;
+                        $pFile->file_id = $request['map-media-'.$i];
+                        $pFile->save();
+                    }
+                }
+            }
+
+            if ($request->is_manual_thumbnail == '2') {
+                $this->uploadThumbnail($request, $n->id);
+            } else {
+                if ($request->count_thumbnail_media > 0) {
+                    for ($i=0;$i<$request->count_thumbnail_media;$i++) {                            
+                        $pFile = new PressReleaseFile();
+                        $pFile->type = 3;
+                        $pFile->press_release_id = $n->id;
+                        $pFile->file_id = $request['thumbnail-media-'.$i];
+                        $pFile->save();
+                    }
+                }
+            }
 
             $categories = explode(',', $request->categories);
             foreach ($categories as $cat) {
@@ -443,9 +484,47 @@ class PressReleaseController extends Controller
                 }
             }
 
-            $this->uploadDocument($request, $n->id);
-            $this->uploadMap($request, $n->id);
-            $this->uploadThumbnail($request, $n->id);
+            if ($request->is_manual_document == '2') {
+                $this->uploadDocument($request, $n->id);
+            } else {
+                if ($request->count_document_media > 0) {
+                    for ($i=0;$i<$request->count_document_media;$i++) {                            
+                        $pFile = new PressReleaseFile();
+                        $pFile->type = 1;
+                        $pFile->press_release_id = $n->id;
+                        $pFile->file_id = $request['document-media-'.$i];
+                        $pFile->save();
+                    }
+                }
+            }
+
+            if ($request->is_manual_map == '2') {
+                $this->uploadMap($request, $n->id);
+            } else {
+                if ($request->count_map_media > 0) {
+                    for ($i=0;$i<$request->count_map_media;$i++) {                            
+                        $pFile = new PressReleaseFile();
+                        $pFile->type = 2;
+                        $pFile->press_release_id = $n->id;
+                        $pFile->file_id = $request['map-media-'.$i];
+                        $pFile->save();
+                    }
+                }
+            }
+
+            if ($request->is_manual_thumbnail == '2') {
+                $this->uploadThumbnail($request, $n->id);
+            } else {
+                if ($request->count_thumbnail_media > 0) {
+                    for ($i=0;$i<$request->count_thumbnail_media;$i++) {                            
+                        $pFile = new PressReleaseFile();
+                        $pFile->type = 3;
+                        $pFile->press_release_id = $n->id;
+                        $pFile->file_id = $request['thumbnail-media-'.$i];
+                        $pFile->save();
+                    }
+                }
+            }
 
             $categories = explode(',', $request->categories);
             if (count($categories) > 0) {
@@ -504,6 +583,32 @@ class PressReleaseController extends Controller
             ], 200);
         } catch (\Throwable $e) {
             DB::rollBack();
+            return response()->json([
+                'message' => $e->getMessage(),
+                'serve' => [],
+            ], 500);
+        }
+    }
+
+    public function files(Request $request)
+    {
+        try {
+            $extension = $request->query('ext');
+            $name = $request->query('name');
+            $user_id = $request->query('user_id');
+            $data = File::when($name, function ($query) use ($name) {
+                            return $query->where('name', 'like', '%' . $name . '%');
+                        })->when($user_id, function ($query) {
+                            return $query->where('user_id', Auth::user()->id);
+                        })->whereIn(DB::raw("SUBSTRING_INDEX(name,'.',-1)"), explode(",",$extension))
+                        ->orderBy("created_at", "desc")
+                        ->paginate($request->pageSize);
+
+            return response()->json([
+                'message' => '',
+                'serve' => $data,
+            ], 200);
+        } catch (\Throwable $e) {
             return response()->json([
                 'message' => $e->getMessage(),
                 'serve' => [],

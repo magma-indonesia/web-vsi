@@ -32,11 +32,98 @@
                     ]"
                 />
             </a-form-item>
-            <a-form-item label="Konten">
+            <a-collapse
+                style="margin-bottom: 10px"
+                v-if="category == '1'"
+                :activeKey="tabKey"
+                @change="callback"
+                :bordered="false"
+            >
+                <a-collapse-panel key="1" header="Intro">
+                    <a-form-item label="Konten">
+                        <tiny-mce
+                            :key="'intro'"
+                            @change="handleChangeTiny($event, 'intro')"
+                            :value.sync="intro"
+                            :apiurl="apiurl"
+                            :type="'intro'"
+                        ></tiny-mce>
+                    </a-form-item>
+                </a-collapse-panel>
+                <a-collapse-panel key="2" header="Sejarah Letusan">
+                    <a-form-item label="Konten">
+                        <tiny-mce
+                            @change="handleChangeTiny($event, 'history')"
+                            :value.sync="history"
+                            :apiurl="apiurl"
+                            :type="'history'"
+                            :key="'history'"
+                        ></tiny-mce>
+                    </a-form-item>
+                </a-collapse-panel>
+                <a-collapse-panel key="3" header="Geologi">
+                    <a-form-item label="Konten">
+                        <tiny-mce
+                            @change="handleChangeTiny($event, 'geology')"
+                            :value.sync="geology"
+                            :apiurl="apiurl"
+                            :type="'geology'"
+                            :key="'geology'"
+                        ></tiny-mce>
+                    </a-form-item>
+                </a-collapse-panel>
+                <a-collapse-panel key="4" header="Geofisika">
+                    <a-form-item label="Konten">
+                        <tiny-mce
+                            @change="handleChangeTiny($event, 'geophysic')"
+                            :value.sync="geophysic"
+                            :apiurl="apiurl"
+                            :type="'geophysic'"
+                            :key="'geophysic'"
+                        ></tiny-mce>
+                    </a-form-item>
+                </a-collapse-panel>
+                <a-collapse-panel key="5" header="Geokimia">
+                    <a-form-item label="Konten">
+                        <tiny-mce
+                            @change="handleChangeTiny($event, 'geochemistry')"
+                            :value.sync="geochemistry"
+                            :apiurl="apiurl"
+                            :type="'geochemistry'"
+                            :key="'geochemistry'"
+                        ></tiny-mce>
+                    </a-form-item>
+                </a-collapse-panel>
+                <a-collapse-panel key="6" header="Kawasan Rawan Bencana">
+                    <a-form-item label="Konten">
+                        <tiny-mce
+                            @change="handleChangeTiny($event, 'disaster_area')"
+                            :value.sync="disaster_area"
+                            :apiurl="apiurl"
+                            :type="'disaster_area'"
+                            :key="'disaster_area'"
+                        ></tiny-mce>
+                    </a-form-item>
+                </a-collapse-panel>
+                <a-collapse-panel key="7" header="Daftar Pustaka">
+                    <a-form-item label="Konten">
+                        <tiny-mce
+                            @change="handleChangeTiny($event, 'reference')"
+                            :value.sync="reference"
+                            :apiurl="apiurl"
+                            :type="'reference'"
+                            :key="'reference'"
+                        ></tiny-mce>
+                    </a-form-item>
+                </a-collapse-panel>
+            </a-collapse>
+            <a-form-item label="Konten" v-else>
                 <tiny-mce
                     @change="handleChangeTiny($event)"
                     :value.sync="desc"
                     :apiurl="apiurl"
+                    :type="'desc'"
+                    :key="'desc'"
                 ></tiny-mce>
             </a-form-item>
             <a-form-item label="Thumbnail">
@@ -72,7 +159,7 @@
             <div
                 v-if="category == '1'"
                 style="
-                    margin-bottom: 10px;
+                    margin-bottom: 20px;
                     display: flex;
                     align-items: center;
                     gap: 10px;
@@ -85,6 +172,17 @@
                     {{ files.length }} File PDF diupload
                 </div>
             </div>
+
+            <a-form-item
+                v-if="category == '1'"
+                label="Apakah Data Dasar akan dipublikasikan langsung?"
+            >
+                <a-radio-group v-decorator="['status']">
+                    <a-radio value="1">Ya, segera publikasikan</a-radio>
+                    <a-radio value="0">Tidak, simpan sebagai draft</a-radio>
+                </a-radio-group>
+            </a-form-item>
+
             <a-divider />
             <a-form-item>
                 <a-button
@@ -126,8 +224,16 @@ export default {
             loading: false,
             thumbnail: null,
             desc: null,
+            intro: null,
+            history: null,
+            geology: null,
+            geophysic: null,
+            geochemistry: null,
+            disaster_area: null,
+            reference: null,
             openModal: false,
             files: [],
+            tabKey: "1",
         };
     },
     async created() {
@@ -137,7 +243,18 @@ export default {
         }
 
         this.thumbnail = retrieve?.thumbnail;
-        this.desc = retrieve?.content;
+        if (this.category == "1") {
+            this.intro = retrieve?.intro;
+            this.history = retrieve?.history;
+            this.geology = retrieve?.geology;
+            this.geophysic = retrieve?.geophysic;
+            this.geochemistry = retrieve?.geochemistry;
+            this.disaster_area = retrieve?.disaster_area;
+            this.reference = retrieve?.reference;
+        } else {
+            this.desc = retrieve?.content;
+        }
+
         this.form = this.$form.createForm(this, {
             name: "form-news",
 
@@ -158,8 +275,11 @@ export default {
         });
     },
     methods: {
-        handleChangeTiny(e) {
-            this.desc = e;
+        callback(e) {
+            this.tabKey = e;
+        },
+        handleChangeTiny(e, type) {
+            this[type] = e;
         },
         handleUpload() {
             const input = document.createElement("input");
@@ -200,7 +320,17 @@ export default {
                     };
 
                     postData.thumbnail = this.thumbnail;
-                    postData.desc = this.desc;
+                    if (this.category == "1") {
+                        postData.intro = this.intro;
+                        postData.history = this.history;
+                        postData.geology = this.geology;
+                        postData.geophysic = this.geophysic;
+                        postData.geochemistry = this.geochemistry;
+                        postData.disaster_area = this.disaster_area;
+                        postData.reference = this.reference;
+                    } else {
+                        postData.desc = this.desc;
+                    }
                     postData.news_files = this.files;
                     if (this.retrieve) {
                         let retrieve = await JSON.parse(this.retrieve);

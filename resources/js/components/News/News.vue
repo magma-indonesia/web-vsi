@@ -4,33 +4,30 @@
             <a-skeleton active />
         </div>
         <div v-else>
+            <div style="display: flex; align-items: center">
+                <span style="font-size: 12px">Show</span>
+                <a-select
+                    @change="handlePageSize"
+                    style="width: 80px; margin-left: 10px; margin-right: 10px"
+                    :value="pagination.pageSize"
+                >
+                    <a-select-option value="10">10</a-select-option>
+                    <a-select-option value="60">60</a-select-option>
+                    <a-select-option value="120">120</a-select-option>
+                    <a-select-option value="600">600</a-select-option>
+                </a-select>
+                <span style="font-size: 12px">entries</span>
+                <div style="margin-left: auto">
+                    <a-input-search
+                        @search="handleSearch"
+                        placeholder="Cari data disini..."
+                    ></a-input-search>
+                </div>
+            </div>
             <div
                 v-if="news.length > 0"
                 style="display: flex; flex-direction: column"
             >
-                <div style="display: flex; align-items: center">
-                    <span style="font-size: 12px">Show</span>
-                    <a-select
-                        @change="handlePageSize"
-                        style="
-                            width: 80px;
-                            margin-left: 10px;
-                            margin-right: 10px;
-                        "
-                        :value="pagination.pageSize"
-                    >
-                        <a-select-option value="10">10</a-select-option>
-                        <a-select-option value="60">60</a-select-option>
-                        <a-select-option value="120">120</a-select-option>
-                        <a-select-option value="600">600</a-select-option>
-                    </a-select>
-                    <span style="font-size: 12px">entries</span>
-                    <div style="margin-left: auto">
-                        <a-input-search
-                            placeholder="Cari data disini..."
-                        ></a-input-search>
-                    </div>
-                </div>
                 <a-row
                     :gutter="[12, 12]"
                     style="margin-top: 30px; margin-bottom: 30px"
@@ -174,7 +171,7 @@
                     <div style="font-size: 12px" slot="description">
                         <b>Oops data kosong</b> <br />
                         <span style="color: #8c8c8c">
-                            Data dasar tidak ditemukan.
+                            Data tidak ditemukan.
                         </span>
                     </div>
                 </a-empty>
@@ -230,6 +227,15 @@ export default {
         },
         openImage(item) {
             window.open(item, "_blank");
+        },
+        handleSearch(e) {
+            this.params.name = e;
+            this.fetchData(
+                {
+                    name: e,
+                },
+                this.pagination
+            );
         },
         handlePageChange(page, pageSize) {
             this.pagination.current = page;

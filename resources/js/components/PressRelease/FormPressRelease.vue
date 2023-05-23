@@ -300,72 +300,160 @@
                     Format dokumen yang diterima adalah format PDF dengan ukuran
                     per filenya <b>maksimal 5MB</b>.
                 </div>
-                <div
-                    v-for="(item, index) in countDocument"
-                    :key="index"
-                    style="margin-bottom: 10px"
+                <a-tabs
+                    default-active-key="1"
+                    @change="callback($event, 'document')"
                 >
-                    <div class="flex items-center">
-                        <a-button
-                            type="primary"
-                            icon="upload"
-                            @click="handleUpload(index, 'document')"
-                            >Browse</a-button
+                    <a-tab-pane key="1" tab="Pilih Media">
+                        <div
+                            v-for="(item, index) in countDocumentMedia"
+                            :key="index"
+                            style="margin-bottom: 10px"
                         >
-                        <a-input
-                            :value="
-                                documents.filter((v) => v.index === index)
-                                    .length > 0
-                                    ? documents.filter(
-                                          (v) => v.index === index
-                                      )[0].notes
-                                    : ''
-                            "
-                            @change="
-                                handleChangeNotes($event, index, 'document')
-                            "
-                            :disabled="
-                                documents.filter((v) => v.index === index)
-                                    .length === 0
-                            "
-                            placeholder="(Optional) Keterangan file"
-                        ></a-input>
-                        <a-button
-                            type="primary"
-                            icon="plus"
-                            v-if="index === 0"
-                            @click="handleAddUpload(index + 1, 'document')"
-                        ></a-button>
-                        <a-button
-                            type="danger"
-                            icon="minus"
-                            @click="handleRemoveUpload(index, 'document')"
-                            v-else
-                        ></a-button>
-                    </div>
-                    <div
-                        class="flex items-center gap-10"
-                        style="margin-top: 10px"
-                        v-if="
-                            documents.length > 0 &&
-                            documents.filter((v) => v.index === index).length >
-                                0
-                        "
-                    >
-                        <div style="font-size: 12px">
-                            {{
-                                documents.filter((v) => v.index === index)[0]
-                                    .file.name
-                            }}
+                            <div class="flex items-center">
+                                <a-button
+                                    type="primary"
+                                    icon="select"
+                                    @click="handleSelect(index, 'document')"
+                                    >Pilih</a-button
+                                >
+                                <a-input
+                                    :value="
+                                        documentsMedia.length > 0
+                                            ? documentsMedia[index]?.notes ||
+                                              '-'
+                                            : '-'
+                                    "
+                                    :disabled="true"
+                                ></a-input>
+                                <a-button
+                                    type="primary"
+                                    icon="plus"
+                                    v-if="index === 0"
+                                    @click="
+                                        handleAddUploadMedia(
+                                            index + 1,
+                                            'document'
+                                        )
+                                    "
+                                ></a-button>
+                                <a-button
+                                    type="danger"
+                                    icon="minus"
+                                    @click="
+                                        handleRemoveUploadMedia(
+                                            index,
+                                            'document'
+                                        )
+                                    "
+                                    v-else
+                                ></a-button>
+                            </div>
+                            <div
+                                class="flex items-center gap-10"
+                                style="margin-top: 10px"
+                                v-if="
+                                    documentsMedia.length > 0 &&
+                                    documentsMedia[index]
+                                "
+                            >
+                                <div style="font-size: 12px">
+                                    {{ documentsMedia[index]?.name }}
+                                </div>
+                                <a-button
+                                    @click="
+                                        handleDeleteFileMedia(
+                                            documentsMedia[index]?.id,
+                                            'document'
+                                        )
+                                    "
+                                    type="danger"
+                                    size="small"
+                                    icon="delete"
+                                ></a-button>
+                            </div>
                         </div>
-                        <a-button
-                            @click="handleDeleteFile(index, 'document')"
-                            type="danger"
-                            size="small"
-                            icon="delete"
-                        ></a-button>
-                    </div>
-                </div>
+                    </a-tab-pane>
+                    <a-tab-pane key="2" tab="Upload Manual" force-render>
+                        <div
+                            v-for="(item, index) in countDocument"
+                            :key="index"
+                            style="margin-bottom: 10px"
+                        >
+                            <div class="flex items-center">
+                                <a-button
+                                    type="primary"
+                                    icon="upload"
+                                    @click="handleUpload(index, 'document')"
+                                    >Browse</a-button
+                                >
+                                <a-input
+                                    :value="
+                                        documents.filter(
+                                            (v) => v.index === index
+                                        ).length > 0
+                                            ? documents.filter(
+                                                  (v) => v.index === index
+                                              )[0].notes
+                                            : ''
+                                    "
+                                    @change="
+                                        handleChangeNotes(
+                                            $event,
+                                            index,
+                                            'document'
+                                        )
+                                    "
+                                    :disabled="
+                                        documents.filter(
+                                            (v) => v.index === index
+                                        ).length === 0
+                                    "
+                                    placeholder="(Optional) Keterangan file"
+                                ></a-input>
+                                <a-button
+                                    type="primary"
+                                    icon="plus"
+                                    v-if="index === 0"
+                                    @click="
+                                        handleAddUpload(index + 1, 'document')
+                                    "
+                                ></a-button>
+                                <a-button
+                                    type="danger"
+                                    icon="minus"
+                                    @click="
+                                        handleRemoveUpload(index, 'document')
+                                    "
+                                    v-else
+                                ></a-button>
+                            </div>
+                            <div
+                                class="flex items-center gap-10"
+                                style="margin-top: 10px"
+                                v-if="
+                                    documents.length > 0 &&
+                                    documents.filter((v) => v.index === index)
+                                        .length > 0
+                                "
+                            >
+                                <div style="font-size: 12px">
+                                    {{
+                                        documents.filter(
+                                            (v) => v.index === index
+                                        )[0].file.name
+                                    }}
+                                </div>
+                                <a-button
+                                    @click="handleDeleteFile(index, 'document')"
+                                    type="danger"
+                                    size="small"
+                                    icon="delete"
+                                ></a-button>
+                            </div>
+                        </div>
+                    </a-tab-pane>
+                </a-tabs>
             </a-form-item>
             <a-divider />
             <a-form-item
@@ -404,67 +492,139 @@
                     pemantauan. Format yang diterima adalah format gambar. Per
                     file <b>maksimal 3MB</b>.
                 </div>
-                <div
-                    v-for="(item, index) in countPeta"
-                    :key="index"
-                    style="margin-bottom: 10px"
+                <a-tabs
+                    default-active-key="1"
+                    @change="callback($event, 'peta')"
                 >
-                    <div class="flex items-center">
-                        <a-button
-                            type="primary"
-                            icon="upload"
-                            @click="handleUpload(index, 'peta')"
-                            >Browse</a-button
+                    <a-tab-pane key="1" tab="Pilih Media">
+                        <div
+                            v-for="(item, index) in countPetaMedia"
+                            :key="index"
+                            style="margin-bottom: 10px"
                         >
-                        <a-input
-                            :value="
-                                maps.filter((v) => v.index === index).length > 0
-                                    ? maps.filter((v) => v.index === index)[0]
-                                          .notes
-                                    : ''
-                            "
-                            @change="handleChangeNotes($event, index, 'peta')"
-                            :disabled="
-                                maps.filter((v) => v.index === index).length ===
-                                0
-                            "
-                            placeholder="(Optional) Keterangan file"
-                        ></a-input>
-                        <a-button
-                            type="primary"
-                            icon="plus"
-                            v-if="index === 0"
-                            @click="handleAddUpload(index + 1, 'peta')"
-                        ></a-button>
-                        <a-button
-                            type="danger"
-                            icon="minus"
-                            @click="handleRemoveUpload(index, 'peta')"
-                            v-else
-                        ></a-button>
-                    </div>
-                    <div
-                        class="flex items-center gap-10"
-                        style="margin-top: 10px"
-                        v-if="
-                            maps.length > 0 &&
-                            maps.filter((v) => v.index === index).length > 0
-                        "
-                    >
-                        <div style="font-size: 12px">
-                            {{
-                                maps.filter((v) => v.index === index)[0].file
-                                    .name
-                            }}
+                            <div class="flex items-center">
+                                <a-button
+                                    type="primary"
+                                    icon="select"
+                                    @click="handleSelect(index, 'peta')"
+                                    >Pilih</a-button
+                                >
+                                <a-input
+                                    :value="
+                                        mapsMedia.length > 0
+                                            ? mapsMedia[index]?.notes || '-'
+                                            : '-'
+                                    "
+                                    :disabled="true"
+                                ></a-input>
+                                <a-button
+                                    type="primary"
+                                    icon="plus"
+                                    v-if="index === 0"
+                                    @click="
+                                        handleAddUploadMedia(index + 1, 'peta')
+                                    "
+                                ></a-button>
+                                <a-button
+                                    type="danger"
+                                    icon="minus"
+                                    @click="
+                                        handleRemoveUploadMedia(index, 'peta')
+                                    "
+                                    v-else
+                                ></a-button>
+                            </div>
+                            <div
+                                class="flex items-center gap-10"
+                                style="margin-top: 10px"
+                                v-if="mapsMedia.length > 0 && mapsMedia[index]"
+                            >
+                                <div style="font-size: 12px">
+                                    {{ mapsMedia[index]?.name }}
+                                </div>
+                                <a-button
+                                    @click="
+                                        handleDeleteFileMedia(
+                                            mapsMedia[index]?.id,
+                                            'peta'
+                                        )
+                                    "
+                                    type="danger"
+                                    size="small"
+                                    icon="delete"
+                                ></a-button>
+                            </div>
                         </div>
-                        <a-button
-                            @click="handleDeleteFile(index, 'peta')"
-                            type="danger"
-                            size="small"
-                            icon="delete"
-                        ></a-button>
-                    </div>
-                </div>
+                    </a-tab-pane>
+                    <a-tab-pane key="2" tab="Upload Manual" force-render>
+                        <div
+                            v-for="(item, index) in countPeta"
+                            :key="index"
+                            style="margin-bottom: 10px"
+                        >
+                            <div class="flex items-center">
+                                <a-button
+                                    type="primary"
+                                    icon="upload"
+                                    @click="handleUpload(index, 'peta')"
+                                    >Browse</a-button
+                                >
+                                <a-input
+                                    :value="
+                                        maps.filter((v) => v.index === index)
+                                            .length > 0
+                                            ? maps.filter(
+                                                  (v) => v.index === index
+                                              )[0].notes
+                                            : ''
+                                    "
+                                    @change="
+                                        handleChangeNotes($event, index, 'peta')
+                                    "
+                                    :disabled="
+                                        maps.filter((v) => v.index === index)
+                                            .length === 0
+                                    "
+                                    placeholder="(Optional) Keterangan file"
+                                ></a-input>
+                                <a-button
+                                    type="primary"
+                                    icon="plus"
+                                    v-if="index === 0"
+                                    @click="handleAddUpload(index + 1, 'peta')"
+                                ></a-button>
+                                <a-button
+                                    type="danger"
+                                    icon="minus"
+                                    @click="handleRemoveUpload(index, 'peta')"
+                                    v-else
+                                ></a-button>
+                            </div>
+                            <div
+                                class="flex items-center gap-10"
+                                style="margin-top: 10px"
+                                v-if="
+                                    maps.length > 0 &&
+                                    maps.filter((v) => v.index === index)
+                                        .length > 0
+                                "
+                            >
+                                <div style="font-size: 12px">
+                                    {{
+                                        maps.filter((v) => v.index === index)[0]
+                                            .file.name
+                                    }}
+                                </div>
+                                <a-button
+                                    @click="handleDeleteFile(index, 'peta')"
+                                    type="danger"
+                                    size="small"
+                                    icon="delete"
+                                ></a-button>
+                            </div>
+                        </div>
+                    </a-tab-pane>
+                </a-tabs>
             </a-form-item>
             <a-divider />
             <a-form-item label="Hapus Foto/Gambar" v-if="retrieve">
@@ -499,72 +659,162 @@
                     Publikasi lainnya. Format yang diterima adalah format
                     gambar. Per file <b>maksimal 3MB</b>.
                 </div>
-                <div
-                    v-for="(item, index) in countThumbnail"
-                    :key="index"
-                    style="margin-bottom: 10px"
+                <a-tabs
+                    default-active-key="1"
+                    @change="callback($event, 'thumbnail')"
                 >
-                    <div class="flex items-center">
-                        <a-button
-                            type="primary"
-                            icon="upload"
-                            @click="handleUpload(index, 'thumbnail')"
-                            >Browse</a-button
+                    <a-tab-pane key="1" tab="Pilih Media">
+                        <div
+                            v-for="(item, index) in countThumbnailMedia"
+                            :key="index"
+                            style="margin-bottom: 10px"
                         >
-                        <a-input
-                            :value="
-                                thumbnails.filter((v) => v.index === index)
-                                    .length > 0
-                                    ? thumbnails.filter(
-                                          (v) => v.index === index
-                                      )[0].notes
-                                    : ''
-                            "
-                            @change="
-                                handleChangeNotes($event, index, 'thumbnail')
-                            "
-                            :disabled="
-                                thumbnails.filter((v) => v.index === index)
-                                    .length === 0
-                            "
-                            placeholder="(Optional) Keterangan file"
-                        ></a-input>
-                        <a-button
-                            type="primary"
-                            icon="plus"
-                            v-if="index === 0"
-                            @click="handleAddUpload(index + 1, 'thumbnail')"
-                        ></a-button>
-                        <a-button
-                            type="danger"
-                            icon="minus"
-                            @click="handleRemoveUpload(index, 'thumbnail')"
-                            v-else
-                        ></a-button>
-                    </div>
-                    <div
-                        class="flex items-center gap-10"
-                        style="margin-top: 10px"
-                        v-if="
-                            thumbnails.length > 0 &&
-                            thumbnails.filter((v) => v.index === index).length >
-                                0
-                        "
-                    >
-                        <div style="font-size: 12px">
-                            {{
-                                thumbnails.filter((v) => v.index === index)[0]
-                                    .file.name
-                            }}
+                            <div class="flex items-center">
+                                <a-button
+                                    type="primary"
+                                    icon="select"
+                                    @click="handleSelect(index, 'thumbnail')"
+                                    >Pilih</a-button
+                                >
+                                <a-input
+                                    :value="
+                                        thumbnailsMedia.length > 0
+                                            ? thumbnailsMedia[index]?.notes ||
+                                              '-'
+                                            : '-'
+                                    "
+                                    :disabled="true"
+                                ></a-input>
+                                <a-button
+                                    type="primary"
+                                    icon="plus"
+                                    v-if="index === 0"
+                                    @click="
+                                        handleAddUploadMedia(
+                                            index + 1,
+                                            'thumbnail'
+                                        )
+                                    "
+                                ></a-button>
+                                <a-button
+                                    type="danger"
+                                    icon="minus"
+                                    @click="
+                                        handleRemoveUploadMedia(
+                                            index,
+                                            'thumbnail'
+                                        )
+                                    "
+                                    v-else
+                                ></a-button>
+                            </div>
+                            <div
+                                class="flex items-center gap-10"
+                                style="margin-top: 10px"
+                                v-if="
+                                    thumbnailsMedia.length > 0 &&
+                                    thumbnailsMedia[index]
+                                "
+                            >
+                                <div style="font-size: 12px">
+                                    {{ thumbnailsMedia[index]?.name }}
+                                </div>
+                                <a-button
+                                    @click="
+                                        handleDeleteFileMedia(
+                                            thumbnailsMedia[index]?.id,
+                                            'thumbnail'
+                                        )
+                                    "
+                                    type="danger"
+                                    size="small"
+                                    icon="delete"
+                                ></a-button>
+                            </div>
                         </div>
-                        <a-button
-                            @click="handleDeleteFile(index, 'thumbnail')"
-                            type="danger"
-                            size="small"
-                            icon="delete"
-                        ></a-button>
-                    </div>
-                </div>
+                    </a-tab-pane>
+                    <a-tab-pane key="2" tab="Upload Manual" force-render>
+                        <div
+                            v-for="(item, index) in countThumbnail"
+                            :key="index"
+                            style="margin-bottom: 10px"
+                        >
+                            <div class="flex items-center">
+                                <a-button
+                                    type="primary"
+                                    icon="upload"
+                                    @click="handleUpload(index, 'thumbnail')"
+                                    >Browse</a-button
+                                >
+                                <a-input
+                                    :value="
+                                        thumbnails.filter(
+                                            (v) => v.index === index
+                                        ).length > 0
+                                            ? thumbnails.filter(
+                                                  (v) => v.index === index
+                                              )[0].notes
+                                            : ''
+                                    "
+                                    @change="
+                                        handleChangeNotes(
+                                            $event,
+                                            index,
+                                            'thumbnail'
+                                        )
+                                    "
+                                    :disabled="
+                                        thumbnails.filter(
+                                            (v) => v.index === index
+                                        ).length === 0
+                                    "
+                                    placeholder="(Optional) Keterangan file"
+                                ></a-input>
+                                <a-button
+                                    type="primary"
+                                    icon="plus"
+                                    v-if="index === 0"
+                                    @click="
+                                        handleAddUpload(index + 1, 'thumbnail')
+                                    "
+                                ></a-button>
+                                <a-button
+                                    type="danger"
+                                    icon="minus"
+                                    @click="
+                                        handleRemoveUpload(index, 'thumbnail')
+                                    "
+                                    v-else
+                                ></a-button>
+                            </div>
+                            <div
+                                class="flex items-center gap-10"
+                                style="margin-top: 10px"
+                                v-if="
+                                    thumbnails.length > 0 &&
+                                    thumbnails.filter((v) => v.index === index)
+                                        .length > 0
+                                "
+                            >
+                                <div style="font-size: 12px">
+                                    {{
+                                        thumbnails.filter(
+                                            (v) => v.index === index
+                                        )[0].file.name
+                                    }}
+                                </div>
+                                <a-button
+                                    @click="
+                                        handleDeleteFile(index, 'thumbnail')
+                                    "
+                                    type="danger"
+                                    size="small"
+                                    icon="delete"
+                                ></a-button>
+                            </div>
+                        </div>
+                    </a-tab-pane>
+                </a-tabs>
             </a-form-item>
         </a-card>
         <a-card style="margin-top: 20px">
@@ -585,6 +835,7 @@
                     @change="handleChangeTiny($event)"
                     :value.sync="desc"
                     :apiurl="apiurl"
+                    :type="'press-release'"
                 ></tiny-mce>
             </a-form-item>
         </a-card>
@@ -662,6 +913,21 @@
                 :pressrelease="true"
             />
         </a-modal>
+        <a-modal
+            @cancel="handleCloseModalFile(null)"
+            v-model="openModalFile"
+            title="Pilih file"
+            :footer="false"
+            width="90%"
+        >
+            <card-files
+                @close="handleCloseModalFile"
+                :index.sync="modalIndex"
+                :type.sync="modalType"
+                :apiurl="apiurl"
+                :role="role"
+            />
+        </a-modal>
     </a-form>
 </template>
 
@@ -673,10 +939,18 @@ import FormTag from "../UploadCenter/FormTag.vue";
 import TableDocument from "./TableDocument.vue";
 import TableMaps from "./TableMaps.vue";
 import TableThumbnail from "./TableThumbnail.vue";
+import CardFiles from "./CardFiles.vue";
 
 export default {
-    components: { TinyMce, FormTag, TableDocument, TableMaps, TableThumbnail },
-    props: ["apiurl", "backurl", "retrieve", "category"],
+    components: {
+        TinyMce,
+        FormTag,
+        TableDocument,
+        TableMaps,
+        TableThumbnail,
+        CardFiles,
+    },
+    props: ["apiurl", "backurl", "retrieve", "category", "role"],
     data() {
         return {
             formLayout: "vertical",
@@ -684,17 +958,29 @@ export default {
             loading: false,
             desc: null,
             openModalTag: false,
+            openModalFile: false,
+            modalIndex: "",
+            modalType: "",
             files: [],
             showMount: false,
             showOther: false,
             mountains: [],
             tags: [],
             countDocument: [1],
+            countDocumentMedia: [1],
             countPeta: [1],
+            countPetaMedia: [1],
             countThumbnail: [1],
+            countThumbnailMedia: [1],
             documents: [],
+            documentsMedia: [],
             maps: [],
+            mapsMedia: [],
             thumbnails: [],
+            thumbnailsMedia: [],
+            isManualDocument: 1,
+            isManualMaps: 1,
+            isManualThumbnails: 1,
         };
     },
     async created() {
@@ -792,6 +1078,19 @@ export default {
         this.fetchTags();
     },
     methods: {
+        callback(key, type) {
+            if (type === "document") {
+                this.isManualDocument = key;
+            }
+
+            if (type === "peta") {
+                this.isManualMaps = key;
+            }
+
+            if (type === "thumbnail") {
+                this.isManualThumbnails = key;
+            }
+        },
         fetchMountain() {
             axios.get(`${this.apiurl}/api/mountain`).then((res) => {
                 if (res) {
@@ -829,6 +1128,20 @@ export default {
             this.openModalTag = false;
             this.fetchTags();
         },
+        handleCloseModalFile(e) {
+            if (this.modalType === "document" && e) {
+                this.documentsMedia.push(e);
+            }
+            if (this.modalType === "peta" && e) {
+                this.mapsMedia.push(e);
+            }
+            if (this.modalType === "thumbnail" && e) {
+                this.thumbnailsMedia.push(e);
+            }
+            this.modalIndex = "";
+            this.modalType = "";
+            this.openModalFile = false;
+        },
         handleClose() {
             window.location.href = this.backurl;
         },
@@ -849,6 +1162,25 @@ export default {
                 const dirtyCountThumbnail = this.countThumbnail;
                 dirtyCountThumbnail.push(index);
                 this.countThumbnail = dirtyCountThumbnail;
+            }
+        },
+        handleAddUploadMedia(index, type) {
+            if (type === "document") {
+                const dirtyCountDoc = this.countDocumentMedia;
+                dirtyCountDoc.push(index);
+                this.countDocumentMedia = dirtyCountDoc;
+            }
+
+            if (type === "peta") {
+                const dirtyCountPeta = this.countPetaMedia;
+                dirtyCountPeta.push(index);
+                this.countPetaMedia = dirtyCountPeta;
+            }
+
+            if (type === "thumbnail") {
+                const dirtyCountThumbnail = this.countThumbnailMedia;
+                dirtyCountThumbnail.push(index);
+                this.countThumbnailMedia = dirtyCountThumbnail;
             }
         },
         handleRemoveUpload(index, type) {
@@ -873,10 +1205,32 @@ export default {
                 this.handleDeleteFile(index, type);
             }
         },
+        handleRemoveUploadMedia(index, type) {
+            if (type === "document") {
+                const dirtyCountDoc = this.countDocumentMedia;
+                dirtyCountDoc.splice(index, 1);
+                this.countDocumentMedia = dirtyCountDoc;
+                this.handleDeleteFileMedia(index, type);
+            }
+
+            if (type === "peta") {
+                const dirtyCountPeta = this.countPetaMedia;
+                dirtyCountPeta.splice(index, 1);
+                this.countPetaMedia = dirtyCountPeta;
+                this.handleDeleteFileMedia(index, type);
+            }
+
+            if (type === "thumbnail") {
+                const dirtyCountThumbnail = this.countThumbnailMedia;
+                dirtyCountThumbnail.splice(index, 1);
+                this.countThumbnailMedia = dirtyCountThumbnail;
+                this.handleDeleteFileMedia(index, type);
+            }
+        },
         handleUpload(index, type) {
             const input = document.createElement("input");
             input.type = "file";
-            input.accept = type === "document" ? "application/pdf" : "images/*";
+            input.accept = type === "document" ? "application/pdf" : "image/*";
             input.onchange = (e) => {
                 const file = e.target.files[0];
                 const sizeFile = type === "document" ? 5000000 : 3000000;
@@ -927,6 +1281,23 @@ export default {
                     (v) => v.index !== i
                 );
                 this.thumbnails = dirtyThumbnail;
+            }
+        },
+        handleDeleteFileMedia(i, type) {
+            if (type === "document") {
+                const dirtyDoc = this.documentsMedia.filter((v) => v.id !== i);
+                this.documentsMedia = dirtyDoc;
+            }
+            if (type === "peta") {
+                const dirtyPeta = this.mapsMedia.filter((v) => v.id !== i);
+                this.mapsMedia = dirtyPeta;
+            }
+
+            if (type === "thumbnail") {
+                const dirtyThumbnail = this.thumbnailsMedia.filter(
+                    (v) => v.id !== i
+                );
+                this.thumbnailsMedia = dirtyThumbnail;
             }
         },
         handleChangeNotes(e, i, type) {
@@ -983,7 +1354,15 @@ export default {
                             fd.append("document-notes-" + i, v.notes);
                         });
                     }
-
+                    fd.append(
+                        "count_document_media",
+                        this.documentsMedia.length
+                    );
+                    if (this.documentsMedia.length > 0) {
+                        this.documentsMedia.map((v, i) => {
+                            fd.append("document-media-" + i, v.id);
+                        });
+                    }
                     fd.append("count_map", this.maps.length);
                     if (this.maps.length > 0) {
                         this.maps.map((v, i) => {
@@ -991,7 +1370,12 @@ export default {
                             fd.append("map-notes-" + i, v.notes);
                         });
                     }
-
+                    fd.append("count_map_media", this.mapsMedia.length);
+                    if (this.mapsMedia.length > 0) {
+                        this.mapsMedia.map((v, i) => {
+                            fd.append("map-media-" + i, v.id);
+                        });
+                    }
                     fd.append("count_thumbnail", this.thumbnails.length);
                     if (this.thumbnails.length > 0) {
                         this.thumbnails.map((v, i) => {
@@ -999,9 +1383,22 @@ export default {
                             fd.append("thumbnail-notes-" + i, v.notes);
                         });
                     }
-
+                    fd.append(
+                        "count_thumbnail_media",
+                        this.thumbnailsMedia.length
+                    );
+                    if (this.thumbnailsMedia.length > 0) {
+                        this.thumbnailsMedia.map((v, i) => {
+                            fd.append("thumbnail-media-" + i, v.id);
+                        });
+                    }
+                    fd.append("is_manual_document", this.isManualDocument);
+                    fd.append("is_manual_map", this.isManualMaps);
+                    fd.append("is_manual_thumbnail", this.isManualThumbnails);
                     fd.append("desc", this.desc ?? "");
                     fd.append("status", values.status ?? 0);
+
+                    fd.append("maps_media", this.documentsMedia);
 
                     if (this.retrieve) {
                         let retrieve = await JSON.parse(this.retrieve);
@@ -1064,6 +1461,11 @@ export default {
                     this.loading = false;
                 }
             });
+        },
+        handleSelect(index, type) {
+            this.modalIndex = index;
+            this.modalType = type;
+            this.openModalFile = true;
         },
     },
 };

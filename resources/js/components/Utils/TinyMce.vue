@@ -20,7 +20,7 @@ export default {
             config: {},
         };
     },
-    mounted() {
+    created() {
         const current = this;
         this.config = {
             path_absolute: "/",

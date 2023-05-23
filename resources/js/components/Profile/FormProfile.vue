@@ -20,6 +20,7 @@
                 @change="handleChangeTiny($event)"
                 :value.sync="description"
                 :apiurl="apiurl"
+                :type="'profile'"
             ></tiny-mce>
         </a-form-item>
         <!-- <a-form-item label="Thumbnail">
@@ -156,7 +157,10 @@ export default {
                         let retrieve = await JSON.parse(this.retrieve);
                         postData.id = retrieve.id;
                         axios
-                            .put(`${this.apiurl}/dashboard/api/profile`, postData)
+                            .put(
+                                `${this.apiurl}/dashboard/api/profile`,
+                                postData
+                            )
                             .then(() => {
                                 this.form.resetFields();
                                 this.loading = false;
@@ -167,7 +171,10 @@ export default {
                             });
                     } else {
                         axios
-                            .post(`${this.apiurl}/dashboard/api/profile`, postData)
+                            .post(
+                                `${this.apiurl}/dashboard/api/profile`,
+                                postData
+                            )
                             .then(() => {
                                 this.form.resetFields();
                                 this.loading = false;

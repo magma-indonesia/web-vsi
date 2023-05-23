@@ -20,6 +20,7 @@
                 @change="handleChangeTiny($event)"
                 :value.sync="description"
                 :apiurl="apiurl"
+                :type="'desc'"
             ></tiny-mce>
         </a-form-item>
         <!-- <a-form-item label="Waktu" :hasFeedback="true">
@@ -173,7 +174,10 @@ export default {
                         let retrieve = await JSON.parse(this.retrieve);
                         postData.id = retrieve.id;
                         axios
-                            .put(`${this.apiurl}/dashboard/api/gerakan-tanah`, postData)
+                            .put(
+                                `${this.apiurl}/dashboard/api/gerakan-tanah`,
+                                postData
+                            )
                             .then(() => {
                                 this.form.resetFields();
                                 this.loading = false;
@@ -184,7 +188,10 @@ export default {
                             });
                     } else {
                         axios
-                            .post(`${this.apiurl}/dashboard/api/gerakan-tanah`, postData)
+                            .post(
+                                `${this.apiurl}/dashboard/api/gerakan-tanah`,
+                                postData
+                            )
                             .then(() => {
                                 this.form.resetFields();
                                 this.loading = false;

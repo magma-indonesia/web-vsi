@@ -88,7 +88,6 @@ class LandingController extends Controller
         });
 
         $statusGunung = [];
-
         if (env('USE_REDIS') == '1') {
             $cachedStatusGunung = Redis::get('statusGunung');
             if(isset($cachedStatusGunung)) {
