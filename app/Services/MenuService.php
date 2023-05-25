@@ -211,7 +211,7 @@ class MenuService
                         ],
                     ],
                     [
-                        'icon' => 'map',
+                        'icon' => 'hash',
                         'label' => 'Peta ZKGT',
                         'link' => '#',
                         'policies' => [
@@ -311,13 +311,13 @@ class MenuService
                         ],
                     ],
                     [
-                        'icon' => 'users',
+                        'icon' => 'hash',
                         'label' => 'Kerja Sama',
                         'link' => [
                             [
                                 'icon' => '',
                                 'label' => 'Informasi Kerja Sama',
-                                'link' => route('dashboard.layanan-publik.kerja-sama.informasi'),
+                                'link' => '#', // route('dashboard.layanan-publik.kerja-sama.informasi'),
                                 'policies' => [
                                     Param::MANAGE_PUBLIC_SERVICE_COLLABORATION_INFORMATION_POLICY
                                 ],

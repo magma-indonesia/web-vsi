@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Role;
+use App\Param;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
@@ -22,6 +23,7 @@ class RoleController extends Controller
             $search = $request->query('search');
 
             $data = Role::query()
+                ->where('slug', '!=', Param::ROLE_SLUG_ADMIN)
                 ->when($search, function ($query) use ($search) {
                     $query
                         ->where('name', 'like', '%'.$search.'%');
@@ -64,7 +66,7 @@ class RoleController extends Controller
                     'description.required' => 'Deskripsi harus diisi',
                 ]
             );
-           
+
             if ($validator->fails()) {
                 return response()->json([
                     'message' => $validator->errors()->first(),
@@ -86,6 +88,7 @@ class RoleController extends Controller
             ], 200);
         } catch (Throwable $e) {
             DB::rollBack();
+
             return response()->json([
                 'message' => $e->getMessage(),
                 'serve' => [],
@@ -128,9 +131,10 @@ class RoleController extends Controller
                     'description.required' => 'Deskripsi harus diisi',
                 ]
             );
-           
+
             if ($validator->fails()) {
                 DB::commit();
+
                 return response()->json([
                     'message' => $validator->errors()->first(),
                     'serve' => []
@@ -144,7 +148,7 @@ class RoleController extends Controller
                     'serve' => []
                 ], 400);
             }
-            
+
             $role->name = $request->name;
             $role->slug = $request->slug;
             $role->description = $request->description;
@@ -158,6 +162,7 @@ class RoleController extends Controller
             ], 200);
         } catch (Throwable $e) {
             DB::rollBack();
+
             return response()->json([
                 'message' => $e->getMessage(),
                 'serve' => [],
@@ -192,6 +197,7 @@ class RoleController extends Controller
             ], 200);
         } catch (Throwable $e) {
             DB::rollBack();
+
             return response()->json([
                 'message' => $e->getMessage(),
                 'serve' => [],
@@ -218,7 +224,7 @@ class RoleController extends Controller
                     'serve' => []
                 ], 400);
             }
-            
+
             $role->policies = json_encode($policies);
             $role->save();
 
@@ -230,6 +236,7 @@ class RoleController extends Controller
             ], 200);
         } catch (Throwable $e) {
             DB::rollBack();
+
             return response()->json([
                 'message' => $e->getMessage(),
                 'serve' => [],
