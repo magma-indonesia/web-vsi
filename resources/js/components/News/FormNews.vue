@@ -32,25 +32,64 @@
                     ]"
                 />
             </a-form-item>
-            <a-collapse
-                style="margin-bottom: 10px"
-                v-if="category == '1'"
-                :activeKey="tabKey"
-                @change="callback"
-                :bordered="false"
-            >
-                <a-collapse-panel key="1" header="Intro">
+            <div v-if="category == '1'">
+                <a-button-group>
+                    <a-button
+                        :type="tabKey == '1' ? 'primary' : 'text'"
+                        @click="tabKey = '1'"
+                    >
+                        Intro
+                    </a-button>
+                    <a-button
+                        :type="tabKey == '2' ? 'primary' : 'text'"
+                        @click="tabKey = '2'"
+                    >
+                        Sejarah Letusan</a-button
+                    >
+                    <a-button
+                        :type="tabKey == '3' ? 'primary' : 'text'"
+                        @click="tabKey = '3'"
+                    >
+                        Geologi
+                    </a-button>
+                    <a-button
+                        :type="tabKey == '4' ? 'primary' : 'text'"
+                        @click="tabKey = '4'"
+                    >
+                        Geofisika
+                    </a-button>
+                    <a-button
+                        :type="tabKey == '5' ? 'primary' : 'text'"
+                        @click="tabKey = '5'"
+                    >
+                        Geokimia
+                    </a-button>
+                    <a-button
+                        :type="tabKey == '6' ? 'primary' : 'text'"
+                        @click="tabKey = '6'"
+                    >
+                        Kawasan Rawan Bencana
+                    </a-button>
+                    <a-button
+                        :type="tabKey == '7' ? 'primary' : 'text'"
+                        @click="tabKey = '7'"
+                    >
+                        Daftar Pustaka
+                    </a-button>
+                </a-button-group>
+                <a-divider />
+                <div v-show="tabKey == '1'">
                     <a-form-item label="Konten">
                         <tiny-mce
-                            :key="'intro'"
                             @change="handleChangeTiny($event, 'intro')"
                             :value.sync="intro"
                             :apiurl="apiurl"
                             :type="'intro'"
+                            :key="'intro'"
                         ></tiny-mce>
                     </a-form-item>
-                </a-collapse-panel>
-                <a-collapse-panel key="2" header="Sejarah Letusan">
+                </div>
+                <div v-show="tabKey == '2'">
                     <a-form-item label="Konten">
                         <tiny-mce
                             @change="handleChangeTiny($event, 'history')"
@@ -60,8 +99,8 @@
                             :key="'history'"
                         ></tiny-mce>
                     </a-form-item>
-                </a-collapse-panel>
-                <a-collapse-panel key="3" header="Geologi">
+                </div>
+                <div v-show="tabKey == '3'">
                     <a-form-item label="Konten">
                         <tiny-mce
                             @change="handleChangeTiny($event, 'geology')"
@@ -71,8 +110,8 @@
                             :key="'geology'"
                         ></tiny-mce>
                     </a-form-item>
-                </a-collapse-panel>
-                <a-collapse-panel key="4" header="Geofisika">
+                </div>
+                <div v-show="tabKey == '4'">
                     <a-form-item label="Konten">
                         <tiny-mce
                             @change="handleChangeTiny($event, 'geophysic')"
@@ -82,8 +121,8 @@
                             :key="'geophysic'"
                         ></tiny-mce>
                     </a-form-item>
-                </a-collapse-panel>
-                <a-collapse-panel key="5" header="Geokimia">
+                </div>
+                <div v-show="tabKey == '5'">
                     <a-form-item label="Konten">
                         <tiny-mce
                             @change="handleChangeTiny($event, 'geochemistry')"
@@ -93,8 +132,8 @@
                             :key="'geochemistry'"
                         ></tiny-mce>
                     </a-form-item>
-                </a-collapse-panel>
-                <a-collapse-panel key="6" header="Kawasan Rawan Bencana">
+                </div>
+                <div v-show="tabKey == '6'">
                     <a-form-item label="Konten">
                         <tiny-mce
                             @change="handleChangeTiny($event, 'disaster_area')"
@@ -104,8 +143,8 @@
                             :key="'disaster_area'"
                         ></tiny-mce>
                     </a-form-item>
-                </a-collapse-panel>
-                <a-collapse-panel key="7" header="Daftar Pustaka">
+                </div>
+                <div v-show="tabKey == '7'">
                     <a-form-item label="Konten">
                         <tiny-mce
                             @change="handleChangeTiny($event, 'reference')"
@@ -115,8 +154,8 @@
                             :key="'reference'"
                         ></tiny-mce>
                     </a-form-item>
-                </a-collapse-panel>
-            </a-collapse>
+                </div>
+            </div>
             <a-form-item label="Konten" v-else>
                 <tiny-mce
                     @change="handleChangeTiny($event)"
@@ -269,6 +308,10 @@ export default {
                         value: helper.formattedTime(
                             new Date(retrieve?.created_at)
                         ),
+                    }),
+                    status: this.$form.createFormField({
+                        ...retrieve,
+                        value: retrieve?.status?.toString(),
                     }),
                 };
             },

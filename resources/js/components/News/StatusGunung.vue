@@ -28,21 +28,53 @@
                                 gap: 10px;
                             "
                         >
-                            <div class="blob red" v-if="item.level === 4"></div>
                             <div
-                                class="blob orange"
+                                class="blob red circle"
+                                v-if="item.level === 4"
+                            ></div>
+                            <div
+                                class="blob orange circle"
                                 v-if="item.level === 3"
                             ></div>
                             <div
-                                class="blob yellow"
+                                class="blob yellow circle"
                                 v-if="item.level === 2"
                             ></div>
                             <div
-                                class="blob green"
+                                class="blob green circle"
                                 v-if="item.level === 1"
                             ></div>
-
                             G. {{ g }}
+                            <div style="margin-left: auto">
+                                <div
+                                    class="blob red boxs"
+                                    v-if="item.level === 4"
+                                    style="font-size: 10px; font-weight: bold"
+                                >
+                                    AWAS
+                                </div>
+                                <div
+                                    class="blob orange boxs"
+                                    v-if="item.level === 3"
+                                    style="font-size: 10px; font-weight: bold"
+                                >
+                                    SIAGA
+                                </div>
+                                <div
+                                    class="blob yellow boxs"
+                                    v-if="item.level === 2"
+                                    style="font-size: 10px; font-weight: bold"
+                                >
+                                    WASPADA
+                                </div>
+                                <div
+                                    class="blob green boxs"
+                                    v-if="item.level === 1"
+                                    style="font-size: 10px; font-weight: bold"
+                                >
+                                    NORMAL
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -76,18 +108,26 @@ export default {
 <style scoped>
 .blob {
     background: black;
-    border-radius: 50%;
     box-shadow: 0 0 0 0 rgba(0, 0, 0, 1);
     margin: 10px;
-    height: 20px;
-    width: 20px;
+    font-size: 10px;
+    color: #fff;
     transform: scale(1);
     animation: pulse-black 2s infinite;
+    font-weight: bold;
 }
 .blob.red {
     background: rgba(255, 82, 82, 1);
     box-shadow: 0 0 0 0 rgba(255, 82, 82, 1);
     animation: pulse-red 2s infinite;
+}
+.circle {
+    padding: 10px;
+    border-radius: 50%;
+}
+.boxs {
+    padding: 5px;
+    border-radius: 5px;
 }
 @keyframes pulse-red {
     0% {
