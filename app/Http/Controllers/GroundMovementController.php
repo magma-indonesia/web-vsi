@@ -15,9 +15,9 @@ class GroundMovementController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index($category)
     {
-        $category = $request->query('category') ?? Param::GROUND_MOVEMENT_EVENT;
+        $category = $category ?? Param::GROUND_MOVEMENT_EVENT;
         $pageTitle = 'Daftar Kejadian';
         if ($category == Param::GROUND_MOVEMENT_EARLY_WARNING) {
             $pageTitle = 'Peringatan Dini';
@@ -31,7 +31,7 @@ class GroundMovementController extends Controller
             'category' => $category,
             'appUrl' => env('APP_URL'),
             'addUrl' => route('dashboard.gerakan-tanah.create', ['category' => $category]),
-            'editUrl' => route('dashboard.gerakan-tanah.edit', '##ID##') . '?category=' . $category,
+            'editUrl' => route('dashboard.gerakan-tanah.edit', ['category' => $category, 'id' => '##ID##']),
         ]);
     }
 
@@ -40,9 +40,9 @@ class GroundMovementController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Request $request)
+    public function create($category)
     {
-        $category = $request->query('category') ?? Param::GROUND_MOVEMENT_EVENT;
+        $category = $category ?? Param::GROUND_MOVEMENT_EVENT;
         $pageTitle = 'Daftar Kejadian';
         if ($category == Param::GROUND_MOVEMENT_EARLY_WARNING) {
             $pageTitle = 'Peringatan Dini';
@@ -66,7 +66,7 @@ class GroundMovementController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($category, $id)
     {
         $data = GroundMovement::find($id);
         if (!$data) {

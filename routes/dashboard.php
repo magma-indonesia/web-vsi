@@ -16,6 +16,7 @@ use App\Http\Controllers\Api\FileController as ApiFileController;
 use App\Http\Controllers\Api\GroundMovementController as ApiGroundMovementController;
 use App\Http\Controllers\Api\ProfileController as ApiProfileController;
 use App\Http\Controllers\Api\PublicServiceController as ApiPublicServiceController;
+use App\Http\Controllers\Api\RoleController as ApiRoleController;
 use App\Http\Controllers\Api\UserController as ApiUserController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FileController;
@@ -23,6 +24,7 @@ use App\Http\Controllers\GroundMovement\EventController as GroundMovementEventCo
 use App\Http\Controllers\GroundMovementController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PublicServiceController;
+use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -105,237 +107,259 @@ Route::name('admin.')
         )->name('finance.post.get-spd');
     });
 
-// Default routing dashboard
-Route::get('/', [DashboardController::class, 'index'])->name('index');
+Route::group(['middleware' => ['auth']], function () {
+    // Default routing dashboard
+    Route::get('/', [DashboardController::class, 'index'])->name('index');
 
-// Pegawai
-Route::prefix('pegawai')->controller(UserController::class)->group(function () {
-    Route::get('/', 'index')->name('pegawai.index');
-    Route::get('/create', 'create')->name('pegawai.create');
-    Route::get('/{id}/edit', 'edit')->name('pegawai.edit');
-    Route::get('/export', 'export')->name('pegawai.export');
-});
+    // Pegawai
+    Route::prefix('pegawai')->controller(UserController::class)->group(function () {
+        Route::get('/', 'index')->name('pegawai.index');
+        Route::get('/create', 'create')->name('pegawai.create');
+        Route::get('/{id}/edit', 'edit')->name('pegawai.edit');
+        Route::get('/export', 'export')->name('pegawai.export');
+    });
 
-// Layanan Publik
-Route::prefix('layanan-publik')->name('layanan-publik.')->group(function () {
-    $layananPublik = 'dashboard.layanan-publik';
-
-    // Layanan Publik > Kerja Sama > Informasi Kerja Sama
-    Route::prefix('kerja-sama')->name('kerja-sama.')->group(function () use ($layananPublik) {
-        $kerjaSama = "$layananPublik.kerja-sama";
+    // Layanan Publik
+    Route::prefix('layanan-publik')->name('layanan-publik.')->group(function () {
+        $layananPublik = 'dashboard.layanan-publik';
 
         // Layanan Publik > Kerja Sama > Informasi Kerja Sama
-        Route::view(
-            'informasi',
-            "$kerjaSama.informasi.index"
-        )->name('informasi');
-    });
+        Route::prefix('kerja-sama')->name('kerja-sama.')->group(function () use ($layananPublik) {
+            $kerjaSama = "$layananPublik.kerja-sama";
 
-    // Layanan Publik > Kontak
-    Route::get('/kontak', [ContactController::class, 'index'])->name('kontak');
+            // Layanan Publik > Kerja Sama > Informasi Kerja Sama
+            Route::view(
+                'informasi',
+                "$kerjaSama.informasi.index"
+            )->name('informasi');
+        });
 
-    Route::prefix('pengumuman')->name('pengumuman.')->group(function () {
-        Route::get('/', [AnnouncementController::class, 'index'])->name('index');
-        Route::get('/add', [AnnouncementController::class, 'add'])->name('add');
-        Route::get('/edit/{id}', [AnnouncementController::class, 'edit'])->name('edit');
-        Route::group(['prefix' => 'apis'], function () {
-            Route::get('/', [AnnouncementController::class, 'get'])->name('get');
-            Route::post('/', [AnnouncementController::class, 'store'])->name('save');
-            Route::put('/', [AnnouncementController::class, 'update'])->name('update');
-            Route::delete('/', [AnnouncementController::class, 'delete'])->name('delete');
+        // Layanan Publik > Kontak
+        Route::get('/kontak', [ContactController::class, 'index'])->name('kontak');
+
+        Route::prefix('pengumuman')->name('pengumuman.')->group(function () {
+            Route::get('/', [AnnouncementController::class, 'index'])->name('index');
+            Route::get('/add', [AnnouncementController::class, 'add'])->name('add');
+            Route::get('/edit/{id}', [AnnouncementController::class, 'edit'])->name('edit');
+            Route::group(['prefix' => 'apis'], function () {
+                Route::get('/', [AnnouncementController::class, 'get'])->name('get');
+                Route::post('/', [AnnouncementController::class, 'store'])->name('save');
+                Route::put('/', [AnnouncementController::class, 'update'])->name('update');
+                Route::delete('/', [AnnouncementController::class, 'delete'])->name('delete');
+            });
+        });
+
+        Route::controller(PublicServiceController::class)->group(function () {
+            Route::get('/{category}', 'index')->name('index');
+            Route::get('/{category}/create', 'create')->name('create');
+            Route::get('/{category}/{id}/edit', 'edit')->name('edit');
         });
     });
 
-    Route::controller(PublicServiceController::class)->group(function () {
-        Route::get('/', 'index')->name('index');
-        Route::get('/create', 'create')->name('create');
-        Route::get('/{id}/edit', 'edit')->name('edit');
-    });
-});
-
-// Gerakan Tanah
-Route::prefix('gerakan-tanah')->name('gerakan-tanah.')->group(function () {
-    // Gerakan Tanah > Daftar Kejadian
-    Route::prefix('kejadian')->controller(GroundMovementEventController::class)->group(function () {
-        Route::get('/', 'index')->name('kejadian.index');
-        Route::get('/create', 'create')->name('kejadian.create');
-        Route::post('/', 'store')->name('kejadian.store');
-        Route::get('/{id}/edit', 'edit')->name('kejadian.edit');
-        Route::put('/{id}', 'update')->name('kejadian.update');
-        Route::delete('/{id}', 'destroy')->name('kejadian.destroy');
-    });
-
-    Route::controller(GroundMovementController::class)->group(function () {
-        Route::get('/', 'index')->name('index');
-        Route::get('/create', 'create')->name('create');
-        Route::get('/{id}/edit', 'edit')->name('edit');
-    });
-
-    Route::prefix('tanggapan-kejadian')->name('tanggapan-kejadian.')->group(function () {
-        Route::get('/', [GroundResponseController::class, 'index'])->name('index');
-        Route::get('/add', [GroundResponseController::class, 'add'])->name('add');
-        Route::get('/edit/{id}', [GroundResponseController::class, 'edit'])->name('edit');
-        Route::group(['prefix' => 'apis'], function () {
-            Route::get('/', [GroundResponseController::class, 'get'])->name('get');
-            Route::post('/', [GroundResponseController::class, 'store'])->name('save');
-            Route::put('/', [GroundResponseController::class, 'update'])->name('update');
-            Route::delete('/', [GroundResponseController::class, 'delete'])->name('delete');
-        });
-    });
-});
-
-Route::prefix('press-release')->middleware('auth')->name('press-release.')->group(function () {
-    Route::get('/', [PressReleaseController::class, 'index'])->name('index');
-    Route::get('/add', [PressReleaseController::class, 'add'])->name('add');
-    Route::get('/edit/{id}', [PressReleaseController::class, 'edit'])->name('edit');
-    Route::group(['prefix' => 'apis'], function () {
-        Route::get('/', [PressReleaseController::class, 'get'])->name('get');
-        Route::get('/files', [PressReleaseController::class, 'files'])->name('files');
-        Route::post('/', [PressReleaseController::class, 'store'])->name('save');
-        Route::put('/', [PressReleaseController::class, 'update'])->name('update');
-        Route::delete('/', [PressReleaseController::class, 'delete'])->name('delete');
-    });
-});
-
-Route::prefix('gunung-api')->middleware('auth')->name('gunung-api.')->group(function () {
-    Route::prefix('data-dasar')->name('data-dasar.')->group(function () {
-        Route::get('/', [VolcanoBaseController::class, 'index'])->name('index');
-        Route::get('/add', [VolcanoBaseController::class, 'add'])->name('add');
-        Route::get('/edit/{id}', [VolcanoBaseController::class, 'edit'])->name('edit');
-        Route::group(['prefix' => 'apis'], function () {
-            Route::get('/', [VolcanoBaseController::class, 'get'])->name('get');
-            Route::post('/', [VolcanoBaseController::class, 'store'])->name('save');
-            Route::put('/', [VolcanoBaseController::class, 'update'])->name('update');
-            Route::delete('/', [VolcanoBaseController::class, 'delete'])->name('delete');
-        });
-    });
-
-    Route::prefix('tingkat-aktivitas')->name('tingkat-aktivitas.')->group(function () {
-        Route::get('/', [VolcanoActivityController::class, 'index'])->name('index');
-        Route::get('/add', [VolcanoActivityController::class, 'add'])->name('add');
-        Route::get('/edit/{id}', [VolcanoActivityController::class, 'edit'])->name('edit');
-        Route::group(['prefix' => 'apis'], function () {
-            Route::get('/', [VolcanoActivityController::class, 'get'])->name('get');
-            Route::post('/', [VolcanoActivityController::class, 'store'])->name('save');
-            Route::put('/', [VolcanoActivityController::class, 'update'])->name('update');
-            Route::delete('/', [VolcanoActivityController::class, 'delete'])->name('delete');
-        });
-    });
-});
-
-Route::prefix('gempa-bumi-tsunami')->name('gempa-bumi-tsunami.')->group(function () {
-    Route::prefix('kajian-kejadian')->name('kajian-kejadian.')->group(function () {
-        Route::get('/', [EqtStudyEventController::class, 'index'])->name('index');
-        Route::get('/add', [EqtStudyEventController::class, 'add'])->name('add');
-        Route::get('/edit/{id}', [EqtStudyEventController::class, 'edit'])->name('edit');
-        Route::group(['prefix' => 'apis'], function () {
-            Route::get('/', [EqtStudyEventController::class, 'get'])->name('get');
-            Route::post('/', [EqtStudyEventController::class, 'store'])->name('save');
-            Route::put('/', [EqtStudyEventController::class, 'update'])->name('update');
-            Route::delete('/', [EqtStudyEventController::class, 'delete'])->name('delete');
-        });
-    });
-
-    Route::prefix('daftar-kejadian')->name('daftar-kejadian.')->group(function () {
-        Route::get('/', [EqtListEventController::class, 'index'])->name('index');
-        Route::get('/add', [EqtListEventController::class, 'add'])->name('add');
-        Route::get('/edit/{id}', [EqtListEventController::class, 'edit'])->name('edit');
-        Route::group(['prefix' => 'apis'], function () {
-            Route::get('/', [EqtListEventController::class, 'get'])->name('get');
-            Route::post('/', [EqtListEventController::class, 'store'])->name('save');
-            Route::put('/', [EqtListEventController::class, 'update'])->name('update');
-            Route::delete('/', [EqtListEventController::class, 'delete'])->name('delete');
-        });
-    });
-
-    Route::prefix('publikasi-mitigasi')->name('publikasi-mitigasi.')->group(function () {
-        Route::get('/', [EqtMitigationPublicationController::class, 'index'])->name('index');
-        Route::get('/add', [EqtMitigationPublicationController::class, 'add'])->name('add');
-        Route::get('/edit/{id}', [EqtMitigationPublicationController::class, 'edit'])->name('edit');
-        Route::group(['prefix' => 'apis'], function () {
-            Route::get('/', [EqtMitigationPublicationController::class, 'get'])->name('get');
-            Route::post('/', [EqtMitigationPublicationController::class, 'store'])->name('save');
-            Route::put('/', [EqtMitigationPublicationController::class, 'update'])->name('update');
-            Route::delete('/', [EqtMitigationPublicationController::class, 'delete'])->name('delete');
-        });
-    });
-
-    Route::prefix('laporan-singkat')->name('laporan-singkat.')->group(function () {
-        Route::get('/', [EqtReportController::class, 'index'])->name('index');
-        Route::get('/add', [EqtReportController::class, 'add'])->name('add');
-        Route::get('/edit/{id}', [EqtReportController::class, 'edit'])->name('edit');
-        Route::group(['prefix' => 'apis'], function () {
-            Route::get('/', [EqtReportController::class, 'get'])->name('get');
-            Route::post('/', [EqtReportController::class, 'store'])->name('save');
-            Route::put('/', [EqtReportController::class, 'update'])->name('update');
-            Route::delete('/', [EqtReportController::class, 'delete'])->name('delete');
-        });
-    });
-});
-// Profile
-Route::prefix('profile')->name('profile.')->group(function () {
-    Route::controller(ProfileController::class)->group(function () {
-        Route::get('/{id}/form', 'edit')->name('index');
-    });
-});
-
-// Upload Center
-Route::prefix('upload-center')->name('upload-center.')->group(function () {
-    Route::controller(FileController::class)->group(function () {
-        Route::get('/', 'index')->name('index');
-        Route::get('/create', 'create')->name('create');
-    });
-});
-
-// Api
-Route::group(['middleware' => ['auth'], 'prefix' => 'api'], function () {
     // Gerakan Tanah
-    Route::group(['prefix' => 'gerakan-tanah'], function () {
-        Route::controller(ApiGroundMovementController::class)->group(function () {
-            Route::get('/', 'index');
-            Route::post('/', 'store');
-            Route::put('/', 'update');
-            Route::delete('/', 'destroy');
+    Route::prefix('gerakan-tanah')->name('gerakan-tanah.')->group(function () {
+        // Gerakan Tanah > Daftar Kejadian
+        Route::prefix('kejadian')->controller(GroundMovementEventController::class)->group(function () {
+            Route::get('/', 'index')->name('kejadian.index');
+            Route::get('/create', 'create')->name('kejadian.create');
+            Route::post('/', 'store')->name('kejadian.store');
+            Route::get('/{id}/edit', 'edit')->name('kejadian.edit');
+            Route::put('/{id}', 'update')->name('kejadian.update');
+            Route::delete('/{id}', 'destroy')->name('kejadian.destroy');
+        });
+
+        Route::controller(GroundMovementController::class)->group(function () {
+            Route::get('/{category}', 'index')->name('index');
+            Route::get('/{category}/create', 'create')->name('create');
+            Route::get('/{category}/{id}/edit', 'edit')->name('edit');
+        });
+
+        Route::prefix('tanggapan-kejadian')->name('tanggapan-kejadian.')->group(function () {
+            Route::get('/', [GroundResponseController::class, 'index'])->name('index');
+            Route::get('/add', [GroundResponseController::class, 'add'])->name('add');
+            Route::get('/edit/{id}', [GroundResponseController::class, 'edit'])->name('edit');
+            Route::group(['prefix' => 'apis'], function () {
+                Route::get('/', [GroundResponseController::class, 'get'])->name('get');
+                Route::post('/', [GroundResponseController::class, 'store'])->name('save');
+                Route::put('/', [GroundResponseController::class, 'update'])->name('update');
+                Route::delete('/', [GroundResponseController::class, 'delete'])->name('delete');
+            });
+        });
+    });
+
+    Route::prefix('press-release')->name('press-release.')->group(function () {
+        Route::get('/', [PressReleaseController::class, 'index'])->name('index');
+        Route::get('/add', [PressReleaseController::class, 'add'])->name('add');
+        Route::get('/edit/{id}', [PressReleaseController::class, 'edit'])->name('edit');
+        Route::group(['prefix' => 'apis'], function () {
+            Route::get('/', [PressReleaseController::class, 'get'])->name('get');
+            Route::get('/files', [PressReleaseController::class, 'files'])->name('files');
+            Route::post('/', [PressReleaseController::class, 'store'])->name('save');
+            Route::put('/', [PressReleaseController::class, 'update'])->name('update');
+            Route::delete('/', [PressReleaseController::class, 'delete'])->name('delete');
+        });
+    });
+
+    Route::prefix('gunung-api')->name('gunung-api.')->group(function () {
+        Route::prefix('data-dasar')->name('data-dasar.')->group(function () {
+            Route::get('/', [VolcanoBaseController::class, 'index'])->name('index');
+            Route::get('/add', [VolcanoBaseController::class, 'add'])->name('add');
+            Route::get('/edit/{id}', [VolcanoBaseController::class, 'edit'])->name('edit');
+            Route::group(['prefix' => 'apis'], function () {
+                Route::get('/', [VolcanoBaseController::class, 'get'])->name('get');
+                Route::post('/', [VolcanoBaseController::class, 'store'])->name('save');
+                Route::put('/', [VolcanoBaseController::class, 'update'])->name('update');
+                Route::delete('/', [VolcanoBaseController::class, 'delete'])->name('delete');
+            });
+        });
+
+        Route::prefix('tingkat-aktivitas')->name('tingkat-aktivitas.')->group(function () {
+            Route::get('/', [VolcanoActivityController::class, 'index'])->name('index');
+            Route::get('/add', [VolcanoActivityController::class, 'add'])->name('add');
+            Route::get('/edit/{id}', [VolcanoActivityController::class, 'edit'])->name('edit');
+            Route::group(['prefix' => 'apis'], function () {
+                Route::get('/', [VolcanoActivityController::class, 'get'])->name('get');
+                Route::post('/', [VolcanoActivityController::class, 'store'])->name('save');
+                Route::put('/', [VolcanoActivityController::class, 'update'])->name('update');
+                Route::delete('/', [VolcanoActivityController::class, 'delete'])->name('delete');
+            });
+        });
+    });
+
+    Route::prefix('gempa-bumi-tsunami')->name('gempa-bumi-tsunami.')->group(function () {
+        Route::prefix('kajian-kejadian')->name('kajian-kejadian.')->group(function () {
+            Route::get('/', [EqtStudyEventController::class, 'index'])->name('index');
+            Route::get('/add', [EqtStudyEventController::class, 'add'])->name('add');
+            Route::get('/edit/{id}', [EqtStudyEventController::class, 'edit'])->name('edit');
+            Route::group(['prefix' => 'apis'], function () {
+                Route::get('/', [EqtStudyEventController::class, 'get'])->name('get');
+                Route::post('/', [EqtStudyEventController::class, 'store'])->name('save');
+                Route::put('/', [EqtStudyEventController::class, 'update'])->name('update');
+                Route::delete('/', [EqtStudyEventController::class, 'delete'])->name('delete');
+            });
+        });
+
+        Route::prefix('daftar-kejadian')->name('daftar-kejadian.')->group(function () {
+            Route::get('/', [EqtListEventController::class, 'index'])->name('index');
+            Route::get('/add', [EqtListEventController::class, 'add'])->name('add');
+            Route::get('/edit/{id}', [EqtListEventController::class, 'edit'])->name('edit');
+            Route::group(['prefix' => 'apis'], function () {
+                Route::get('/', [EqtListEventController::class, 'get'])->name('get');
+                Route::post('/', [EqtListEventController::class, 'store'])->name('save');
+                Route::put('/', [EqtListEventController::class, 'update'])->name('update');
+                Route::delete('/', [EqtListEventController::class, 'delete'])->name('delete');
+            });
+        });
+
+        Route::prefix('publikasi-mitigasi')->name('publikasi-mitigasi.')->group(function () {
+            Route::get('/', [EqtMitigationPublicationController::class, 'index'])->name('index');
+            Route::get('/add', [EqtMitigationPublicationController::class, 'add'])->name('add');
+            Route::get('/edit/{id}', [EqtMitigationPublicationController::class, 'edit'])->name('edit');
+            Route::group(['prefix' => 'apis'], function () {
+                Route::get('/', [EqtMitigationPublicationController::class, 'get'])->name('get');
+                Route::post('/', [EqtMitigationPublicationController::class, 'store'])->name('save');
+                Route::put('/', [EqtMitigationPublicationController::class, 'update'])->name('update');
+                Route::delete('/', [EqtMitigationPublicationController::class, 'delete'])->name('delete');
+            });
+        });
+
+        Route::prefix('laporan-singkat')->name('laporan-singkat.')->group(function () {
+            Route::get('/', [EqtReportController::class, 'index'])->name('index');
+            Route::get('/add', [EqtReportController::class, 'add'])->name('add');
+            Route::get('/edit/{id}', [EqtReportController::class, 'edit'])->name('edit');
+            Route::group(['prefix' => 'apis'], function () {
+                Route::get('/', [EqtReportController::class, 'get'])->name('get');
+                Route::post('/', [EqtReportController::class, 'store'])->name('save');
+                Route::put('/', [EqtReportController::class, 'update'])->name('update');
+                Route::delete('/', [EqtReportController::class, 'delete'])->name('delete');
+            });
         });
     });
 
     // Profile
-    Route::group(['prefix' => 'profile'], function () {
-        Route::controller(ApiProfileController::class)->group(function () {
-            Route::post('/', 'store');
-            Route::put('/', 'update');
-        });
-    });
-
-    // Pegawai
-    Route::group(['prefix' => 'pegawai'], function () {
-        Route::controller(ApiUserController::class)->group(function () {
-            Route::get('/', 'index');
-            Route::post('/', 'store');
-            Route::put('/', 'update');
-            Route::delete('/', 'destroy');
+    Route::prefix('profile')->name('profile.')->group(function () {
+        Route::controller(ProfileController::class)->group(function () {
+            Route::get('/{id}/form', 'edit')->name('index');
         });
     });
 
     // Upload Center
-    Route::group(['prefix' => 'upload-center'], function () {
-        Route::controller(ApiFileController::class)->group(function () {
-            Route::get('/', 'index');
-            Route::post('/', 'store');
-            Route::delete('/', 'destroy');
-            Route::get('/label', 'indexLabel');
-            Route::get('/tags', 'indexTags');
-            Route::post('/tags', 'storeTag');
+    Route::prefix('upload-center')->name('upload-center.')->group(function () {
+        Route::controller(FileController::class)->group(function () {
+            Route::get('/', 'index')->name('index');
+            Route::get('/create', 'create')->name('create');
         });
     });
 
-    // Layanan Publik
-    Route::group(['prefix' => 'layanan-publik'], function () {
-        Route::controller(ApiPublicServiceController::class)->group(function () {
-            Route::get('/', 'index');
-            Route::post('/', 'store');
-            Route::put('/', 'update');
-            Route::delete('/', 'destroy');
+    // Role
+    Route::prefix('role')->name('role.')->controller(RoleController::class)->group(function () {
+        Route::get('/', 'index')->name('index');
+        Route::get('/create', 'create')->name('create');
+        Route::get('/{id}/edit', 'edit')->name('edit');
+        Route::get('/{id}/policy', 'policy')->name('policy');
+    });
+
+    // Api
+    Route::group(['prefix' => 'api'], function () {
+        // Gerakan Tanah
+        Route::group(['prefix' => 'gerakan-tanah'], function () {
+            Route::controller(ApiGroundMovementController::class)->group(function () {
+                Route::get('/', 'index');
+                Route::post('/', 'store');
+                Route::put('/', 'update');
+                Route::delete('/', 'destroy');
+            });
+        });
+
+        // Profile
+        Route::group(['prefix' => 'profile'], function () {
+            Route::controller(ApiProfileController::class)->group(function () {
+                Route::post('/', 'store');
+                Route::put('/', 'update');
+            });
+        });
+
+        // Pegawai
+        Route::group(['prefix' => 'pegawai'], function () {
+            Route::controller(ApiUserController::class)->group(function () {
+                Route::get('/', 'index');
+                Route::post('/', 'store');
+                Route::put('/', 'update');
+                Route::delete('/', 'destroy');
+            });
+        });
+
+        // Upload Center
+        Route::group(['prefix' => 'upload-center'], function () {
+            Route::controller(ApiFileController::class)->group(function () {
+                Route::get('/', 'index');
+                Route::post('/', 'store');
+                Route::delete('/', 'destroy');
+                Route::get('/label', 'indexLabel');
+                Route::get('/tags', 'indexTags');
+                Route::post('/tags', 'storeTag');
+            });
+        });
+
+        // Layanan Publik
+        Route::group(['prefix' => 'layanan-publik'], function () {
+            Route::controller(ApiPublicServiceController::class)->group(function () {
+                Route::get('/', 'index');
+                Route::post('/', 'store');
+                Route::put('/', 'update');
+                Route::delete('/', 'destroy');
+            });
+        });
+
+        // Role
+        Route::group(['prefix' => 'role'], function () {
+            Route::controller(ApiRoleController::class)->group(function () {
+                Route::get('/', 'index');
+                Route::post('/', 'store');
+                Route::put('/', 'update');
+                Route::delete('/', 'destroy');
+                Route::put('/policy', 'updatePolicy');
+            });
         });
     });
 });

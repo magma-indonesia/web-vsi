@@ -15,9 +15,9 @@ class PublicServiceController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index($category)
     {
-        $category = $request->query('category') ?? Param::PUBLIC_SERVICE_BUREAUCRATIC_REFORM;
+        $category = $category ?? Param::PUBLIC_SERVICE_BUREAUCRATIC_REFORM;
         $pageTitle = 'Reformasi Birokrasi';
         if ($category == Param::PUBLIC_SERVICE_INFORMATION_DISSEMINATION) {
             $pageTitle = 'Diseminasi Informasi';
@@ -29,7 +29,7 @@ class PublicServiceController extends Controller
             'category' => $category,
             'appUrl' => env('APP_URL'),
             'addUrl' => route('dashboard.layanan-publik.create', ['category' => $category]),
-            'editUrl' => route('dashboard.layanan-publik.edit', '##ID##') . '?category=' . $category,
+            'editUrl' => route('dashboard.layanan-publik.edit', ['category' => $category, 'id' => '##ID##']),
         ]);
     }
 
@@ -38,9 +38,9 @@ class PublicServiceController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Request $request)
+    public function create($category)
     {
-        $category = $request->query('category') ?? Param::PUBLIC_SERVICE_BUREAUCRATIC_REFORM;
+        $category = $category ?? Param::PUBLIC_SERVICE_BUREAUCRATIC_REFORM;
         $pageTitle = 'Reformasi Birokrasi';
         if ($category == Param::PUBLIC_SERVICE_INFORMATION_DISSEMINATION) {
             $pageTitle = 'Diseminasi Informasi';
@@ -62,7 +62,7 @@ class PublicServiceController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($category, $id)
     {
         $data = PublicService::find($id);
         if (!$data) {
