@@ -103,9 +103,9 @@ class VolcanoBaseController extends Controller
 
             $n->save();
 
-            foreach ($request->files as $file) {
+            foreach ($request->news_files as $file) {
                 $nf = new VolcanoBaseFile();
-                $nf->volcano_base_id = $n->id;
+                $nf->volcano_base_id = $n;
                 $nf->file_id = $file;
                 $nf->save();
             }
@@ -194,6 +194,18 @@ class VolcanoBaseController extends Controller
                 }
             }
             $n->save();
+
+            $vf = VolcanoBaseFile::where("volcano_base_id", $n->id)->get();
+            if (count($vf) > 0) {
+                VolcanoBaseFile::where("volcano_base_id", $n->id)->delete();
+            }
+
+            foreach ($request->news_files as $file) {
+                $nf = new VolcanoBaseFile();
+                $nf->volcano_base_id = $n->id;
+                $nf->file_id = $file;
+                $nf->save();
+            }
 
             DB::commit();
             return response()->json([

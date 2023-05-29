@@ -56,8 +56,8 @@
                                     <li><a href="{{ route('gunung-api.data-dasar.index') }}">Data Dasar</a></li>
                                     <li><a href="https://magma.esdm.go.id" target="_blank">Sebaran Gunung Api</a></li>
                                     <li><a href="{{ route('gunung-api.tingkat-aktivitas.index') }}">Tingkat Aktivitas</a></li>
-                                    <li><a href="">Laporan Aktivitas</a></li>
-                                    <li><a href="">Informasi Letusan</a></li>
+                                    <li><a href="https://magma.esdm.go.id/v1/gunung-api/laporan" target="_blank">Laporan Aktivitas</a></li>
+                                    <li><a href="https://magma.esdm.go.id/v1/gunung-api/informasi-letusan" target="_blank">Informasi Letusan</a></li>
                                     <li><a href="">CCTV Gunung Api</a></li>
                                     <li><a href="">Gallery Foto</a></li>
                                     <li><a href="">Peta KRB Gunung Api</a></li>
@@ -160,8 +160,8 @@
                                 <ul class="dl-submenu">
                                     <li><a href="">Data Dasar</a></li>
                                     <li><a href="">Tingkat Aktivitas</a></li>
-                                    <li><a href="">Laporan Aktivitas</a></li>
-                                    <li><a href="">Informasi Letusan</a></li>
+                                    <li><a href="https://magma.esdm.go.id/v1/gunung-api/laporan" target="_blank">Laporan Aktivitas</a></li>
+                                    <li><a href="https://magma.esdm.go.id/v1/gunung-api/informasi-letusan" target="_blank">Informasi Letusan</a></li>
                                     <li><a href="">CCTV Gunung Api</a></li>
                                     <li><a href="">Gallery Foto</a></li>
                                     <li><a href="">Peta KRB Gunung Api</a></li>

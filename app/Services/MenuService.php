@@ -119,7 +119,7 @@ class MenuService
                     [
                         'icon' => 'hash',
                         'label' => 'Laporan Aktivitas',
-                        'link' => '#',
+                        'link' => 'https://magma.esdm.go.id/v1/gunung-api/laporan',
                         'policies' => [
                             Param::DEFAULT_ACCESS_POLICY
                         ],
@@ -127,7 +127,7 @@ class MenuService
                     [
                         'icon' => 'hash',
                         'label' => 'Informasi Letusan',
-                        'link' => '#',
+                        'link' => 'https://magma.esdm.go.id/v1/gunung-api/informasi-letusan',
                         'policies' => [
                             Param::DEFAULT_ACCESS_POLICY
                         ],

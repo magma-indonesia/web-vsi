@@ -290,6 +290,10 @@ export default {
             this.geochemistry = retrieve?.geochemistry;
             this.disaster_area = retrieve?.disaster_area;
             this.reference = retrieve?.reference;
+            this.files =
+                retrieve?.files?.length > 0
+                    ? retrieve?.files?.map((v) => v.id)
+                    : [];
         } else {
             this.desc = retrieve?.content;
         }
@@ -383,7 +387,7 @@ export default {
                             .then(() => {
                                 this.form.resetFields();
                                 this.loading = false;
-                                this.handleClose();
+                                //this.handleClose();
                             })
                             .catch(() => {
                                 this.loading = false;
@@ -394,7 +398,7 @@ export default {
                             .then(() => {
                                 this.form.resetFields();
                                 this.loading = false;
-                                this.handleClose();
+                                //this.handleClose();
                             })
                             .catch(() => {
                                 this.loading = false;
