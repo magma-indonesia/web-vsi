@@ -8,7 +8,7 @@ echo "===> Building image...";
 docker-compose build;
 
 echo "\n===> Composing the container...";
-docker-compose up -d;
+docker-compose -f docker-compose.dev.yml up -d;
 
 echo "\n===> Installing dependencies...";
 docker-compose exec app php /usr/local/bin/composer install;

@@ -4,7 +4,7 @@ services:
     app:
         build:
             context: .
-            dockerfile: Dockerfile
+            dockerfile: Dockerfile.prod
         image: web-vsi
         container_name: web-vsi
         restart: unless-stopped
@@ -12,6 +12,10 @@ services:
         environment:
             SERVICE_NAME: web-vsi
             SERVICE_TAGS: dev
+            APP_NAME: "Pusat Vulkanologi dan Mitigasi Bencana Geologi"
+            APP_ENV: production
+            APP_DEBUG: true
+            APP_URL: https://vsi.esdm.go.id
             DB_HOST: mariadb
             DB_DATABASE: pvmbg
             DB_USERNAME: pvmbg
@@ -57,21 +61,6 @@ services:
         networks:
             - intranet
     
-    mariadb:
-        image: mariadb:latest
-        container_name: mariadb
-        restart: unless-stopped
-        environment:
-            MYSQL_ROOT_PASSWORD: root
-            MYSQL_DATABASE: pvmbg
-            MYSQL_USER: pvmbg
-            MYSQL_PASSWORD: pvmbg
-        ports:
-            - "3306:3306"
-        volumes:
-            - mariadb_data:/var/lib/mysql
-        networks:
-            - intranet
 networks:
     intranet:
         driver: bridge
