@@ -1826,7 +1826,7 @@
 .widget_wrap{
 	padding:160px 0px 0px;
 	margin-top:-95px;
-	background-image:url("images/widget-bg.png");
+	/* background-image:url("images/widget-bg.png"); */
 	background-repeat:no-repeat;
 	background-size:cover;
 	z-index:2;
