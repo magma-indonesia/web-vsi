@@ -11,9 +11,9 @@ echo "\n===> Composing the container...";
 docker-compose -f docker-compose.prod.yml up -d;
 
 echo "\n===> Installing dependencies...";
-docker-compose exec app php /usr/local/bin/composer install;
+docker-compose -f docker-compose.prod.yml exec app php /usr/local/bin/composer install;
 
 echo "\n===> Caching config..."
-docker-compose exec app php artisan config:cache;
+docker-compose -f docker-compose.prod.yml exec app php artisan config:cache;
 
 echo "Setup finish!";
