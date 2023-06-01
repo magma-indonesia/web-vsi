@@ -5,7 +5,7 @@
 #alias docker-compose="sudo docker-compose";
 
 echo "===> Building image...";
-docker-compose build;
+docker-compose -f docker-compose.prod.yml build;
 
 echo "\n===> Composing the container...";
 docker-compose -f docker-compose.prod.yml up -d;
