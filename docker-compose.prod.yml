@@ -16,10 +16,10 @@ services:
             APP_ENV: production
             APP_DEBUG: "true"
             APP_URL: https://vsi.esdm.go.id
-            DB_HOST: mariadb
+            DB_HOST: 172.16.2.121
             DB_DATABASE: pvmbg
-            DB_USERNAME: pvmbg
-            DB_PASSWORD: pvmbg
+            DB_USERNAME: wovodatuser
+            DB_PASSWORD: wovodatpassword
             DB_CONNECTION_PMBGI: pgsql
             DB_HOST_PMBGI: 172.16.2.121
             DB_PORT_PMBGI: 5432
