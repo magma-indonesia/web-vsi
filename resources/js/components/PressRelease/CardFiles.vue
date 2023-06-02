@@ -197,13 +197,7 @@ export default {
             });
         },
         generateImage(record) {
-            return (
-                window.location.origin +
-                "/files/" +
-                record.id +
-                "/" +
-                record.name
-            );
+            return window.location.origin + "/storage/public/" + record.path;
         },
         fetchFile(param = this.params, p = this.pagination) {
             this.loading = true;
