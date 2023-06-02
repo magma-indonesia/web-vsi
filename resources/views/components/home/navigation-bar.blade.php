@@ -68,7 +68,7 @@
                             </li>
                             <li><a href="#">Gerakan Tanah</a>
                                 <ul class="child">
-                                    <li><a href="{{ route('gerakan-tanah.daftar-kejadian') }}">Daftar Kejadian</a></li>
+                                    <!-- <li><a href="{{ route('gerakan-tanah.daftar-kejadian') }}">Daftar Kejadian</a></li> -->
                                     <li><a href="{{ route('gerakan-tanah.tanggapan-kejadian.index') }}">Tanggapan Kejadian</a>
                                     </li>
                                     <li><a href="{{ route('gerakan-tanah.peringatan-dini') }}">Peringatan Dini</a></li>
@@ -79,8 +79,8 @@
                             </li>
                             <li><a href="#">Gempa Bumi dan Tsunami</a>
                                 <ul class="child">
-                                    <li><a href="{{ route('gempa-bumi-tsunami.daftar-kejadian.index') }}">Daftar
-                                            Kejadian</a></li>
+                                    <!-- <li><a href="{{ route('gempa-bumi-tsunami.daftar-kejadian.index') }}">Daftar
+                                            Kejadian</a></li> -->
                                     <li><a href="{{ route('gempa-bumi-tsunami.kajian-kejadian.index') }}">Kajian Kejadian</a>
                                     </li>
                                     <li><a href="{{ route('gempa-bumi-tsunami.laporan-singkat.index') }}">laporan Singkat dan
