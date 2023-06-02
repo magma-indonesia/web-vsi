@@ -38,7 +38,7 @@
                         @click="handleAdd"
                         style="margin-left: 10px"
                     >
-                        Create new
+                        Upload
                     </a-button>
                 </div>
             </div>

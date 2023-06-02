@@ -117,7 +117,7 @@ class FileController extends Controller
                     }
                     $filePath = 'files/'.$this->user()->nip;
                     Storage::putFileAs(
-                        'public/'.$filePath,
+                        $filePath,
                         $fileUpload,
                         $fileName
                     );
@@ -196,7 +196,7 @@ class FileController extends Controller
                 ], 400);
             }
 
-            Storage::delete('public/'.$data->path);
+            Storage::delete($data->path);
             $data->delete();
             DB::commit();
 
@@ -268,7 +268,7 @@ class FileController extends Controller
             $tag->name = $request->tag;
             $tag->is_press_release = $request->is_press_release;
             $tag->save();
-            
+
             return response()->json([
                 'message' => '',
                 'serve' => $tag,
