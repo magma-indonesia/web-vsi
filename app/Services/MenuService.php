@@ -179,9 +179,9 @@ class MenuService
                 'label' => 'Gerakan Tanah',
                 'link' => [
                     [
-                        'icon' => 'list',
+                        'icon' => 'hash', //'list',
                         'label' => 'Daftar Kejadian',
-                        'link' => route('dashboard.gerakan-tanah.index', ['category' => Param::GROUND_MOVEMENT_EVENT]),
+                        'link' => '#', //route('dashboard.gerakan-tanah.index', ['category' => Param::GROUND_MOVEMENT_EVENT]),
                         'policies' => [
                             Param::MANAGE_GROUND_MOVEMENT_EVENT_POLICY
                         ],
@@ -233,9 +233,9 @@ class MenuService
                         ],
                     ],
                     [
-                        'icon' => 'list',
+                        'icon' => 'hash', //'list',
                         'label' => 'Daftar Kejadian',
-                        'link' => route('dashboard.gempa-bumi-tsunami.daftar-kejadian.index'),
+                        'link' => '#', //route('dashboard.gempa-bumi-tsunami.daftar-kejadian.index'),
                         'policies' => [
                             Param::MANAGE_EARTHQUAKES_AND_TSUNAMI_EVENT_POLICY
                         ],
