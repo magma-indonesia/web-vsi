@@ -32,7 +32,7 @@ RUN apk update && apk add --no-cache build-base wget \
     libzip-dev
 
 # Add and Enable PHP-PDO Extenstions
-RUN curl -fsSL https://github.com/jedisct1/libsodium/archive/1.0.18-RELEASE.tar.gz -o libsodium.tar$ \
+RUN curl -fsSL https://github.com/jedisct1/libsodium/archive/1.0.18-RELEASE.tar.gz -o libsodium.tar.gz \
     && mkdir -p libsodium \
     && tar -xf libsodium.tar.gz -C libsodium --strip-components=1 \
     && ( \
