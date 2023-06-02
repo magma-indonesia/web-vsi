@@ -105,7 +105,7 @@ class VolcanoBaseController extends Controller
 
             foreach ($request->news_files as $file) {
                 $nf = new VolcanoBaseFile();
-                $nf->volcano_base_id = $n;
+                $nf->volcano_base_id = $n->id;
                 $nf->file_id = $file;
                 $nf->save();
             }

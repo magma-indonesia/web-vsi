@@ -387,7 +387,7 @@ export default {
                             .then(() => {
                                 this.form.resetFields();
                                 this.loading = false;
-                                //this.handleClose();
+                                this.handleClose();
                             })
                             .catch(() => {
                                 this.loading = false;
@@ -398,7 +398,7 @@ export default {
                             .then(() => {
                                 this.form.resetFields();
                                 this.loading = false;
-                                //this.handleClose();
+                                this.handleClose();
                             })
                             .catch(() => {
                                 this.loading = false;
