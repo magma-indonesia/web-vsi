@@ -10,7 +10,7 @@
                 <li class="breadcrumb-item"><a href="/">Dashboard</a></li>
                 <li class="breadcrumb-item">Gerakan Tanah</li>
                 <li class="breadcrumb-item" aria-current="page"><a
-                        href="{{ route('dashboard.gerakan-tanah.tanggapan-kejadian.index') }}">Tanggapan kejadian</a></li>
+                        href="{{ route('dashboard.tanggapan-kejadian.index') }}">Tanggapan kejadian</a></li>
                 <li class="breadcrumb-item active" aria-current="page">Edit tanggapan kejadian</li>
             </ol>
         </nav>
@@ -18,8 +18,8 @@
 </div>
 <div class="p-3" id="app">
     <form-news 
-        apiurl="{{ route('dashboard.gerakan-tanah.tanggapan-kejadian.update') }}" 
-        backurl="{{ route('dashboard.gerakan-tanah.tanggapan-kejadian.index') }}"
+        apiurl="{{ route('dashboard.tanggapan-kejadian.update') }}" 
+        backurl="{{ route('dashboard.tanggapan-kejadian.index') }}"
         retrieve="{{ $retrieve }}"
     ></form-news>
 </div>

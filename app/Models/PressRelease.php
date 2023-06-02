@@ -70,7 +70,7 @@ class PressRelease extends Model
         $thumbnail = PressReleaseFile::select('files.*')
                                 ->join('files', 'files.id', '=', 'press_release_files.file_id')
                                 ->where('press_release_files.press_release_id', $this->attributes['id'])
-                                ->where('type', 3)
+                                ->where('type', 2)
                                 ->orderBy('created_at', 'asc')
                                 ->first();
 
