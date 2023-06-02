@@ -358,13 +358,7 @@ export default {
             window.open(`/files/${item.id}/${item.name}`);
         },
         generateImage(record) {
-            return (
-                window.location.origin +
-                "/files/" +
-                record.id +
-                "/" +
-                record.name
-            );
+            return window.location.origin + "/storage/public/" + record.path;
         },
         removeDuplicate(data) {
             return _.uniqBy(data, function (e) {
