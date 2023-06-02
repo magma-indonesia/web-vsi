@@ -24,7 +24,7 @@ class UploadController extends Controller
             return response()->json([
                 'message' => '', 
                 'serve' => [
-                    "url"=> url('/')."/storage/".str_replace('public/', "", $path),
+                    "url"=> url('/storage').'/'.$path,
                     "uid"=> $path,
                     "status"=>"done",
                     "name"=> $path
