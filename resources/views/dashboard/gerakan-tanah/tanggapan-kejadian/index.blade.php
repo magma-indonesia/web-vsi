@@ -15,10 +15,10 @@
     </div>
 </div>
 <div class="p-3" id="app">
-    <table-news 
-        apiurl="{{ route('dashboard.gerakan-tanah.tanggapan-kejadian.get') }}" 
-        addurl="{{ route('dashboard.gerakan-tanah.tanggapan-kejadian.add') }}"
-        editurl="{{ route('dashboard.gerakan-tanah.tanggapan-kejadian.edit', 0) }}"
+    <table-news
+        apiurl="{{ route('dashboard.tanggapan-kejadian.get') }}" 
+        addurl="{{ route('dashboard.tanggapan-kejadian.add') }}"
+        editurl="{{ route('dashboard.tanggapan-kejadian.edit', 0) }}"
     >
     </table-news>
 </div>

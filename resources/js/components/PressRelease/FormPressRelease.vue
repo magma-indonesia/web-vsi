@@ -160,6 +160,9 @@
                         :hasFeedback="true"
                     >
                         <a-select
+                            show-search
+                            option-filter-prop="children"
+                            :filter-option="filterOption"
                             style="width: 100%"
                             v-decorator="[
                                 'mountain_id',
@@ -479,7 +482,7 @@
                     ref="tableMaps"
                 />
             </a-form-item>
-            <a-form-item label="Peta KBB/Grafik/Hasil Pemodelan">
+            <a-form-item label="Peta KRB/Grafik/Hasil Pemodelan">
                 <div
                     class="ant-form-extra"
                     style="
@@ -1078,6 +1081,13 @@ export default {
         this.fetchTags();
     },
     methods: {
+        filterOption(input, option) {
+            return (
+                option.componentOptions.children[0].text
+                    .toLowerCase()
+                    .indexOf(input.toLowerCase()) >= 0
+            );
+        },
         callback(key, type) {
             if (type === "document") {
                 this.isManualDocument = key;

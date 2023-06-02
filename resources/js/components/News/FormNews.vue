@@ -158,7 +158,7 @@
             </div>
             <a-form-item label="Konten" v-else>
                 <tiny-mce
-                    @change="handleChangeTiny($event)"
+                    @change="handleChangeTiny($event, 'desc')"
                     :value.sync="desc"
                     :apiurl="apiurl"
                     :type="'desc'"
@@ -280,7 +280,7 @@ export default {
         if (this.retrieve) {
             retrieve = await JSON.parse(this.retrieve);
         }
-
+        console.log(retrieve);
         this.thumbnail = retrieve?.thumbnail;
         if (this.category == "1") {
             this.intro = retrieve?.intro;
