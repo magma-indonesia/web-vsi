@@ -189,7 +189,7 @@ class MenuService
                     [
                         'icon' => 'message-square',
                         'label' => 'Tanggapan Kejadian',
-                        'link' => route('dashboard.gerakan-tanah.tanggapan-kejadian.index'),
+                        'link' => route('dashboard.tanggapan-kejadian.index'),
                         'policies' => [
                             Param::MANAGE_GROUND_MOVEMENT_INCIDENT_RESPONSE_POLICY
                         ],

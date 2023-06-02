@@ -243,8 +243,8 @@ foreach ($links as $index => $path) {
                                 data-feather="list"></i><span>Daftar Kejadian</span></a>
                     </li>
                     <li
-                        class="nav-item {{ request()->routeIs('dashboard.gerakan-tanah.tanggapan-kejadian.index') ? 'active' : '' }}">
-                        <a href="{{ route('dashboard.gerakan-tanah.tanggapan-kejadian.index') }}">
+                        class="nav-item {{ request()->routeIs('dashboard.tanggapan-kejadian.index') ? 'active' : '' }}">
+                        <a href="{{ route('dashboard.tanggapan-kejadian.index') }}">
                             <i data-feather="alert-triangle"></i>
                             <span>Tanggapan Kejadian</span>
                         </a>

@@ -154,59 +154,137 @@
                     {{ file.name }}
                 </a-button>
             </div>
-            <div
-                style="margin-top: 10px"
-                v-if="JSON.parse(retrieve)?.thumbnails?.length > 0"
-            >
-                <a-button
-                    style="margin-bottom: 5px"
-                    type="primary"
-                    ghost
-                    icon="file-image"
-                    @click="openLink(file)"
-                    v-for="(file, idx) in removeDuplicate(
-                        JSON.parse(retrieve).thumbnails
-                    )"
-                    :key="idx"
+            <div v-if="isPressRelease">
+                <div
+                    style="
+                        font-size: 14px;
+                        font-weight: bold;
+                        letter-spacing: 1px;
+                    "
                 >
-                    {{ file.name }}
-                </a-button>
-            </div>
-            <div
-                style="margin-top: 10px"
-                v-if="JSON.parse(retrieve)?.maps?.length > 0"
-            >
-                <a-button
-                    style="margin-bottom: 5px"
-                    type="primary"
-                    ghost
-                    icon="file"
-                    @click="openLink(file)"
-                    v-for="(file, idx) in removeDuplicate(
-                        JSON.parse(retrieve).maps
-                    )"
-                    :key="idx"
+                    Daftar Foto, Gambar dan Peta
+                </div>
+                <div v-if="JSON.parse(retrieve)?.thumbnails?.length > 0">
+                    <a-row
+                        v-for="(file, idx) in removeDuplicate(
+                            JSON.parse(retrieve).thumbnails
+                        )"
+                        :key="idx"
+                        style="
+                            margin-top: 10px;
+                            border-top: 1px solid #e8e8e8;
+                            padding-top: 10px;
+                            margin-top: 10px;
+                            display: flex;
+                            align-items: center;
+                        "
+                    >
+                        <a-col :xs="24" :sm="24" :md="24" :lg="4">
+                            <div
+                                :style="{
+                                    width: '100%',
+                                    height: '70px',
+                                    cursor: 'pointer',
+                                    background: `url('${generateImage(file)}`,
+                                    backgroundSize: 'contain',
+                                    backgroundRepeat: 'no-repeat',
+                                    backgroundPosition: 'center',
+                                    margin: 'auto',
+                                }"
+                                @click="openLink(file)"
+                            ></div>
+                        </a-col>
+                        <a-col :xs="24" :sm="24" :md="24" :lg="20">
+                            <div style="margin-bottom: 5px">
+                                {{ file.name }}
+                            </div>
+                            <a-button
+                                type="primary"
+                                ghost
+                                shape="round"
+                                @click="openLink(file)"
+                            >
+                                Download
+                            </a-button>
+                        </a-col>
+                    </a-row>
+                </div>
+                <div
+                    style="margin-top: 10px"
+                    v-if="JSON.parse(retrieve)?.maps?.length > 0"
                 >
-                    {{ file.name }}
-                </a-button>
-            </div>
-            <div
-                style="margin-top: 10px"
-                v-if="JSON.parse(retrieve)?.documents?.length > 0"
-            >
-                <a-button
-                    style="margin-bottom: 5px"
-                    type="primary"
-                    ghost
-                    icon="file"
-                    @click="openLink(file)"
-                    v-for="(file, idx) in removeDuplicate(
-                        JSON.parse(retrieve).documents
-                    )"
-                    :key="idx"
+                    <a-row
+                        v-for="(file, idx) in removeDuplicate(
+                            JSON.parse(retrieve).maps
+                        )"
+                        :key="idx"
+                        style="
+                            margin-top: 10px;
+                            border-top: 1px solid #e8e8e8;
+                            padding-top: 10px;
+                            margin-top: 10px;
+                            display: flex;
+                            align-items: center;
+                        "
+                    >
+                        <a-col :xs="24" :sm="24" :md="24" :lg="4">
+                            <div
+                                :style="{
+                                    width: '100%',
+                                    height: '70px',
+                                    cursor: 'pointer',
+                                    background: `url('${generateImage(file)}`,
+                                    backgroundSize: 'contain',
+                                    backgroundRepeat: 'no-repeat',
+                                    backgroundPosition: 'center',
+                                    margin: 'auto',
+                                }"
+                                @click="openLink(file)"
+                            ></div>
+                        </a-col>
+                        <a-col :xs="24" :sm="24" :md="24" :lg="20">
+                            <div style="margin-bottom: 5px">
+                                {{ file.name }}
+                            </div>
+                            <a-button
+                                type="primary"
+                                ghost
+                                shape="round"
+                                @click="openLink(file)"
+                            >
+                                Download
+                            </a-button>
+                        </a-col>
+                    </a-row>
+                </div>
+                <div
+                    style="
+                        font-size: 14px;
+                        font-weight: bold;
+                        letter-spacing: 1px;
+                        margin-top: 20px;
+                    "
                 >
-                    {{ file.name }}
-                </a-button>
+                    Dokumen Press Release
+                </div>
+                <div
+                    style="margin-top: 10px"
+                    v-if="JSON.parse(retrieve)?.documents?.length > 0"
+                >
+                    <a-button
+                        style="margin-bottom: 5px"
+                        type="primary"
+                        ghost
+                        icon="file"
+                        @click="openLink(file)"
+                        v-for="(file, idx) in removeDuplicate(
+                            JSON.parse(retrieve).documents
+                        )"
+                        :key="idx"
+                    >
+                        {{ file.name }}
+                    </a-button>
+                </div>
             </div>
             <a-divider />
             <div style="font-size: 14px; margin-bottom: 10px">
@@ -263,6 +341,9 @@ export default {
             return window.location.pathname.indexOf("/data-dasar") > -1;
         },
     },
+    mounted() {
+        console.log(JSON.parse(this.retrieve));
+    },
     methods: {
         convertDate(date) {
             return moment(date).format("DD MMM YYYY HH:mm:ss");
@@ -275,6 +356,15 @@ export default {
         },
         openLink(item) {
             window.open(`/files/${item.id}/${item.name}`);
+        },
+        generateImage(record) {
+            return (
+                window.location.origin +
+                "/files/" +
+                record.id +
+                "/" +
+                record.name
+            );
         },
         removeDuplicate(data) {
             return _.uniqBy(data, function (e) {

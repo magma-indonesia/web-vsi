@@ -173,17 +173,17 @@ Route::group(['middleware' => ['auth']], function () {
             Route::get('/{category}/create', 'create')->name('create');
             Route::get('/{category}/{id}/edit', 'edit')->name('edit');
         });
+    });
 
-        Route::prefix('tanggapan-kejadian')->name('tanggapan-kejadian.')->group(function () {
-            Route::get('/', [GroundResponseController::class, 'index'])->name('index');
-            Route::get('/add', [GroundResponseController::class, 'add'])->name('add');
-            Route::get('/edit/{id}', [GroundResponseController::class, 'edit'])->name('edit');
-            Route::group(['prefix' => 'apis'], function () {
-                Route::get('/', [GroundResponseController::class, 'get'])->name('get');
-                Route::post('/', [GroundResponseController::class, 'store'])->name('save');
-                Route::put('/', [GroundResponseController::class, 'update'])->name('update');
-                Route::delete('/', [GroundResponseController::class, 'delete'])->name('delete');
-            });
+    Route::prefix('tanggapan-kejadian')->name('tanggapan-kejadian.')->group(function () {
+        Route::get('/', [GroundResponseController::class, 'index'])->name('index');
+        Route::get('/add', [GroundResponseController::class, 'add'])->name('add');
+        Route::get('/edit/{id}', [GroundResponseController::class, 'edit'])->name('edit');
+        Route::group(['prefix' => 'apis'], function () {
+            Route::get('/', [GroundResponseController::class, 'get'])->name('get');
+            Route::post('/', [GroundResponseController::class, 'store'])->name('save');
+            Route::put('/', [GroundResponseController::class, 'update'])->name('update');
+            Route::delete('/', [GroundResponseController::class, 'delete'])->name('delete');
         });
     });
 

@@ -10,13 +10,16 @@
                 <li class="breadcrumb-item"><a href="/">Dashboard</a></li>
                 <li class="breadcrumb-item">Gerakan Tanah</li>
                 <li class="breadcrumb-item" aria-current="page"><a
-                        href="{{ route('dashboard.gerakan-tanah.tanggapan-kejadian.index') }}">Tanggapan kejadian</a></li>
+                        href="{{ route('dashboard.tanggapan-kejadian.index') }}">Tanggapan Kejadian</a></li>
                 <li class="breadcrumb-item active" aria-current="page">Tambah tanggapan kejadian</li>
             </ol>
         </nav>
     </div>
 </div>
 <div class="p-3" id="app">
-    <form-news apiurl="{{ route('dashboard.gerakan-tanah.tanggapan-kejadian.save') }}" backurl="{{ route('dashboard.gerakan-tanah.tanggapan-kejadian.index') }}"></form-news>
+    <form-news 
+        apiurl="{{ route('dashboard.tanggapan-kejadian.save') }}" 
+        backurl="{{ route('dashboard.tanggapan-kejadian.index') }}"
+    ></form-news>
 </div>
 @endsection
