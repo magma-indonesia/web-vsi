@@ -78,7 +78,7 @@ class FileController extends Controller
             die();
         }
 
-        return Storage::download('public/'.$file->path, $fileName, [
+        return Storage::download($file->path, $fileName, [
             'Content-Disposition' => 'inline; filename='.$fileName
         ]);
     }
@@ -123,7 +123,7 @@ class FileController extends Controller
             $fileName = str_replace($ext, '-'.date('dmYHi').$ext, $fileName);
             $filePath = 'images';
             Storage::putFileAs(
-                'public/'.$filePath,
+                $filePath,
                 $fileUpload,
                 $fileName
             );
