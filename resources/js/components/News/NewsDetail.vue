@@ -355,7 +355,9 @@ export default {
             return helper.truncString(str, 30, "...");
         },
         openLink(item) {
-            window.open(`/files/${item.id}/${item.name}`);
+            window.open(
+                window.location.origin + "/storage/public/" + item.path
+            );
         },
         generateImage(record) {
             return window.location.origin + "/storage/public/" + record.path;
