@@ -99,51 +99,40 @@
                                                 truncString(item.content, 250)
                                             "
                                         ></div>
-                                        <div class="flex">
-                                            <div
-                                                style="
-                                                    display: flex;
-                                                    flex-wrap: wrap;
-                                                "
-                                                v-if="item.tags?.length > 0"
+                                        <div
+                                            style="
+                                                display: flex;
+                                                flex-wrap: wrap;
+                                            "
+                                            v-if="
+                                                item.tags?.length > 0 ||
+                                                item.categories?.length > 0 ||
+                                                item.mountain
+                                            "
+                                        >
+                                            <a-tag
+                                                style="margin-bottom: 5px"
+                                                color="#dc3545"
+                                                v-for="(
+                                                    cat, idx
+                                                ) in removeDuplicate(item.tags)"
+                                                :key="idx"
                                             >
-                                                <a-tag
-                                                    style="margin-bottom: 5px"
-                                                    color="#dc3545"
-                                                    v-for="(
-                                                        cat, idx
-                                                    ) in removeDuplicate(
-                                                        item.tags
-                                                    )"
-                                                    :key="idx"
-                                                >
-                                                    {{ cat.name }}
-                                                </a-tag>
-                                            </div>
-                                            <div
-                                                style="
-                                                    display: flex;
-                                                    flex-wrap: wrap;
-                                                "
-                                                v-if="
-                                                    item.categories?.length > 0
-                                                "
-                                            >
-                                                <a-tag
-                                                    style="margin-bottom: 5px"
-                                                    color="#1b84e7"
-                                                    v-for="(
-                                                        cat, idx
-                                                    ) in item.categories"
-                                                    :key="idx"
-                                                >
-                                                    {{ cat.category }}
-                                                </a-tag>
-                                            </div>
+                                                {{ cat.name }}
+                                            </a-tag>
                                             <a-tag
                                                 style="margin-bottom: 5px"
                                                 color="#1b84e7"
-                                                v-if="item.mountain"
+                                                v-for="(
+                                                    cat, idx
+                                                ) in item.categories"
+                                                :key="idx"
+                                            >
+                                                {{ cat.category }}
+                                            </a-tag>
+                                            <a-tag
+                                                style="margin-bottom: 5px"
+                                                color="#1b84e7"
                                             >
                                                 Gunung Api
                                                 {{

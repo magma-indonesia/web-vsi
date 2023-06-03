@@ -82,7 +82,7 @@ export default {
     },
     methods: {
         generateImage(record) {
-            return window.location.origin + "/storage/public/" + record.path;
+            return `${window.location.origin}/files/${record.id}/${record.name}`;
         },
     },
 };

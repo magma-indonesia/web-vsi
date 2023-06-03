@@ -355,10 +355,12 @@ export default {
             return helper.truncString(str, 30, "...");
         },
         openLink(item) {
-            window.open(`/files/${item.id}/${item.name}`);
+            window.open(
+                `${window.location.origin}/files/${item.id}/${item.name}`
+            );
         },
         generateImage(record) {
-            return window.location.origin + "/storage/public/" + record.path;
+            return `${window.location.origin}/files/${record.id}/${record.name}`;
         },
         removeDuplicate(data) {
             return _.uniqBy(data, function (e) {
