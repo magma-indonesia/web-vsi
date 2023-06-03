@@ -75,10 +75,7 @@ class PressRelease extends Model
                                 ->first();
 
         if ($thumbnail) {
-            return route('files.download', [
-                'id'    => $thumbnail->id,
-                'name'  => $thumbnail->name
-            ]);
+            return url('/storage/public').'/'.$thumbnail->path;
         } 
         
         return null;
