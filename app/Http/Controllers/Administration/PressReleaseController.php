@@ -102,7 +102,7 @@ class PressReleaseController extends Controller
                     }
                     $filePath = 'files/'.$this->user()->nip;
                     Storage::putFileAs(
-                        'public/'.$filePath,
+                        $filePath,
                         $fileUpload,
                         $fileName
                     );
@@ -163,7 +163,7 @@ class PressReleaseController extends Controller
                     }
                     $filePath = 'files/'.$this->user()->nip;
                     Storage::putFileAs(
-                        'public/'.$filePath,
+                        $filePath,
                         $fileUpload,
                         $fileName
                     );
@@ -224,7 +224,7 @@ class PressReleaseController extends Controller
                     }
                     $filePath = 'files/'.$this->user()->nip;
                     Storage::putFileAs(
-                        'public/'.$filePath,
+                        $filePath,
                         $fileUpload,
                         $fileName
                     );
@@ -601,6 +601,7 @@ class PressReleaseController extends Controller
                         })->when($user_id, function ($query) {
                             return $query->where('user_id', Auth::user()->id);
                         })->whereIn(DB::raw("SUBSTRING_INDEX(name,'.',-1)"), explode(",",$extension))
+                        ->where('is_press_release', 1)
                         ->orderBy("created_at", "desc")
                         ->paginate($request->pageSize);
 
