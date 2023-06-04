@@ -105,7 +105,7 @@
             </template>
             <template slot="group_class" slot-scope="text, record">
                 <div style="font-size: 12px">
-                    {{ record.group + '/' + record.class }}
+                    {{ record.group == null || record.class == null ? '' : record.group + '/' + record.class }}
                 </div>
             </template>
         </a-table>

@@ -82,7 +82,9 @@ export default {
     },
     methods: {
         generateImage(record) {
-            return `${window.location.origin}/files/${record.id}/${record.name}`;
+            return `${window.location.origin}/files/${
+                record.id
+            }/${encodeURIComponent(record.name)}`;
         },
     },
 };

@@ -137,7 +137,7 @@ class User extends Authenticatable implements RbacUserInterface
 
     public function getSegmentNameAttribute()
     {
-        return $this->segment->pronounce;
+        return optional($this->segment)->pronounce;
     }
 
     public function roles()
