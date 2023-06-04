@@ -356,11 +356,15 @@ export default {
         },
         openLink(item) {
             window.open(
-                `${window.location.origin}/files/${item.id}/${item.name}`
+                `${window.location.origin}/files/${
+                    item.id
+                }/${encodeURIComponent(item.name)}`
             );
         },
         generateImage(record) {
-            return `${window.location.origin}/files/${record.id}/${record.name}`;
+            return `${window.location.origin}/files/${
+                record.id
+            }/${encodeURIComponent(record.name)}`;
         },
         removeDuplicate(data) {
             return _.uniqBy(data, function (e) {
