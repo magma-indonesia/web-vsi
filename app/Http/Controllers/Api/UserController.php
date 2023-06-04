@@ -235,4 +235,59 @@ class UserController extends Controller
             ], 500);
         }
     }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function updatePassword(Request $request)
+    {
+        DB::beginTransaction();
+        try {
+            $validator = Validator::make(
+                $request->all(),
+                [
+                    'password' => ['required'],
+                ],
+                [
+                    'password.required' => 'Password wajib diisi',
+                ]
+            );
+           
+            if ($validator->fails()) {
+                DB::commit();
+                return response()->json([
+                    'message' => $validator->errors()->first(),
+                    'serve' => []
+                ], 400);
+            }
+
+            $user = User::where('id', $request->id)->first();
+            if (!$user) {
+                return response()->json([
+                    'message' => "Gagal mendapatkan data.",
+                    'serve' => []
+                ], 400);
+            }
+            
+            $user->password = $request->password;
+            $user->save();
+
+            DB::commit();
+
+            return response()->json([
+                'message' => 'Password berhasil diubah.',
+                'serve' => [],
+            ], 200);
+        } catch (Throwable $e) {
+            DB::rollBack();
+            return response()->json([
+                'message' => $e->getMessage(),
+                'serve' => [],
+            ], 500);
+        }
+    }
 }
