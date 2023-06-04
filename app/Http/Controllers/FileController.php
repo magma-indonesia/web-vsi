@@ -135,10 +135,12 @@ class FileController extends Controller
             $file->is_tmp = true;
             $file->save();
 
+            $url = str_replace(env('APP_URL'), '', $file->url());
+
             return response()->json([
                 'message' => '',
                 'serve' => [
-                    'url' => $file->url(),
+                    'url' => $url,
                 ]
             ], 200);
         } catch (Throwable $e) {

@@ -32,9 +32,14 @@ services:
             SIPEG_API_URL: http://172.16.23.15
             SIPEG_PHOTO_URL: https://ngantor.esdm.go.id/sipeg/media/person/
             REDIS_HOST: redis_tmp
+            FILESYSTEM_DISK: public
+            RECAPTCHA_SITEKEY: 6LeH1OcUAAAAAP3MXLlekOozbTzok4rTSzxuYbmD
+            RECAPTCHA_SERVERKEY: 6LeH1OcUAAAAAHrE-pKsBJKDCIXgMw7cFIJZVynE
+            GEETEST_EVENT_ID: e9afee5d2dd9d582b2548bbd76a3f17b
         working_dir: /var/www/html
         volumes:
             - ./:/var/www/html
+            - ./storage/app:/var/www/html/storage/app
         networks:
             - intranet
     nginx:

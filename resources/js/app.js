@@ -114,6 +114,7 @@ Vue.component(
 Vue.component("table-role", require("./components/Role/TableRole.vue").default);
 Vue.component("form-role", require("./components/Role/FormRole.vue").default);
 Vue.component("form-role-policy", require("./components/Role/FormRolePolicy.vue").default);
+Vue.component("form-change-password", require("./components/User/FormChangePassword.vue").default);
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue

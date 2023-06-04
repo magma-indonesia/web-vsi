@@ -279,27 +279,28 @@ class UserController extends Controller
             if ($type == 'csv') {
                 $writer = new Writer\Csv($spreadsheet);
                 $writer->setDelimiter(';');
-    
-                $response =  new StreamedResponse(
+
+                $response = new StreamedResponse(
                     function () use ($writer) {
                         $writer->save('php://output');
                     }
                 );
                 $response->headers->set('Content-Type', 'text/csv');
                 $response->headers->set('Content-Disposition', 'attachment;filename="'.$fileName.'"');
-                $response->headers->set('Cache-Control','max-age=0');
+                $response->headers->set('Cache-Control', 'max-age=0');
             } else {
                 $writer = new Writer\Xlsx($spreadsheet);
-    
-                $response =  new StreamedResponse(
+
+                $response = new StreamedResponse(
                     function () use ($writer) {
                         $writer->save('php://output');
                     }
                 );
                 $response->headers->set('Content-Type', 'application/vnd.ms-excel');
                 $response->headers->set('Content-Disposition', 'attachment;filename="'.$fileName.'"');
-                $response->headers->set('Cache-Control','max-age=0');
+                $response->headers->set('Cache-Control', 'max-age=0');
             }
+
             return $response;
         } catch (Exception $e) {
             return response()->json([
@@ -307,5 +308,20 @@ class UserController extends Controller
                 'serve' => [],
             ], 500);
         }
+    }
+
+    public function editPassword($id)
+    {
+        $user = User::find($id);
+        if (!$user) {
+            abort(404);
+        }
+
+        return view('dashboard.user.form-change-password', [
+            'contents' => $this->contents,
+            'pageTitle' => 'Change Password',
+            'appUrl' => env('APP_URL'),
+            'retrieve' => $user,
+        ]);
     }
 }

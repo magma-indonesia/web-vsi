@@ -361,5 +361,19 @@ Route::group(['middleware' => ['auth']], function () {
                 Route::put('/policy', 'updatePolicy');
             });
         });
+
+        // Change Password
+        Route::group(['prefix' => 'change-password'], function () {
+            Route::controller(ApiUserController::class)->group(function () {
+                Route::put('/', 'updatePassword');
+            });
+        });
+    });
+
+    // Change Password
+    Route::prefix('change-password')->name('change-password.')->group(function () {
+        Route::controller(UserController::class)->group(function () {
+            Route::get('/{id}/change-password', 'editPassword')->name('edit');
+        });
     });
 });
