@@ -8,8 +8,8 @@
             <figure class="overlay">
                 <img src="extra-images/main-banner-pvmbg.jpg" alt="">
                 <div class="banner_text" style="padding: 20px 30px">
-                    <div class="small_text animated">Selamat Datang</div>
-                    <div class="medium_text animated">di web</div>
+                    <div class="small_text animated">Selamat Datang di</div>
+                    <div class="medium_text animated">Web PVMBG</div>
                     <div class="banner_btn" style="margin-top: 10px;margin-bottom: 10px;">
                         <a class="theam_btn animated" style="background: #293d50; color: #fff" href="https://magma.vsi.esdm.go.id">MAGMA Indonesia</a>
                         <a class="theam_btn animated" style="background: #293d50; color: #fff" href="https://vsi.esdm.go.id/portalmbg">Portal MGB</a>
