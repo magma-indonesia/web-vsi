@@ -12,7 +12,7 @@
                     <div class="medium_text animated">di web</div>
                     <div class="banner_btn" style="margin-top: 10px;margin-bottom: 10px;">
                         <a class="theam_btn animated" style="background: #293d50; color: #fff" href="https://magma.vsi.esdm.go.id">MAGMA Indonesia</a>
-                        <a class="theam_btn animated" style="background: #293d50; color: #fff" href="">Portal MGB</a>
+                        <a class="theam_btn animated" style="background: #293d50; color: #fff" href="https://vsi.esdm.go.id/portalmbg">Portal MGB</a>
                     </div>
                     <div class="banner_search_form">
                         <label>Cari artikel</label>
@@ -65,16 +65,10 @@
                         <h5><a href="https://magma.vsi.esdm.go.id">MAGMA Indonesia</a></h5>
                     </div>
                 </li>
-                <!-- <li>
-                    <div class="city_service_text">
-                        <span><i class="fa icon-news"></i></span>
-                        <h5><a href="#">Informasi Bencana Geologi</a></h5>
-                    </div>
-                </li> -->
                 <li>
                     <div class="city_service_text">
                         <span><i class="fa fa-download"></i></span>
-                        <h5><a href="#">Download Peta KRB</a></h5>
+                        <h5><a href="https://vsi.esdm.go.id/portalmbg">Download Peta KRB</a></h5>
                     </div>
                 </li>
                 <li>
@@ -89,13 +83,13 @@
 </div>
 
 @if (isset($news) && count($news) > 0)
-<div class="city_jobs_wrap" style="background-image: url('{{ $news[0]->thumbnail }}'); 
+<div class="city_jobs_wrap" style="background-image: url('{{ $news[0]->thumbnail }}');
             background-size: cover;
             background-repeat: no-repeat;
             background-position: center;
     ">
     @else
-    <div class="city_jobs_wrap" style="background-image: url('https://magma.vsi.esdm.go.id/img/crs/VEN_LEW20220214142737.png'); 
+    <div class="city_jobs_wrap" style="background-image: url('https://magma.vsi.esdm.go.id/img/crs/VEN_LEW20220214142737.png');
             background-size: cover;
             background-repeat: no-repeat;
             background-position: center;
@@ -132,13 +126,13 @@
                 </li>
                 <li>
                     @if ($tanggapanKejadian)
-                    <div class="city_jobs_item pull-right overlay" style="background-image: url('{{ $tanggapanKejadian->thumbnail }}'); 
+                    <div class="city_jobs_item pull-right overlay" style="background-image: url('{{ $tanggapanKejadian->thumbnail }}');
             background-size: cover;
             background-repeat: no-repeat;
             background-position: center;
     ">
                         @else
-                        <div class="city_jobs_item pull-right overlay" style="background-image: url('/images/gertan.jpeg'); 
+                        <div class="city_jobs_item pull-right overlay" style="background-image: url('/images/gertan.jpeg');
             background-size: cover;
             background-repeat: no-repeat;
             background-position: center;
