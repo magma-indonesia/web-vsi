@@ -48,6 +48,7 @@
             <thead>
                 <th>Nama</th>
                 <th>Subject</th>
+                <th>Pesan Diterima</th>
             </thead>
             <tbody>
                 @if (count($contacts) > 0)
@@ -55,6 +56,7 @@
                 <tr class="table-hover" onclick="showDetail('{{ json_encode($c) }}')">
                     <td style="width: 20%;">{{ $c->name }}</td>
                     <td>{{ $c->subject }}</td>
+                    <td>{{ $c->created_at }}</td>
                 </tr>
                 @endforeach
                 @else

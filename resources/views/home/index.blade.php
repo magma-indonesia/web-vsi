@@ -11,8 +11,8 @@
                     <div class="small_text animated">Selamat Datang di</div>
                     <div class="medium_text animated">Web PVMBG</div>
                     <div class="banner_btn" style="margin-top: 10px;margin-bottom: 10px;">
-                        <a class="theam_btn animated" style="background: #293d50; color: #fff" href="https://magma.esdm.go.id">MAGMA Indonesia</a>
-                        <a class="theam_btn animated" style="background: #293d50; color: #fff" href="https://vsi.esdm.go.id/portalmbg">Portal MGB</a>
+                        <a class="theam_btn animated" style="background: #293d50; color: #fff" target="_blank" href="https://magma.esdm.go.id">MAGMA Indonesia</a>
+                        <a class="theam_btn animated" style="background: #293d50; color: #fff" target="_blank" href="https://vsi.esdm.go.id/portalmbg">Portal MGB</a>
                     </div>
                     <div class="banner_search_form">
                         <label>Cari artikel</label>
