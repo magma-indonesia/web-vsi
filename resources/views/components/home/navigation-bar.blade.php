@@ -45,7 +45,7 @@
                         <ul style="margin-bottom: 0;">
                             <li><a href="#">Profile</a>
                                 <ul class="child">
-                                    <li><a href="{{ route('profile.tentang-pvmbg') }}">Tentang PVMBG</a></li>
+                                    <li><a href="{{ route('profile.tentang-pvmbg') }}">Tugas dan Fungsi</a></li>
                                     <li><a href="{{ route('profile.struktur-organisasi') }}">Struktur Organisasi</a>
                                     </li>
                                     <li><a href="{{ route('profile.sejarah') }}">Sejarah</a></li>
@@ -123,10 +123,15 @@
                                         </ul>
                                     </li>
                                     <hr>
-                                    <li><a href="">Permohonan Data</a></li>
-                                    <li><a href="">Permohonan API Service MAGMA</a></li>
-                                    <li><a href="">Praktik Kerja Lapangan</a></li>
-                                    <li><a href="">Bimbingan Tugas Akhir</a></li>
+                                    <li><a href="">Permohonan Data dan Informasi</a></li>
+                                    <li><a href="">Permohonan Narasumber</a></li>
+                                    <li><a href="">Permohonan Integrasi Data</a></li>
+                                    <li><a href="">Pelayanan Bimbingan</a>
+                                        <ul class="child">
+                                            <li><a href="#">Praktik Kerja Lapangan</a></li>
+                                            <li><a href="#">Bimbingan Skripsi/Tugas Akhir</a></li>
+                                        </ul>
+                                    </li>
                                     <hr>
                                     <li><a href="">Pengaduan</a></li>
                                     <!-- <li><a href="{{ route('layanan-publik.kontak') }}">Hubungi Kami</a></li> -->

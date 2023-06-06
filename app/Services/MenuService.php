@@ -404,10 +404,14 @@ class MenuService
     public function get()
     {
         $user = Auth::user();
-        if ($user->role->slug == Param::ROLE_SLUG_ADMIN) {
-            $policies = collect(config('pvmbg.policies'))->keys()->toArray();
+        if ($user->role != null) {
+            if ($user->role->slug == Param::ROLE_SLUG_ADMIN) {
+                $policies = collect(config('pvmbg.policies'))->keys()->toArray();
+            } else {
+                $policies = json_decode(optional($user->role)->policies);
+            }
         } else {
-            $policies = json_decode(optional($user->role)->policies);
+            $policies = [];
         }
         $policies[] = Param::DEFAULT_ACCESS_POLICY;
         $menus = $this->menus();

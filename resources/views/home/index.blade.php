@@ -99,7 +99,7 @@
             <div class="city_job_text">
                 @if (isset($news) && count($news) > 0)
                 <h3>{{ $news[0]->type }}</h3>
-                <h2>{{ (strlen($news[0]->title) > 25) ? substr($news[0]->title,0,25).'...' : $news[0]->title  }}</h2>
+                <h2>{{ (strlen($news[0]->title) > 50) ? substr($news[0]->title,0,50).'...' : $news[0]->title  }}</h2>
                 <a class="theam_btn_yellow" href="{{ $news[0]->link }}" tabindex="0">Selengkapnya</a>
                 @else
                 <h3>Belum ada data</h3>
@@ -115,7 +115,7 @@
                         <div class="ciy_jobs_caption">
                             <h2>Press Release Gunung Api</h2>
                             @if ($pressRelease)
-                            <h5>{{ (strlen($pressRelease->title) > 25) ? substr($pressRelease->title,0,25).'...' : $pressRelease->title  }}
+                            <h5>{{ (strlen($pressRelease->title) > 50) ? substr($pressRelease->title,0,50).'...' : $pressRelease->title  }}
                             </h5>
                             <a href="/press-release">Selengkapnya</a>
                             @else
@@ -142,7 +142,7 @@
                                 <h2>Tanggapan Kejadian Gerakan Tanah</h2>
                                 @if ($tanggapanKejadian)
                                 <h5 style="color: #fff">
-                                    {{ (strlen($tanggapanKejadian->title) > 25) ? substr($tanggapanKejadian->title,0,25).'...' : $tanggapanKejadian->title  }}
+                                    {{ (strlen($tanggapanKejadian->title) > 50) ? substr($tanggapanKejadian->title,0,50).'...' : $tanggapanKejadian->title  }}
                                 </h5>
                                 <a href="/tanggapan-kejadian">Selengkapnya</a>
                                 @else
@@ -158,7 +158,7 @@
                         <div class="ciy_jobs_caption">
                             <h2>Kajian Kejadian Gempa Bumi & Tsunami</h2>
                             @if ($kajianKejadian)
-                            <h5>{{ (strlen($kajianKejadian->title) > 25) ? substr($kajianKejadian->title,0,25).'...' : $kajianKejadian->title  }}
+                            <h5>{{ (strlen($kajianKejadian->title) > 50) ? substr($kajianKejadian->title,0,50).'...' : $kajianKejadian->title  }}
                             </h5>
                             <a href="/kajian-kejadian">Selengkapnya</a>
                             @else
