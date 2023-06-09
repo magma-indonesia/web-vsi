@@ -378,7 +378,11 @@ export default {
             }/${encodeURIComponent(record.name)}`;
         },
         generateThumbnail(thumb) {
-            return window.location.origin + "/storage/" + thumb;
+            return (
+                window.location.origin +
+                "/storage/" +
+                +encodeURIComponent(thumb)
+            );
         },
         removeDuplicate(data) {
             return _.uniqBy(data, function (e) {
