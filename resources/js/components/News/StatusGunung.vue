@@ -81,19 +81,19 @@
                 <hr />
                 Keterangan:
                 <div style="display: flex; align-items: center; gap: 10px">
-                    <div class="blob red" />
+                    <div class="blob red circle" />
                     Level IV (AWAS)
                 </div>
                 <div style="display: flex; align-items: center; gap: 10px">
-                    <div class="blob orange" />
+                    <div class="blob orange circle" />
                     Level III (SIAGA)
                 </div>
                 <div style="display: flex; align-items: center; gap: 10px">
-                    <div class="blob yellow" />
+                    <div class="blob yellow circle" />
                     Level II (WASPADA)
                 </div>
                 <div style="display: flex; align-items: center; gap: 10px">
-                    <div class="blob green" />
+                    <div class="blob green circle" />
                     Level I (NORMAL)
                 </div>
             </div>
