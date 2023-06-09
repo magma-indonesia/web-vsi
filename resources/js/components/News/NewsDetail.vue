@@ -382,7 +382,7 @@ export default {
                 ? thumb
                 : window.location.origin +
                       "/storage/" +
-                      +encodeURIComponent(thumb);
+                      encodeURIComponent(thumb);
         },
         removeDuplicate(data) {
             return _.uniqBy(data, function (e) {
