@@ -96,25 +96,32 @@ Vue.component(
     require("./components/Utils/404.vue").default
 );
 Vue.component(
-  "table-public-service",
-  require("./components/PublicService/TablePublicService.vue").default
+    "table-public-service",
+    require("./components/PublicService/TablePublicService.vue").default
 );
 Vue.component(
-  "form-public-service",
-  require("./components/PublicService/FormPublicService.vue").default
+    "form-public-service",
+    require("./components/PublicService/FormPublicService.vue").default
 );
 Vue.component(
-  "public-service",
-  require("./components/PublicService/PublicService.vue").default
+    "public-service",
+    require("./components/PublicService/PublicService.vue").default
 );
 Vue.component(
-  "public-service-detail",
-  require("./components/PublicService/PublicServiceDetail.vue").default
+    "public-service-detail",
+    require("./components/PublicService/PublicServiceDetail.vue").default
 );
 Vue.component("table-role", require("./components/Role/TableRole.vue").default);
 Vue.component("form-role", require("./components/Role/FormRole.vue").default);
-Vue.component("form-role-policy", require("./components/Role/FormRolePolicy.vue").default);
-Vue.component("form-change-password", require("./components/User/FormChangePassword.vue").default);
+Vue.component(
+    "form-role-policy",
+    require("./components/Role/FormRolePolicy.vue").default
+);
+Vue.component(
+    "form-change-password",
+    require("./components/User/FormChangePassword.vue").default
+);
+Vue.component("banner", require("./components/Utils/Banner.vue").default);
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
@@ -162,7 +169,6 @@ axios.interceptors.response.use(
         return Promise.reject(error);
     }
 );
-
 new Vue({
     el: "#app",
 });

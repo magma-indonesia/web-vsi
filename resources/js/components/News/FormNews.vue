@@ -168,7 +168,7 @@
             <a-form-item label="Thumbnail">
                 <div v-if="thumbnail" class="d-flex flex-column">
                     <img
-                        :src="thumbnail"
+                        :src="generateImage(thumbnail)"
                         alt="avatar"
                         style="
                             width: 100%;
@@ -322,6 +322,9 @@ export default {
         });
     },
     methods: {
+        generateImage(thumb) {
+            return window.location.origin + "/storage/" + thumb;
+        },
         callback(e) {
             this.tabKey = e;
         },

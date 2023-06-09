@@ -87,13 +87,6 @@ export default {
                             if (error.response.data.csrf) {
                                 this.token = error.response.data.csrf;
                                 this.loading = false;
-                                this.$notification.error({
-                                    message: error.response
-                                        ? `${error.response.data.message}`
-                                        : "Terjadi kesalahan pada sistem, silahkan coba kembali nanti.",
-                                    placement: "bottomRight",
-                                    duration: 5,
-                                });
                             } else {
                                 window.location.reload(true);
                             }

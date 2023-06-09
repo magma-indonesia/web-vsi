@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 class UploadController extends Controller
@@ -15,19 +16,22 @@ class UploadController extends Controller
                     'serve' => []
                 ], 400);
             }
-            
-            $path = Storage::putFile(
-                'public/upload/files',
-                $request->file('file'),
+            $fileUpload = $request->file('file');
+            $fileName = $fileUpload->getClientOriginalName();
+            $filePath = 'files/thumbnail';
+            Storage::putFileAs(
+                $filePath,
+                $fileUpload,
+                $fileName
             );
             
             return response()->json([
                 'message' => '', 
                 'serve' => [
-                    "url"=> url('/storage').'/'.$path,
-                    "uid"=> $path,
+                    "url"=> $filePath.'/'.$fileName,
+                    "uid"=> $filePath.'/'.$fileName,
                     "status"=>"done",
-                    "name"=> $path
+                    "name"=> $filePath.'/'.$fileName
                 ]
             ], 200);
         } catch (\Throwable $e) {

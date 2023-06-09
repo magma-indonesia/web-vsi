@@ -1243,7 +1243,7 @@ export default {
             input.accept = type === "document" ? "application/pdf" : "image/*";
             input.onchange = (e) => {
                 const file = e.target.files[0];
-                const sizeFile = type === "document" ? 5000000 : 3000000;
+                const sizeFile = 5000000;
                 if (file.size < sizeFile) {
                     if (type === "document") {
                         this.documents.push({
