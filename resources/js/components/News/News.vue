@@ -209,12 +209,13 @@ export default {
             });
         },
         generateImage(item) {
+            console.log(this.isPressRelease);
             return item.thumbnail
                 ? this.isPressRelease
                     ? item.thumbnail
                     : window.location.origin +
                       "/storage/" +
-                      +encodeURIComponent(item.thumbnail)
+                      encodeURIComponent(item.thumbnail)
                 : window.location.origin + "/images/placeholder-image.jpeg";
         },
         truncString(item, n) {
