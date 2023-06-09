@@ -202,7 +202,9 @@ export default {
         },
         generateImage(item) {
             return item.thumbnail
-                ? window.location.origin + "/storage/" + item.thumbnail
+                ? window.location.origin +
+                      "/storage/" +
+                      +encodeURIComponent(item.thumbnail)
                 : window.location.origin + "/images/placeholder-image.jpeg";
         },
         truncString(item, n) {
