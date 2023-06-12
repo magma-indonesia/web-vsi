@@ -15,16 +15,10 @@
                         <h5><a href="https://magma.vsi.esdm.go.id">MAGMA Indonesia</a></h5>
                     </div>
                 </li>
-                <!-- <li>
-                    <div class="city_service_text">
-                        <span><i class="fa icon-news"></i></span>
-                        <h5><a href="#">Informasi Bencana Geologi</a></h5>
-                    </div>
-                </li> -->
                 <li>
                     <div class="city_service_text">
                         <span><i class="fa fa-download"></i></span>
-                        <h5><a href="#">Download Peta KRB</a></h5>
+                        <h5><a href="https://vsi.esdm.go.id/portalmbg">Download Peta KRB</a></h5>
                     </div>
                 </li>
                 <li>
@@ -39,13 +33,13 @@
 </div>
 
 @if (isset($news) && count($news) > 0)
-<div class="city_jobs_wrap" style="background-image: url('{{ $news[0]->thumbnail }}'); 
+<div class="city_jobs_wrap" style="background-image: url('{{ $news[0]->thumbnail }}');
             background-size: cover;
             background-repeat: no-repeat;
             background-position: center;
     ">
     @else
-    <div class="city_jobs_wrap" style="background-image: url('https://magma.vsi.esdm.go.id/img/crs/VEN_LEW20220214142737.png'); 
+    <div class="city_jobs_wrap" style="background-image: url('https://magma.vsi.esdm.go.id/img/crs/VEN_LEW20220214142737.png');
             background-size: cover;
             background-repeat: no-repeat;
             background-position: center;
@@ -55,7 +49,7 @@
             <div class="city_job_text">
                 @if (isset($news) && count($news) > 0)
                 <h3>{{ $news[0]->type }}</h3>
-                <h2>{{ (strlen($news[0]->title) > 25) ? substr($news[0]->title,0,25).'...' : $news[0]->title  }}</h2>
+                <h2>{{ (strlen($news[0]->title) > 50) ? substr($news[0]->title,0,50).'...' : $news[0]->title  }}</h2>
                 <a class="theam_btn_yellow" href="{{ $news[0]->link }}" tabindex="0">Selengkapnya</a>
                 @else
                 <h3>Belum ada data</h3>
@@ -71,7 +65,7 @@
                         <div class="ciy_jobs_caption">
                             <h2>Press Release Gunung Api</h2>
                             @if ($pressRelease)
-                            <h5>{{ (strlen($pressRelease->title) > 25) ? substr($pressRelease->title,0,25).'...' : $pressRelease->title  }}
+                            <h5>{{ (strlen($pressRelease->title) > 50) ? substr($pressRelease->title,0,50).'...' : $pressRelease->title  }}
                             </h5>
                             <a href="/press-release">Selengkapnya</a>
                             @else
@@ -82,13 +76,13 @@
                 </li>
                 <li>
                     @if ($tanggapanKejadian)
-                    <div class="city_jobs_item pull-right overlay" style="background-image: url('{{ $tanggapanKejadian->thumbnail }}'); 
+                    <div class="city_jobs_item pull-right overlay" style="background-image: url('{{ $tanggapanKejadian->thumbnail }}');
             background-size: cover;
             background-repeat: no-repeat;
             background-position: center;
     ">
                         @else
-                        <div class="city_jobs_item pull-right overlay" style="background-image: url('/images/gertan.jpeg'); 
+                        <div class="city_jobs_item pull-right overlay" style="background-image: url('/images/gertan.jpeg');
             background-size: cover;
             background-repeat: no-repeat;
             background-position: center;
@@ -98,7 +92,7 @@
                                 <h2>Tanggapan Kejadian Gerakan Tanah</h2>
                                 @if ($tanggapanKejadian)
                                 <h5 style="color: #fff">
-                                    {{ (strlen($tanggapanKejadian->title) > 25) ? substr($tanggapanKejadian->title,0,25).'...' : $tanggapanKejadian->title  }}
+                                    {{ (strlen($tanggapanKejadian->title) > 50) ? substr($tanggapanKejadian->title,0,50).'...' : $tanggapanKejadian->title  }}
                                 </h5>
                                 <a href="/tanggapan-kejadian">Selengkapnya</a>
                                 @else
@@ -114,7 +108,7 @@
                         <div class="ciy_jobs_caption">
                             <h2>Kajian Kejadian Gempa Bumi & Tsunami</h2>
                             @if ($kajianKejadian)
-                            <h5>{{ (strlen($kajianKejadian->title) > 25) ? substr($kajianKejadian->title,0,25).'...' : $kajianKejadian->title  }}
+                            <h5>{{ (strlen($kajianKejadian->title) > 50) ? substr($kajianKejadian->title,0,50).'...' : $kajianKejadian->title  }}
                             </h5>
                             <a href="/kajian-kejadian">Selengkapnya</a>
                             @else

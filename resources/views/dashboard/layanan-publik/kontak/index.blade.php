@@ -48,6 +48,7 @@
             <thead>
                 <th>Nama</th>
                 <th>Subject</th>
+                <th>Pesan Diterima</th>
             </thead>
             <tbody>
                 @if (count($contacts) > 0)
@@ -55,6 +56,7 @@
                 <tr class="table-hover" onclick="showDetail('{{ json_encode($c) }}')">
                     <td style="width: 20%;">{{ $c->name }}</td>
                     <td>{{ $c->subject }}</td>
+                    <td>{{ $c->created_at }}</td>
                 </tr>
                 @endforeach
                 @else
@@ -72,13 +74,11 @@
 
 <div class="modal fade" id="modal-detail" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
     aria-hidden="true">
-    <div class="modal-dialog" role="document">
+    <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">Detail Pesan</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+                <button type="button" class="btn btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <div class="row">
@@ -102,10 +102,12 @@
                             class="tx-10 tx-medium tx-spacing-1 tx-color-03 tx-uppercase tx-sans mg-b-10">Pesan</label>
                         <p class="mg-b-0" id="message-contact"></p>
                     </div>
+                    <div class="col-md-12 mb-3">
+                        <label
+                            class="tx-10 tx-medium tx-spacing-1 tx-color-03 tx-uppercase tx-sans mg-b-10">Pesan Diterima</label>
+                        <p class="mg-b-0" id="date-contact"></p>
+                    </div>
                 </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
             </div>
         </div>
     </div>
@@ -125,6 +127,7 @@
         $("#name-contact").html(parseData?.name)
         $("#email-contact").html(parseData?.email)
         $("#message-contact").html(parseData?.message)
+        $("#date-contact").html(parseData?.created_at)
     }
 
 </script>

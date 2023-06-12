@@ -97,13 +97,13 @@
                 ]"
             />
         </a-form-item>
-        <a-form-item label="Peran" :hasFeedback="true">
+        <a-form-item label="Role" :hasFeedback="true">
             <a-select
                 v-decorator="[
                     'role_id',
                 ]"
             >
-                <a-select-option v-for="item in roles" :key="item.id" :value="item.id">{{item.description}}</a-select-option>
+                <a-select-option v-for="item in roles" :key="item.id" :value="item.id">{{item.name}}</a-select-option>
             </a-select>
         </a-form-item>
         <a-form-item v-if="isUpdate" label="Status" :hasFeedback="true">
