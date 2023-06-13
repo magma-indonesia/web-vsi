@@ -25,4 +25,19 @@ class ContactController extends Controller
             abort(500, $e->getMessage());
         }
     }
+
+    public function detail(Request $request)
+    {
+        try {
+            $id = $request->query("id");
+          
+            $contacts = Contact::where('id', $id)->first();
+            return response()->json([
+                'message' => '',
+                'serve' => $contacts,
+            ], 200);
+        } catch (\Throwable $e) {
+            abort(500, $e->getMessage());
+        }
+    }
 }

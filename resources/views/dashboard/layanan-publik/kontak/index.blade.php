@@ -52,7 +52,7 @@
             <tbody>
                 @if (count($contacts) > 0)
                 @foreach ($contacts as $c)
-                <tr class="table-hover" onclick="showDetail('{{ json_encode($c) }}')">
+                <tr class="table-hover" onclick="showDetail('{{ $c->id }}')">
                     <td style="width: 20%;">{{ $c->name }}</td>
                     <td>{{ $c->subject }}</td>
                 </tr>
@@ -105,7 +105,8 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal"
+                    onclick="hideModal()">Close</button>
             </div>
         </div>
     </div>
@@ -119,12 +120,23 @@
     })
 
     function showDetail(data) {
-        const parseData = JSON.parse(data);
-        $('#modal-detail').modal('show')
-        $("#subject-contact").html(parseData?.subject)
-        $("#name-contact").html(parseData?.name)
-        $("#email-contact").html(parseData?.email)
-        $("#message-contact").html(parseData?.message)
+        axios.get(`/dashboard/layanan-publik/kontak/apis/detail?id=${data}`).then((res) => {
+            if (res) {
+                $('#modal-detail').modal('show')
+                $("#subject-contact").html(res.data.serve.subject)
+                $("#name-contact").html(res.data.serve.name)
+                $("#email-contact").html(res.data.serve.email)
+                $("#message-contact").html(res.data.serve.message)
+            }
+        })
+    }
+
+    function hideModal() {
+        $('#modal-detail').modal('hide')
+        $("#subject-contact").html('')
+        $("#name-contact").html('')
+        $("#email-contact").html('')
+        $("#message-contact").html('')
     }
 
 </script>
