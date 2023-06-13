@@ -40,7 +40,7 @@ class RegisterController extends Controller
                 'institution' => 'required',
                 'password' => 'required|string|min:8|confirmed',
             ]);
-            
+
             /** Validation throw */
             if ($validation->fails()) {
                 DB::commit();
@@ -52,7 +52,7 @@ class RegisterController extends Controller
 
             $u = new User();
             $u->uuid = $u->bootGenerateUUID();
-            $u->name = $request->first_name." ".$request->last_name;
+            $u->name = $request->first_name . " " . $request->last_name;
             $u->email = $request->email;
             $u->password = Hash::make($request->password);
             $u->save();
