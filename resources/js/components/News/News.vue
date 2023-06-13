@@ -191,6 +191,14 @@ export default {
             },
         };
     },
+    computed: {
+        isPressRelease() {
+            return window.location.pathname.indexOf("/press-release") > -1;
+        },
+        isDataDasar() {
+            return window.location.pathname.indexOf("/data-dasar") > -1;
+        },
+    },
     mounted() {
         this.fetchData(this.params, this.pagination);
     },
@@ -201,8 +209,13 @@ export default {
             });
         },
         generateImage(item) {
+            console.log(this.isPressRelease);
             return item.thumbnail
-                ? item.thumbnail
+                ? this.isPressRelease
+                    ? item.thumbnail
+                    : window.location.origin +
+                      "/storage/" +
+                      encodeURIComponent(item.thumbnail)
                 : window.location.origin + "/images/placeholder-image.jpeg";
         },
         truncString(item, n) {
