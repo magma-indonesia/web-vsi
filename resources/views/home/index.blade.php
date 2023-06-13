@@ -2,7 +2,7 @@
 
 @section('content')
 <!--CITY MAIN BANNER START-->
-<banner pengumuman="{{ $pengumuman }}"></banner>
+<banner pengumuman="{{ $pengumuman }}" urlpencarian="{{route('hasil-pencarian.index')}}"></banner>
 <!--CITY MAIN BANNER END-->
 
 <div class="city_banner_services">

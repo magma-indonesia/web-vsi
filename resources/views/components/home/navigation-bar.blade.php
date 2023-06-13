@@ -240,8 +240,18 @@
                 <div class="col-md-2">
                     <div class="city_top_form" style="display: flex; gap: 10px;">
                         <div class="city_top_search">
-                            <input type="text" placeholder="Search">
-                            <a href="#"><i class="fa fa-search"></i></a>
+                            <form method="GET" action="{{route('hasil-pencarian.index')}}" id="search-form">
+                                <input type="text" placeholder="Search" name="keyword" id="search" 
+                                value="{{request()->get('keyword')}}">
+                                <a onclick="
+                                    if (document.getElementById('search').value == '') {
+                                        alert('Masukkan kata kunci pencarian');
+                                    } else {
+                                        document.getElementById('search-form').submit();
+                                    }">
+                                    <i class="fa fa-search"></i>
+                                </a>
+                            </form>
                         </div>
                         <a class="top_user" href="{{ route('login.index') }}"><i class="fa fa-user"></i></a>
                     </div>
