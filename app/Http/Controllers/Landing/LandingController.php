@@ -63,6 +63,7 @@ class LandingController extends Controller
             foreach ($tanggapanKejadian as $row) {
                 $row->type = 'Tanggapan Kejadian';
                 $row->link = env('APP_URL')."/tanggapan-kejadian/".$row->route;
+                $row->thumbnail = env('APP_URL')."/storage/".$row->thumbnail;
                 array_push($news, $row);
             }
             $tanggapanKejadian = $tanggapanKejadian[0];
@@ -76,6 +77,7 @@ class LandingController extends Controller
             foreach ($kajianKejadian as $row) {
                 $row->type = 'Kajian Kejadian';
                 $row->link = env('APP_URL')."/kajian-kejadian/".$row->route;
+                $row->thumbnail = env('APP_URL')."/storage/".$row->thumbnail;
                 array_push($news, $row);
             }
             $kajianKejadian = $kajianKejadian[0];

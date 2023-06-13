@@ -163,8 +163,8 @@
                             </li>
                             <li class="menu-item kode-parent-menu"><a href="#">Gunung Api</a>
                                 <ul class="dl-submenu">
-                                    <li><a href="">Data Dasar</a></li>
-                                    <li><a href="">Tingkat Aktivitas</a></li>
+                                    <li><a href="{{ route('gunung-api.data-dasar.index') }}">Data Dasar</a></li>
+                                    <li><a href="{{ route('gunung-api.tingkat-aktivitas.index') }}">Tingkat Aktivitas</a></li>
                                     <li><a href="https://magma.esdm.go.id/v1/gunung-api/laporan" target="_blank">Laporan Aktivitas</a></li>
                                     <li><a href="https://magma.esdm.go.id/v1/gunung-api/informasi-letusan" target="_blank">Informasi Letusan</a></li>
                                     <li><a href="">CCTV Gunung Api</a></li>
@@ -184,9 +184,9 @@
                             </li>
                             <li class="menu-item kode-parent-menu"><a href="#">Gempa Bumi dan Tsunami</a>
                                 <ul class="dl-submenu">
-                                    <li><a href="">Daftar Kejadian</a></li>
-                                    <li><a href="">laporan Singkat dan Rekomendasi Teknis</a></li>
-                                    <li><a href="">Publikasi Mitigasi Gempa Bumi</a></li>
+                                    <li><a href="{{ route('gempa-bumi-tsunami.daftar-kejadian.index') }}">Daftar Kejadian</a></li>
+                                    <li><a href="{{ route('gempa-bumi-tsunami.laporan-singkat.index') }}">laporan Singkat dan Rekomendasi Teknis</a></li>
+                                    <li><a href="{{ route('gempa-bumi-tsunami.publikasi-mitigasi.index') }}">Publikasi Mitigasi Gempa Bumi</a></li>
                                     <li><a href="">Katalog Gempa Bumi Merusak</a></li>
                                     <li><a href="">Peta KRB Gempa Bumi</a></li>
                                     <li><a href="">Peta KRB Tsunami</a></li>
@@ -240,8 +240,18 @@
                 <div class="col-md-2">
                     <div class="city_top_form" style="display: flex; gap: 10px;">
                         <div class="city_top_search">
-                            <input type="text" placeholder="Search">
-                            <a href="#"><i class="fa fa-search"></i></a>
+                            <form method="GET" action="{{route('hasil-pencarian.index')}}" id="search-form">
+                                <input type="text" placeholder="Search" name="keyword" id="search" 
+                                value="{{request()->get('keyword')}}">
+                                <a onclick="
+                                    if (document.getElementById('search').value == '') {
+                                        alert('Masukkan kata kunci pencarian');
+                                    } else {
+                                        document.getElementById('search-form').submit();
+                                    }">
+                                    <i class="fa fa-search"></i>
+                                </a>
+                            </form>
                         </div>
                         <a class="top_user" href="{{ route('login.index') }}"><i class="fa fa-user"></i></a>
                     </div>

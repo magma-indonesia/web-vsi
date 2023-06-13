@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\DB;
 class PressRelease extends Model
 {
     use HasFactory;
-    protected $appends = ['categories', 'files', 'mountain', 'tags', 'documents', 'maps', 'thumbnails', 'thumbnail'];
+    protected $appends = ['categories', 'files', 'mountain', 'tags', 'documents', 'maps', 'thumbnails', 'thumbnail',  'detail'];
     public function getCategoriesAttribute() {
         return PressReleaseCategory::where('press_release_id', $this->attributes['id'])->get();
     }
@@ -82,5 +82,10 @@ class PressRelease extends Model
         } 
         
         return null;
+    }
+
+    protected function getDetailAttribute()
+    {
+        return route('press-release.detail', $this->attributes['route']);
     }
 }

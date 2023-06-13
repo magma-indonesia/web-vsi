@@ -29,10 +29,11 @@
                             <div class="banner_search_field animated">
                                 <input
                                     type="text"
+                                    name="keyword"
                                     placeholder="Ketik sesuatu untuk pencarian..."
+                                    @change="updateKeyword"
                                 />
-                                <a href="#"
-                                    ><i
+                                <a :href="urlpencarian+'?keyword='+keyword"><i
                                         class="fa fa-search"
                                         style="color: #fff"
                                     ></i
@@ -84,10 +85,20 @@
 </template>
 <script>
 export default {
-    props: ["pengumuman"],
+    props: ["pengumuman", "urlpencarian"],
+    data() {
+        return {
+            keyword: ""            
+        };
+    },
     computed: {
         heightBanner() {
             return window.innerHeight - 245;
+        },
+    },
+    methods: {
+        updateKeyword(e) {
+            this.keyword = e.target.value;
         },
     },
 };

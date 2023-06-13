@@ -323,9 +323,7 @@ export default {
     },
     methods: {
         generateImage(thumb) {
-            return (
-                window.location.origin + "/storage/" + encodeURIComponent(thumb)
-            );
+            return window.location.origin + "/storage/" + encodeURI(thumb);
         },
         callback(e) {
             this.tabKey = e;
