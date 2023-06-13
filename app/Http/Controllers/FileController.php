@@ -25,6 +25,7 @@ class FileController extends Controller
         $employee = User::where('id', $request->user_id)->first();
         $user = empty($employee) ? $this->user() : $employee;
         $mode = $request->mode ?? 'folder';
+        // dd(env('APP_URL'));
         if (($roleSlug == Param::ROLE_SLUG_ADMIN && !empty($employee)) || $roleSlug != Param::ROLE_SLUG_ADMIN) {
             return view('dashboard.upload-center.employee-index', [
                 'contents' => $this->contents,
@@ -71,15 +72,15 @@ class FileController extends Controller
         }
 
         $fileName = basename($file->path);
-        $filePath = storage_path('app/public/'.$file->path);
-        if (! file_exists($filePath)) {
+        $filePath = storage_path('app/public/' . $file->path);
+        if (!file_exists($filePath)) {
             http_response_code(404);
 
             die();
         }
 
         return Storage::download($file->path, $fileName, [
-            'Content-Disposition' => 'inline; filename='.$fileName
+            'Content-Disposition' => 'inline; filename=' . $fileName
         ]);
     }
 
@@ -119,8 +120,8 @@ class FileController extends Controller
 
             $fileUpload = $request->file('file');
             $fileName = $fileUpload->getClientOriginalName();
-            $ext = '.'.$fileUpload->getClientOriginalExtension();
-            $fileName = str_replace($ext, '-'.date('dmYHi').$ext, $fileName);
+            $ext = '.' . $fileUpload->getClientOriginalExtension();
+            $fileName = str_replace($ext, '-' . date('dmYHi') . $ext, $fileName);
             $filePath = 'images';
             Storage::putFileAs(
                 $filePath,
@@ -131,7 +132,7 @@ class FileController extends Controller
             $file = new File();
             $file->user_id = $this->user()->id;
             $file->name = $fileName;
-            $file->path = $filePath.'/'.$fileName;
+            $file->path = $filePath . '/' . $fileName;
             $file->is_tmp = true;
             $file->save();
 

@@ -29,6 +29,7 @@ use App\Http\Controllers\Landing\GroundResponseController;
 use App\Http\Controllers\Landing\PressReleaseController;
 use App\Http\Controllers\Landing\ProfileController as LandingProfileController;
 use App\Http\Controllers\Landing\PublicServiceController as LandingPublicServiceController;
+use App\Http\Controllers\Landing\SearchController;
 use App\Http\Controllers\Landing\VolcanoActivityController;
 use App\Http\Controllers\Landing\VolcanoBaseController;
 use Illuminate\Support\Facades\Route;
@@ -127,6 +128,15 @@ Route::prefix('press-release')->name('press-release.')->group(function () {
 
     Route::group(['prefix' => 'apis'], function () {
         Route::get('/get', [AdministrationPressReleaseController::class, 'get'])->name('get');
+    });
+});
+
+Route::prefix('hasil-pencarian')->name('hasil-pencarian.')->group(function () {
+    Route::get('', [SearchController::class, 'index'])->name("index");
+    // Route::get('/{route}', [PressReleaseController::class, 'detail'])->name("detail");
+
+    Route::group(['prefix' => 'apis'], function () {
+        Route::get('/get', [SearchController::class, 'search'])->name('get');
     });
 });
 

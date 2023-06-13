@@ -75,6 +75,8 @@ Vue.component(
 );
 Vue.component("table-user", require("./components/User/TableUser.vue").default);
 Vue.component("form-user", require("./components/User/FormUser.vue").default);
+
+// Yang akan saya kerjakan untuk dibuatkan responsive
 Vue.component(
     "table-upload-center",
     require("./components/UploadCenter/TableUploadCenter.vue").default
@@ -91,6 +93,8 @@ Vue.component(
     "form-upload-center",
     require("./components/UploadCenter/FormUploadCenter.vue").default
 );
+// Yang akan saya kerjakan untuk dibuatkan responsive
+
 Vue.component(
     "result-not-found",
     require("./components/Utils/404.vue").default

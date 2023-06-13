@@ -1,21 +1,14 @@
 <template>
     <div>
         <a-card>
-            <div
-                class="d-flex flex-wrap"
-                style="width: 100%; align-items: flex-end"
-            >
+            <div class="d-flex flex-wrap" style="width: 100%; align-items: flex-end">
                 <div class="d-flex align-items-center">
                     <span style="font-size: 12px">Show</span>
-                    <a-select
-                        @change="handlePageSize"
-                        style="
+                    <a-select @change="handlePageSize" style="
                             width: 80px;
                             margin-left: 10px;
                             margin-right: 10px;
-                        "
-                        :value="pagination.pageSize"
-                    >
+                        " :value="pagination.pageSize">
                         <a-select-option value="10">10</a-select-option>
                         <a-select-option value="50">50</a-select-option>
                         <a-select-option value="100">100</a-select-option>
@@ -23,96 +16,58 @@
                     </a-select>
                     <span style="font-size: 12px">entries</span>
                 </div>
-                <div
-                    style="margin-left: auto"
-                    class="d-flex align-items-center"
-                >
-                    <a-input-search
-                        placeholder="Cari data"
-                        @search="handleSearch"
-                    />
-                    <a-button
-                        v-if="loginid == userid"
-                        icon="plus"
-                        type="primary"
-                        @click="handleAdd"
-                        style="margin-left: 10px"
-                    >
+                <div style="margin-left: auto" class="d-flex align-items-center">
+                    <a-input-search placeholder="Cari data" @search="handleSearch" />
+                    <a-button v-if="loginid == userid" icon="plus" type="primary" @click="handleAdd"
+                        style="margin-left: 10px">
                         Create new
                     </a-button>
                 </div>
             </div>
         </a-card>
-        <a-table
-            :rowKey="'id'"
-            style="margin-top: 10px"
-            :columns="columns"
-            :data-source="data"
-            :pagination="pagination"
-            :loading="loading"
-            @change="handleTableChange"
-        >
-            <template slot="action" slot-scope="text, record">
-                <div
-                    class="d-flex align-items-center justify-content-center flex-column"
-                    style="gap: 10px"
-                >
-                    <div
-                        class="d-flex align-items-center justify-content-center"
-                        style="gap: 10px"
-                    >
-                        <a-button
-                            type="primary"
-                            key="/download"
-                            icon="download"
-                            @click="handleDownload(record)"
-                        ></a-button>
-                        <a-button
-                            type="primary"
-                            key="/copy"
-                            icon="copy"
-                            @click="handleCopyToClipboard(record)"
-                        ></a-button>
-                        <a-popconfirm
-                            v-if="loginid == record.user_id"
-                            placement="left"
-                            title="Anda yakin ingin menghapus data ini?"
-                            @confirm="handleDelete(record)"
-                            ok-text="Iya"
-                            cancel-text="Tidak"
-                        >
-                            <a-button type="danger" key="/delete" icon="delete"></a-button>
-                        </a-popconfirm>
-                    </div>
-                </div>
-            </template>
-            <template slot="created_at" slot-scope="text, record">
-                <div style="font-size: 12px">
-                    {{ formattedTime(new Date(record.created_at)) }}
-                </div>
-            </template>
-            <template slot="tags_name" slot-scope="text, record">
-                <div
-                    style="
+        <div class="table table-responsive">
+            <div class="row">
+                <div class="col">
+
+                    <a-table :rowKey="'id'" style="margin-top: 10px" :columns="columns" :data-source="data"
+                        :pagination="pagination" :loading="loading" @change="handleTableChange">
+                        <template slot="action" slot-scope="text, record">
+                            <div class="d-flex align-items-center justify-content-center flex-column" style="gap: 10px">
+                                <div class="d-flex align-items-center justify-content-center" style="gap: 10px">
+                                    <a-button type="primary" key="/download" icon="download"
+                                        @click="handleDownload(record)"></a-button>
+                                    <a-button type="primary" key="/copy" icon="copy"
+                                        @click="handleCopyToClipboard(record)"></a-button>
+                                    <a-popconfirm v-if="loginid == record.user_id" placement="left"
+                                        title="Anda yakin ingin menghapus data ini?" @confirm="handleDelete(record)"
+                                        ok-text="Iya" cancel-text="Tidak">
+                                        <a-button type="danger" key="/delete" icon="delete"></a-button>
+                                    </a-popconfirm>
+                                </div>
+                            </div>
+                        </template>
+                        <template slot="created_at" slot-scope="text, record">
+                            <div style="font-size: 12px">
+                                {{ formattedTime(new Date(record.created_at)) }}
+                            </div>
+                        </template>
+                        <template slot="tags_name" slot-scope="text, record">
+                            <div style="
                         display: flex;
                         flex-wrap: wrap;
                         margin-top: 10px;
-                    "
-                    v-if="record.tags_name.split(',').length > 0"
-                >
-                    <a-tag
-                        color="#4682B4"
-                        style="margin-bottom: 10px"
-                        v-for="(
+                    " v-if="record.tags_name.split(',').length > 0">
+                                <a-tag color="#4682B4" style="margin-bottom: 10px" v-for="(
                             tag, idx
-                        ) in record.tags_name.split(',')"
-                        :key="idx"
-                    >
-                        {{ tag }}
-                    </a-tag>
+                        ) in record.tags_name.split(',')" :key="idx">
+                                    {{ tag }}
+                                </a-tag>
+                            </div>
+                        </template>
+                    </a-table>
                 </div>
-            </template>
-        </a-table>
+            </div>
+        </div>
     </div>
 </template>
 <script>
