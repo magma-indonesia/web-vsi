@@ -23,6 +23,7 @@
                     </a-select>
                     <span style="font-size: 12px">entries</span>
                 </div>
+                
                 <div
                     style="margin-left: auto"
                     class="d-flex align-items-center"
@@ -41,6 +42,8 @@
                     </a-button>
                 </div>
             </div>
+
+            
             <a-divider />
             <a-table
                 :rowKey="'id'"

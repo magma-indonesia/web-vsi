@@ -14,6 +14,7 @@
         </nav>
     </div>
 </div>
+
 <div class="p-3" id="app">
     <table-news 
         apiurl="{{ route('dashboard.gunung-api.data-dasar.get') }}" 
