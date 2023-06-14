@@ -681,6 +681,11 @@
 @endsection
 
 @push('scripts')
+    <script>
+        document.getElementById("gerakan-tanah").style.display = "none";
+        document.getElementById("gempa-bumi").style.display = "none";
+        document.getElementById("pengajuan").style.display = "none";
+    </script>
     <script src="{{ asset('js/jquery-filterable.js') }}"></script>
     <!-- <script src="{{ asset('js/jquery.nice-select.min.js') }}"></script> -->
     <script src="{{ asset('js/web/collab/index.js') }}"></script>
@@ -694,4 +699,5 @@
         });
     </script>
     <script src="{{ mix('js/app.js') }}" type="text/javascript"></script>
+
 @endpush
