@@ -25,7 +25,6 @@
             </div>
         </a-card>
         <div class="table table-responsive">
-            <!-- <div class="table-responsive"> -->
             <div class="row">
                 <div class="col">
                     <a-table :rowKey="'id'" style="margin-top: 10px" :columns="columns" :data-source="data"
