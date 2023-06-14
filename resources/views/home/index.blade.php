@@ -24,7 +24,7 @@
                 <li>
                     <div class="city_service_text">
                         <span><i class="fa icon-cursor"></i></span>
-                        <h5><a href="#">Lapor Bencana</a></h5>
+                        <h5><a href="https://drive.google.com/file/d/1JnLuaG8uG62x2G4bMepVWjwg3QpswbCC/view?usp=sharing">Lapor Bencana</a></h5>
                     </div>
                 </li>
             </ul>

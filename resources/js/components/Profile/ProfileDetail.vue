@@ -16,7 +16,7 @@
                 <a-divider type="vertical" />
                 <a-icon type="user" />
                 <div style="font-size: 12px">
-                    {{ JSON.parse(retrieve).author_name }}
+                    {{ JSON.parse(retrieve).name }}
                 </div>
             </div>
             <div
