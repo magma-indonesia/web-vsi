@@ -43,6 +43,21 @@ export default {
             images_upload_handler: function (blobInfo, success, failure) {
                 current.handleUpload(blobInfo, success, failure);
             },
+            setup: function(ed) {
+                ed.on('keydown', function(event) {
+                    if (event.keyCode == 9) { // tab pressed
+                    if (event.shiftKey) {
+                        ed.execCommand('Outdent');
+                    }
+                    else {
+                        ed.execCommand('Indent');
+                    }
+
+                    event.preventDefault();
+                    return false;
+                    }
+                });
+            }
         };
     },
     watch: {

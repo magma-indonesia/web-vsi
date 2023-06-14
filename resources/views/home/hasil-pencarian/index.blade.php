@@ -22,6 +22,28 @@
             margin-top: auto;
             margin-bottom: auto;
         }
+
+        .img-card {
+            height: 100%;
+            cursor: pointer;
+            background-position: center;
+            border-radius: 0.2rem;
+        }
+
+        .h-300 {
+            height: 300px;
+        }
+
+        .news-font {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        .card {
+            background-color: white;
+            border-radius: 0.2rem;
+            margin-bottom: 3rem;
+        }
     </style>
 @endpush
 
@@ -44,16 +66,15 @@
             <div id="app">
                 <h5>Hasil pencarian dari "{{ request()->get('keyword') }}" : </h5>
                 @foreach ($pressReleases as $pressRelease)
-                    <div class="row mb-3" style="background-color: white; border-radius: 0.2rem;margin-bottom:3rem;">
-                        <div class="col-md-4" style="height: 300px;">
-                            <div
-                                style="height: 100%; cursor: pointer; background: url('{{$pressRelease->thumbnail}}') 0% 0% / cover no-repeat; background-position: center; border-radius: 0.2rem;">
+                    <div class="row mb-3 card">
+                        <div class="col-md-4 h-300">
+                            <div class="img-card"
+                                style="background: url('{{ $pressRelease->thumbnail }}') 0% 0% / cover no-repeat;">
                             </div>
                         </div>
-                        <div class="col-md-8 d-flex align-items-center" style="height: 300px;">
+                        <div class="col-md-8 d-flex align-items-center h-300">
                             <div class="d-flex flex-column">
-                                <a href="{{ $pressRelease->detail }}" class="news-title"
-                                    style="font-size: 24px;margin-bottom: 10px;">
+                                <a href="{{ $pressRelease->detail }}" class="news-title news-font">
                                     {{ $pressRelease->title }}
                                 </a>
                                 {{-- <span class="badge">Badge</span> --}}
@@ -62,16 +83,15 @@
                     </div>
                 @endforeach
                 @foreach ($volcanoBases as $volcanoBase)
-                    <div class="row mb-3" style="background-color: white; border-radius: 0.2rem;margin-bottom:3rem;">
-                        <div class="col-md-4" style="height: 300px;">
-                            <div
-                                style="height: 100%; cursor: pointer; background: url('{{asset('storage/'.$volcanoBase->thumbnail)}}') 0% 0% / cover no-repeat;background-position: center; border-radius: 0.2rem;">
+                    <div class="row mb-3 card">
+                        <div class="col-md-4 h-300">
+                            <div class="img-card"
+                                style="background: url('{{ asset('storage/' . $volcanoBase->thumbnail) }}') 0% 0% / cover no-repeat;">
                             </div>
                         </div>
-                        <div class="col-md-8 d-flex align-items-center" style="height: 300px;">
+                        <div class="col-md-8 d-flex align-items-center h-300">
                             <div class="d-flex flex-column">
-                                <a href="{{ $volcanoBase->detail }}" class="news-title"
-                                    style="font-size: 24px;margin-bottom: 10px;">
+                                <a href="{{ $volcanoBase->detail }}" class="news-title news-font">
                                     {{ $volcanoBase->title }}
                                 </a>
                                 {{-- <span class="badge">Badge</span> --}}
