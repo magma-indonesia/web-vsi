@@ -14,7 +14,8 @@
                 alt="Thumbnail"
                 style="
                     width: 100%;
-                    height: 500px;
+                    height: auto;
+                    max-height: 500px;
                     object-fit: contain;
                     margin-bottom: 50px;
                 "
@@ -87,52 +88,60 @@
 
             <a-tabs default-active-key="1" v-if="isDataDasar">
                 <a-tab-pane key="1" tab="Intro">
-                    <div
-                        v-html="JSON.parse(retrieve).intro"
-                        style="margin-bottom: 10px; margin-top: 10px"
+                    <iframe       
+                        class="myFrame"        
+                        :srcdoc="JSON.parse(retrieve).intro? JSON.parse(retrieve).intro : '<p>Belum ada data</p>'"                
+                        onload='javascript:(function(o){o.style.height=50+o.contentWindow.document.body.scrollHeight+"px";}(this));' style="margin-bottom: 10px; margin-top: 10px;height:200px;width:100%;border:none;overflow:hidden;"           
                     />
                 </a-tab-pane>
                 <a-tab-pane key="2" tab="Sejarah Letusan">
-                    <div
-                        v-html="JSON.parse(retrieve).history"
-                        style="margin-bottom: 10px; margin-top: 10px"
+                    <iframe       
+                        class="myFrame"        
+                        :srcdoc="JSON.parse(retrieve).history? JSON.parse(retrieve).history : '<p>Belum ada data</p>'"                
+                        onload='javascript:(function(o){o.style.height=50+o.contentWindow.document.body.scrollHeight+"px";}(this));' style="margin-bottom: 10px; margin-top: 10px;height:200px;width:100%;border:none;overflow:hidden;"           
                     />
                 </a-tab-pane>
                 <a-tab-pane key="3" tab="Geologi">
-                    <div
-                        v-html="JSON.parse(retrieve).geology"
-                        style="margin-bottom: 10px; margin-top: 10px"
+                    <iframe       
+                        class="myFrame"        
+                        :srcdoc="JSON.parse(retrieve).geology? JSON.parse(retrieve).geology : '<p>Belum ada data</p>'"                
+                        onload='javascript:(function(o){o.style.height=50+o.contentWindow.document.body.scrollHeight+"px";}(this));' style="margin-bottom: 10px; margin-top: 10px;height:200px;width:100%;border:none;overflow:hidden;"           
                     />
                 </a-tab-pane>
                 <a-tab-pane key="4" tab="Geofisika">
-                    <div
-                        v-html="JSON.parse(retrieve).geophysic"
-                        style="margin-bottom: 10px; margin-top: 10px"
+                    <iframe       
+                        class="myFrame"        
+                        :srcdoc="JSON.parse(retrieve).geophysic? JSON.parse(retrieve).geophysic : '<p>Belum ada data</p>'"                
+                        onload='javascript:(function(o){o.style.height=50+o.contentWindow.document.body.scrollHeight+"px";}(this));' style="margin-bottom: 10px; margin-top: 10px;height:200px;width:100%;border:none;overflow:hidden;"           
                     />
                 </a-tab-pane>
                 <a-tab-pane key="5" tab="Geokimia">
-                    <div
-                        v-html="JSON.parse(retrieve).geochemistry"
-                        style="margin-bottom: 10px; margin-top: 10px"
+                    <iframe       
+                        class="myFrame"        
+                        :srcdoc="JSON.parse(retrieve).geochemistry? JSON.parse(retrieve).geochemistry : '<p>Belum ada data</p>'"                
+                        onload='javascript:(function(o){o.style.height=50+o.contentWindow.document.body.scrollHeight+"px";}(this));' style="margin-bottom: 10px; margin-top: 10px;height:200px;width:100%;border:none;overflow:hidden;"           
                     />
                 </a-tab-pane>
                 <a-tab-pane key="6" tab="Kawasan Rawan Bencana">
-                    <div
-                        v-html="JSON.parse(retrieve).disaster_area"
-                        style="margin-bottom: 10px; margin-top: 10px"
+                    <iframe       
+                        class="myFrame"        
+                        :srcdoc="JSON.parse(retrieve).disaster_area? JSON.parse(retrieve).disaster_area : '<p>Belum ada data</p>'"                
+                        onload='javascript:(function(o){o.style.height=50+o.contentWindow.document.body.scrollHeight+"px";}(this));' style="margin-bottom: 10px; margin-top: 10px;height:200px;width:100%;border:none;overflow:hidden;"           
                     />
                 </a-tab-pane>
                 <a-tab-pane key="7" tab="Daftar Pustaka">
-                    <div
-                        v-html="JSON.parse(retrieve).reference"
-                        style="margin-bottom: 10px; margin-top: 10px"
+                    <iframe       
+                        class="myFrame"        
+                        :srcdoc="JSON.parse(retrieve).reference? JSON.parse(retrieve).reference : '<p>Belum ada data</p>'"                
+                        onload='javascript:(function(o){o.style.height=50+o.contentWindow.document.body.scrollHeight+"px";}(this));' style="margin-bottom: 10px; margin-top: 10px;height:200px;width:100%;border:none;overflow:hidden;"           
                     />
                 </a-tab-pane>
             </a-tabs>
-            <div
-                v-else
-                v-html="JSON.parse(retrieve).content"
-                style="margin-bottom: 10px; margin-top: 10px"
+            <iframe
+                v-else        
+                class="myFrame"        
+                :srcdoc="JSON.parse(retrieve).content"                
+                onload='javascript:(function(o){o.style.height=50+o.contentWindow.document.body.scrollHeight+"px";}(this));' style="margin-bottom: 10px; margin-top: 10px;height:200px;width:100%;border:none;overflow:hidden;"           
             />
             <div
                 style="margin-top: 10px"
@@ -179,7 +188,7 @@
                             align-items: center;
                         "
                     >
-                        <a-col :xs="24" :sm="24" :md="24" :lg="4">
+                        <a-col :xs="12" :sm="16" :md="16" :lg="4">
                             <div
                                 :style="{
                                     width: '100%',
@@ -194,8 +203,8 @@
                                 @click="openLink(file)"
                             ></div>
                         </a-col>
-                        <a-col :xs="24" :sm="24" :md="24" :lg="20">
-                            <div style="margin-bottom: 5px">
+                        <a-col>
+                            <div style="margin-bottom: 5px;">
                                 {{ file.name }}
                             </div>
                             <a-button
@@ -227,7 +236,7 @@
                             align-items: center;
                         "
                     >
-                        <a-col :xs="24" :sm="24" :md="24" :lg="4">
+                        <a-col :xs="12" :sm="16" :md="16" :lg="4">
                             <div
                                 :style="{
                                     width: '100%',
@@ -242,8 +251,8 @@
                                 @click="openLink(file)"
                             ></div>
                         </a-col>
-                        <a-col :xs="24" :sm="24" :md="24" :lg="20">
-                            <div style="margin-bottom: 5px">
+                        <a-col>
+                            <div style="margin-bottom: 5px;">
                                 {{ file.name }}
                             </div>
                             <a-button
@@ -354,6 +363,13 @@ export default {
     },
     mounted() {
         console.log(JSON.parse(this.retrieve));
+        this.$nextTick(() => {
+            this.resizeIFrame();
+            window.addEventListener('resize', this.resizeIFrame);
+        });
+    },
+    beforeUnmount() {
+        window.removeEventListener('resize', this.resizeIFrame);
     },
     methods: {
         convertDate(date) {
@@ -389,6 +405,12 @@ export default {
                 return e.name;
             });
         },
+        resizeIFrame(){
+            var iframe = document.getElementsByClassName("myFrame");      
+            for (var i = 0; i < iframe.length; i++) {
+                iframe[i].style.height = 50+iframe[i].contentWindow.document.body.scrollHeight + 'px';
+            }
+        }
     },
 };
 </script>
