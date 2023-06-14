@@ -15,6 +15,9 @@ class ProfileController extends Controller
             abort(404);
         }
 
+        // relation object set from Model somehow won't reflect in vue component, and i don't fucking know why
+        $retrieve->name = $retrieve->author->name;
+
         return view("home.profile.tentang-pvmbg.index", [
             'retrieve' => $retrieve,
         ]);
@@ -26,6 +29,7 @@ class ProfileController extends Controller
         if (!$retrieve) {
             abort(404);
         }
+        $retrieve->name = $retrieve->author->name;
 
         return view("home.profile.struktur-organisasi.index", [
             'retrieve' => $retrieve,
@@ -38,6 +42,7 @@ class ProfileController extends Controller
         if (!$retrieve) {
             abort(404);
         }
+        $retrieve->name = $retrieve->author->name;
 
         return view("home.profile.sejarah.index", [
             'retrieve' => $retrieve,
