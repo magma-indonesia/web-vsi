@@ -43,12 +43,14 @@
 </div>
 
 <div data-label="Example" class="df-example demo-table">
-    <div class="table-responsive p-2">
-        <table class="table mg-b-0">
-            <thead>
+    <div class="table-responsive">
+        <table class="table table-hover">
+            <thead class="table-light">
+                <tr>
                 <th>Nama</th>
                 <th>Subject</th>
                 <th>Pesan Diterima</th>
+            </tr>
             </thead>
             <tbody>
                 @if (count($contacts) > 0)
