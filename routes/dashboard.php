@@ -136,6 +136,7 @@ Route::group(['middleware' => ['auth']], function () {
 
         // Layanan Publik > Kontak
         Route::get('/kontak', [ContactController::class, 'index'])->name('kontak');
+        Route::get('/kontak/apis/detail', [ContactController::class, 'detail'])->name('kontak.detail');
 
         Route::prefix('pengumuman')->name('pengumuman.')->group(function () {
             Route::get('/', [AnnouncementController::class, 'index'])->name('index');
