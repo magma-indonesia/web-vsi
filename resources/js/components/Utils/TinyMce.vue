@@ -43,6 +43,16 @@ export default {
             images_upload_handler: function (blobInfo, success, failure) {
                 current.handleUpload(blobInfo, success, failure);
             },
+            setup: function(ed) {
+                ed.on('keydown', function(event) {
+                    if (event.keyCode == 9) { // tab pressed
+                        ed.execCommand('mceInsertContent', false, '&emsp;&emsp;'); // inserts tab
+                        event.preventDefault();
+                        event.stopPropagation();
+                        return false;
+                    }
+                });
+            }
         };
     },
     watch: {

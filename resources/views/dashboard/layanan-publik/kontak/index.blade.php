@@ -16,10 +16,11 @@
     </div>
 </div>
 
-<div class="row mb-5">
-    <div class="col-md-9 d-flex align-items-center">
+<div class="p-4" style="background:white">
+<div class="d-flex flex-wrap" style="width: 100%; align-items: flex-end">
+    <div class="d-flex align-items-center">
         <div style="font-size: 12px;">Show</div>
-        <select class="form-control mx-2" style="width: 70px" id="limit-contact">
+        <select class="form-control mx-2" style="width: 80px margin-left: 10px; margin-right: 10px;" id="limit-contact">
             @foreach($limitOption as $opt)
             @if ($opt == $limit)
             <option value="{{ $opt }}" selected>{{ $opt }}</option>
@@ -28,29 +29,32 @@
             @endif
             @endforeach
         </select>
-        <div style="font-size: 12px;">entries</div>
+        <span style="font-size: 12px;">entries</span>
     </div>
-    <div class="col-md-3">
+
+    <div style="margin-left: auto" class="d-flex align-items-center">
         <form action="{{ route('dashboard.layanan-publik.kontak') }}" style="position: relative;">
             <input type="hidden" name="limit" value="{{ $limit }}" />
             <input class="form-control" placeholder="Cari data..." name="name" value="{{ $name }}"
                 id="search-contact" />
-            <button type="submit" class="btn btn-primary" style="right:0;top: 0; height: 100%; position: absolute">
+            <button type="submit" class="btn btn-primary" style="right:0;top: 0; height: 100%; position: absolute; margin-left: 10px">
                 <i data-feather="search"></i>
             </button>
         </form>
     </div>
+{{-- </div> --}}
 </div>
 
-<div data-label="Example" class="df-example demo-table">
-    <div class="table-responsive p-2">
-        <table class="table mg-b-0">
-            <thead>
-                <th>Nama</th>
-                <th>Subject</th>
-                <th>Pesan Diterima</th>
-            </thead>
+
+<div data-label="Example" class="df-example demo-table" style="margin-top: 20px">
+    <div  class="d-flex align-items-center justify-content-center flex-column table-responsive" style="gap: 10px">
+        <table class="table">
             <tbody>
+                <tr class="table-light">
+                    <th>Nama</th>
+                    <th>Subject</th>
+                    <th>Pesan Diterima</th>
+                </tr>
                 @if (count($contacts) > 0)
                 @foreach ($contacts as $c)
                 <tr class="table-hover" onclick="showDetail('{{ $c->id }}')">
@@ -115,6 +119,7 @@
             </div>
         </div>
     </div>
+</div>
 </div>
 <script>
     $("#limit-contact").on("change", (e) => {

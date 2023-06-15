@@ -3,7 +3,7 @@ body {
     font-size: 14px;
     font-weight: 400;
     background-color: #fff;
-    font-family: 'Poppins', sans-serif;
+    font-family: "Poppins", sans-serif;
     margin: 0px;
 }
 
@@ -23,7 +23,7 @@ body {
 .city_mayor_text p,
 .city_mayor_text h2,
 .forum_user_meta .city_meta_list li a:hover,
-.forum_detail_deta>a:hover,
+.forum_detail_deta > a:hover,
 .forum_detail_deta .city_meta_list li a:hover,
 .forum_quote h5,
 .forum_detail_deta a i,
@@ -60,7 +60,7 @@ body {
 .city_health2_service a:hover,
 .city_health2_service:hover h5 a,
 .side_notice_text h6:hover a,
-.side_notice_detail>a,
+.side_notice_detail > a,
 .side_contact_text a:hover,
 .city_event2_text h4:hover a,
 .city_event2_text span,
@@ -75,13 +75,13 @@ body {
 .city_emergency_slide_text h5:hover a,
 .city_emergency_call ul li a:hover,
 .special_service_text .theam_btn,
-.city_service2_list>span,
+.city_service2_list > span,
 .city_project_mansory ul li a.active,
 .city_request_link ul li a:hover:before,
 .city_request_link ul li a:hover,
 .city_news_meta li a:hover,
 .city_event_fig a:hover,
-.city_event_fig>a:hover,
+.city_event_fig > a:hover,
 .city_event_fig:hover .city_date_text a i,
 .city_event_fig:hover .custom_size,
 .city_jobs_item span,
@@ -104,7 +104,7 @@ body {
 .city_comment_form_login .theam_btn,
 .city_login h4:before,
 .side_news_deatil:hover .theam_btn,
-.navigation ul>li>ul,
+.navigation ul > li > ul,
 .blog_post_slide .slick-prev:hover,
 .blog_post_slide .slick-next:hover,
 .forum_quote,
@@ -128,7 +128,7 @@ body {
 .sidebar_search input:focus,
 .sidebar_heading,
 .city_about_list.list2 .theam_btn:hover,
-.city_senior_team>figure,
+.city_senior_team > figure,
 .city_health2_text .slick-prev:hover,
 .city_health2_text .slick-next:hover,
 .city_emergency_slider .slick-prev:hover,
@@ -170,14 +170,14 @@ body {
 .city_health_text h2,
 .city_service2_fig:hover .city_service2_text a,
 .city_request_text span,
-.city_request_row>span,
+.city_request_row > span,
 .social_icon li a,
 .city_about_text h6,
 .banner_search_field a {
     color: #14284b;
 }
 
-.breadcrumb>li a:hover,
+.breadcrumb > li a:hover,
 .city_document_list ul li a:hover,
 .widget_service ul li a:hover:before,
 .widget_service ul li a:hover {
@@ -295,7 +295,7 @@ body {
     width: 20%;
 }
 
-.navigation>ul>li>a {
+.navigation > ul > li > a {
     display: inline-block;
     color: #293d50;
     font-size: 15px;
@@ -317,7 +317,7 @@ body {
     position: relative;
 }
 
-.navigation ul>li:hover>ul {
+.navigation ul > li:hover > ul {
     overflow: visible;
     visibility: visible;
     opacity: 1;
@@ -366,7 +366,7 @@ body {
 /*theam btn start */
 .theam_btn {
     display: inline-block;
-    color: #fff;
+    background-color: #293d50;
     padding: 10px 30px;
     border: 2px solid #293d50;
 }
@@ -382,7 +382,7 @@ body {
 .city_main_banner .slick-next:before {
     line-height: 44px;
     content: "\e94c";
-    font-family: 'icomoon' !important;
+    font-family: "icomoon" !important;
     color: #293d50;
 }
 

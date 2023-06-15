@@ -1086,6 +1086,9 @@
     .border:before {
         width: 210px;
     }
+    .city_news_list figure a img {
+        width: 100% !important;
+    }
     .city_about_list {
         margin-top: 30px;
     }

@@ -323,11 +323,20 @@
                                 <a-input
                                     :value="
                                         documentsMedia.length > 0
-                                            ? documentsMedia[index]?.notes ||
-                                              '-'
-                                            : '-'
+                                            ? documentsMedia[index]?.notes
+                                            : ''
                                     "
-                                    :disabled="true"
+                                    @change="
+                                        handleChangeNotes(
+                                            $event,
+                                            index,
+                                            'document'
+                                        )
+                                    "
+                                    :disabled="
+                                        documentsMedia.length === 0
+                                    "
+                                    placeholder="(Optional) Keterangan file"
                                 ></a-input>
                                 <a-button
                                     type="primary"
