@@ -57,21 +57,3 @@
 </div>
 <!-- FORM END -->
 @endsection
-
-@push('scripts')
-<script src="{{ asset('js/jquery-filterable.js') }}"></script>
-<script src="{{ asset('js/jquery.nice-select.min.js') }}"></script>
-<script src="{{ asset('js/web/collab/index.js') }}"></script>
-<script type="text/javascript">
-    $(document).ready(function () {
-        var collabHandle = CollabHandler.construct({
-            maxPicField: 2,
-            maxInvolvedField: 5
-        });
-        collabHandle.init();
-    });
-
-</script>
-
-
-@endpush
