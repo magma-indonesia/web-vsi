@@ -3,7 +3,8 @@
 @section('title', 'Informasi Kerja Sama')
 
 @push('styles')
-    <!-- <link href="{{ asset('css/selectric.css') }}" rel="stylesheet"> -->
+    <link href="{{ asset('css/sidebar-widget.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/selectric.css') }}" rel="stylesheet">
 @endpush
 
 @section('content')
@@ -30,7 +31,7 @@
                     <div class="city_health_text">
                         <h2><span>Informasi </span>Kerja Sama</h2>
                         <p>Kerja sama PVMBG melingkupi kerja sama di bidang bencana geologi yang meliputi kegiatan
-                            penyelidikan, pemantauan,
+                            peningkatan kapasitas sdm, penyelidikan, pemantauan,
                             instalasi peralatan, dan optimalisasi sistem mitigasi bencana geologi. </p>
                     </div>
                 </div>
@@ -67,7 +68,7 @@
                         <!-- CITY SERVICE TABS END-->
 
                         <!-- CITY NOTICE START-->
-                        <div class="city_notice">
+                        <div class="city_notice" style="display: none">
                             <h4>Infografis Kerjasama</h4>
                             <p>Download Infografis untuk mengetahui alur kerjasama lebih detil</p>
                             <a class="theam_btn" href="#" tabindex="0">Download PDF</a>
@@ -135,7 +136,8 @@
                                         <div class="box-layer layer-1"></div>
                                         <div class="box-layer layer-2"></div>
                                         <div class="box-layer layer-3"></div>
-                                        {{--<img src="extra-images/service-tabs1.jpg" alt="">--}}
+                                        <img src="{{ asset('extra-images/informasi-kerja-sama-gempa-bumi.png') }}"
+                                             alt="">
                                     </figure>
                                     <div class="city_service_tabs_text">
                                         <h3>Gerakan Tanah </h3>
@@ -249,14 +251,14 @@
                                             <div class="city_emergency_call">
                                                 <h5>Dokumen yang Dibutuhkan</h5>
                                                 <ul>
-                                                    <li><a href="#">Profile Institusi</a></li>
-                                                    <li><a href="#">Dokumen (.docx atau PDF)</a></li>
-                                                    <li><a href="#">MoU jika ada</a></li>
-                                                    <li><a href="#">Dokumen (.docx atau PDF)</a></li>
-                                                    <li><a href="#">Proposal Kerja Sama</a></li>
-                                                    <li><a href="#">Dokumen (.docx atau PDF) </a></li>
-                                                    <li><a href="#">Rencana Anggaran Biaya (optional)</a></li>
-                                                    <li><a href="#">Dokumen (.docx atau PDF)</a></li>
+                                                    <li><a>Profile Institusi</a></li>
+                                                    <li><a>Dokumen (.docx atau PDF)</a></li>
+                                                    <li><a>MoU jika ada</a></li>
+                                                    <li><a>Dokumen (.docx atau PDF)</a></li>
+                                                    <li><a>Proposal Kerja Sama</a></li>
+                                                    <li><a>Dokumen (.docx atau PDF) </a></li>
+                                                    <li><a>Rencana Anggaran Biaya (optional)</a></li>
+                                                    <li><a>Dokumen (.docx atau PDF)</a></li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -354,12 +356,6 @@
                                                     <div class="col-md-12">
                                                         <label>Asal Negara</label>
                                                     </div>
-                                                    <style>
-                                                        .list {
-                                                            max-height: 300px;
-                                                            overflow-y: scroll !important;
-                                                        }
-                                                    </style>
                                                     <div class="col-md-12">
                                                         <div class="event_booking_field">
                                                             <select name="kategori" class="small">
@@ -524,7 +520,7 @@
                                                         </div>
                                                     </div>
 
-                                                    <div class="col-md-6">
+                                                    <div class="col-md-5">
                                                         <label>Durasi Kerjasama</label>
                                                         <div class="event_booking_field">
                                                             <select name="duration" id="duration" class="small">
@@ -537,12 +533,20 @@
                                                         </div>
                                                     </div>
 
-                                                    <div class="col-md-6">
+                                                    <div class="col-md-5">
                                                         <div class="event_booking_field">
                                                             <label for="exampleFormControlFile1">Proposal Kerja
                                                                 Sama</label>
                                                             <input name="file_pks" type="file" class="form-control-file"
                                                                    id="exampleFormControlFile1">
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-2">
+                                                        <div class="event_booking_field">
+                                                            <label for="exampleFormControlFile1">Kirim Pengajuan</label>
+                                                            {{--<button class="button btn btn-info theam_btn" type="button">Submit</button>--}}
+                                                            <a class="theam_btn" href="#" type="button">Submit</a>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -556,7 +560,7 @@
                     <!-- TABS END-->
 
                     <!-- CITY EMERGENCY SLIDER START-->
-                    <div class="city_emergency_slider">
+                    <div class="city_emergency_slider" style="display: none">
                         <h3 class="service_title">Kebencanaan Geologi</h3>
                         <div class="city-emergency-slide">
                             <div>
@@ -633,9 +637,9 @@
                                         <span><i class="fa  icon-healthcare-and-medical"></i></span>
                                         <h4><a href="#">Penyelidikan</a></h4>
                                     </div>
-                                    <p>Poin gravida nibh vel velit auctor aliquet. Aenean sollicitudin, lorem quis
-                                        bibendum auctor vel velit auctor aliquet. Aenean sollicitudin, lorem quis
-                                        bibendum auctor</p>
+                                    <p>Penyelidikan Kebencanaan Geologi di Indonesia berfokus pada pemahaman dan pencegahan bencana alam.
+                                        Melalui penggunaan teknologi dan pengetahuan geologi, tim penyelidik bekerja untuk mempelajari pola seismik,
+                                        pergerakan lempeng tektonik, dan fenomena geologis lainnya guna memberikan solusi pencegahan dan peringatan dini yang efektif.</p>
                                 </div>
                             </div>
                             <div class="col-md-6 col-sm-6">
@@ -644,9 +648,11 @@
                                         <span><i class="fa icon-help"></i></span>
                                         <h4><a href="#">Pemetaan</a></h4>
                                     </div>
-                                    <p>Poin gravida nibh vel velit auctor aliquet. Aenean sollicitudin, lorem quis
-                                        bibendum auctor vel velit auctor aliquet. Aenean sollicitudin, lorem quis
-                                        bibendum auctor</p>
+                                    <p>Pemetaan geografis mendukung mitigasi kebencanaan geologi di Indonesia.
+                                        Dengan teknologi canggih, ahli geologi dapat mengidentifikasi daerah rawan bencana seperti gempa, gunung berapi, dan longsor,
+                                        serta memetakan pergerakan lempeng tektonik.
+                                        Informasi ini memungkinkan pemerintah dan masyarakat mengambil langkah-langkah mitigasi yang tepat,
+                                        termasuk infrastruktur tahan gempa, pengaturan penggunaan lahan, dan rencana evakuasi yang efektif.</p>
                                 </div>
                             </div>
                             <div class="col-md-6 col-sm-6">
@@ -655,9 +661,10 @@
                                         <span><i class="fa icon-guard"></i></span>
                                         <h4><a href="#">Peningkatan Kapasitas SDM</a></h4>
                                     </div>
-                                    <p>Poin gravida nibh vel velit auctor aliquet. Aenean sollicitudin, lorem quis
-                                        bibendum auctor vel velit auctor aliquet. Aenean sollicitudin, lorem quis
-                                        bibendum auctor</p>
+                                    <p>Peningkatan kapasitas SDM mendukung mitigasi kebencanaan geologi di Indonesia.
+                                        Melalui pelatihan dan pendidikan, para ahli geologi menjadi lebih terampil dalam memahami bencana alam
+                                        dan menerapkan teknik mitigasi yang efektif. SDM yang terlatih memungkinkan pengembangan rencana respons bencana,
+                                        pemantauan yang akurat, peringatan dini yang handal, dan bimbingan yang tepat kepada masyarakat.</p>
                                 </div>
                             </div>
                             <div class="col-md-6 col-sm-6">
@@ -666,9 +673,11 @@
                                         <span><i class="fa icon-charity"></i></span>
                                         <h4><a href="#">Sistem Pemantauan Kebencanaan Geologi</a></h4>
                                     </div>
-                                    <p>Poin gravida nibh vel velit auctor aliquet. Aenean sollicitudin, lorem quis
-                                        bibendum auctor vel velit auctor aliquet. Aenean sollicitudin, lorem quis
-                                        bibendum auctor</p>
+                                    <p>Sistem Pemantauan Kebencanaan Geologi di Indonesia adalah jaringan terintegrasi yang menggunakan teknologi
+                                        canggih untuk mendeteksi dan memprediksi bencana alam seperti gempa, erupsi vulkanik, dan longsor.
+                                        Dengan bantuan seismometer, GPS, dan sensor lainnya, sistem ini memberikan data akurat tentang aktivitas geologi
+                                        dan memberikan peringatan dini kepada masyarakat. Dengan demikian, sistem ini memungkinkan langkah mitigasi yang lebih efektif
+                                        dalam melindungi nyawa dan harta benda dari bencana geologi.</p>
                                 </div>
                             </div>
                         </div>
@@ -681,23 +690,17 @@
 @endsection
 
 @push('scripts')
-    <script>
-        document.getElementById("gerakan-tanah").style.display = "none";
-        document.getElementById("gempa-bumi").style.display = "none";
-        document.getElementById("pengajuan").style.display = "none";
-    </script>
     <script src="{{ asset('js/jquery-filterable.js') }}"></script>
-    <!-- <script src="{{ asset('js/jquery.nice-select.min.js') }}"></script> -->
+    <script src="{{ asset('js/jquery.nice-select.min.js') }}"></script>
     <script src="{{ asset('js/web/collab/index.js') }}"></script>
     <script type="text/javascript">
-        $(document).ready(function () {
+        jQuery(document).ready(function ($) {
             var collabHandle = CollabHandler.construct({
-                maxPicField: 2,
+                o: $, maxPicField: 2,
                 maxInvolvedField: 5
             });
             collabHandle.init();
         });
     </script>
     <script src="{{ mix('js/app.js') }}" type="text/javascript"></script>
-
 @endpush
