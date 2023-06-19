@@ -12,6 +12,7 @@ use App\Http\Controllers\Administration\GroundResponseController;
 use App\Http\Controllers\Administration\PressReleaseController;
 use App\Http\Controllers\Administration\VolcanoActivityController;
 use App\Http\Controllers\Administration\VolcanoBaseController;
+use App\Http\Controllers\Api\ContactController as ApiContactController;
 use App\Http\Controllers\Api\FileController as ApiFileController;
 use App\Http\Controllers\Api\GroundMovementController as ApiGroundMovementController;
 use App\Http\Controllers\Api\ProfileController as ApiProfileController;
@@ -349,6 +350,9 @@ Route::group(['middleware' => ['auth']], function () {
                 Route::post('/', 'store');
                 Route::put('/', 'update');
                 Route::delete('/', 'destroy');
+            });
+            Route::controller(ApiContactController::class)->group(function () {
+                Route::get('/kontak', 'index');
             });
         });
 
