@@ -2,11 +2,6 @@
 
 @section('title', 'Hubungi Kami')
 
-@push('styles')
-<link href="{{ asset('css/selectric.css') }}" rel="stylesheet">
-
-@endpush
-
 @section('content')
 <!-- SAB BANNER START-->
 <div class="sab_banner overlay">
@@ -35,12 +30,12 @@
                 <div class="event_booking_form" id="app">
                     <div class="mapouter" style="padding-bottom: 10px;height: 500px;">
                         <div class="gmap_canvas"><iframe width="100%" height="500px" id="gmap_canvas"
-                                src="https://maps.google.com/maps?q=Pusat Vulkanologi dan Mitigasi Bencana Geologi Sekretariat PVMBG&t=&z=10&ie=UTF8&iwloc=&output=embed"
+                                src="https://maps.google.com/maps?q=Pusat Vulkanologi dan Mitigasi Bencana Geologi&t=&z=15&ie=UTF8&iwloc=&output=embed&language=ID"
                                 frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe>
                         </div>
                     </div>
                     <div style="margin-top: 30px;">
-                        <b>Pusat Vulkanologi dan Mitigasi Bencana Geologi Sekretariat PVMBG</b> <br />
+                        <b>Pusat Vulkanologi dan Mitigasi Bencana Geologi - Badan Geologi - Kementrian Energi dan Sumber Daya Mineral</b> <br />
 
                         Jl.Diponegoro No. 57
 
