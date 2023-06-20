@@ -30,6 +30,10 @@ Vue.component(
     "contact-form",
     require("./components/Auth/ContactForm.vue").default
 );
+Vue.component(
+    "table-contact",
+    require("./components/Contact/TableContact.vue").default
+);
 Vue.component("table-news", require("./components/News/TableNews.vue").default);
 Vue.component("form-news", require("./components/News/FormNews.vue").default);
 Vue.component(
