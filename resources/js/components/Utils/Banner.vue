@@ -19,7 +19,7 @@
                                 class="theam_btn animated"
                                 href="https://vsi.esdm.go.id/portalmbg"
                                 target="_blank"
-                                >Portal MGB</a
+                                >Portal MBG</a
                             >
                         </div>
                         <div class="banner_search_form">

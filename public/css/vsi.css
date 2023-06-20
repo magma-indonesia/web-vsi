@@ -500,3 +500,8 @@ body {
 .city_jobs_list {
     width: 50%;
 }
+
+.list {
+    max-height: 300px;
+    overflow-y: scroll !important;
+}
