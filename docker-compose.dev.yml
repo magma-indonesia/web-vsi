@@ -59,22 +59,6 @@ services:
             - "6379:6379"
         networks:
             - intranet
-    
-    mariadb:
-        image: mariadb:latest
-        container_name: mariadb
-        restart: unless-stopped
-        environment:
-            MYSQL_ROOT_PASSWORD: root
-            MYSQL_DATABASE: pvmbg
-            MYSQL_USER: pvmbg
-            MYSQL_PASSWORD: pvmbg
-        ports:
-            - "3306:3306"
-        volumes:
-            - mariadb_data:/var/lib/mysql
-        networks:
-            - intranet
 networks:
     intranet:
         driver: bridge
