@@ -74,7 +74,7 @@
                                                 <label
                                                     class="tx-10 tx-medium tx-spacing-1 tx-color-03 tx-uppercase tx-sans mg-b-10">Pesan
                                                     Diterima</label>
-                                                <p class="mg-b-0" v-text="item.created_at"></p>
+                                                <p class="mg-b-0" v-text="handleFormatDate(item.created_at)"></p>
                                             </div>
                                         </div>
                                     </div>
@@ -95,6 +95,8 @@
 
 <script>
 import axios from "axios";
+// moment
+import moment from "moment";
 
 export default {
     props: [
@@ -106,7 +108,13 @@ export default {
         return {
             columns: [
                 {
-                    title: "Name",
+                    title: "No",
+                    customRender: function (text, record, index) {
+                        return index + 1;
+                    },
+                },
+                {
+                    title: "Nama",
                     dataIndex: "name",
                 },
                 {
@@ -114,8 +122,12 @@ export default {
                     dataIndex: "subject",
                 },
                 {
-                    title: "Pesan Diterima",
-                    dataIndex: "message",
+                    title: "Tanggal Pesan",
+                    dataIndex: "created_at",
+                    customRender: (text, record, index) => {
+                        // return date and time
+                        return moment(text).format("DD MMMM YYYY HH:mm:ss");
+                    },
                 },
                 {
                     title: "#",
@@ -142,6 +154,9 @@ export default {
         this.fetchData(this.params, this.pagination);
     },
     methods: {
+        handleFormatDate(date) {
+            return moment(date).format("DD MMMM YYYY HH:mm:ss");
+        },
         handlePageSize(val) {
             this.pagination.pageSize = val;
             this.fetchData(this.params, {
