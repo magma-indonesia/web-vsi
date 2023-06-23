@@ -11,7 +11,7 @@
                     style="width: 80px; margin-left: 10px; margin-right: 10px"
                     :value="pagination.pageSize"
                 >
-                    <a-select-option value="10">10</a-select-option>
+                    <a-select-option value="15">15</a-select-option>
                     <a-select-option value="60">60</a-select-option>
                     <a-select-option value="120">120</a-select-option>
                     <a-select-option value="600">600</a-select-option>
@@ -36,11 +36,84 @@
                         :xs="24"
                         :sm="24"
                         :md="24"
-                        :lg="24"
+                        :lg="8"
                         v-for="(item, index) in news"
                         :key="index"
                     >
                         <a-card
+                            hoverable
+                            style="position: relative"
+                            @click="handleDetail(item)"
+                        >
+                            <div
+                                slot="cover"
+                                :style="{
+                                    'background-image': `url(${
+                                        item.thumbnail
+                                            ? item.thumbnail
+                                            : apiurl +
+                                              '/images/placeholder-image.jpeg'
+                                    })`,
+                                    'background-repeat': 'no-repeat',
+                                    'background-size': 'cover',
+                                    'background-position': 'center',
+                                    height: '200px',
+                                    width: '100%',
+                                }"
+                                @click="handleDetail(item)"
+                            />
+                            <template slot="actions">
+                                <a-button
+                                    type="primary"
+                                    style="background: #293d50"
+                                    @click="handleDetail(item)"
+                                >
+                                    Selengkapnya
+                                </a-button>
+                            </template>
+                            <a-card-meta>
+                                <div
+                                    style="
+                                        display: flex;
+                                        flex-direction: column;
+                                    "
+                                    slot="title"
+                                >
+                                    <!-- <div
+                                        style="
+                                            display: flex;
+                                            flex-wrap: wrap;
+                                            margin-top: 10px;
+                                        "
+                                        v-if="item.news_categories?.length > 0"
+                                    >
+                                        <a-tag
+                                            color="#fee50f"
+                                            style="margin-bottom: 10px"
+                                            v-for="(
+                                                cat, idx
+                                            ) in item.news_categories"
+                                            :key="idx"
+                                        >
+                                            {{ cat.category }}
+                                        </a-tag>
+                                    </div> -->
+                                    <a
+                                        @click="handleDetail(item)"
+                                        href="javascript:;"
+                                        class="news-title"
+                                        style="margin-top: 10px"
+                                    >
+                                        {{ item.title }}
+                                    </a>
+                                </div>
+                                <div
+                                    slot="description"
+                                    v-html="truncString(item.description)"
+                                ></div>
+                            </a-card-meta>
+                        </a-card>
+                        <!-- <a-card
                             style="position: relative"
                             :bodyStyle="{ padding: 0 }"
                         >
@@ -143,7 +216,7 @@
                                     </div>
                                 </a-col>
                             </a-row>
-                        </a-card>
+                        </a-card> -->
                     </a-col>
                 </a-row>
                 <a-pagination
@@ -186,7 +259,7 @@ export default {
             },
             pagination: {
                 current: 1,
-                pageSize: 10,
+                pageSize: 15,
                 total: 0,
             },
         };
