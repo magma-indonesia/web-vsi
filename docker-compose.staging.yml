@@ -4,7 +4,7 @@ services:
     app:
         build:
             context: .
-            dockerfile: Dockerfile
+            dockerfile: Dockerfile.prod
         image: web-vsi
         container_name: web-vsi
         restart: unless-stopped
@@ -12,10 +12,14 @@ services:
         environment:
             SERVICE_NAME: web-vsi
             SERVICE_TAGS: dev
-            DB_HOST: mariadb
+            APP_NAME: "Pusat Vulkanologi dan Mitigasi Bencana Geologi"
+            APP_ENV: staging
+            APP_DEBUG: "true"
+            APP_URL: http://172.16.2.121
+            DB_HOST: 172.16.2.121
             DB_DATABASE: pvmbg
-            DB_USERNAME: pvmbg
-            DB_PASSWORD: pvmbg
+            DB_USERNAME: wovodatuser
+            DB_PASSWORD: wovodatpassword
             DB_CONNECTION_PMBGI: pgsql
             DB_HOST_PMBGI: 172.16.2.121
             DB_PORT_PMBGI: 5432
@@ -28,12 +32,14 @@ services:
             SIPEG_API_URL: http://172.16.23.15
             SIPEG_PHOTO_URL: https://ngantor.esdm.go.id/sipeg/media/person/
             REDIS_HOST: redis_tmp
+            FILESYSTEM_DISK: public
             RECAPTCHA_SITEKEY: 6LeH1OcUAAAAAP3MXLlekOozbTzok4rTSzxuYbmD
             RECAPTCHA_SERVERKEY: 6LeH1OcUAAAAAHrE-pKsBJKDCIXgMw7cFIJZVynE
             GEETEST_EVENT_ID: e9afee5d2dd9d582b2548bbd76a3f17b
         working_dir: /var/www/html
         volumes:
             - ./:/var/www/html
+            - ./storage/app:/var/www/html/storage/app
         networks:
             - intranet
     nginx:
@@ -51,21 +57,6 @@ services:
             #- ./nginx/ssl/:/etc/nginx/ssl/
         networks:
             - intranet
-    mariadb:
-        image: mariadb:latest
-        container_name: mariadb
-        restart: unless-stopped
-        environment:
-            MYSQL_ROOT_PASSWORD: root
-            MYSQL_DATABASE: pvmbg
-            MYSQL_USER: pvmbg
-            MYSQL_PASSWORD: pvmbg
-        ports:
-            - "3306:3306"
-        volumes:
-            - mariadb_data:/var/lib/mysql
-        networks:
-            - intranet
     redis_tmp:
         image: redis:alpine
         volumes:
@@ -74,6 +65,7 @@ services:
             - "6379:6379"
         networks:
             - intranet
+    
 networks:
     intranet:
         driver: bridge
