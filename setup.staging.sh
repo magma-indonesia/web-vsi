@@ -5,15 +5,15 @@
 #alias docker-compose="sudo docker-compose";
 
 echo "===> Building image...";
-docker-compose -f docker-compose.prod.yml build;
+docker-compose -f docker-compose.staging.yml build;
 
 echo "\n===> Composing the container...";
-docker-compose -f docker-compose.prod.yml up -d;
+docker-compose -f docker-compose.staging.yml up -d;
 
 echo "\n===> Installing dependencies...";
-docker-compose -f docker-compose.prod.yml exec app php /usr/local/bin/composer install;
+docker-compose -f docker-compose.staging.yml exec app php /usr/local/bin/composer install;
 
 echo "\n===> Caching config..."
-docker-compose -f docker-compose.prod.yml exec app php artisan config:cache;
+docker-compose -f docker-compose.staging.yml exec app php artisan config:cache;
 
 echo "Setup finish!";
