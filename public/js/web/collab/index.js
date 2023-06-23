@@ -2,10 +2,10 @@
 
 var CollabHandler = {
     construct: function (options) {
+        const $ = options.o;
         var handler = {
             _initialize: function () {
                 var self = this;
-                console.log(options);
             },
             _clickListener: function () {
                 var self = this;
@@ -156,7 +156,6 @@ var CollabHandler = {
                 self._clickListener();
             }
         };
-
         return handler;
     }
 };
