@@ -51,8 +51,7 @@
                                     'background-image': `url(${
                                         item.thumbnail
                                             ? item.thumbnail
-                                            : apiurl +
-                                              '/images/placeholder-image.jpeg'
+                                            : generateImage(item)
                                     })`,
                                     'background-repeat': 'no-repeat',
                                     'background-size': 'cover',
