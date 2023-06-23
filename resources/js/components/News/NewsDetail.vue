@@ -90,50 +90,57 @@
                 <a-tab-pane key="1" tab="Intro">
                     <iframe       
                         class="myFrame"        
-                        :srcdoc="JSON.parse(retrieve).intro? JSON.parse(retrieve).intro : '<p>Belum ada data</p>'"                
-                        onload='javascript:(function(o){o.style.height=50+o.contentWindow.document.body.scrollHeight+"px";}(this));' style="margin-bottom: 10px; margin-top: 10px;height:200px;width:100%;border:none;overflow:hidden;"           
+                        :srcdoc="JSON.parse(retrieve).intro? JSON.parse(retrieve).intro : '<p>Belum ada data</p>'"   
+                        ref="myIframe"             
+                        @load='resizeInitIframe' style="margin-bottom: 10px; margin-top: 10px;height:200px;width:100%;border:none;overflow:hidden;"           
                     />
                 </a-tab-pane>
                 <a-tab-pane key="2" tab="Sejarah Letusan">
                     <iframe       
                         class="myFrame"        
                         :srcdoc="JSON.parse(retrieve).history? JSON.parse(retrieve).history : '<p>Belum ada data</p>'"                
-                        onload='javascript:(function(o){o.style.height=50+o.contentWindow.document.body.scrollHeight+"px";}(this));' style="margin-bottom: 10px; margin-top: 10px;height:200px;width:100%;border:none;overflow:hidden;"           
+                        ref="myIframe"             
+                        @load='resizeInitIframe' style="margin-bottom: 10px; margin-top: 10px;height:200px;width:100%;border:none;overflow:hidden;"           
                     />
                 </a-tab-pane>
                 <a-tab-pane key="3" tab="Geologi">
                     <iframe       
                         class="myFrame"        
                         :srcdoc="JSON.parse(retrieve).geology? JSON.parse(retrieve).geology : '<p>Belum ada data</p>'"                
-                        onload='javascript:(function(o){o.style.height=50+o.contentWindow.document.body.scrollHeight+"px";}(this));' style="margin-bottom: 10px; margin-top: 10px;height:200px;width:100%;border:none;overflow:hidden;"           
+                        ref="myIframe"             
+                        @load='resizeInitIframe' style="margin-bottom: 10px; margin-top: 10px;height:200px;width:100%;border:none;overflow:hidden;"           
                     />
                 </a-tab-pane>
                 <a-tab-pane key="4" tab="Geofisika">
                     <iframe       
                         class="myFrame"        
                         :srcdoc="JSON.parse(retrieve).geophysic? JSON.parse(retrieve).geophysic : '<p>Belum ada data</p>'"                
-                        onload='javascript:(function(o){o.style.height=50+o.contentWindow.document.body.scrollHeight+"px";}(this));' style="margin-bottom: 10px; margin-top: 10px;height:200px;width:100%;border:none;overflow:hidden;"           
+                        ref="myIframe"             
+                        @load='resizeInitIframe' style="margin-bottom: 10px; margin-top: 10px;height:200px;width:100%;border:none;overflow:hidden;"           
                     />
                 </a-tab-pane>
                 <a-tab-pane key="5" tab="Geokimia">
                     <iframe       
                         class="myFrame"        
                         :srcdoc="JSON.parse(retrieve).geochemistry? JSON.parse(retrieve).geochemistry : '<p>Belum ada data</p>'"                
-                        onload='javascript:(function(o){o.style.height=50+o.contentWindow.document.body.scrollHeight+"px";}(this));' style="margin-bottom: 10px; margin-top: 10px;height:200px;width:100%;border:none;overflow:hidden;"           
+                        ref="myIframe"             
+                        @load='resizeInitIframe' style="margin-bottom: 10px; margin-top: 10px;height:200px;width:100%;border:none;overflow:hidden;"           
                     />
                 </a-tab-pane>
                 <a-tab-pane key="6" tab="Kawasan Rawan Bencana">
                     <iframe       
                         class="myFrame"        
                         :srcdoc="JSON.parse(retrieve).disaster_area? JSON.parse(retrieve).disaster_area : '<p>Belum ada data</p>'"                
-                        onload='javascript:(function(o){o.style.height=50+o.contentWindow.document.body.scrollHeight+"px";}(this));' style="margin-bottom: 10px; margin-top: 10px;height:200px;width:100%;border:none;overflow:hidden;"           
+                        ref="myIframe"             
+                        @load='resizeInitIframe' style="margin-bottom: 10px; margin-top: 10px;height:200px;width:100%;border:none;overflow:hidden;"           
                     />
                 </a-tab-pane>
                 <a-tab-pane key="7" tab="Daftar Pustaka">
                     <iframe       
                         class="myFrame"        
                         :srcdoc="JSON.parse(retrieve).reference? JSON.parse(retrieve).reference : '<p>Belum ada data</p>'"                
-                        onload='javascript:(function(o){o.style.height=50+o.contentWindow.document.body.scrollHeight+"px";}(this));' style="margin-bottom: 10px; margin-top: 10px;height:200px;width:100%;border:none;overflow:hidden;"           
+                        ref="myIframe"             
+                        @load='resizeInitIframe' style="margin-bottom: 10px; margin-top: 10px;height:200px;width:100%;border:none;overflow:hidden;"           
                     />
                 </a-tab-pane>
             </a-tabs>
@@ -141,7 +148,8 @@
                 v-else        
                 class="myFrame"        
                 :srcdoc="JSON.parse(retrieve).content"                
-                onload='javascript:(function(o){o.style.height=50+o.contentWindow.document.body.scrollHeight+"px";}(this));' style="margin-bottom: 10px; margin-top: 10px;height:200px;width:100%;border:none;overflow:hidden;"           
+                ref="myIframe"             
+                        @load='resizeInitIframe' style="margin-bottom: 10px; margin-top: 10px;height:200px;width:100%;border:none;overflow:hidden;"           
             />
             <div
                 style="margin-top: 10px"
@@ -410,7 +418,15 @@ export default {
             for (var i = 0; i < iframe.length; i++) {
                 iframe[i].style.height = 50+iframe[i].contentWindow.document.body.scrollHeight + 'px';
             }
-        }
+        },
+        resizeInitIframe() {
+            const iframe = this.$refs.myIframe;
+            const body = iframe.contentWindow.document.body;
+            // console.log(body.style);
+            // add css for font family
+            body.style.fontFamily = "-apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Helvetica Neue', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'";
+            iframe.style.height = `${iframe.contentWindow.document.body.scrollHeight+50}px`;
+        },
     },
 };
 </script>
