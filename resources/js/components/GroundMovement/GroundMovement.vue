@@ -61,8 +61,8 @@
                                     'background-repeat': 'no-repeat',
                                     'background-size': 'cover',
                                     'background-position': 'center',
-                                    'height': '200px',
-                                    'width': '100%',
+                                    height: '200px',
+                                    width: '100%',
                                 }"
                                 @click="handleDetail(item)"
                             />
@@ -175,7 +175,12 @@ export default {
             return helper.truncString(item, 120, "...");
         },
         handleDetail(item) {
-            window.location.href = this.apiurl + "/gerakan-tanah/" + this.menuslug + "/" + item.slug;
+            window.location.href =
+                this.apiurl +
+                "/gerakan-tanah/" +
+                this.menuslug +
+                "/" +
+                item.slug;
         },
         handlePageChange(page, pageSize) {
             this.pagination.current = page;
