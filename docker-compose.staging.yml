@@ -1,0 +1,74 @@
+version: '3.5'
+services:
+    #`The App`
+    app:
+        build:
+            context: .
+            dockerfile: Dockerfile.prod
+        image: web-vsi
+        container_name: web-vsi
+        restart: unless-stopped
+        tty: true
+        environment:
+            SERVICE_NAME: web-vsi
+            SERVICE_TAGS: dev
+            APP_NAME: "Pusat Vulkanologi dan Mitigasi Bencana Geologi"
+            APP_ENV: staging
+            APP_DEBUG: "true"
+            APP_URL: http://172.16.2.121
+            DB_HOST: 172.16.2.121
+            DB_DATABASE: pvmbg
+            DB_USERNAME: wovodatuser
+            DB_PASSWORD: wovodatpassword
+            DB_CONNECTION_PMBGI: pgsql
+            DB_HOST_PMBGI: 172.16.2.121
+            DB_PORT_PMBGI: 5432
+            DB_DATABASE_PMBGI: pmbgi
+            DB_USERNAME_PMBGI: pmbgi
+            DB_PASSWORD_PMBGI: pmbgi
+            SIPEG_API_KEY: SIPEG
+            SIPEG_API_USERNAME: magma
+            SIPEG_API_PASSWORD: 4ntot4mp4nsekali2022
+            SIPEG_API_URL: http://172.16.23.15
+            SIPEG_PHOTO_URL: https://ngantor.esdm.go.id/sipeg/media/person/
+            REDIS_HOST: redis_tmp
+            FILESYSTEM_DISK: public
+            RECAPTCHA_SITEKEY: 6LeH1OcUAAAAAP3MXLlekOozbTzok4rTSzxuYbmD
+            RECAPTCHA_SERVERKEY: 6LeH1OcUAAAAAHrE-pKsBJKDCIXgMw7cFIJZVynE
+            GEETEST_EVENT_ID: e9afee5d2dd9d582b2548bbd76a3f17b
+        working_dir: /var/www/html
+        volumes:
+            - ./:/var/www/html
+            - ./storage/app:/var/www/html/storage/app
+        networks:
+            - intranet
+    nginx:
+        image: nginx:alpine
+        container_name: web-vsi_nginx
+        restart: unless-stopped
+        tty: true
+        ports:
+            - "8083:8000"
+            # we need not ssl
+            #- "1443:443"
+        volumes:
+            - ./:/var/www/html
+            - ./nginx/conf.d/:/etc/nginx/conf.d/
+            #- ./nginx/ssl/:/etc/nginx/ssl/
+        networks:
+            - intranet
+    redis_tmp:
+        image: redis:alpine
+        volumes:
+            - ./storage/redis:/data
+        ports:
+            - "6379:6379"
+        networks:
+            - intranet
+    
+networks:
+    intranet:
+        driver: bridge
+
+volumes:
+  mariadb_data:
