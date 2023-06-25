@@ -230,3 +230,23 @@
         </div>
     </div>
     @endsection
+
+@push('scripts')
+    <script type="text/javascript">
+        jQuery(document).ready(function ($) {
+            let scrollLinks = document.querySelectorAll(".request");
+            let subject = document.getElementById("coordinated_subject");
+            scrollLinks.forEach(function(link) {
+                link.addEventListener("click", function(event) {
+                    event.preventDefault();
+                    let linkText = link.textContent;
+                    subject.value = linkText;
+                    window.scrollTo({
+                        top: document.documentElement.scrollHeight,
+                        behavior: "smooth"
+                    });
+                });
+            });
+        });
+    </script>
+@endpush
