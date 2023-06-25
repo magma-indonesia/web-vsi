@@ -3,7 +3,9 @@
 /* stylelint-disable */
 /* stylelint-disable declaration-bang-space-before,no-duplicate-selectors,string-no-newline */
 /* stylelint-disable at-rule-no-unknown */
-html,
+html {
+  scroll-behavior: smooth;
+}
 body {
   width: 100%;
   height: 100%;
