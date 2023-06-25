@@ -524,10 +524,20 @@
                                 <a-input
                                     :value="
                                         mapsMedia.length > 0
-                                            ? mapsMedia[index]?.notes || '-'
-                                            : '-'
+                                            ? mapsMedia[index]?.notes
+                                            : ''
                                     "
-                                    :disabled="true"
+                                    @change="
+                                        handleChangeNotes(
+                                            $event,
+                                            index,
+                                            'thumbnail'
+                                        )
+                                    "
+                                    :disabled="
+                                        mapsMedia.length === 0
+                                    "
+                                    placeholder="(Optional) Keterangan file"
                                 ></a-input>
                                 <a-button
                                     type="primary"
@@ -691,11 +701,20 @@
                                 <a-input
                                     :value="
                                         thumbnailsMedia.length > 0
-                                            ? thumbnailsMedia[index]?.notes ||
-                                              '-'
-                                            : '-'
+                                            ? thumbnailsMedia[index]?.notes
+                                            : ''
                                     "
-                                    :disabled="true"
+                                    @change="
+                                        handleChangeNotes(
+                                            $event,
+                                            index,
+                                            'thumbnail'
+                                        )
+                                    "
+                                    :disabled="
+                                        thumbnailsMedia.length === 0
+                                    "
+                                    placeholder="(Optional) Keterangan file"
                                 ></a-input>
                                 <a-button
                                     type="primary"
