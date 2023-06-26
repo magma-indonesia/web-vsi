@@ -80,15 +80,17 @@
                         </div>
                     </div>
                 </div> -->
-                <div class="col-md-4 col-sm-6">
+
+                <div class="col-md-4 col-sm-6" id="footer">
                     <div class="widget_list">
                         <h4 class="widget_title">Hubungi Kami</h4>
-                        <div class="widget_text text2">
+                        <div class="widget_text text2" id="container-contact-form">
                             <contact-form csrf="{{ csrf_token() }}" apiurl="{{ env('APP_URL') }}"
                                 geetestid="{{ env('GEETEST_EVENT_ID') }}"></contact-form>
                         </div>
                     </div>
                 </div>
+
                 <div class="widget_copyright">
                     <div class="col-md-3 col-sm-6">
                         <div class="widget_logo">
