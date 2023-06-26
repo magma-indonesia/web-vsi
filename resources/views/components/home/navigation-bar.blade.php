@@ -114,7 +114,7 @@
                                 <li><a href="#" class="request">Permohonan Data dan Informasi</a></li>
                                 <li><a href="#" class="request">Permohonan Narasumber</a></li>
                                 <li><a href="#" class="request">Permohonan Integrasi Data</a></li>
-                                <li><a href="#" class="request">Pelayanan Bimbingan</a>
+                                <li><a href="#">Pelayanan Bimbingan</a>
                                     <ul class="child">
                                         <li><a href="#" class="request">Praktik Kerja Lapangan</a></li>
                                         <li><a href="#" class="request">Bimbingan Skripsi/Tugas Akhir</a></li>
@@ -209,13 +209,13 @@
                                     </ul>
                                 </li>
                                 <hr>
-                                <li><a href="#">Permohonan Data dan Informasi</a></li>
-                                <li><a href="#">Permohonan Narasumber</a></li>
-                                <li><a href="#">Permohonan Integrasi Data</a></li>
+                                <li><a href="#" class="request">Permohonan Data dan Informasi</a></li>
+                                <li><a href="#" class="request">Permohonan Narasumber</a></li>
+                                <li><a href="#" class="request">Permohonan Integrasi Data</a></li>
                                 <li><a href="#">Pelayanan Bimbingan</a>
                                     <ul class="dl-submenu">
-                                        <li><a href="#">Praktik Kerja Lapangan</a></li>
-                                        <li><a href="#">Bimbingan Skripsi/Tugas Akhir</a></li>
+                                        <li><a href="#" class="request">Praktik Kerja Lapangan</a></li>
+                                        <li><a href="#" class="request">Bimbingan Skripsi/Tugas Akhir</a></li>
                                     </ul>
                                 </li>
                                 <hr>
