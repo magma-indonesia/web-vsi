@@ -36,21 +36,31 @@
                 </a-form-item>
             </a-col>
         </a-row>
-        <a-form-item>
+        <a-form-item :hasFeedback="true">
             <template>
                 <div>
-                    <!-- Select Element -->
-                    <a-select v-if="subject !== 'Lainnya'" v-model="subject" @change="handleSubjectChange">
+                    <!-- <a-select v-if="subject !== 'Lainnya'" v-model="subject" @change="handleSubjectChange">
                         <a-select-option value="Permohonan Data dan Informasi">Permohonan Data dan
                             Informasi</a-select-option>
                         <a-select-option value="Permohonan Narasumber">Permohonan Narasumber</a-select-option>
                         <a-select-option value="Permohonan Integrasi Data">Permohonan Integrasi Data</a-select-option>
                         <a-select-option value="Pelayanan Bimbingan">Pelayanan Bimbingan</a-select-option>
                         <a-select-option value="Lainnya">Lainnya</a-select-option>
-                    </a-select>
+                    </a-select> -->
 
-                    <!-- Input Text - Lainnya -->
-                    <a-input v-else placeholder="Lainnya" v-model="otherOption"></a-input>
+                    <a-input placeholder="Subject" v-decorator="[
+                        'subject',
+                        {
+                            initialValue: subject,
+                            rules: [
+                                {
+                                    required: true,
+                                    message: 'Subject wajib diisi!',
+                                },
+                            ],
+                        },
+                    ]" />
+
                 </div>
             </template>
 
@@ -69,6 +79,7 @@
 </template>
 
 <script>
+import { navbarSubject } from '../../app.js';
 import axios from "axios";
 export default {
     props: ["apiurl", "csrf", "geetestid"],
@@ -79,13 +90,16 @@ export default {
             loading: false,
             token: this.csrf,
             geetest: null,
-            subject: ''
+            subject: '',
+
         };
     },
     mounted() {
+        navbarSubject.$on('changeSubject', (data) => {
+            this.subject = data
+        });
         this.handleInitCaptcha();
         this.selectedSubject = this.subject;
-        window.addEventListener('scroll', this.handleScroll);
     },
     methods: {
         handleInitCaptcha() {
@@ -121,11 +135,11 @@ export default {
                         ...values,
                         _token: this.token,
                     };
-
                     axios
                         .post(this.apiurl + "/layanan-publik/contact", postData)
                         .then(() => {
                             this.form.resetFields();
+                            this.subject = '';
                             this.loading = false;
                         })
                         .catch(() => {
@@ -134,19 +148,10 @@ export default {
                 }
             });
         },
-        handleSubjectChange(value) {
-            this.selectedSubject = value;
-        },
-        handleScroll() {
-            const currentHref = window.location.href;
-
-            var parts = currentHref.split("#");
-
-            this.subject = decodeURIComponent(parts[1].replace(/\+/g, ' '));
-        },
-    },
-    beforeDestroy() {
-        window.removeEventListener('scroll', this.handleScroll);
+        updateSubject: function (updatedSubject) {
+            this.subject = updatedSubject
+            console.log(this.subject)
+        }
     },
 };
 </script>

@@ -111,7 +111,12 @@
                                     </ul>
                                 </li>
                                 <hr>
-                                <li><a href="#Permohonan Data dan Informasi" 
+                                <navigation-bar-layanan></navigation-bar-layanan>
+                                <hr>
+                                <li style="display:none;"><a href="{{ route('layanan-publik.kontak') }}">Hubungi Kami</a></li>
+                            </ul>
+                                
+                                {{-- <li><a href="#Permohonan Data dan Informasi" 
                                     onClick="window.scrollTo(0, document.body.scrollHeight);
                                     var event = new Event('scroll');
                                     window.dispatchEvent(event);">
@@ -135,11 +140,7 @@
                                         <li><a href="#">Praktik Kerja Lapangan</a></li>
                                         <li><a href="#">Bimbingan Skripsi/Tugas Akhir</a></li>
                                     </ul>
-                                </li>
-                                <hr>
-                                <li><a href="">Pengaduan</a></li>
-                                <li style="display:none;"><a href="{{ route('layanan-publik.kontak') }}">Hubungi Kami</a></li>
-                            </ul>
+                                </li> --}}
                         </li>
                         <li><a href="{{ route('layanan-publik.kontak') }}">Hubungi Kami</a></li>
                         <li><a href="{{ route('press-release.index') }}">Press Release</a></li>
