@@ -48,11 +48,9 @@
                             <div
                                 slot="cover"
                                 :style="{
-                                    'background-image': `url(${
-                                        item.thumbnail
-                                            ? item.thumbnail
-                                            : generateImage(item)
-                                    })`,
+                                    'background-image': `url(${generateImage(
+                                        item
+                                    )})`,
                                     'background-repeat': 'no-repeat',
                                     'background-size': 'cover',
                                     'background-position': 'center',
@@ -281,7 +279,7 @@ export default {
             });
         },
         generateImage(item) {
-            console.log(this.isPressRelease);
+            console.log(item);
             return item.thumbnail
                 ? this.isPressRelease
                     ? item.thumbnail
