@@ -505,3 +505,11 @@ body {
     max-height: 300px;
     overflow-y: scroll !important;
 }
+
+.client-bottom {
+    margin-top: 15px;
+}
+
+.client-bottom img {
+    margin: 10px 0;
+}
