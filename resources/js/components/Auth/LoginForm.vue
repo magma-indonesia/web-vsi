@@ -1,5 +1,5 @@
 <template>
-    <a-form :form="form" @submit="handleSubmit" :layout="formLayout">
+    <a-form :form="form" @submit="handleVerifyCaptcha" :layout="formLayout">
         <a-form-item label="Username" :hasFeedback="true">
             <a-input
                 v-decorator="[
@@ -57,19 +57,48 @@
 <script>
 import axios from "axios";
 export default {
-    props: ["url", "csrf", "routeforget"],
+    props: ["url", "csrf", "routeforget", "geetestid"],
     data() {
         return {
             formLayout: "vertical",
             form: this.$form.createForm(this, { name: "coordinated" }),
             loading: false,
             token: this.csrf,
+            geetest: null,
         };
     },
+    mounted() {
+        this.handleInitCaptcha();
+    },
     methods: {
-        handleSubmit(e) {
-            this.loading = true;
+        handleInitCaptcha() {
+            const web = this;
+            initGeetest4(
+                {
+                    captchaId: this.geetestid,
+                    product: "bind",
+                },
+                function (captchaObj) {
+                    captchaObj
+                        .onReady(function () {
+                            web.geetest = captchaObj;
+                        })
+                        .onSuccess(function () {
+                            web.handleSubmit();
+                        })
+                        .onError(function () {
+                            console.log("ERROR CAPTCHA");
+                        });
+                }
+            );
+        },
+        handleVerifyCaptcha(e) {
             e.preventDefault();
+            this.geetest.showBox();
+        },
+        handleSubmit() {
+            this.loading = true;
+            
             this.form.validateFields((err, values) => {
                 if (!err) {
                     var postData = {
