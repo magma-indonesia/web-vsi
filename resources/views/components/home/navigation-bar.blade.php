@@ -111,19 +111,36 @@
                                     </ul>
                                 </li>
                                 <hr>
-                                <li><a href="#">Permohonan Data dan Informasi</a></li>
-                                <li><a href="#">Permohonan Narasumber</a></li>
-                                <li><a href="#">Permohonan Integrasi Data</a></li>
-                                <li><a href="#">Pelayanan Bimbingan</a>
-                                    <ul class="child">
-                                        <li><a href="#">Praktik Kerja Lapangan</a></li>
-                                        <li><a href="#">Bimbingan Skripsi/Tugas Akhir</a></li>
-                                    </ul>
-                                </li>
+                                <navigation-bar-layanan></navigation-bar-layanan>
                                 <hr>
-                                <li><a href="">Pengaduan</a></li>
                                 <li style="display:none;"><a href="{{ route('layanan-publik.kontak') }}">Hubungi Kami</a></li>
                             </ul>
+                                
+                                {{-- <li><a href="#Permohonan Data dan Informasi" 
+                                    onClick="window.scrollTo(0, document.body.scrollHeight);
+                                    var event = new Event('scroll');
+                                    window.dispatchEvent(event);">
+                                    Permohonan Data dan Informasi</a></li>
+                                <li><a href="#Permohonan Narasumber" 
+                                    onClick="window.scrollTo(0, document.body.scrollHeight);
+                                    var event = new Event('scroll');
+                                    window.dispatchEvent(event);"
+                                    >Permohonan Narasumber</a></li>
+                                <li><a href="#Permohonan Integrasi Data" 
+                                    onClick="window.scrollTo(0, document.body.scrollHeight);
+                                    var event = new Event('scroll');
+                                    window.dispatchEvent(event);">
+                                    Permohonan Integrasi Data</a></li>
+                                <li><a href="#Pelayanan Bimbingan" 
+                                    onClick="window.scrollTo(0, document.body.scrollHeight);
+                                    var event = new Event('scroll');
+                                    window.dispatchEvent(event);">
+                                    Pelayanan Bimbingan</a>
+                                    <ul class="child">
+                                        <li><a href="#" class="request">Praktik Kerja Lapangan</a></li>
+                                        <li><a href="#" class="request">Bimbingan Skripsi/Tugas Akhir</a></li>
+                                    </ul>
+                                </li> --}}
                         </li>
                         <li><a href="{{ route('layanan-publik.kontak') }}">Hubungi Kami</a></li>
                         <li><a href="{{ route('press-release.index') }}">Press Release</a></li>
@@ -209,13 +226,13 @@
                                     </ul>
                                 </li>
                                 <hr>
-                                <li><a href="#">Permohonan Data dan Informasi</a></li>
-                                <li><a href="#">Permohonan Narasumber</a></li>
-                                <li><a href="#">Permohonan Integrasi Data</a></li>
+                                <li><a href="#" class="request">Permohonan Data dan Informasi</a></li>
+                                <li><a href="#" class="request">Permohonan Narasumber</a></li>
+                                <li><a href="#" class="request">Permohonan Integrasi Data</a></li>
                                 <li><a href="#">Pelayanan Bimbingan</a>
                                     <ul class="dl-submenu">
-                                        <li><a href="#">Praktik Kerja Lapangan</a></li>
-                                        <li><a href="#">Bimbingan Skripsi/Tugas Akhir</a></li>
+                                        <li><a href="#" class="request">Praktik Kerja Lapangan</a></li>
+                                        <li><a href="#" class="request">Bimbingan Skripsi/Tugas Akhir</a></li>
                                     </ul>
                                 </li>
                                 <hr>

@@ -11,11 +11,14 @@ import axios from "axios";
 Vue.use(Antd);
 window.Vue = require("vue");
 
+export let navbarSubject = new Vue();
 /**
  * Next, we will create a fresh Vue application instance. You may then begin
  * registering components with the application instance so they are ready
  * to use in your application's views. An example is included for you.
  */
+Vue.component("navigation-bar-layanan", require("./components/Auth/ChildComponentContact/NavbarSubject.vue").default)
+
 Vue.component("login-form", require("./components/Auth/LoginForm.vue").default);
 Vue.component(
     "register-form",
