@@ -12,8 +12,11 @@
                         <h3 class="tx-color-01 mg-b-25">Login</h3>
                         <p class="tx-color-03 tx-16 mg-b-40">Halo selamat datang! Harap gunakan NIP dan password MAGMA
                             Anda untuk masuk ke dalam Dashboard.</p>
-                        <login-form url="{{ route('login.post') }}" csrf="{{ csrf_token() }}"
-                            routeforget="{{ route('forgot.index') }}"></login-form>
+                        <login-form 
+                            url="{{ route('login.post') }}" 
+                            csrf="{{ csrf_token() }}"
+                            routeforget="{{ route('forgot.index') }}" 
+                            geetestid="{{ env('GEETEST_EVENT_ID') }}"></login-form>
                         <div class="justify-content-center d-flex w-100" style="font-size: 12px">
                             Belum punya akun?&nbsp;<a href="{{ route('register.index') }}">daftar disini</a>
                         </div>
