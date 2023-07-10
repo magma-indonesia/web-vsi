@@ -93,65 +93,65 @@ class LandingController extends Controller
         });
 
         $statusGunung = '[]';
-        if (env('USE_REDIS') == '1') {
-            $cachedStatusGunung = Redis::get('statusGunung');
-            if (isset($cachedStatusGunung)) {
-                $statusGunung = json_decode($cachedStatusGunung, FALSE);
-            } else {
-                $curl = curl_init();
+        // if (env('USE_REDIS') == '1') {
+        //     $cachedStatusGunung = Redis::get('statusGunung');
+        //     if (isset($cachedStatusGunung)) {
+        //         $statusGunung = json_decode($cachedStatusGunung, FALSE);
+        //     } else {
+        //         $curl = curl_init();
 
-                curl_setopt_array($curl, array(
-                    CURLOPT_URL => 'https://magma.esdm.go.id/api/v1/home/gunung-api/status',
-                    CURLOPT_RETURNTRANSFER => true,
-                    CURLOPT_ENCODING => '',
-                    CURLOPT_MAXREDIRS => 10,
-                    CURLOPT_TIMEOUT => 0,
-                    CURLOPT_FOLLOWLOCATION => true,
-                    CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-                    CURLOPT_CUSTOMREQUEST => 'GET',
-                    CURLOPT_HTTPHEADER => array(
-                        'Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczpcL1wvbWFnbWEuZXNkbS5nby5pZFwvYXBpXC9sb2dpblwvc3Rha2Vob2xkZXIiLCJpYXQiOjE2ODEwOTI2MDEsImV4cCI6MTgzODg1OTAwMSwibmJmIjoxNjgxMDkyNjAxLCJqdGkiOiJzeXdxeGtjTW9BOXhPZnRuIiwic3ViIjoyNCwicHJ2IjoiNGE5ZDlhMmQyNjgwMmMzMTJlOGU1YTViZTYwZmYyNmYwZmM2M2Q3ZCIsInNvdXJjZSI6Ik1BR01BIEluZG9uZXNpYSIsImFwaV92ZXJzaW9uIjoidjEiLCJkYXlzX3JlbWFpbmluZyI6MTgyNSwiZXhwaXJlZF9hdCI6IjIwMjgtMDQtMDkgMDA6MDA6MDAifQ.hol8d2rgvChG5Kth6JAV3o9xIWKljP-Opi7mhSSLxIY'
-                    ),
-                )
-                );
+        //         curl_setopt_array($curl, array(
+        //             CURLOPT_URL => 'https://magma.esdm.go.id/api/v1/home/gunung-api/status',
+        //             CURLOPT_RETURNTRANSFER => true,
+        //             CURLOPT_ENCODING => '',
+        //             CURLOPT_MAXREDIRS => 10,
+        //             CURLOPT_TIMEOUT => 0,
+        //             CURLOPT_FOLLOWLOCATION => true,
+        //             CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+        //             CURLOPT_CUSTOMREQUEST => 'GET',
+        //             CURLOPT_HTTPHEADER => array(
+        //                 'Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczpcL1wvbWFnbWEuZXNkbS5nby5pZFwvYXBpXC9sb2dpblwvc3Rha2Vob2xkZXIiLCJpYXQiOjE2ODEwOTI2MDEsImV4cCI6MTgzODg1OTAwMSwibmJmIjoxNjgxMDkyNjAxLCJqdGkiOiJzeXdxeGtjTW9BOXhPZnRuIiwic3ViIjoyNCwicHJ2IjoiNGE5ZDlhMmQyNjgwMmMzMTJlOGU1YTViZTYwZmYyNmYwZmM2M2Q3ZCIsInNvdXJjZSI6Ik1BR01BIEluZG9uZXNpYSIsImFwaV92ZXJzaW9uIjoidjEiLCJkYXlzX3JlbWFpbmluZyI6MTgyNSwiZXhwaXJlZF9hdCI6IjIwMjgtMDQtMDkgMDA6MDA6MDAifQ.hol8d2rgvChG5Kth6JAV3o9xIWKljP-Opi7mhSSLxIY'
+        //             ),
+        //         )
+        //         );
 
-                $response = curl_exec($curl);
+        //         $response = curl_exec($curl);
 
-                curl_close($curl);
+        //         curl_close($curl);
 
-                if ($response) {
-                    $parseJson = json_decode($response);
-                    $statusGunung = json_encode($parseJson->latest);
-                    Redis::set('statusGunung', $statusGunung, 'EX', 21600);
-                }
-            }
-        } else {
-            $curl = curl_init();
+        //         if ($response) {
+        //             $parseJson = json_decode($response);
+        //             $statusGunung = json_encode($parseJson->latest);
+        //             Redis::set('statusGunung', $statusGunung, 'EX', 21600);
+        //         }
+        //     }
+        // } else {
+        //     $curl = curl_init();
 
-            curl_setopt_array($curl, array(
-                CURLOPT_URL => 'https://magma.esdm.go.id/api/v1/home/gunung-api/status',
-                CURLOPT_RETURNTRANSFER => true,
-                CURLOPT_ENCODING => '',
-                CURLOPT_MAXREDIRS => 10,
-                CURLOPT_TIMEOUT => 0,
-                CURLOPT_FOLLOWLOCATION => true,
-                CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-                CURLOPT_CUSTOMREQUEST => 'GET',
-                CURLOPT_HTTPHEADER => array(
-                    'Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczpcL1wvbWFnbWEuZXNkbS5nby5pZFwvYXBpXC9sb2dpblwvc3Rha2Vob2xkZXIiLCJpYXQiOjE2ODEwOTI2MDEsImV4cCI6MTgzODg1OTAwMSwibmJmIjoxNjgxMDkyNjAxLCJqdGkiOiJzeXdxeGtjTW9BOXhPZnRuIiwic3ViIjoyNCwicHJ2IjoiNGE5ZDlhMmQyNjgwMmMzMTJlOGU1YTViZTYwZmYyNmYwZmM2M2Q3ZCIsInNvdXJjZSI6Ik1BR01BIEluZG9uZXNpYSIsImFwaV92ZXJzaW9uIjoidjEiLCJkYXlzX3JlbWFpbmluZyI6MTgyNSwiZXhwaXJlZF9hdCI6IjIwMjgtMDQtMDkgMDA6MDA6MDAifQ.hol8d2rgvChG5Kth6JAV3o9xIWKljP-Opi7mhSSLxIY'
-                ),
-            )
-            );
+        //     curl_setopt_array($curl, array(
+        //         CURLOPT_URL => 'https://magma.esdm.go.id/api/v1/home/gunung-api/status',
+        //         CURLOPT_RETURNTRANSFER => true,
+        //         CURLOPT_ENCODING => '',
+        //         CURLOPT_MAXREDIRS => 10,
+        //         CURLOPT_TIMEOUT => 0,
+        //         CURLOPT_FOLLOWLOCATION => true,
+        //         CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+        //         CURLOPT_CUSTOMREQUEST => 'GET',
+        //         CURLOPT_HTTPHEADER => array(
+        //             'Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczpcL1wvbWFnbWEuZXNkbS5nby5pZFwvYXBpXC9sb2dpblwvc3Rha2Vob2xkZXIiLCJpYXQiOjE2ODEwOTI2MDEsImV4cCI6MTgzODg1OTAwMSwibmJmIjoxNjgxMDkyNjAxLCJqdGkiOiJzeXdxeGtjTW9BOXhPZnRuIiwic3ViIjoyNCwicHJ2IjoiNGE5ZDlhMmQyNjgwMmMzMTJlOGU1YTViZTYwZmYyNmYwZmM2M2Q3ZCIsInNvdXJjZSI6Ik1BR01BIEluZG9uZXNpYSIsImFwaV92ZXJzaW9uIjoidjEiLCJkYXlzX3JlbWFpbmluZyI6MTgyNSwiZXhwaXJlZF9hdCI6IjIwMjgtMDQtMDkgMDA6MDA6MDAifQ.hol8d2rgvChG5Kth6JAV3o9xIWKljP-Opi7mhSSLxIY'
+        //         ),
+        //     )
+        //     );
 
-            $response = curl_exec($curl);
+        //     $response = curl_exec($curl);
 
-            curl_close($curl);
+        //     curl_close($curl);
 
-            if ($response) {
-                $parseJson = json_decode($response);
-                $statusGunung = json_encode($parseJson->latest);
-            }
-        }
+        //     if ($response) {
+        //         $parseJson = json_decode($response);
+        //         $statusGunung = json_encode($parseJson->latest);
+        //     }
+        // }
 
         return view('home.index', compact('statusGunung', 'pengumuman', 'pressRelease', 'tanggapanKejadian', 'kajianKejadian', 'news'));
     }
