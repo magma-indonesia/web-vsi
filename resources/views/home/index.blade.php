@@ -227,6 +227,24 @@
                     </div>
                 </div>
             </div>
+
+            <div class="row client-bottom">
+                <div class="col-md-4 col-sm-12">
+                    <a href="" target="_blank">
+                        <img src="{{ asset('images/bottom-client1.jpg') }}" alt="" srcset="">
+                    </a>
+                </div>
+                <div class="col-md-4 col-sm-12">
+                    <a href="" target="_blank">
+                        <img src="{{ asset('images/bottom-client2.jpg') }}" alt="" srcset="">
+                    </a>
+                </div>
+                <div class="col-md-4 col-sm-12">
+                    <a href="" target="_blank">
+                        <img src="{{ asset('images/bottom-client3.jpg') }}" alt="" srcset="">
+                    </a>
+                </div>
+            </div>
         </div>
     </div>
     @endsection
