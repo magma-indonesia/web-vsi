@@ -10,8 +10,8 @@ services:
     restart: unless-stopped
     tty: true
     env_file:
+      - .env
       - .env.dev
-      
     working_dir: /var/www/html
     volumes:
       - ./:/var/www/html
