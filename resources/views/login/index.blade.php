@@ -10,12 +10,11 @@
                 <div class="sign-wrapper">
                     <div class="wd-100p">
                         <h3 class="tx-color-01 mg-b-25">Login</h3>
-                        <p class="tx-color-03 tx-16 mg-b-40">Halo selamat datang! Harap gunakan NIP dan password MAGMA
-                            Anda untuk masuk ke dalam Dashboard.</p>
-                        <login-form 
-                            url="{{ route('login.post') }}" 
+                        <p class="tx-color-03 tx-16 mg-b-40">Selamat Datang di Website PVMBG.</p>
+                        <login-form
+                            url="{{ route('login.post') }}"
                             csrf="{{ csrf_token() }}"
-                            routeforget="{{ route('forgot.index') }}" 
+                            routeforget="{{ route('forgot.index') }}"
                             geetestid="{{ env('GEETEST_EVENT_ID') }}"></login-form>
                         <div class="justify-content-center d-flex w-100" style="font-size: 12px">
                             Belum punya akun?&nbsp;<a href="{{ route('register.index') }}">daftar disini</a>
@@ -31,24 +30,15 @@
 
     <footer class="footer">
         <div>
-            <span>&copy; 2022 PVMBG v1.0.0. </span>
-            <span>Powered by <a href="https://magma.esdm.go.id">MAGMA Indonesia</a></span>
+            <span>&copy; 2023 PVMBG</span>
         </div>
         <div>
             <nav class="nav">
-                <a href="https://magma.esdm.go.id" class="nav-link">MAGMA Indonesia</a>
                 <a href="#" class="nav-link">Change Log</a>
                 <a href="#" class="nav-link">Get Help</a>
             </nav>
         </div>
     </footer>
-
-    {{-- <form action="{{ route('login.post') }}" method="post">
-    @csrf
-    <input name="username" type="text">
-    <input name="password" type="password">
-    <button type="submit">Submit</button>
-    </form> --}}
     @include('login.template.js')
 </body>
 </html>
