@@ -162,7 +162,7 @@ export default {
         handleDelete(val) {
             const postData = { id: val.id };
             axios({
-                url: `${this.apiurl}/dashboard/api/layanan-publik`,
+                url: `${this.apiurl}/dashboard/api/public-services`,
                 method: "DELETE",
                 data: postData,
             }).then(() => {
@@ -184,7 +184,7 @@ export default {
         fetchData(param = this.params, p = this.pagination) {
             this.loading = true;
             axios
-                .get(`${this.apiurl}/dashboard/api/layanan-publik`, {
+                .get(`${this.apiurl}/dashboard/api/public-services`, {
                     params: {
                         ...param,
                         page: p.current,

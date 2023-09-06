@@ -102,8 +102,7 @@ class User extends Authenticatable implements RbacUserInterface
 
     public function getAvatar()
     {
-        $defaultAvatarPlaceholder = 'https://via.placeholder.com/500';
-
+        $defaultAvatarPlaceholder = 'https://placehold.co/500';
         return $this->attributes['avatar'] == null || '' ?
             $defaultAvatarPlaceholder :
             config('sipeg.photo_url') . $this->attributes['avatar'];

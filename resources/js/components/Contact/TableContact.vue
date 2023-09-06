@@ -26,6 +26,10 @@
                 <div class="col">
                     <a-table :rowKey="'id'" style="margin-top: 10px" :columns="columns" :data-source="data"
                         :pagination="pagination" :loading="loading" @change="handleTableChange">
+                        <template slot="is_read" slot-scope="text, record">
+                            <a-tag v-if="record.is_read === 1" color="green">Sudah dibaca</a-tag>
+                            <a-tag v-else color="red">Belum dibaca</a-tag>
+                        </template>
                         <template slot="action" slot-scope="text, record">
                             <div class="d-flex align-items-center justify-content-center flex-column">
                                 <div class="d-flex align-items-center justify-content-center">
@@ -35,57 +39,60 @@
                             </div>
                         </template>
                     </a-table>
-
-                    <div v-for="item in data">
-                        <div class="modal fade" :id="'modal-detail' + item.id" tabindex="-1" role="dialog"
-                            aria-labelledby="exampleModalLabel" aria-hidden="true">
-                            <div class="modal-dialog modal-lg" role="document">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel">
-                                            Detail Pesan
-                                        </h5>
-                                        <button type="button" class="btn btn-close" data-bs-dismiss="modal"
-                                            aria-label="Close"></button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <div class="row">
-                                            <div class="col-md-12 mb-3">
-                                                <label
-                                                    class="tx-10 tx-medium tx-spacing-1 tx-color-03 tx-uppercase tx-sans mg-b-10">Subject</label>
-                                                <p class="mg-b-0" v-text="item.subject"></p>
-                                            </div>
-                                            <div class="col-6 col-sm mb-3">
-                                                <label
-                                                    class="tx-10 tx-medium tx-spacing-1 tx-color-03 tx-uppercase tx-sans mg-b-10">Nama</label>
-                                                <p class="mg-b-0" v-text="item.name"></p>
-                                            </div>
-                                            <div class="col-6 col-sm mb-3">
-                                                <label
-                                                    class="tx-10 tx-medium tx-spacing-1 tx-color-03 tx-uppercase tx-sans mg-b-10">Email</label>
-                                                <p class="mg-b-0" v-text="item.email"></p>
-                                            </div>
-                                            <div class="col-md-12 mb-3">
-                                                <label
-                                                    class="tx-10 tx-medium tx-spacing-1 tx-color-03 tx-uppercase tx-sans mg-b-10">Pesan</label>
-                                                <p class="mg-b-0" v-text="item.message"></p>
-                                            </div>
-                                            <div class="col-md-12 mb-3">
-                                                <label
-                                                    class="tx-10 tx-medium tx-spacing-1 tx-color-03 tx-uppercase tx-sans mg-b-10">Pesan
-                                                    Diterima</label>
-                                                <p class="mg-b-0" v-text="handleFormatDate(item.created_at)"></p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                                            Close
-                                        </button>
-                                    </div>
-                                </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="notif-detail" tabindex="-1" role="dialog"
+             aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">
+                            Detail Pesan
+                        </h5>
+                        <button type="button" class="btn btn-close" data-bs-dismiss="modal"
+                                aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-12 mb-3">
+                                <label
+                                    class="tx-10 tx-medium tx-spacing-1 tx-color-03 tx-uppercase tx-sans mg-b-10">Subject</label>
+                                <p class="mg-b-0" v-text="notifDetail.subject"></p>
+                            </div>
+                            <div class="col-6 col-sm mb-3">
+                                <label
+                                    class="tx-10 tx-medium tx-spacing-1 tx-color-03 tx-uppercase tx-sans mg-b-10">Nama</label>
+                                <p class="mg-b-0" v-text="notifDetail.name"></p>
+                            </div>
+                            <div class="col-6 col-sm mb-3">
+                                <label
+                                    class="tx-10 tx-medium tx-spacing-1 tx-color-03 tx-uppercase tx-sans mg-b-10">Email</label>
+                                <p class="mg-b-0" v-text="notifDetail.email"></p>
+                            </div>
+                            <div class="col-md-12 mb-3">
+                                <label
+                                    class="tx-10 tx-medium tx-spacing-1 tx-color-03 tx-uppercase tx-sans mg-b-10">Pesan</label>
+                                <p class="mg-b-0" v-text="notifDetail.message"></p>
+                            </div>
+                            <div class="col-md-12 mb-3">
+                                <label
+                                    class="tx-10 tx-medium tx-spacing-1 tx-color-03 tx-uppercase tx-sans mg-b-10">Pertama kali
+                                    dibaca Oleh</label>
+                                <p class="mg-b-0" v-text="handleReadBy(notifDetail)"></p>
+                            </div>
+                            <div class="col-md-12 mb-3">
+                                <label
+                                    class="tx-10 tx-medium tx-spacing-1 tx-color-03 tx-uppercase tx-sans mg-b-10">Pesan
+                                    Diterima</label>
+                                <p class="mg-b-0" v-text="handleFormatDate(notifDetail.created_at)"></p>
                             </div>
                         </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" @click="closeModal">
+                            Close
+                        </button>
                     </div>
                 </div>
             </div>
@@ -95,17 +102,13 @@
 
 <script>
 import axios from "axios";
-// moment
 import moment from "moment";
 
 export default {
-    props: [
-        "apiurl",
-        // "addurl",
-        // "detailurl",
-    ],
+    props: ["apiurl", "usernip"],
     data() {
         return {
+            notifDetail: {},
             columns: [
                 {
                     title: "No",
@@ -125,9 +128,15 @@ export default {
                     title: "Tanggal Pesan",
                     dataIndex: "created_at",
                     customRender: (text, record, index) => {
-                        // return date and time
                         return moment(text).format("DD MMMM YYYY HH:mm:ss");
                     },
+                },
+                {
+                    title: "#",
+                    width: "15%",
+                    align: "center",
+                    dataIndex: "is_read",
+                    scopedSlots: { customRender: "is_read" },
                 },
                 {
                     title: "#",
@@ -172,34 +181,43 @@ export default {
         handleAdd() {
             window.location.href = this.addurl;
         },
-        handleDetail(val) {
-            this.current = val;
-            // show modal-detail{id}
-            $("#modal-detail" + val.id).modal("show");
+        async handleDetail(record) {
+            axios
+                .post(`${this.apiurl}/dashboard/api/public-services/messages/detail`,
+                    {
+                        'id' : record.id,
+                        'nip' : this.usernip,
+                    })
+                .then(async (data) => {
+                    this.notifDetail = data?.data?.serve;
+                });
+            $("#notif-detail").modal("show");
         },
         handleSearch(e) {
             this.params.search = e;
-            // reset pagination
             this.pagination = {
                 current: 1,
                 pageSize: 10,
                 total: 0,
             };
 
-            this.fetchData(
-                {
-                    search: e,
-                },
-                this.pagination
-            );
+            this.fetchData({search: e}, this.pagination);
         },
         handleTableChange(page) {
             this.fetchData(this.params, page);
         },
+        handleReadBy(record) {
+            // upon open by user this will always null if message have not been opened by anyone
+            // hanya kosmetik
+            if (record.reader_name === null || record.reader_name === "")  {
+                return "---";
+            }
+            return record.reader_name + ' - ' + record.read_by;
+        },
         fetchData(param = this.params, p = this.pagination) {
             this.loading = true;
             axios
-                .get(`${this.apiurl}/dashboard/api/layanan-publik/kontak/`, {
+                .get(`${this.apiurl}/dashboard/api/public-services/messages/`, {
                     params: {
                         ...param,
                         page: p.current,
@@ -209,13 +227,15 @@ export default {
                 .then(async (data) => {
                     this.loading = false;
                     this.data = data?.data?.serve.data;
-                    // console.log(this.data);
                     this.pagination = {
                         current: data?.data?.serve.current_page,
                         pageSize: data?.data?.serve.per_page,
                         total: data?.data?.serve.total,
                     };
                 });
+        },
+        closeModal() {
+            this.fetchData(this.params, this.pagination);
         },
     },
 };

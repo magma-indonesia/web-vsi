@@ -449,7 +449,7 @@
                         </div>
                     </li>
                     <li class="list-group-item d-flex pd-x-20">
-                        <div class="avatar"><img src="https://via.placeholder.com/500" class="rounded-circle"
+                        <div class="avatar"><img src="https://placehold.co/500" class="rounded-circle"
                                                  alt=""></div>
                         <div class="pd-l-10">
                             <p class="tx-medium mg-b-0">Reynante Labares</p>
@@ -465,7 +465,7 @@
                         </div>
                     </li>
                     <li class="list-group-item d-flex pd-x-20">
-                        <div class="avatar"><img src="https://via.placeholder.com/500" class="rounded-circle"
+                        <div class="avatar"><img src="https://placehold.co/500" class="rounded-circle"
                                                  alt=""></div>
                         <div class="pd-l-10">
                             <p class="tx-medium mg-b-0">Marianne Audrey</p>

@@ -344,7 +344,7 @@ Route::group(['middleware' => ['auth']], function () {
         });
 
         // Layanan Publik
-        Route::group(['prefix' => 'layanan-publik'], function () {
+        Route::group(['prefix' => 'public-services'], function () {
             Route::controller(ApiPublicServiceController::class)->group(function () {
                 Route::get('/', 'index');
                 Route::post('/', 'store');
@@ -352,7 +352,11 @@ Route::group(['middleware' => ['auth']], function () {
                 Route::delete('/', 'destroy');
             });
             Route::controller(ApiContactController::class)->group(function () {
-                Route::get('/kontak', 'index');
+                Route::group(['prefix' => 'messages'], function () {
+                    Route::get('/', 'index');
+                    Route::post('/detail', 'getById');
+                    Route::get('/notifications', 'notifications');
+                });
             });
         });
 

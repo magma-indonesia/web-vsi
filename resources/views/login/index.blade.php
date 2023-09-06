@@ -18,8 +18,7 @@
                             geetestid="{{ env('GEETEST_EVENT_ID') }}"></login-form>
                         <div class="justify-content-center d-flex w-100" style="font-size: 12px">
                             Belum punya akun?&nbsp;<a href="{{ route('register.index') }}">daftar disini</a>
-                        </div>
-                        <div class="divider-text"></div>
+                        </div><hr>
                         <h1 class="mg-t-25"><a href="{{ route('home') }}"><img
                                     src="{{ asset('images/pvmbg-logo.svg') }}" alt="Logo PVMBG"></a></h1>
                     </div>

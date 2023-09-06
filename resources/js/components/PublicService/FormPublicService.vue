@@ -175,7 +175,7 @@ export default {
                         postData.id = retrieve.id;
                         axios
                             .put(
-                                `${this.apiurl}/dashboard/api/layanan-publik`,
+                                `${this.apiurl}/dashboard/api/public-services`,
                                 postData
                             )
                             .then(() => {
@@ -189,7 +189,7 @@ export default {
                     } else {
                         axios
                             .post(
-                                `${this.apiurl}/dashboard/api/layanan-publik`,
+                                `${this.apiurl}/dashboard/api/public-services`,
                                 postData
                             )
                             .then(() => {

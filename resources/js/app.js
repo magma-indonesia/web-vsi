@@ -133,6 +133,7 @@ Vue.component(
     require("./components/User/FormChangePassword.vue").default
 );
 Vue.component("banner", require("./components/Utils/Banner.vue").default);
+Vue.component('message-notification-nav-bar', require("./components/Contact/MessageNotificationNavBar.vue").default);
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue

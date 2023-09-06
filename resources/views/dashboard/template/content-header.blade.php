@@ -4,8 +4,14 @@
         <input type="search" class="form-control" placeholder="Search..."> -->
     </div>
     <nav class="nav">
-        <a href="{{ route('home') }}" class="nav-link"><i data-feather="home"></i></a>
-        <!-- <a href="" class="nav-link"><i data-feather="user"></i></a> -->
+        @if(auth()->user()->role->slug == 'admin' || auth()->user()->role->slug == 'indi')
+            <MessageNotificationNavBar
+                url="{{ url('') }}"
+                messageurl="{{ route('dashboard.layanan-publik.kontak') }}"
+            ></MessageNotificationNavBar>
+        @endif
         <a href="{{ route('logout') }}" class="nav-link"><i data-feather="log-out"></i></a>
+        <!-- <a href="{{ route('home') }}" class="nav-link"><i data-feather="home"></i></a> -->
+        <!-- <a href="" class="nav-link"><i data-feather="user"></i></a> -->
     </nav>
 </div>
