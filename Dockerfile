@@ -24,12 +24,16 @@ RUN apk update && apk add --no-cache build-base wget \
     g++ \
     cyrus-sasl-dev \
     libgsasl-dev \
-    libpq-dev
+    libpq-dev \
+    libsodium-dev \
+    automake \
+    musl-dev \
+    libpng-dev \
+    libzip-dev
 
-# Add and Enable PHP-PDO Extenstions
-RUN docker-php-ext-install pdo pdo_mysql pdo_pgsql sockets
-
-RUN pecl channel-update pecl.php.net \
+# Add and Enable Extenstions
+RUN docker-php-ext-install sodium pdo pdo_mysql pdo_pgsql sockets gd zip \
+    && pecl channel-update pecl.php.net \
     && pecl install memcached \
     && pecl install imagick \
     && pecl install redis \
