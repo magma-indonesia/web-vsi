@@ -16,10 +16,10 @@
     </div>
 
     <div class="p-3">
-        <TableContact
+        <table-contact
             apiurl="{{ $appUrl }}"
             usernip="{{ auth()->user()->nip }}">
-        </TableContact>
+        </table-contact>
     </div>
 @endsection
 
