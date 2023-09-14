@@ -2,6 +2,8 @@
 
 namespace App\Services\Sipeg\Interfaces;
 
+use phpDocumentor\Reflection\Types\Integer;
+
 interface SipegInterface
 {
     /**
@@ -85,4 +87,6 @@ interface SipegInterface
      * @return array
      */
     public function filterEmployeeByName(string $nama): array;
+
+    public function employeeAll(int $page, int $limit, array $search): array;
 }

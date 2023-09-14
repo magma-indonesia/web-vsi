@@ -16,4 +16,7 @@
     {{-- Auth CSS --}}
     <link href="{{ asset('dashforge/assets/css/dashforge.css') }}" rel="stylesheet">
     <link href="{{ asset('dashforge/assets/css/dashforge.auth.css') }}" rel="stylesheet">
+
+    {{-- App UI CSS --}}
+    <link href="{{ mix('css/app.css') }}" rel="stylesheet" type="text/css" />
 </head>

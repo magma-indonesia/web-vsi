@@ -1,0 +1,63 @@
+version: "3.5"
+services:
+  #`The App`
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: web-vsi
+    container_name: web-vsi
+    restart: unless-stopped
+    tty: true
+    env_file:
+      - .env
+      - .env.dev
+    working_dir: /var/www/html
+    volumes:
+      - ./:/var/www/html
+    networks:
+      - intranet
+  nginx:
+    image: nginx:alpine
+    container_name: web-vsi_nginx
+    restart: unless-stopped
+    tty: true
+    ports:
+      - "8083:8000"
+      # we need not ssl
+      #- "1443:443"
+    volumes:
+      - ./:/var/www/html
+      - ./nginx/conf.d/:/etc/nginx/conf.d/
+      #- ./nginx/ssl/:/etc/nginx/ssl/
+    networks:
+      - intranet
+  mariadb:
+    image: mariadb:latest
+    container_name: mariadb
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: pvmbg
+      MYSQL_USER: pvmbg
+      MYSQL_PASSWORD: pvmbg
+    ports:
+      - "3306:3306"
+    volumes:
+      - mariadb_data:/var/lib/mysql
+    networks:
+      - intranet
+  redis_tmp:
+    image: redis:alpine
+    volumes:
+      - ./storage/redis:/data
+    ports:
+      - "6379:6379"
+    networks:
+      - intranet
+networks:
+  intranet:
+    driver: bridge
+
+volumes:
+  mariadb_data:

@@ -4,10 +4,10 @@
 @include('template.head')
 
 <body class="demo-5">
-
-@include('template.body')
-
-@include('template.js')
+    <div id="app">
+        @include('template.body')
+    </div>
+    @include('template.js')
 </body>
 
 </html>

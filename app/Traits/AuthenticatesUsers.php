@@ -107,13 +107,15 @@ trait AuthenticatesUsers
     /**
      * The user has been authenticated.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  mixed  $user
-     * @return \Illuminate\Routing\Redirector::route
+     * @param \Illuminate\Http\Request $request
+     * @param mixed $user
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View::route
      */
     protected function authenticated(Request $request, $user)
     {
         return redirect()->route('dashboard.index');
+        // $contents = 'dashboard.template.body';
+        // return view('dashboard.index', compact('contents'));
     }
 
     /**
@@ -151,7 +153,7 @@ trait AuthenticatesUsers
 
         return $request->wantsJson()
             ? new JsonResponse([], 204)
-            : redirect('/');
+            : redirect('/')->withoutCookie('magma_user_token');
     }
 
     /**

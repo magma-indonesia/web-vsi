@@ -3,9 +3,12 @@
 namespace App\Services\Sipeg;
 
 use App\Services\Sipeg\Interfaces\SipegInterface;
+use Illuminate\Support\Facades\Http;
 
 class SipegService implements SipegInterface
 {
+    private string $contextPath = '/sipeg';
+
     /**
      * Daftar Jabatan Sipeg
      *
@@ -116,5 +119,21 @@ class SipegService implements SipegInterface
     public function filterEmployeeByName(string $nama): array
     {
         return [];
+    }
+
+    public function employeeAll(int $page, int $limit, array $search): array
+    {
+        $defaultQueryParam = array(
+            'kode_org' => config('sipeg.org_code'),
+            'page' => $page,
+            'limit' => $limit
+        );
+
+        $q = array_merge($defaultQueryParam, $search);
+
+        $response = Http::withHeaders(config('sipeg.headers'))
+            ->get(config('sipeg.url') . $this->contextPath . '/employee-all', $q);
+
+        return $response->json();
     }
 }

@@ -1,0 +1,50 @@
+version: '3.5'
+services:
+    #`The App`
+    app:
+        build:
+            context: .
+            dockerfile: Dockerfile.prod
+        image: web-vsi
+        container_name: web-vsi
+        restart: unless-stopped
+        tty: true
+        env_file:
+            - .env
+            - .env.staging
+        working_dir: /var/www/html
+        volumes:
+            - ./:/var/www/html
+            - ./storage/app:/var/www/html/storage/app
+        networks:
+            - intranet
+    nginx:
+        image: nginx:alpine
+        container_name: web-vsi_nginx
+        restart: unless-stopped
+        tty: true
+        ports:
+            - "8083:8000"
+            # we need not ssl
+            #- "1443:443"
+        volumes:
+            - ./:/var/www/html
+            - ./nginx/conf.d/:/etc/nginx/conf.d/
+            #- ./nginx/ssl/:/etc/nginx/ssl/
+        networks:
+            - intranet
+    redis_tmp:
+        image: redis:alpine
+        volumes:
+            - ./storage/redis:/data
+        ports:
+            - "6379:6379"
+        networks:
+            - intranet
+
+networks:
+    intranet:
+        driver: bridge
+
+volumes:
+  mariadb_data:

@@ -6,10 +6,17 @@
     "license": "MIT",
     "require": {
         "php": "^8.0.2",
+        "doctrine/dbal": "^3.5",
         "guzzlehttp/guzzle": "^7.2",
+        "itstructure/laravel-rbac": "~3.0.6",
         "laravel/framework": "^9.2",
         "laravel/sanctum": "^2.14.1",
-        "laravel/tinker": "^2.7"
+        "laravel/tinker": "^2.7",
+        "laravel/ui": "^4.2",
+        "mpociot/teamwork": "^7.0",
+        "phpoffice/phpspreadsheet": "^1.28",
+        "pragmarx/countries": "^0.8.2",
+        "predis/predis": "^2.1"
     },
     "require-dev": {
         "fakerphp/faker": "^1.9.1",
@@ -34,7 +41,8 @@
     "scripts": {
         "post-autoload-dump": [
             "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
-            "@php artisan package:discover --ansi"
+            "@php artisan package:discover --ansi",
+            "@php artisan key:generate --ansi"
         ],
         "post-update-cmd": [
             "@php artisan vendor:publish --tag=laravel-assets --ansi --force"

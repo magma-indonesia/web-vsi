@@ -1,0 +1,115 @@
+@import '~ant-design-vue/dist/antd.less'; // Import Ant Design Vue styles by less entry
+.ant-form-explain {
+    font-size: 12px !important;
+}
+
+.news-title {
+    color: #2b3580;
+    transition: all 0.5s ease-out;
+}
+.news-title:hover {
+    color: #fdc800 !important;
+}
+
+.flex {
+    display: flex;
+}
+
+.items-center {
+    align-items: center;
+}
+
+.justify-center {
+    justify-content: center;
+}
+
+.flex-column {
+    flex-direction: column;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.gap-10 {
+    gap: 10px;
+}
+
+
+@media screen and (max-width: 600px) {
+    .news-container, .city_top_social{
+        display: none;
+    }
+
+    .city_top_logo {
+        margin: auto;
+    }
+
+    .city-top-wrap {
+        padding: 0 !important;
+    }
+}
+@media screen and (min-width: 600px) {
+    .news-container {
+        width: 100%;
+        margin: 0 10px;
+        position: relative;
+        height: 100%;
+    }
+
+    .news-container .title {
+        background: #fee50f;
+        padding: 5px 24px;
+        color: #14284b;
+        font-weight: bold;
+        z-index: 200;
+        margin-bottom: 10px;
+        width: fit-content;
+        position: relative;
+        
+    }
+    .news-container .title:before{
+        position:absolute;
+        content:"";
+        top:0px;
+        left:auto;
+        right:0px;
+        bottom:0px;
+        width: 0;
+        height: 0;
+        border-style: solid;
+        border-width:14.5px 12px 13.5px 0;
+        border-color: transparent #fff transparent transparent;
+    }
+
+    .news-container .news-marquee {
+        width: 100%;
+    }
+
+    .news-container .news-marquee a {
+        width: 100%;
+        border-right: 2px solid #e8e8e8;
+        padding: 0 10px;
+    }
+}
+
+.ant-carousel .slick-dots-bottom {
+    bottom: -5vh;
+  }
+  
+.ant-carousel {
+    height: 100%;
+    width: 100%;
+    position: relative;
+}
+
+.ant-carousel .slick-dots {
+    position: static;
+    margin-top: 20px;
+}
+
+.ant-carousel .slick-dots li button {
+    height: 16px;
+    border-radius: 4px;
+    background-color: gray;
+}

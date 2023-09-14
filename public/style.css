@@ -111,7 +111,8 @@
 	width:100%;
 }
 .city_top_wrap{
-	padding:25px 85px;
+	padding:0px 85px;
+	height: 80px;
 }
 .city_top_logo{
 	float:left;
@@ -344,7 +345,7 @@
 	position:fixed;
 	z-index: 999;
 	top:0px;
-	padding: 27px 85px 28px;
+	padding: 20px 50px 20px;
 	transition:all 1s ease-in-out;
 }
 /*
@@ -1201,7 +1202,7 @@
 	float:right;
 }
 .city_jobs_item.pull-right.overlay:before{
-	opacity:0.9;
+	opacity:0.7;
 }
 .city_jobs_item.pull-right .ciy_jobs_caption{
 	padding: 0px 30px 0px 0px;
@@ -1825,7 +1826,7 @@
 .widget_wrap{
 	padding:160px 0px 0px;
 	margin-top:-95px;
-	background-image:url("images/widget-bg.png");
+	/* background-image:url("images/widget-bg.png"); */
 	background-repeat:no-repeat;
 	background-size:cover;
 	z-index:2;

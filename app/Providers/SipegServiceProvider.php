@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Services\Sipeg\Interfaces\SipegInterface;
 use App\Services\Sipeg\SipegService;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\ServiceProvider;
 
 class SipegServiceProvider extends ServiceProvider
@@ -25,6 +26,11 @@ class SipegServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        Http::macro('sipeg', function () {
+            return Http::timeout(30)
+                ->withHeaders(config('sipeg.headers'))
+                ->acceptJson()
+                ->baseUrl(config('sipeg.url'));
+        });
     }
 }

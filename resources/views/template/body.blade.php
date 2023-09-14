@@ -1,7 +1,5 @@
 <div class="wrapper">
-    <x-home.navigation-bar/>
-
+    @include('components.home.navigation-bar')
     @yield('content')
-
     <x-home.footer/>
 </div>
