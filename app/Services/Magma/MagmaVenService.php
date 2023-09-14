@@ -4,7 +4,7 @@ namespace App\Services\Magma;
 
 use App\Services\Magma\Interfaces\MagmaVenInterface;
 
-class MagmaVenService implements  MagmaVenInterface
+class MagmaVenService implements MagmaVenInterface
 {
     public function index()
     {

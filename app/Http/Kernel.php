@@ -2,6 +2,7 @@
 
 namespace App\Http;
 
+use App\Http\Middleware\LogRoute;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
 class Kernel extends HttpKernel
@@ -29,10 +30,6 @@ class Kernel extends HttpKernel
      * @var array<string, array<int, class-string|string>>
      */
     protected $middlewareGroups = [
-        'test' => [
-            \App\Http\Middleware\TestMiddleware::class,
-        ],
-
         'web' => [
             \App\Http\Middleware\EncryptCookies::class,
             \Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,
@@ -51,7 +48,12 @@ class Kernel extends HttpKernel
 
         'dashboard' => [
             'web',
-            'auth',
+            // 'auth',
+        ],
+
+        'test' => [
+            'dashboard',
+            \App\Http\Middleware\TestMiddleware::class,
         ],
     ];
 
@@ -72,5 +74,6 @@ class Kernel extends HttpKernel
         'signed' => \Illuminate\Routing\Middleware\ValidateSignature::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
+        'log.route' => LogRoute::class,
     ];
 }

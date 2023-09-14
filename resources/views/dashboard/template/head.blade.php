@@ -16,4 +16,18 @@
     {{-- DashForge CSS --}}
     <link href="{{ asset('dashforge/assets/css/dashforge.css') }}" rel="stylesheet">
     <link href="{{ asset('dashforge/assets/css/dashforge.dashboard.css') }}" rel="stylesheet">
+
+    <link href="{{ mix('css/app.css') }}" rel="stylesheet" type="text/css" />
+
+    {{-- LOAD ONLY JQUERY IN HEADER SO WE COULD SLIP IN ANOTHER JS FILE PER CONTENTS --}}
+    <script src="{{ asset('dashforge/lib/jquery/jquery.min.js') }}"></script>
+
+    <meta name="csrf-token" content="{{ csrf_token() }}" />
+    <style>
+        .table-hover:hover {
+            border-radius: 5px;
+            cursor: pointer;
+            box-shadow: inset 1px 0 0 #dadce0, inset -1px 0 0 #dadce0, 0 1px 2px 0 rgba(60,64,67,.3), 0 1px 3px 1px rgba(60,64,67,.15);
+        }
+    </style>
 </head>

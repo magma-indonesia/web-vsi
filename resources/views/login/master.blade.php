@@ -5,10 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Login</title>
-
-    <!-- Meta -->
-    <meta name="description" content="Login Dashboard PVMBG">
-    <meta name="author" content="Martanto">
 </head>
 <body>
 
